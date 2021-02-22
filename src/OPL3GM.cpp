@@ -1,7 +1,7 @@
 #include "OPL3GM.h"
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
-: AudioEffectX (audioMaster, 0, kNumParams)
+: AudioEffectX (audioMaster, 1, kNumParams)
 {
 	setNumInputs (0);
 	setNumOutputs (2);
@@ -11,6 +11,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	buffer = NULL;
 	resume ();
 	volume = 1;
+	strcpy (ProgramName, "Windows 9X OPL3");
 }
 
 OPL3GM::~OPL3GM ()
@@ -82,6 +83,16 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 		strcpy (text, "Volume");
 		break;
 	}
+}
+
+void OPL3GM::setProgramName (char *name)
+{
+	strcpy (ProgramName, name);
+}
+
+void OPL3GM::getProgramName (char *name)
+{
+	strcpy (name, ProgramName);
 }
 
 bool OPL3GM::getEffectName (char* name)

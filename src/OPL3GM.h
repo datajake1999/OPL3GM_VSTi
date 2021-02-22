@@ -24,6 +24,8 @@ public:
 	virtual void getParameterDisplay (VstInt32 index, char* text);
 	virtual void getParameterLabel (VstInt32 index, char* label);
 	virtual void getParameterName (VstInt32 index, char* text);
+	virtual void setProgramName (char* name);
+	virtual void getProgramName (char* name);
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
@@ -36,6 +38,7 @@ private:
 	short *buffer;
 	int bufferSize;
 	float volume;
+	char ProgramName[32];
 };
 
 #endif
