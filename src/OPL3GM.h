@@ -22,7 +22,7 @@ public:
 private:
 	midisynth *synth;
 	short *buffer;
-	unsigned int bufferSize;
+	int bufferSize;
 };
 
 #endif
