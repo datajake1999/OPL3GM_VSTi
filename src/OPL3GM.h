@@ -17,6 +17,8 @@ public:
 	virtual bool getProductString (char* text);
 	virtual VstInt32 getVendorVersion ();
 	virtual VstInt32 canDo (char* text);
+	virtual VstInt32 getNumMidiInputChannels ();
+	virtual VstInt32 getNumMidiOutputChannels ();
 private:
 	midisynth *synth;
 	short *buffer;

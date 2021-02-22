@@ -57,3 +57,13 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	return -1;	// explicitly can't do; 0 => don't know
 }
+
+VstInt32 OPL3GM::getNumMidiInputChannels ()
+{
+	return 16;
+}
+
+VstInt32 OPL3GM::getNumMidiOutputChannels ()
+{
+	return 0;
+}
