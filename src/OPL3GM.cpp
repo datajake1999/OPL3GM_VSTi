@@ -1,7 +1,7 @@
 #include "OPL3GM.h"
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
-: AudioEffectX (audioMaster, 0, 0)
+: AudioEffectX (audioMaster, 0, kNumParams)
 {
 	setNumInputs (0);
 	setNumOutputs (2);
@@ -10,6 +10,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	synth = NULL;
 	buffer = NULL;
 	resume ();
+	volume = 1;
 }
 
 OPL3GM::~OPL3GM ()
@@ -23,6 +24,63 @@ OPL3GM::~OPL3GM ()
 	{
 		delete buffer;
 		buffer = NULL;
+	}
+}
+
+void OPL3GM::setParameter (VstInt32 index, float value)
+{
+	switch(index)
+	{
+	case kVolume:
+		volume = value;
+		break;
+	}
+}
+
+void OPL3GM::setParameterAutomated (VstInt32 index, float value)
+{
+	setParameter (index, value);
+}
+
+float OPL3GM::getParameter (VstInt32 index)
+{
+	float value = 0;
+	switch(index)
+	{
+	case kVolume:
+		value = volume;
+		break;
+	}
+	return value;
+}
+
+void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
+{
+	switch(index)
+	{
+	case kVolume:
+		float2string (volume, text, kVstMaxParamStrLen);
+		break;
+	}
+}
+
+void OPL3GM::getParameterLabel (VstInt32 index, char* label)
+{
+	switch(index)
+	{
+	case kVolume:
+		strcpy (label, "F");
+		break;
+	}
+}
+
+void OPL3GM::getParameterName (VstInt32 index, char* text)
+{
+	switch(index)
+	{
+	case kVolume:
+		strcpy (text, "Volume");
+		break;
 	}
 }
 

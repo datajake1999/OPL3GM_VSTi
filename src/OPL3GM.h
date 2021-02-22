@@ -4,6 +4,12 @@
 #include "..\interface.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 
+enum
+{
+	kVolume = 0,
+	kNumParams
+};
+
 class OPL3GM : public AudioEffectX
 {
 public:
@@ -12,6 +18,12 @@ public:
 	virtual void resume ();
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual VstInt32 processEvents (VstEvents* events);
+	virtual void setParameter (VstInt32 index, float value);
+	virtual void setParameterAutomated (VstInt32 index, float value);
+	virtual float getParameter (VstInt32 index);
+	virtual void getParameterDisplay (VstInt32 index, char* text);
+	virtual void getParameterLabel (VstInt32 index, char* label);
+	virtual void getParameterName (VstInt32 index, char* text);
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
@@ -23,6 +35,7 @@ private:
 	midisynth *synth;
 	short *buffer;
 	int bufferSize;
+	float volume;
 };
 
 #endif
