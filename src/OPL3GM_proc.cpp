@@ -63,13 +63,12 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		if ((ev->events[i])->type == kVstMidiType)
 		{
 			VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-			unsigned int byte1 = event->midiData[0] & 0xFF;
-			unsigned int byte2 = event->midiData[1] & 0x7F;
-			unsigned int byte3 = event->midiData[2] & 0x7F;
-			unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
+			unsigned char byte1 = event->midiData[0] & 0xFF;
+			unsigned char byte2 = event->midiData[1] & 0x7F;
+			unsigned char byte3 = event->midiData[2] & 0x7F;
 			if (synth)
 			{
-				synth->midi_write(msg);
+				synth->midi_write((byte3<<16) | (byte2<<8) | byte1);
 			}
 		}
 	}
