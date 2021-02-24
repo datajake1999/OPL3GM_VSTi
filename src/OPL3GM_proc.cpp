@@ -63,7 +63,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		if ((ev->events[i])->type == kVstMidiType)
 		{
 			VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-			unsigned char byte1 = event->midiData[0] & 0xFF;
+			unsigned char byte1 = event->midiData[0];
 			unsigned char byte2 = event->midiData[1] & 0x7F;
 			unsigned char byte3 = event->midiData[2] & 0x7F;
 			if (synth)
