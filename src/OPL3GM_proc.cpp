@@ -10,7 +10,7 @@ void OPL3GM::resume ()
 	synth = getsynth();
 	if (synth)
 	{
-		synth->midi_init((unsigned int)AudioEffectX::updateSampleRate());
+		synth->midi_init((int)AudioEffectX::updateSampleRate());
 	}
 	if (buffer)
 	{
