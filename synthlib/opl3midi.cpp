@@ -555,6 +555,10 @@ void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
     opl_chip->fm_generate(buffer, length);
 }
 
+void OPL3MIDI::midi_close() {
+    opl_chip->fm_close();
+}
+
 char *OPL3MIDI::midi_synthname(void) {
     return "TEST";
 }

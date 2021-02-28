@@ -30,6 +30,9 @@ void opl3class::fm_generate(signed short *buffer, unsigned int len) {
     OPL3_GenerateStream(&chip, buffer, len);
 }
 
+void opl3class::fm_close() {
+}
+
 fm_chip *getchip() {
 	opl3class *chip = new opl3class;
 	return chip;

@@ -4,6 +4,7 @@ void OPL3GM::resume ()
 {
 	if (synth)
 	{
+		synth->midi_close();
 		delete synth;
 		synth = NULL;
 	}

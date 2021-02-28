@@ -23,4 +23,5 @@ public:
 	int fm_init(unsigned int rate);
 	void fm_writereg(unsigned short reg, unsigned char data);
 	void fm_generate(signed short *buffer, unsigned int length);
+	void fm_close();
 };

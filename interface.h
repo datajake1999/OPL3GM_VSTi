@@ -17,6 +17,7 @@ public:
 	virtual int fm_init(unsigned int rate) = 0;
 	virtual void fm_writereg(unsigned short reg, unsigned char data) = 0;
 	virtual void fm_generate(signed short *buffer, unsigned int length) = 0;
+	virtual void fm_close() = 0;
 };
 
 class midisynth {
@@ -24,6 +25,7 @@ public:
 	virtual int midi_init(unsigned int rate) = 0;
 	virtual void midi_write(unsigned int data) = 0;
 	virtual void midi_generate(signed short *buffer, unsigned int length) = 0;
+	virtual void midi_close() = 0;
 };
 
 midisynth* getsynth();

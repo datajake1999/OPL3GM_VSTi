@@ -18,6 +18,7 @@ OPL3GM::~OPL3GM ()
 {
 	if (synth)
 	{
+		synth->midi_close();
 		delete synth;
 		synth = NULL;
 	}
