@@ -10,7 +10,18 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	volume = 1;
 	strcpy (ProgramName, "Windows 9X OPL3");
 	synth = NULL;
+	synth = getsynth();
+	if (synth)
+	{
+		synth->midi_init((int)sampleRate);
+	}
 	buffer = NULL;
+	bufferSize = blockSize;
+	buffer = new short[2*bufferSize];
+	if (buffer)
+	{
+		memset(buffer, 0, sizeof(buffer));
+	}
 }
 
 OPL3GM::~OPL3GM ()
