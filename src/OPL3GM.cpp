@@ -11,7 +11,6 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	strcpy (ProgramName, "Windows 9X OPL3");
 	synth = NULL;
 	buffer = NULL;
-	resume ();
 }
 
 OPL3GM::~OPL3GM ()

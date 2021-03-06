@@ -1,6 +1,6 @@
 #include "OPL3GM.h"
 
-void OPL3GM::resume ()
+void OPL3GM::setSampleRate (float sampleRate)
 {
 	if (synth)
 	{
@@ -11,20 +11,23 @@ void OPL3GM::resume ()
 	synth = getsynth();
 	if (synth)
 	{
-		synth->midi_init((int)AudioEffectX::updateSampleRate());
+		synth->midi_init((int)sampleRate);
 	}
+}
+
+void OPL3GM::setBlockSize (VstInt32 blockSize)
+{
 	if (buffer)
 	{
 		delete buffer;
 		buffer = NULL;
 	}
-	bufferSize = AudioEffectX::updateBlockSize();
+	bufferSize = blockSize;
 	buffer = new short[2*bufferSize];
 	if (buffer)
 	{
 		memset(buffer, 0, sizeof(buffer));
 	}
-	AudioEffectX::resume();
 }
 
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
