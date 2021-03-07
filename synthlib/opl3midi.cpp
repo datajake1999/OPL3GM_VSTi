@@ -551,6 +551,12 @@ void OPL3MIDI::midi_write(unsigned int data)
     }
 }
 
+void OPL3MIDI::midi_panic()
+{
+    for (int c = 0; c < 16; ++c)
+        opl_midikeyoffall(&opl_channels[c]);
+}
+
 void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
     opl_chip->fm_generate(buffer, length);
 }

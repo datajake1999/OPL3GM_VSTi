@@ -17,6 +17,7 @@ public:
 	~OPL3GM ();
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
+	virtual void resume ();
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual VstInt32 processEvents (VstEvents* events);
 	virtual void setParameter (VstInt32 index, float value);

@@ -30,6 +30,14 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	}
 }
 
+void OPL3GM::resume ()
+{
+	if (synth)
+	{
+		synth->midi_panic();
+	}
+}
+
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	float* out1 = outputs[0];
