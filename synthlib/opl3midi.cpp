@@ -563,6 +563,7 @@ void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
 
 void OPL3MIDI::midi_close() {
     opl_chip->fm_close();
+    delete opl_chip;
 }
 
 char *OPL3MIDI::midi_synthname(void) {
