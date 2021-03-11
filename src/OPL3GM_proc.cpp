@@ -26,7 +26,7 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	buffer = new short[2*bufferSize];
 	if (buffer)
 	{
-		memset(buffer, 0, sizeof(buffer));
+		memset(buffer, 0, 4*bufferSize);
 	}
 }
 

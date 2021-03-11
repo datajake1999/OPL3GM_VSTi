@@ -20,7 +20,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	buffer = new short[2*bufferSize];
 	if (buffer)
 	{
-		memset(buffer, 0, sizeof(buffer));
+		memset(buffer, 0, 4*bufferSize);
 	}
 }
 
