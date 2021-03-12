@@ -13,7 +13,11 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	synth = getsynth();
 	if (synth)
 	{
-		synth->midi_init((int)sampleRate);
+		if (!synth->midi_init((int)sampleRate))
+		{
+			delete synth;
+			synth = NULL;
+		}
 	}
 	buffer = NULL;
 	bufferSize = blockSize;

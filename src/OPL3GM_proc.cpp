@@ -11,7 +11,11 @@ void OPL3GM::setSampleRate (float sampleRate)
 	synth = getsynth();
 	if (synth)
 	{
-		synth->midi_init((int)sampleRate);
+		if (!synth->midi_init((int)sampleRate))
+		{
+			delete synth;
+			synth = NULL;
+		}
 	}
 }
 
