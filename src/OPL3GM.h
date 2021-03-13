@@ -1,7 +1,7 @@
 #ifndef OPL3GMVST
 #define OPL3GMVST
 
-#include "..\interface.h"
+#include "../interface.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 
 enum

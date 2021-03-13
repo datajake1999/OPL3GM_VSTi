@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 
-#include "..\interface.h"
+#include "../interface.h"
 #include "opl3.h"
 
 

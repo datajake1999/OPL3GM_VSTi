@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include "opl3type.h"
 #include "gmtimbre.h"
-#include "..\interface.h"
+#include "../interface.h"
 
 #define OPL_LSI             0x00
 #define OPL_TIMER           0x04
