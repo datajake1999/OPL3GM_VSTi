@@ -53,11 +53,6 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	}
 }
 
-void OPL3GM::setParameterAutomated (VstInt32 index, float value)
-{
-	setParameter (index, value);
-}
-
 float OPL3GM::getParameter (VstInt32 index)
 {
 	float value = 0;
