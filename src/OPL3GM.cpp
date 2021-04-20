@@ -105,6 +105,16 @@ void OPL3GM::getProgramName (char *name)
 	strcpy (name, ProgramName);
 }
 
+bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text)
+{
+	if (index == 0)
+	{
+		strcpy (text, ProgramName);
+		return true;
+	}
+	return false;
+}
+
 bool OPL3GM::getEffectName (char* name)
 {
 	strcpy (name, "Windows 9X OPL3");

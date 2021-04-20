@@ -27,6 +27,7 @@ public:
 	virtual void getParameterName (VstInt32 index, char* text);
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);
+	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
