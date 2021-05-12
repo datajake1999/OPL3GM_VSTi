@@ -6,6 +6,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	setNumInputs (0);
 	setNumOutputs (2);
 	canProcessReplacing ();
+	canDoubleReplacing ();
 	isSynth ();
 	volume = 1;
 	strcpy (ProgramName, "Windows 9X OPL3");
