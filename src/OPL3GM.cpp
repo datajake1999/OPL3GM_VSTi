@@ -5,6 +5,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 {
 	setNumInputs (0);
 	setNumOutputs (2);
+	setUniqueID ('W9XO');
 	canProcessReplacing ();
 	canDoubleReplacing ();
 	isSynth ();
