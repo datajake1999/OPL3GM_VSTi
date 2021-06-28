@@ -1,5 +1,5 @@
-#ifndef OPL3GMVST
-#define OPL3GMVST
+#ifndef OPL3GM_H
+#define OPL3GM_H
 
 #include "../interface.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
