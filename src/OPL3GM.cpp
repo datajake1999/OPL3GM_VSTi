@@ -1,7 +1,7 @@
 #include "OPL3GM.h"
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
-: AudioEffectX (audioMaster, 1, kNumParams)
+: AudioEffectX (audioMaster, kNumPrograms, kNumParams)
 {
 	setNumInputs (0);
 	setNumOutputs (2);
@@ -10,7 +10,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canDoubleReplacing ();
 	isSynth ();
 	volume = 1;
-	strcpy (ProgramName, "Windows 9X OPL3");
+	strcpy (ProgramName, "Default");
 	synth = NULL;
 	synth = getsynth();
 	if (synth)

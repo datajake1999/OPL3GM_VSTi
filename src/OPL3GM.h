@@ -6,7 +6,12 @@
 
 enum
 {
+	// Global
+	kNumPrograms = 1,
+
+	// Parameters Tags
 	kVolume = 0,
+
 	kNumParams
 };
 
