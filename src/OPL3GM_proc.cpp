@@ -112,9 +112,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			unsigned char byte1 = event->midiData[0];
 			unsigned char byte2 = event->midiData[1];
 			unsigned char byte3 = event->midiData[2];
+			unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
 			if (synth)
 			{
-				synth->midi_write((byte3<<16) | (byte2<<8) | byte1);
+				synth->midi_write(msg);
 			}
 		}
 	}
