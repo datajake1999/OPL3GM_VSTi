@@ -109,9 +109,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		if ((ev->events[i])->type == kVstMidiType)
 		{
 			VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-			unsigned char byte1 = event->midiData[0];
-			unsigned char byte2 = event->midiData[1];
-			unsigned char byte3 = event->midiData[2];
+			char* midiData = event->midiData;
+			unsigned char byte1 = midiData[0];
+			unsigned char byte2 = midiData[1];
+			unsigned char byte3 = midiData[2];
 			unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
 			if (synth)
 			{
