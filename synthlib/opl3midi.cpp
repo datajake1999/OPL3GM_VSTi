@@ -557,6 +557,22 @@ void OPL3MIDI::midi_panic()
         opl_midikeyoffall(&opl_channels[c]);
 }
 
+void OPL3MIDI::midi_reset()
+{
+    int i;
+
+    midi_panic();
+
+    for (i = 0; i < 16; i++)
+    {
+        opl_channels[i].timbre = &opl_timbres[0];
+        opl_channels[i].pitch = 0;
+        opl_channels[i].volume = 0;
+        opl_channels[i].pan = 0xff;
+        opl_channels[i].sustained = false;
+    }
+}
+
 void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
     opl_chip->fm_generate(buffer, length);
 }

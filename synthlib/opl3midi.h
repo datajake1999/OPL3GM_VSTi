@@ -125,6 +125,7 @@ public:
     int midi_init(unsigned int rate);
     void midi_write(unsigned int data);
     void midi_panic();
+    void midi_reset();
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
     char *midi_synthname(void);

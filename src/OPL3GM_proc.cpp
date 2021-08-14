@@ -38,7 +38,7 @@ void OPL3GM::resume ()
 {
 	if (synth)
 	{
-		synth->midi_panic();
+		synth->midi_reset();
 	}
 }
 
