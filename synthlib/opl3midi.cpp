@@ -582,8 +582,8 @@ void OPL3MIDI::midi_close() {
     delete opl_chip;
 }
 
-char *OPL3MIDI::midi_synthname(void) {
-    return "TEST";
+const char *OPL3MIDI::midi_synthname(void) {
+    return "Windows 9X OPL3";
 }
 
 midisynth *getsynth() {

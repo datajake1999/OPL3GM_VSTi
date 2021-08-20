@@ -128,5 +128,5 @@ public:
     void midi_reset();
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
-    char *midi_synthname(void);
+    const char *midi_synthname(void);
 }; 
