@@ -46,14 +46,14 @@ BEGIN
         BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "Datajake\0"
-            VALUE "FileDescription", "Windows 9X OPL3\0"
+            VALUE "FileDescription", "OPL3GM VSTi\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "OPL3GM\0"
             VALUE "LegalCopyright", "Copyright © 2021\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "OPL3GM.dll\0"
             VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "Windows 9X OPL3\0"
+            VALUE "ProductName", "OPL3GM VSTi\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
             VALUE "SpecialBuild", "\0"
         END
