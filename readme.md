@@ -1,3 +1,3 @@
 # OPL3 GM VST
 This is a VST instrument that emulates the way MIDI files sound on Windows 9X with an OPL3 based sound card. It is based on [the Windows OPL3 driver from this thread](https://www.vogons.org/viewtopic.php?t=36667)
-The only modifications made to the synthesizer itself were upgrading the Nuked OPL3 emulator to the latest version and adding a function to send a MIDI panic (all notes off on all channels) to the synth. Other than that, the synth is mostly unmodified.
+The only major modifications made to the synthesizer itself were upgrading the Nuked OPL3 emulator to the latest version and adding a function to send a MIDI panic (all notes off on all channels) to the synth. Other than that, the synth is mostly unmodified.
