@@ -119,8 +119,12 @@ bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* tex
 
 bool OPL3GM::getEffectName (char* name)
 {
-	strcpy (name, "Windows 9X OPL3");
-	return true;
+	if (synth)
+	{
+		strcpy (name, synth->midi_synthname());
+		return true;
+	}
+	return false;
 }
 
 bool OPL3GM::getVendorString (char* text)
@@ -131,8 +135,12 @@ bool OPL3GM::getVendorString (char* text)
 
 bool OPL3GM::getProductString (char* text)
 {
-	strcpy (text, "Windows 9X OPL3");
-	return true;
+	if (synth)
+	{
+		strcpy (text, synth->midi_synthname());
+		return true;
+	}
+	return false;
 }
 
 VstInt32 OPL3GM::getVendorVersion ()
