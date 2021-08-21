@@ -85,7 +85,7 @@ opl_voice *OPL3MIDI::opl_allocvoice(opl_timbre *timbre)
     uint32_t time;
     uint32_t i;
     int32_t id;
-    
+
     for (i = 0; i < opl_voice_num; i++)
     {
         if (opl_voices[i].time == 0)
@@ -516,7 +516,6 @@ void OPL3MIDI::midi_write(unsigned int data)
             {
                 if (opl_drum_maps[parm1].base != 0xff)
                 {
-
                     opl_midikeyon(channelp, opl_drum_maps[parm1].note, &opl_timbres[opl_drum_maps[parm1].base + 128], parm2);
                 }
             }

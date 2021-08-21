@@ -129,4 +129,4 @@ public:
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
     const char *midi_synthname(void);
-}; 
+};
