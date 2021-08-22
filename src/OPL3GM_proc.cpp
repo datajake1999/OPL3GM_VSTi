@@ -2,6 +2,7 @@
 
 void OPL3GM::setSampleRate (float sampleRate)
 {
+	AudioEffectX::setSampleRate (sampleRate);
 	if (synth)
 	{
 		synth->midi_close();
@@ -21,6 +22,7 @@ void OPL3GM::setSampleRate (float sampleRate)
 
 void OPL3GM::setBlockSize (VstInt32 blockSize)
 {
+	AudioEffectX::setBlockSize (blockSize);
 	if (buffer)
 	{
 		delete buffer;
