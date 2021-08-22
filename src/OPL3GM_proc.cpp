@@ -63,8 +63,8 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		*out1 = buffer[0] / 32768.0f;
 		*out2 = buffer[1] / 32768.0f;
-		*out1 = *out1 * volume;
-		*out2 = *out2 * volume;
+		*out1 = *out1 * Volume;
+		*out2 = *out2 * Volume;
 		buffer += 2;
 		*out1++;
 		*out2++;
@@ -93,8 +93,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		*out1 = buffer[0] / 32768.0;
 		*out2 = buffer[1] / 32768.0;
-		*out1 = *out1 * volume;
-		*out2 = *out2 * volume;
+		*out1 = *out1 * Volume;
+		*out2 = *out2 * Volume;
 		buffer += 2;
 		*out1++;
 		*out2++;

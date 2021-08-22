@@ -9,7 +9,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canProcessReplacing ();
 	canDoubleReplacing ();
 	isSynth ();
-	volume = 1;
+	Volume = 1;
 	strcpy (ProgramName, "Default");
 	synth = NULL;
 	synth = getsynth();
@@ -50,7 +50,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	switch(index)
 	{
 	case kVolume:
-		volume = value;
+		Volume = value;
 		break;
 	}
 }
@@ -61,7 +61,7 @@ float OPL3GM::getParameter (VstInt32 index)
 	switch(index)
 	{
 	case kVolume:
-		value = volume;
+		value = Volume;
 		break;
 	}
 	return value;
@@ -72,7 +72,7 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	switch(index)
 	{
 	case kVolume:
-		float2string (volume, text, kVstMaxParamStrLen);
+		float2string (Volume, text, kVstMaxParamStrLen);
 		break;
 	}
 }

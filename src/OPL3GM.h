@@ -45,7 +45,7 @@ private:
 	midisynth *synth;
 	short *buffer;
 	int bufferSize;
-	float volume;
+	float Volume;
 	char ProgramName[32];
 };
 
