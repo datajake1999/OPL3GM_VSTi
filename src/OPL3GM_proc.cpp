@@ -113,6 +113,15 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			unsigned char byte1 = midiData[0];
 			unsigned char byte2 = midiData[1];
 			unsigned char byte3 = midiData[2];
+			unsigned char type = byte1 & 0xf0;
+			unsigned char channel = byte1 & 0x0f;
+			if (type == 0x80 || type == 0x90)
+			{
+				if (channel != 9)
+				{
+					byte2 = byte2 + (int)Transpose;
+				}
+			}
 			unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
 			if (synth)
 			{

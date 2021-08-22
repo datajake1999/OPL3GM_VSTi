@@ -10,6 +10,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canDoubleReplacing ();
 	isSynth ();
 	Volume = 1;
+	Transpose = 0;
 	strcpy (ProgramName, "Default");
 	synth = NULL;
 	synth = getsynth();
@@ -52,6 +53,21 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	case kVolume:
 		Volume = value;
 		break;
+	case kTranspose:
+		Transpose = (value*24.0f)-12.0f;
+		if (Transpose > 12)
+		{
+			Transpose = 12;
+		}
+		else if (Transpose < -12)
+		{
+			Transpose = -12;
+		}
+		if (synth)
+		{
+			synth->midi_panic();
+		}
+		break;
 	}
 }
 
@@ -62,6 +78,9 @@ float OPL3GM::getParameter (VstInt32 index)
 	{
 	case kVolume:
 		value = Volume;
+		break;
+	case kTranspose:
+		value = (Transpose+12.0f)/24.0f;
 		break;
 	}
 	return value;
@@ -74,6 +93,9 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	case kVolume:
 		float2string (Volume, text, kVstMaxParamStrLen);
 		break;
+	case kTranspose:
+		int2string ((int)Transpose, text, kVstMaxParamStrLen);
+		break;
 	}
 }
 
@@ -84,6 +106,9 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 	case kVolume:
 		strcpy (label, "F");
 		break;
+	case kTranspose:
+		strcpy (label, "Semitones");
+		break;
 	}
 }
 
@@ -93,6 +118,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	{
 	case kVolume:
 		strcpy (text, "Volume");
+		break;
+	case kTranspose:
+		strcpy (text, "Transpose");
 		break;
 	}
 }

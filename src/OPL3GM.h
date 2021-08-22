@@ -11,6 +11,7 @@ enum
 
 	// Parameters Tags
 	kVolume = 0,
+	kTranspose,
 
 	kNumParams
 };
@@ -46,6 +47,7 @@ private:
 	short *buffer;
 	int bufferSize;
 	float Volume;
+	float Transpose;
 	char ProgramName[32];
 };
 
