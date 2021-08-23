@@ -115,7 +115,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			unsigned char byte1 = midiData[0];
 			unsigned char byte2 = midiData[1];
 			unsigned char byte3 = midiData[2];
-			if (Transpose != 0)
+			if (Transpose >= 1 || Transpose <= -1)
 			{
 				unsigned char type = byte1 & 0xf0;
 				unsigned char channel = byte1 & 0x0f;
