@@ -55,6 +55,7 @@ Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
 Name: "{group}\Readme"; Filename: "{app}\readme.txt"; Components: "Docs"
+Name: "{group}\Open Banks Directory"; Filename: "{app}\Banks"; Components: "Banks"
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
 
 [Messages]
