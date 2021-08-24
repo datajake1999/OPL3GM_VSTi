@@ -35,14 +35,22 @@ Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Components]
 Name: "Docs"; Description: "Documentation"; Types: "full"
-Name: "VST32"; Description: "32-bit VST Plug-in"; Types: "full"
-Name: "VST64"; Description: "64-bit VST Plug-in"; Types: "full"; Check: Is64BitInstallMode
+Name: "Apogee32"; Description: "32-bit Apogee OPL3"; Types: "full"
+Name: "Apogee64"; Description: "64-bit Apogee OPL3"; Types: "full"; Check: Is64BitInstallMode
+Name: "Doom32"; Description: "32-bit Doom OPL3"; Types: "full"
+Name: "Doom64"; Description: "64-bit Doom OPL3"; Types: "full"; Check: Is64BitInstallMode
+Name: "W9X32"; Description: "32-bit Windows 9X OPL3"; Types: "full"
+Name: "W9X64"; Description: "64-bit Windows 9X OPL3"; Types: "full"; Check: Is64BitInstallMode
 
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
-Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: VST32
-Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: VST64; Check: Is64BitInstallMode
+Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
+Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: Is64BitInstallMode
+Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
+Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: Is64BitInstallMode
+Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: W9X32
+Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9X64; Check: Is64BitInstallMode
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
