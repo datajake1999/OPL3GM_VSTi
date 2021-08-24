@@ -35,24 +35,22 @@ Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Components]
 Name: "Docs"; Description: "Documentation"; Types: "full"
-Name: "Apogee32"; Description: "32-bit Apogee OPL3"; Types: "full"
-Name: "Apogee64"; Description: "64-bit Apogee OPL3"; Types: "full"; Check: Is64BitInstallMode
-Name: "Doom32"; Description: "32-bit Doom OPL3"; Types: "full"
-Name: "Doom64"; Description: "64-bit Doom OPL3"; Types: "full"; Check: Is64BitInstallMode
-Name: "W9X32"; Description: "32-bit Windows 9X OPL3"; Types: "full"
-Name: "W9X64"; Description: "64-bit Windows 9X OPL3"; Types: "full"; Check: Is64BitInstallMode
+Name: "Apogee"; Description: "Apogee OPL3"; Types: "full"
+Name: "Doom"; Description: "Doom OPL3"; Types: "full"
+Name: "W9X"; Description: "Windows 9X OPL3"; Types: "full"
 Name: "Banks"; Description: "Instrument bank files"; Types: "full"
 
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
-Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
-Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: Is64BitInstallMode
-Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
-Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: Is64BitInstallMode
-Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: W9X32
-Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9X64; Check: Is64BitInstallMode
+Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee
+Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee; Check: Is64BitInstallMode
+Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom
+Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom; Check: Is64BitInstallMode
+Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: W9X
+Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9X; Check: Is64BitInstallMode
 Source: "Banks\*"; DestDir: "{app}\Banks"; Components: "Banks"; Flags: recursesubdirs
+Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
@@ -72,21 +70,21 @@ begin
   if IsWin64 then begin
     VSTDirPage_64 := CreateInputDirPage(wpSelectDir,
     'Confirm 64-Bit VST Plug-in Directory', '',
-    'Select the folder in which setup should install the 64-bit VST Plug-in, then click Next.',
+    'Select the folder in which setup should install the 64-bit VST Plug-ins, then click Next.',
     False, '');
     VSTDirPage_64.Add('');
     VSTDirPage_64.Values[0] := ExpandConstant('{reg:HKLM\SOFTWARE\VST,VSTPluginsPath|{pf}\Steinberg\VSTPlugins}\');
 
     VSTDirPage_32 := CreateInputDirPage(wpSelectDir,
       'Confirm 32-Bit VST Plug-in Directory', '',
-      'Select the folder in which setup should install the 32-bit VST Plug-in, then click Next.',
+      'Select the folder in which setup should install the 32-bit VST Plug-ins, then click Next.',
       False, '');
     VSTDirPage_32.Add('');
     VSTDirPage_32.Values[0] := ExpandConstant('{reg:HKLM\SOFTWARE\WOW6432NODE\VST,VSTPluginsPath|{pf32}\Steinberg\VSTPlugins}\');
   end else begin
     VSTDirPage_32 := CreateInputDirPage(wpSelectDir,
       'Confirm 32-Bit VST Plug-in Directory', '',
-      'Select the folder in which setup should install the 32-bit VST Plug-in, then click Next.',
+      'Select the folder in which setup should install the 32-bit VST Plug-ins, then click Next.',
       False, '');
     VSTDirPage_32.Add('');
     VSTDirPage_32.Values[0] := ExpandConstant('{reg:HKLM\SOFTWARE\VST,VSTPluginsPath|{pf}\Steinberg\VSTPlugins}\');
