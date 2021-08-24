@@ -41,8 +41,8 @@ Name: "VST64"; Description: "64-bit VST Plug-in"; Types: "full"; Check: Is64BitI
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
-Source: "OPL3GM.dll"; DestDir: {code:GetVSTDir_32}; Components: VST32
-Source: "OPL3GM_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: VST64; Check: Is64BitInstallMode
+Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: VST32
+Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: VST64; Check: Is64BitInstallMode
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
