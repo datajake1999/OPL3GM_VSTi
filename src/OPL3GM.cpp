@@ -94,7 +94,14 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 		float2string (Volume, text, kVstMaxParamStrLen);
 		break;
 	case kTranspose:
-		int2string ((int)Transpose, text, kVstMaxParamStrLen);
+		if (Transpose >= 1 || Transpose <= -1)
+		{
+			int2string ((int)Transpose, text, kVstMaxParamStrLen);
+		}
+		else
+		{
+			strcpy (text, "0");
+		}
 		break;
 	}
 }
