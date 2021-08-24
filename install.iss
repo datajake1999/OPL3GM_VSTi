@@ -41,6 +41,7 @@ Name: "Doom32"; Description: "32-bit Doom OPL3"; Types: "full"
 Name: "Doom64"; Description: "64-bit Doom OPL3"; Types: "full"; Check: Is64BitInstallMode
 Name: "W9X32"; Description: "32-bit Windows 9X OPL3"; Types: "full"
 Name: "W9X64"; Description: "64-bit Windows 9X OPL3"; Types: "full"; Check: Is64BitInstallMode
+Name: "Banks"; Description: "Instrument bank files"; Types: "full"
 
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
@@ -51,6 +52,7 @@ Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
 Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: Is64BitInstallMode
 Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: W9X32
 Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9X64; Check: Is64BitInstallMode
+Source: "Banks\*"; DestDir: "{app}\Banks"; Components: "Banks"; Flags: recursesubdirs
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
