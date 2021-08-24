@@ -123,8 +123,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 				{
 					if (channel != 9)
 					{
-						int note = byte2;
-						note = note + (int)Transpose;
+						int note = byte2 + (int)Transpose;
 						if (note > 127)
 						{
 							note = 127;
