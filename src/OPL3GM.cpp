@@ -91,7 +91,7 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	switch(index)
 	{
 	case kVolume:
-		float2string (Volume, text, kVstMaxParamStrLen);
+		dB2string (Volume, text, kVstMaxParamStrLen);
 		break;
 	case kTranspose:
 		if (Transpose >= 1 || Transpose <= -1)
@@ -111,7 +111,7 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 	switch(index)
 	{
 	case kVolume:
-		strcpy (label, "F");
+		strcpy (label, "dB");
 		break;
 	case kTranspose:
 		strcpy (label, "Semitones");
