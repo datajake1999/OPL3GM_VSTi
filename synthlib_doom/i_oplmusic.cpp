@@ -1023,8 +1023,7 @@ void DoomOPL::midi_close() {
 	delete opl;
 }
 
-const char *DoomOPL::midi_synthname(void)
-{
+const char *DoomOPL::midi_synthname(void) {
 	return "Doom OPL3";
 }
 
