@@ -1372,9 +1372,13 @@ void OPL3_GenerateStream(opl3_chip *chip, Bit16s *sndptr, Bit32u numsamples)
     for(i = 0; i < numsamples; i++)
     {
         if (chip->rateratio == 1 << RSM_FRAC)
-        OPL3_Generate(chip, sndptr);
+        {
+            OPL3_Generate(chip, sndptr);
+        }
         else
-        OPL3_GenerateResampled(chip, sndptr);
+        {
+            OPL3_GenerateResampled(chip, sndptr);
+        }
         sndptr += 2;
     }
 }
