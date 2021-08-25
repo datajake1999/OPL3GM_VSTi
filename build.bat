@@ -16,4 +16,4 @@ link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM
 del *.obj
 del src\OPL3GM.res
 iscc "install.iss"
-7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9X.dll OPL3W9X_X64.dll license.txt readme.md
+7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9X.dll OPL3W9X_X64.dll license.txt readme.md Banks
