@@ -38,7 +38,8 @@ Name: "Docs"; Description: "Documentation"; Types: "full"
 Name: "Apogee"; Description: "Apogee OPL3"; Types: "full"
 Name: "Doom"; Description: "Doom OPL3"; Types: "full"
 Name: "W9X"; Description: "Windows 9X OPL3"; Types: "full"
-Name: "Banks"; Description: "Instrument bank files"; Types: "full"
+Name: "ApogeeBanks"; Description: "Apogee Instrument Bank Files"; Types: "full"
+Name: "DoomBanks"; Description: "Doom Instrument Bank Files"; Types: "full"
 
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
@@ -49,13 +50,15 @@ Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom
 Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom; Check: Is64BitInstallMode
 Source: "OPL3W9X.dll"; DestDir: {code:GetVSTDir_32}; Components: W9X
 Source: "OPL3W9X_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9X; Check: Is64BitInstallMode
-Source: "Banks\*"; DestDir: "{app}\Banks"; Components: "Banks"; Flags: recursesubdirs
+Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
+Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
 Name: "{group}\Readme"; Filename: "{app}\readme.txt"; Components: "Docs"
-Name: "{group}\Open Banks Directory"; Filename: "{app}\Banks"; Components: "Banks"
+Name: "{group}\Open Apogee Banks Directory"; Filename: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
+Name: "{group}\Open Doom Banks Directory"; Filename: "{app}\Banks\Doom"; Components: "DoomBanks"
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
 
 [Messages]
