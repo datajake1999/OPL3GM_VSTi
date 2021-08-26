@@ -20,10 +20,10 @@ This is a collection of VST instruments that emulates MIDI drivers for OPL3 base
 
 ## Apogee patch installation
 
-* Create OPLSynth folder in C:\ disk root.
-* Copy *.tmb files to C:\OPLSynth folder.
-* Copy needed tmb file as apogee.tmb
-* If you want to use built in patch remove apogee.tmb
+1. Create OPLSynth folder in C:\ disk root.
+2. Copy *.tmb files to C:\OPLSynth folder.
+3. Copy needed tmb file as apogee.tmb
+4. If you want to use built in patch remove apogee.tmb
 
 ## Included Doom patches
 
@@ -35,9 +35,9 @@ This is a collection of VST instruments that emulates MIDI drivers for OPL3 base
 
 ## Doom patch installation
 
-* Create OPLSynth folder in C:\ disk root.
-* Copy *.op2 files to C:\OPLSynth folder.
-* Rename needed op2 file to genmidi.op2.
+1. Create OPLSynth folder in C:\ disk root.
+2. Copy *.op2 files to C:\OPLSynth folder.
+3. Rename needed op2 file to genmidi.op2.
 
 ## DMXOPTION toggles
 
