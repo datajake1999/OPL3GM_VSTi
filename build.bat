@@ -6,14 +6,14 @@ cl -c /I ".\msinttypes" /I ".\VST2_SDK" fmopl3lib\*.cpp src\*.cpp synthlib_apoge
 rc src\OPL3GM.rc
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj al_midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3Apogee.dll
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj i_oplmusic.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3Doom.dll
-link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj opl3midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3W9X.dll
+link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj opl3midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3W9x.dll
 del *.obj
 call "C:\program files\Microsoft Platform SDK\SetEnv.Cmd" /X64 /RETAIL
 cl -c /I ".\msinttypes" /I ".\VST2_SDK" fmopl3lib\*.cpp src\*.cpp synthlib_apogee\*.cpp synthlib_doom\*.cpp synthlib_w9x\*.cpp VST2_SDK\public.sdk\source\vst2.x\*.cpp
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj al_midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3Apogee_X64.dll
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj i_oplmusic.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3Doom_X64.dll
-link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj opl3midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3W9X_X64.dll
+link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj OPL3GM.obj OPL3GM_proc.obj opl3.obj opl3class.obj opl3midi.obj src\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\src\vstplug.def" /OUT:OPL3W9x_X64.dll
 del *.obj
 del src\OPL3GM.res
 iscc "install.iss"
-7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9X.dll OPL3W9X_X64.dll license.txt readme.md Banks
+7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9x.dll OPL3W9x_X64.dll license.txt readme.md Banks

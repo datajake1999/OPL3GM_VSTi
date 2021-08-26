@@ -5,7 +5,7 @@ This is a collection of VST instruments that emulates MIDI drivers for OPL3 base
 
 * Apogee OPL3: Bassed on Apogee Sound System source code.
 * Doom OPL3: Bassed on Chocolate Doom source code.
-* Windows 9X OPL3: Bassed on Sound Blaster 16 driver reverse engineering.
+* Windows 9x OPL3: Bassed on Windows 9x Sound Blaster 16 driver reverse engineering.
 
 # Installation and usage notes
 

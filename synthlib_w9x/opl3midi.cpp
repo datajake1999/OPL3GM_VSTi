@@ -582,7 +582,7 @@ void OPL3MIDI::midi_close() {
 }
 
 const char *OPL3MIDI::midi_synthname(void) {
-    return "Windows 9X OPL3";
+    return "Windows 9x OPL3";
 }
 
 midisynth *getsynth() {
