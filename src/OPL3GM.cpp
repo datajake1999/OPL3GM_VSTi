@@ -158,16 +158,14 @@ bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 	{
 		strcpy (properties->label, "Left Output");
 		strcpy (properties->shortLabel, "LeftOut");
-		properties->flags = kVstPinIsActive;
-		properties->flags |= kVstPinIsStereo;
+		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
 	else if (index == 1)
 	{
 		strcpy (properties->label, "Right Output");
 		strcpy (properties->shortLabel, "RightOut");
-		properties->flags = kVstPinIsActive;
-		properties->flags |= kVstPinIsStereo;
+		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
 	return false;
