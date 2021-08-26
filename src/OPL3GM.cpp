@@ -152,6 +152,27 @@ bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* tex
 	return false;
 }
 
+bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
+{
+	if (index == 0)
+	{
+		strcpy (properties->label, "Left Output");
+		strcpy (properties->shortLabel, "LeftOut");
+		properties->flags = kVstPinIsActive;
+		properties->flags |= kVstPinIsStereo;
+		return true;
+	}
+	else if (index == 1)
+	{
+		strcpy (properties->label, "Right Output");
+		strcpy (properties->shortLabel, "RightOut");
+		properties->flags = kVstPinIsActive;
+		properties->flags |= kVstPinIsStereo;
+		return true;
+	}
+	return false;
+}
+
 bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
