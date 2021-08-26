@@ -21,12 +21,6 @@ class OPL3GM : public AudioEffectX
 public:
 	OPL3GM (audioMasterCallback audioMaster);
 	~OPL3GM ();
-	virtual void setSampleRate (float sampleRate);
-	virtual void setBlockSize (VstInt32 blockSize);
-	virtual void resume ();
-	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
-	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
-	virtual VstInt32 processEvents (VstEvents* events);
 	virtual void setParameter (VstInt32 index, float value);
 	virtual float getParameter (VstInt32 index);
 	virtual void getParameterDisplay (VstInt32 index, char* text);
@@ -43,6 +37,12 @@ public:
 	virtual VstInt32 canDo (char* text);
 	virtual VstInt32 getNumMidiInputChannels ();
 	virtual VstInt32 getNumMidiOutputChannels ();
+	virtual void setSampleRate (float sampleRate);
+	virtual void setBlockSize (VstInt32 blockSize);
+	virtual void resume ();
+	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
+	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
+	virtual VstInt32 processEvents (VstEvents* events);
 private:
 	midisynth *synth;
 	short *buffer;
