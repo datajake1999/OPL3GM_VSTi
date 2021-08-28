@@ -38,6 +38,7 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 
 void OPL3GM::resume ()
 {
+	AudioEffectX::resume ();
 	if (synth)
 	{
 		synth->midi_reset();
