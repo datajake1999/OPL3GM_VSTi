@@ -227,6 +227,8 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	if (!strcmp (text, "receiveVstMidiEvent"))
 	return 1;
+	if (!strcmp (text, "midiProgramNames"))
+	return 1;
 	return -1;	// explicitly can't do; 0 => don't know
 }
 
