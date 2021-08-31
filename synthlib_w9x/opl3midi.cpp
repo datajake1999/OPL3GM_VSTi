@@ -399,6 +399,7 @@ void OPL3MIDI::opl_midiprogram(opl_channel *channel, byte program)
     if (channel != &opl_channels[MIDI_DRUMCHANNEL])
     {
         channel->timbre = &opl_timbres[program];
+        channel->program = program;
     }
 }
 
@@ -486,6 +487,7 @@ int OPL3MIDI::midi_init(unsigned int rate)
     for (i = 0; i < 16; i++)
     {
         opl_channels[i].timbre = &opl_timbres[0];
+        opl_channels[i].program = 0;
         opl_channels[i].pitch = 0;
         opl_channels[i].volume = 0;
         opl_channels[i].pan = 0xff;
@@ -565,6 +567,7 @@ void OPL3MIDI::midi_reset()
     for (i = 0; i < 16; i++)
     {
         opl_channels[i].timbre = &opl_timbres[0];
+        opl_channels[i].program = 0;
         opl_channels[i].pitch = 0;
         opl_channels[i].volume = 0;
         opl_channels[i].pan = 0xff;
@@ -583,6 +586,18 @@ void OPL3MIDI::midi_close() {
 
 const char *OPL3MIDI::midi_synthname(void) {
     return "Windows 9x OPL3";
+}
+
+int OPL3MIDI::midi_getprogram(unsigned int channel) {
+    if (channel > 15)
+    {
+        channel = 15;
+    }
+    else if (channel < 0)
+    {
+        channel = 0;
+    }
+    return opl_channels[channel].program;
 }
 
 midisynth *getsynth() {

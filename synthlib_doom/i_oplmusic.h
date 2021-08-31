@@ -109,6 +109,7 @@ typedef struct
     // The instrument currently used for this track.
 
     genmidi_instr_t *instrument;
+    int program;
 
     // Volume level
 
@@ -387,4 +388,5 @@ public:
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
     const char *midi_synthname(void);
+    int midi_getprogram(unsigned int channel);
 };

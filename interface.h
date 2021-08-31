@@ -29,6 +29,7 @@ public:
 	virtual void midi_generate(signed short *buffer, unsigned int length) = 0;
 	virtual void midi_close() = 0;
 	virtual const char *midi_synthname(void) = 0;
+	virtual int midi_getprogram(unsigned int channel) = 0;
 };
 
 midisynth* getsynth();

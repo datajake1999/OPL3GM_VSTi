@@ -92,6 +92,7 @@ public:
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
     const char *midi_synthname(void);
+    int midi_getprogram(unsigned int channel);
 };
 
 void AL_RemoveNode ( char *item, char **head, char **tail, int next, int prev );

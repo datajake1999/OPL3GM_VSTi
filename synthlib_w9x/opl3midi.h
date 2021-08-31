@@ -66,6 +66,7 @@ const byte opl_voice_map[9] =
 typedef struct
 {
     opl_timbre *timbre;
+    int32_t program;
     int32_t pitch;
     uint32_t volume;
     uint32_t pan;
@@ -129,4 +130,5 @@ public:
     void midi_generate(signed short *buffer, unsigned int length);
     void midi_close();
     const char *midi_synthname(void);
+    int midi_getprogram(unsigned int channel);
 };

@@ -738,6 +738,7 @@ void DoomOPL::ProgramChangeEvent(unsigned char channel_num, unsigned char instru
 
     channel = TrackChannelForEvent(channel_num);
     channel->instrument = &main_instrs[instrument];
+    channel->program = instrument;
 
     // TODO: Look through existing voices that are turned on on this
     // channel, and change the instrument.
@@ -1025,6 +1026,20 @@ void DoomOPL::midi_close() {
 
 const char *DoomOPL::midi_synthname(void) {
 	return "Doom OPL3";
+}
+
+int DoomOPL::midi_getprogram(unsigned int channel) {
+	if (channel > 15)
+	{
+		channel = 15;
+	}
+	else if (channel < 0)
+	{
+		channel = 0;
+	}
+	opl_channel_data_t *channelp;
+	channelp = TrackChannelForEvent(channel);
+	return channelp->program;
 }
 
 midisynth *getsynth() {

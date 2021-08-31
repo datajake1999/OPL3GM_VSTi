@@ -1499,6 +1499,19 @@ const char *ApogeeOPL::midi_synthname(void)
     return "Apogee OPL3";
 }
 
+int ApogeeOPL::midi_getprogram(unsigned int channel)
+{
+    if (channel > 15)
+    {
+        channel = 15;
+    }
+    else if (channel < 0)
+    {
+        channel = 0;
+    }
+    return Channel[ channel ].Timbre;
+}
+
 midisynth *getsynth()
 {
     ApogeeOPL *synth = new ApogeeOPL;
