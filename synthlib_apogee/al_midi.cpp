@@ -1509,6 +1509,10 @@ int ApogeeOPL::midi_getprogram(unsigned int channel)
     {
         channel = 0;
     }
+    if (channel == 9)
+    {
+        return 0;
+    }
     return Channel[ channel ].Timbre;
 }
 
