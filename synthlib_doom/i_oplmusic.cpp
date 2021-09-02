@@ -949,6 +949,7 @@ void DoomOPL::InitChannel(opl_channel_data_t *channel)
 	// TODO: Work out sensible defaults?
 
 	channel->instrument = &main_instrs[0];
+	channel->program = 0;
 	channel->volume = 127;
 	channel->pan = 0x30;
 	channel->bend = 0;
