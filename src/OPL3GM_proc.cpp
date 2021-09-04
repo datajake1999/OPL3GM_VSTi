@@ -132,36 +132,41 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		{
 			VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
 			char* midiData = event->midiData;
-			unsigned char byte1 = midiData[0];
-			unsigned char byte2 = midiData[1];
-			unsigned char byte3 = midiData[2];
-			if (Transpose >= 1 || Transpose <= -1)
-			{
-				unsigned char type = byte1 & 0xf0;
-				unsigned char channel = byte1 & 0x0f;
-				if (type == 0x80 || type == 0x90)
-				{
-					if (channel != 9)
-					{
-						int note = byte2 + (int)Transpose;
-						if (note > 127)
-						{
-							note = 127;
-						}
-						else if (note < 0)
-						{
-							note = 0;
-						}
-						byte2 = (unsigned char)note;
-					}
-				}
-			}
-			unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
-			if (synth)
-			{
-				synth->midi_write(msg);
-			}
+			sendMidi (midiData);
 		}
 	}
 	return 1;
+}
+
+void OPL3GM::sendMidi (char *data)
+{
+	unsigned char byte1 = data[0];
+	unsigned char byte2 = data[1];
+	unsigned char byte3 = data[2];
+	if (Transpose >= 1 || Transpose <= -1)
+	{
+		unsigned char type = byte1 & 0xf0;
+		unsigned char channel = byte1 & 0x0f;
+		if (type == 0x80 || type == 0x90)
+		{
+			if (channel != 9)
+			{
+				int note = byte2 + (int)Transpose;
+				if (note > 127)
+				{
+					note = 127;
+				}
+				else if (note < 0)
+				{
+					note = 0;
+				}
+				byte2 = (unsigned char)note;
+			}
+		}
+	}
+	unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
+	if (synth)
+	{
+		synth->midi_write(msg);
+	}
 }
