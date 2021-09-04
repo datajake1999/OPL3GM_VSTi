@@ -50,7 +50,7 @@ BEGIN
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "OPL3GM\0"
             VALUE "LegalCopyright", "Copyright © 2021\0"
-            VALUE "LegalTrademarks", "\0"
+            VALUE "LegalTrademarks", "VST is a trademark of Steinberg Media Technologies GmbH\0"
             VALUE "OriginalFilename", "OPL3GM.dll\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "OPL3GM VSTi\0"
