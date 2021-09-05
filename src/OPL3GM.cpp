@@ -30,6 +30,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	isSynth ();
 	Volume = 1;
 	Transpose = 0;
+	Emulator = 1;
 	strcpy (ProgramName, "Default");
 	synth = NULL;
 	synth = getsynth();
@@ -87,6 +88,9 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 			synth->midi_panic();
 		}
 		break;
+	case kEmulator:
+		Emulator = value;
+		break;
 	}
 }
 
@@ -100,6 +104,9 @@ float OPL3GM::getParameter (VstInt32 index)
 		break;
 	case kTranspose:
 		value = (Transpose+12.0f)/24.0f;
+		break;
+	case kEmulator:
+		value = Emulator;
 		break;
 	}
 	return value;
@@ -120,6 +127,16 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 		else
 		{
 			strcpy (text, "0");
+		}
+		break;
+	case kEmulator:
+		if (Emulator >= 0.5)
+		{
+			strcpy (text, "Nuked");
+		}
+		else
+		{
+			strcpy (text, "DOSBox");
 		}
 		break;
 	}
@@ -147,6 +164,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 		break;
 	case kTranspose:
 		strcpy (text, "Transpose");
+		break;
+	case kEmulator:
+		strcpy (text, "Emulator");
 		break;
 	}
 }

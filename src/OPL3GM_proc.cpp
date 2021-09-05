@@ -79,7 +79,14 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	}
 	if (synth)
 	{
-		synth->midi_generate(buffer, sampleFrames);
+		if (Emulator >= 0.5)
+		{
+			synth->midi_generate(buffer, sampleFrames);
+		}
+		else
+		{
+			synth->midi_generate_dosbox(buffer, sampleFrames);
+		}
 	}
 	for (int i = 0; i < sampleFrames; i++)
 	{
@@ -109,7 +116,14 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	}
 	if (synth)
 	{
-		synth->midi_generate(buffer, sampleFrames);
+		if (Emulator >= 0.5)
+		{
+			synth->midi_generate(buffer, sampleFrames);
+		}
+		else
+		{
+			synth->midi_generate_dosbox(buffer, sampleFrames);
+		}
 	}
 	for (int i = 0; i < sampleFrames; i++)
 	{

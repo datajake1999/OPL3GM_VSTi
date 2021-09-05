@@ -31,6 +31,7 @@ enum
 	// Parameters Tags
 	kVolume = 0,
 	kTranspose,
+	kEmulator,
 
 	kNumParams
 };
@@ -75,6 +76,7 @@ private:
 	int bufferSize;
 	float Volume;
 	float Transpose;
+	float Emulator;
 	char ProgramName[32];
 };
 
