@@ -83,14 +83,17 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		{
 			Transpose = -12;
 		}
-		if (synth)
-		{
-			synth->midi_panic();
-		}
 		break;
 	case kEmulator:
 		Emulator = value;
 		break;
+	}
+	if (index >= kTranspose && index < kNumParams)
+	{
+		if (synth)
+		{
+			synth->midi_panic();
+		}
 	}
 }
 
