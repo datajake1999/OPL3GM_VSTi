@@ -17,6 +17,7 @@ public:
 	virtual int fm_init(unsigned int rate) = 0;
 	virtual void fm_writereg(unsigned short reg, unsigned char data) = 0;
 	virtual void fm_generate(signed short *buffer, unsigned int length) = 0;
+	virtual void fm_generate_dosbox(signed short *buffer, unsigned int length) = 0;
 	virtual void fm_close() = 0;
 };
 
@@ -27,6 +28,7 @@ public:
 	virtual void midi_panic() = 0;
 	virtual void midi_reset() = 0;
 	virtual void midi_generate(signed short *buffer, unsigned int length) = 0;
+	virtual void midi_generate_dosbox(signed short *buffer, unsigned int length) = 0;
 	virtual void midi_close() = 0;
 	virtual const char *midi_synthname(void) = 0;
 	virtual int midi_getprogram(unsigned int channel) = 0;

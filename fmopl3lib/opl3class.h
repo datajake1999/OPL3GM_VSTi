@@ -14,14 +14,17 @@
 
 #include "../interface.h"
 #include "opl3.h"
+#include "opl.h"
 
 
 class opl3class : public fm_chip {
 private:
     opl3_chip chip;
+    OPLChipClass chip2;
 public:
 	int fm_init(unsigned int rate);
 	void fm_writereg(unsigned short reg, unsigned char data);
 	void fm_generate(signed short *buffer, unsigned int length);
+	void fm_generate_dosbox(signed short *buffer, unsigned int length);
 	void fm_close();
 };

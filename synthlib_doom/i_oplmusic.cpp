@@ -1020,6 +1020,10 @@ void DoomOPL::midi_generate(signed short *buffer, unsigned int length) {
 	opl->fm_generate(buffer, length);
 }
 
+void DoomOPL::midi_generate_dosbox(signed short *buffer, unsigned int length) {
+	opl->fm_generate_dosbox(buffer, length);
+}
+
 void DoomOPL::midi_close() {
 	opl->fm_close();
 	delete opl;

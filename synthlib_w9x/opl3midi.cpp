@@ -579,6 +579,10 @@ void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
     opl_chip->fm_generate(buffer, length);
 }
 
+void OPL3MIDI::midi_generate_dosbox(signed short *buffer, unsigned int length) {
+    opl_chip->fm_generate_dosbox(buffer, length);
+}
+
 void OPL3MIDI::midi_close() {
     opl_chip->fm_close();
     delete opl_chip;

@@ -90,6 +90,7 @@ public:
     void midi_panic();
     void midi_reset();
     void midi_generate(signed short *buffer, unsigned int length);
+    void midi_generate_dosbox(signed short *buffer, unsigned int length);
     void midi_close();
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);

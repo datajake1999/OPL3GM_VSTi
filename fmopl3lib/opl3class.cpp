@@ -18,16 +18,22 @@
 
 int opl3class::fm_init(unsigned int rate) {
     OPL3_Reset(&chip, rate);
+    chip2.adlib_init(rate, 2, 2);
 
 	return 1;
 }
 
 void opl3class::fm_writereg(unsigned short reg, unsigned char data) {
     OPL3_WriteRegBuffered(&chip, reg, data);
+    chip2.adlib_write(reg, data);
 }
 
 void opl3class::fm_generate(signed short *buffer, unsigned int len) {
     OPL3_GenerateStream(&chip, buffer, len);
+}
+
+void opl3class::fm_generate_dosbox(signed short *buffer, unsigned int len) {
+    chip2.adlib_getsample(buffer, len);
 }
 
 void opl3class::fm_close() {

@@ -1488,6 +1488,11 @@ void ApogeeOPL::midi_generate(signed short *buffer, unsigned int length)
     chip->fm_generate(buffer, length);
 }
 
+void ApogeeOPL::midi_generate_dosbox(signed short *buffer, unsigned int length)
+{
+    chip->fm_generate_dosbox(buffer, length);
+}
+
 void ApogeeOPL::midi_close()
 {
     chip->fm_close();
