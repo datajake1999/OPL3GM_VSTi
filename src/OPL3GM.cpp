@@ -251,6 +251,11 @@ VstInt32 OPL3GM::getVendorVersion ()
 	return 1000; 
 }
 
+VstPlugCategory OPL3GM::getPlugCategory ()
+{
+	return kPlugCategSynth;
+}
+
 VstInt32 OPL3GM::canDo (char* text)
 {
 	if (!strcmp (text, "receiveVstEvents"))

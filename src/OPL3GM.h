@@ -55,6 +55,7 @@ public:
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
 	virtual VstInt32 getVendorVersion ();
+	virtual VstPlugCategory getPlugCategory ();
 	virtual VstInt32 canDo (char* text);
 	virtual VstInt32 getNumMidiInputChannels ();
 	virtual VstInt32 getNumMidiOutputChannels ();
