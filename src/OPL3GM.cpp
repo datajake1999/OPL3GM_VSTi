@@ -29,6 +29,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canDoubleReplacing ();
 	isSynth ();
 	Volume = 1;
+	VolumeDisplay = 0;
 	Transpose = 0;
 	Emulator = 1;
 	strcpy (ProgramName, "Default");
@@ -50,6 +51,9 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	{
 	case kVolume:
 		Volume = value;
+		break;
+	case kVolumeDisplay:
+		VolumeDisplay = value;
 		break;
 	case kTranspose:
 		Transpose = (value*24.0f)-12.0f;
@@ -83,6 +87,9 @@ float OPL3GM::getParameter (VstInt32 index)
 	case kVolume:
 		value = Volume;
 		break;
+	case kVolumeDisplay:
+		value = VolumeDisplay;
+		break;
 	case kTranspose:
 		value = (Transpose+12.0f)/24.0f;
 		break;
@@ -98,7 +105,24 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	switch(index)
 	{
 	case kVolume:
-		dB2string (Volume, text, kVstMaxParamStrLen);
+		if (VolumeDisplay >= 0.5)
+		{
+			float2string (Volume*100, text, kVstMaxParamStrLen);
+		}
+		else
+		{
+			dB2string (Volume, text, kVstMaxParamStrLen);
+		}
+		break;
+	case kVolumeDisplay:
+		if (VolumeDisplay >= 0.5)
+		{
+			strcpy (text, "%");
+		}
+		else
+		{
+			strcpy (text, "dB");
+		}
 		break;
 	case kTranspose:
 		if (Transpose >= 1 || Transpose <= -1)
@@ -128,7 +152,14 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 	switch(index)
 	{
 	case kVolume:
-		strcpy (label, "dB");
+		if (VolumeDisplay >= 0.5)
+		{
+			strcpy (label, "%");
+		}
+		else
+		{
+			strcpy (label, "dB");
+		}
 		break;
 	case kTranspose:
 		strcpy (label, "Semitones");
@@ -142,6 +173,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	{
 	case kVolume:
 		strcpy (text, "Volume");
+		break;
+	case kVolumeDisplay:
+		strcpy (text, "VolumeDisplay");
 		break;
 	case kTranspose:
 		strcpy (text, "Transpose");
