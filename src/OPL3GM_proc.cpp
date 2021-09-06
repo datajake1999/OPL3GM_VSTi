@@ -77,17 +77,7 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		sampleFrames = bufferSize;
 	}
-	if (synth)
-	{
-		if (Emulator >= 0.5)
-		{
-			synth->midi_generate(buffer, sampleFrames);
-		}
-		else
-		{
-			synth->midi_generate_dosbox(buffer, sampleFrames);
-		}
-	}
+	fillBuffer (sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		*out1 = buffer[0] / 32768.0f;
@@ -114,17 +104,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		sampleFrames = bufferSize;
 	}
-	if (synth)
-	{
-		if (Emulator >= 0.5)
-		{
-			synth->midi_generate(buffer, sampleFrames);
-		}
-		else
-		{
-			synth->midi_generate_dosbox(buffer, sampleFrames);
-		}
-	}
+	fillBuffer (sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		*out1 = buffer[0] / 32768.0;
@@ -136,6 +116,21 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 		*out2++;
 	}
 	buffer -= sampleFrames*2;
+}
+
+void OPL3GM::fillBuffer (int len)
+{
+	if (synth)
+	{
+		if (Emulator >= 0.5)
+		{
+			synth->midi_generate(buffer, len);
+		}
+		else
+		{
+			synth->midi_generate_dosbox(buffer, len);
+		}
+	}
 }
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)
