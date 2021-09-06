@@ -33,6 +33,48 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	initBuffer (blockSize);
 }
 
+void OPL3GM::initSynth (int sampleRate)
+{
+	synth = getsynth();
+	if (synth)
+	{
+		if (!synth->midi_init((int)sampleRate))
+		{
+			delete synth;
+			synth = NULL;
+		}
+	}
+}
+
+void OPL3GM::initBuffer (int blockSize)
+{
+	bufferSize = blockSize;
+	buffer = new short[2*bufferSize];
+	if (buffer)
+	{
+		memset(buffer, 0, 4*bufferSize);
+	}
+}
+
+void OPL3GM::clearSynth ()
+{
+	if (synth)
+	{
+		synth->midi_close();
+		delete synth;
+		synth = NULL;
+	}
+}
+
+void OPL3GM::clearBuffer ()
+{
+	if (buffer)
+	{
+		delete buffer;
+		buffer = NULL;
+	}
+}
+
 void OPL3GM::resume ()
 {
 	AudioEffectX::resume ();
