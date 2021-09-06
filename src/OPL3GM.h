@@ -69,6 +69,10 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 private:
+	void initSynth (int sampleRate);
+	void initBuffer (int blockSize);
+	void clearSynth ();
+	void clearBuffer ();
 	void fillBuffer (int length);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);

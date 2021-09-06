@@ -22,37 +22,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 void OPL3GM::setSampleRate (float sampleRate)
 {
 	AudioEffectX::setSampleRate (sampleRate);
-	if (synth)
-	{
-		synth->midi_close();
-		delete synth;
-		synth = NULL;
-	}
-	synth = getsynth();
-	if (synth)
-	{
-		if (!synth->midi_init((int)sampleRate))
-		{
-			delete synth;
-			synth = NULL;
-		}
-	}
+	clearSynth ();
+	initSynth (sampleRate);
 }
 
 void OPL3GM::setBlockSize (VstInt32 blockSize)
 {
 	AudioEffectX::setBlockSize (blockSize);
-	if (buffer)
-	{
-		delete buffer;
-		buffer = NULL;
-	}
-	bufferSize = blockSize;
-	buffer = new short[2*bufferSize];
-	if (buffer)
-	{
-		memset(buffer, 0, 4*bufferSize);
-	}
+	clearBuffer ();
+	initBuffer (blockSize);
 }
 
 void OPL3GM::resume ()

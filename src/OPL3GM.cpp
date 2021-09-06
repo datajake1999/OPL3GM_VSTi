@@ -33,6 +33,19 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	Emulator = 1;
 	strcpy (ProgramName, "Default");
 	synth = NULL;
+	buffer = NULL;
+	initSynth (sampleRate);
+	initBuffer (blockSize);
+}
+
+OPL3GM::~OPL3GM ()
+{
+	clearSynth ();
+	clearBuffer ();
+}
+
+void OPL3GM::initSynth (int sampleRate)
+{
 	synth = getsynth();
 	if (synth)
 	{
@@ -42,7 +55,10 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 			synth = NULL;
 		}
 	}
-	buffer = NULL;
+}
+
+void OPL3GM::initBuffer (int blockSize)
+{
 	bufferSize = blockSize;
 	buffer = new short[2*bufferSize];
 	if (buffer)
@@ -51,7 +67,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	}
 }
 
-OPL3GM::~OPL3GM ()
+void OPL3GM::clearSynth ()
 {
 	if (synth)
 	{
@@ -59,6 +75,10 @@ OPL3GM::~OPL3GM ()
 		delete synth;
 		synth = NULL;
 	}
+}
+
+void OPL3GM::clearBuffer ()
+{
 	if (buffer)
 	{
 		delete buffer;
