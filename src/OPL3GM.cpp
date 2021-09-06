@@ -231,12 +231,7 @@ bool OPL3GM::getVendorString (char* text)
 
 bool OPL3GM::getProductString (char* text)
 {
-	if (synth)
-	{
-		strcpy (text, synth->midi_synthname());
-		return true;
-	}
-	return false;
+	return getEffectName (text);
 }
 
 VstInt32 OPL3GM::getVendorVersion ()
