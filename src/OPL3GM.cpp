@@ -35,7 +35,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	strcpy (ProgramName, "Default");
 	synth = NULL;
 	buffer = NULL;
-	initSynth (sampleRate);
+	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
 }
 

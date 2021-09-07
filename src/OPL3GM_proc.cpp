@@ -23,7 +23,7 @@ void OPL3GM::setSampleRate (float sampleRate)
 {
 	AudioEffectX::setSampleRate (sampleRate);
 	clearSynth ();
-	initSynth (sampleRate);
+	initSynth ((int)sampleRate);
 }
 
 void OPL3GM::setBlockSize (VstInt32 blockSize)
