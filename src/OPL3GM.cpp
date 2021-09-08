@@ -18,6 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
+#include <math.h>
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 : AudioEffectX (audioMaster, kNumPrograms, kNumParams)
@@ -162,7 +163,14 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 		}
 		break;
 	case kTranspose:
-		strcpy (label, "Semitones");
+		if (floorf(Transpose) == 1 || ceilf(Transpose) == -1)
+		{
+			strcpy (label, "Semitone");
+		}
+		else
+		{
+			strcpy (label, "Semitones");
+		}
 		break;
 	}
 }
