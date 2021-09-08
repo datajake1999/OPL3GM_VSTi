@@ -1471,6 +1471,10 @@ void ApogeeOPL::midi_write(unsigned int data)
     }
 }
 
+void ApogeeOPL::midi_write_sysex(char *buffer, unsigned int length)
+{
+}
+
 void ApogeeOPL::midi_panic()
 {
     for (int c = 0; c < 16; ++c)

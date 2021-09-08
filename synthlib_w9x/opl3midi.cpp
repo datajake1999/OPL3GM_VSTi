@@ -552,6 +552,10 @@ void OPL3MIDI::midi_write(unsigned int data)
     }
 }
 
+void OPL3MIDI::midi_write_sysex(char *buffer, unsigned int length)
+{
+}
+
 void OPL3MIDI::midi_panic()
 {
     for (int c = 0; c < 16; ++c)

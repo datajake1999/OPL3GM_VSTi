@@ -163,6 +163,14 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			char* midiData = event->midiData;
 			sendMidi (midiData);
 		}
+		else if ((ev->events[i])->type == kVstSysExType)
+		{
+			VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev->events[i];
+			if (synth)
+			{
+				synth->midi_write_sysex(event->sysexDump, event->dumpBytes);
+			}
+		}
 	}
 	return 1;
 }

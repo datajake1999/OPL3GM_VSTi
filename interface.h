@@ -25,6 +25,7 @@ class midisynth {
 public:
 	virtual int midi_init(unsigned int rate) = 0;
 	virtual void midi_write(unsigned int data) = 0;
+	virtual void midi_write_sysex(char *buffer, unsigned int length) = 0;
 	virtual void midi_panic() = 0;
 	virtual void midi_reset() = 0;
 	virtual void midi_generate(signed short *buffer, unsigned int length) = 0;

@@ -928,6 +928,10 @@ void DoomOPL::midi_write(unsigned int data)
     }
 }
 
+void DoomOPL::midi_write_sysex(char *buffer, unsigned int length)
+{
+}
+
 void DoomOPL::midi_panic()
 {
     for(int i = 0; i < 16; i++)
