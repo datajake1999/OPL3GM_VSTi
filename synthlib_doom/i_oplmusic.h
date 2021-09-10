@@ -338,6 +338,7 @@ private:
 
     // GENMIDI lump instrument data:
 
+    byte *lump;
     genmidi_instr_t *main_instrs;
     genmidi_instr_t *percussion_instrs;
 

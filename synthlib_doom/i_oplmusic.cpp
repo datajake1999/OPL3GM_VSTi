@@ -99,7 +99,6 @@ void DoomOPL::OPL_InitRegisters(bool opl_new)
 
 bool DoomOPL::LoadInstrumentTable(void)
 {
-	byte *lump;
 	unsigned int size;
 
 	FILE *file = fopen("C:\\OPLSynth\\GENMIDI.OP2", "rb");
@@ -111,6 +110,11 @@ bool DoomOPL::LoadInstrumentTable(void)
 	size = ftell(file);
 	fseek(file, 0, SEEK_SET);
 
+	if (lump)
+	{
+		free(lump);
+		lump = NULL;
+	}
 	lump = (byte*)malloc(size);
 
 	if (!lump)
@@ -1029,6 +1033,11 @@ void DoomOPL::midi_generate_dosbox(signed short *buffer, unsigned int length) {
 }
 
 void DoomOPL::midi_close() {
+	if (lump)
+	{
+		free(lump);
+		lump = NULL;
+	}
 	opl->fm_close();
 	delete opl;
 }
