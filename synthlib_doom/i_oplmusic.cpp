@@ -970,6 +970,7 @@ int DoomOPL::midi_init(unsigned int rate)
 	{
 		return 0;
 	}
+	lump = NULL;
 	return InitSynth();
 }
 
