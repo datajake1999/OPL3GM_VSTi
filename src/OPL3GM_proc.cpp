@@ -100,13 +100,11 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	fillBuffer (sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
-		*out1 = buffer[0] / 32768.0f;
-		*out2 = buffer[1] / 32768.0f;
-		*out1 = *out1 * Volume;
-		*out2 = *out2 * Volume;
+		out1[i] = buffer[0] / 32768.0f;
+		out2[i] = buffer[1] / 32768.0f;
+		out1[i] = out1[i] * Volume;
+		out2[i] = out2[i] * Volume;
 		buffer += 2;
-		*out1++;
-		*out2++;
 	}
 	buffer -= sampleFrames*2;
 }
@@ -127,13 +125,11 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	fillBuffer (sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
-		*out1 = buffer[0] / 32768.0;
-		*out2 = buffer[1] / 32768.0;
-		*out1 = *out1 * Volume;
-		*out2 = *out2 * Volume;
+		out1[i] = buffer[0] / 32768.0;
+		out2[i] = buffer[1] / 32768.0;
+		out1[i] = out1[i] * Volume;
+		out2[i] = out2[i] * Volume;
 		buffer += 2;
-		*out1++;
-		*out2++;
 	}
 	buffer -= sampleFrames*2;
 }
