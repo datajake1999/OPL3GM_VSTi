@@ -70,7 +70,7 @@ void OPL3GM::clearBuffer ()
 {
 	if (buffer)
 	{
-		delete buffer;
+		delete[] buffer;
 		buffer = NULL;
 	}
 }
