@@ -163,7 +163,7 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 		}
 		break;
 	case kTranspose:
-		if (floorf(Transpose) == 1 || ceilf(Transpose) == -1)
+		if (floor(Transpose) == 1 || ceil(Transpose) == -1)
 		{
 			strcpy (label, "Semitone");
 		}
