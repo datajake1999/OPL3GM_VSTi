@@ -158,7 +158,7 @@ typedef struct operator_struct {
 } op_type;
 
 class OPLChipClass {
-public:
+private:
 
 	// per-chip variables
 	Bitu chip_num;
@@ -201,6 +201,7 @@ public:
 	void change_vibrato(Bitu regbase, op_type* op_pt);
 	void change_feedback(Bitu chanbase, op_type* op_pt);
 
+public:
 	// general functions
 	void adlib_init(Bit32u samplerate, Bit32u numchannels, Bit32u bytespersample);
 	void adlib_write(Bitu idx, Bit8u val);
