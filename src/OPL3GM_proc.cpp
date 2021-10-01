@@ -70,6 +70,7 @@ void OPL3GM::clearBuffer ()
 {
 	if (buffer)
 	{
+		memset(buffer, 0, 4*bufferSize);
 		delete[] buffer;
 		buffer = NULL;
 	}
