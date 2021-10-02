@@ -48,9 +48,6 @@
 	#else
 	#pragma options align=mac68k
 	#endif
-#elif defined __BORLANDC__
-	#pragma -a8
-	#pragma options push -a8
 #elif defined(__GNUC__)
     #pragma pack(push,8)
 #elif defined(WIN32) || defined(__FLAT__)
@@ -1162,8 +1159,6 @@ enum VstAutomationStates
 	#pragma options align=reset
 #elif defined(WIN32) || defined(__FLAT__) || defined(__GNUC__)
 	#pragma pack(pop)
-#elif defined __BORLANDC__
-	#pragma -a-
 #endif
 //-------------------------------------------------------------------------------------------------------
 

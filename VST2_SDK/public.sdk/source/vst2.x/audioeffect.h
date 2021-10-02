@@ -32,7 +32,8 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------------
 
-#pragma once
+#ifndef audioeffect
+#define audioeffect
 
 #include "pluginterfaces/vst2.x/aeffect.h"	// "c" interface
 
@@ -194,3 +195,4 @@ protected:
 #endif // VST_2_4_EXTENSIONS
 /// @endcond
 };
+#endif

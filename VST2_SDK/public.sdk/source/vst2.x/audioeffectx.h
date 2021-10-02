@@ -32,7 +32,8 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------------
 
-#pragma once
+#ifndef audioeffectx
+#define audioeffectx
 
 #include "audioeffect.h"	// Version 1.0 base class AudioEffect
 
@@ -268,3 +269,4 @@ public:
 /// @endcond
 //-------------------------------------------------------------------------------------------------------
 };
+#endif

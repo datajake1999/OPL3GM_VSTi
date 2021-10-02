@@ -61,9 +61,6 @@
 		#pragma options align=mac68k
 	#endif
 	#define VSTCALLBACK
-#elif defined __BORLANDC__
-	#pragma -a8
-	#pragma options push -a8
 #elif defined(__GNUC__)
     #pragma pack(push,8)
     #define VSTCALLBACK __cdecl
@@ -385,8 +382,6 @@ struct ERect
 	#pragma options align=reset
 #elif defined(WIN32) || defined(__FLAT__) || defined(__GNUC__)
 	#pragma pack(pop)
-#elif defined __BORLANDC__
-	#pragma -a-
 #endif
 
 #endif // __aeffect__
