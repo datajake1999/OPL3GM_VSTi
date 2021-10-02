@@ -17,3 +17,4 @@ del *.obj
 del src\OPL3GM.res
 iscc "install.iss"
 7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9x.dll OPL3W9x_X64.dll license.txt readme.md Banks
+pause > nul
