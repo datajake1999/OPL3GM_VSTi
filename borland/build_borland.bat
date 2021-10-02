@@ -16,4 +16,5 @@ ilink32 /Tpd c0d32.obj opl.obj opl3.obj opl3class.obj main.obj midiprog.obj OPL3
 echo Cleaning up intermediate build files
 del *.ilc *.ild *.ilf *.ils *.map *.obj *.res *.tds
 echo Build finished
+echo Press any key to continue
 pause > nul
