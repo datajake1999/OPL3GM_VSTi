@@ -1053,14 +1053,7 @@ const char *DoomOPL::midi_synthname(void) {
 }
 
 int DoomOPL::midi_getprogram(unsigned int channel) {
-	if (channel > 15)
-	{
-		channel = 15;
-	}
-	else if (channel < 0)
-	{
-		channel = 0;
-	}
+	channel = channel & 0x0f;
 	if (channel == 9)
 	{
 		return 0;
