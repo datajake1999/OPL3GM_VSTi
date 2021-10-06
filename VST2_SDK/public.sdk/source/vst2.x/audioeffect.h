@@ -32,8 +32,8 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------------
 
-#ifndef audioeffect
-#define audioeffect
+#ifndef __audioeffect__
+#define __audioeffect__
 
 #include "pluginterfaces/vst2.x/aeffect.h"	// "c" interface
 
@@ -195,4 +195,4 @@ protected:
 #endif // VST_2_4_EXTENSIONS
 /// @endcond
 };
-#endif
+#endif // __audioeffect__

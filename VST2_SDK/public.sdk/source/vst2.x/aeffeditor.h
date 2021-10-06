@@ -32,8 +32,8 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------------
 
-#ifndef aeffeditor
-#define aeffeditor
+#ifndef __aeffeditor__
+#define __aeffeditor__
 
 #include "audioeffectx.h"
 
@@ -79,4 +79,4 @@ protected:
 	AudioEffect* effect;	///< associated effect instance
 	void* systemWindow;		///< platform-dependent parent window (HWND or WindowRef)
 };
-#endif
+#endif // __aeffeditor__

@@ -32,8 +32,8 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //----------------------------------------------------------------------------------
 
-#ifndef audioeffectx
-#define audioeffectx
+#ifndef __audioeffectx__
+#define __audioeffectx__
 
 #include "audioeffect.h"	// Version 1.0 base class AudioEffect
 
@@ -269,4 +269,4 @@ public:
 /// @endcond
 //-------------------------------------------------------------------------------------------------------
 };
-#endif
+#endif //__audioeffectx__
