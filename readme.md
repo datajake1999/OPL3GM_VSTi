@@ -43,7 +43,7 @@ This is a collection of VST instruments that emulates MIDI drivers for OPL3 base
 
 * OPL3 mode enable: Set DMXOPTION environment variable to "-opl3" 
 * Doom 1 1.666 mode enable: Set DMXOPTION environment variable to "-doom1" 
-* Doom 2Â 1.666, Heretic, HexenÂ mode enable: Set DMXOPTION environment variable to "-doom2" 
+* Doom 2 1.666, Heretic, Hexen mode enable: Set DMXOPTION environment variable to "-doom2" 
 
 You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-doom1"
 
