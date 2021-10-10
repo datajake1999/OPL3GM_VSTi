@@ -38,7 +38,7 @@ void OPL3GM::initSynth (int sampleRate)
 	synth = getsynth();
 	if (synth)
 	{
-		if (!synth->midi_init((int)sampleRate))
+		if (!synth->midi_init(sampleRate))
 		{
 			delete synth;
 			synth = NULL;
