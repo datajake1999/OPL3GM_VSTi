@@ -135,17 +135,17 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	buffer -= sampleFrames*2;
 }
 
-void OPL3GM::fillBuffer (int len)
+void OPL3GM::fillBuffer (int length)
 {
 	if (synth)
 	{
 		if (Emulator >= 0.5)
 		{
-			synth->midi_generate(buffer, len);
+			synth->midi_generate(buffer, length);
 		}
 		else
 		{
-			synth->midi_generate_dosbox(buffer, len);
+			synth->midi_generate_dosbox(buffer, length);
 		}
 	}
 }
