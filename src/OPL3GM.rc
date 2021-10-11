@@ -44,7 +44,7 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "Bassed on Windows OPL3 user mode drivers\0"
+            VALUE "Comments", "Based on Windows OPL3 user mode drivers\0"
             VALUE "CompanyName", "Datajake\0"
             VALUE "FileDescription", "OPL3GM VSTi\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
