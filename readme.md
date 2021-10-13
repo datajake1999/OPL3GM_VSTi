@@ -32,6 +32,7 @@ This is a collection of VST instruments that emulates MIDI drivers for OPL3 base
 * dmx_doom2.op2 - Doom II, Final Doom
 * dmx_strife.op2 - Strife
 * dmx_raptor.op2 - Raptor
+* dmxopl.op2 - DMXOPL3
 
 ## Doom patch installation
 
