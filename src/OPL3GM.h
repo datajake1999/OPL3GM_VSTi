@@ -21,6 +21,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define OPL3GM_H
 
 #include "../interface.h"
+#define hqresampler
+#ifdef hqresampler
+#include "resampler.h"
+#endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 
 enum
@@ -79,6 +83,9 @@ private:
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 	midisynth *synth;
+#ifdef hqresampler
+	void *resampler;
+#endif
 	short *buffer;
 	int bufferSize;
 	float Volume;

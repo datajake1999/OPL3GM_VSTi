@@ -38,12 +38,23 @@ void OPL3GM::initSynth (int sampleRate)
 	synth = getsynth();
 	if (synth)
 	{
+#ifdef hqresampler
+		if (!synth->midi_init(49716))
+#else
 		if (!synth->midi_init(sampleRate))
+#endif
 		{
 			delete synth;
 			synth = NULL;
 		}
 	}
+#ifdef hqresampler
+	resampler = resampler_create();
+	if (resampler)
+	{
+		resampler_set_rate(resampler, 49716.0 / sampleRate);
+	}
+#endif
 }
 
 void OPL3GM::initBuffer (int blockSize)
@@ -64,6 +75,14 @@ void OPL3GM::clearSynth ()
 		delete synth;
 		synth = NULL;
 	}
+#ifdef hqresampler
+	if (resampler)
+	{
+		resampler_clear(resampler);
+		resampler_destroy(resampler);
+		resampler = NULL;
+	}
+#endif
 }
 
 void OPL3GM::clearBuffer ()
@@ -137,6 +156,39 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 
 void OPL3GM::fillBuffer (int length)
 {
+#ifdef hqresampler
+	if (resampler)
+	{
+		for(unsigned int i = 0; i < length; i++)
+		{
+			sample_t ls, rs;
+			for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
+			{
+				signed short samples[2];
+				if (synth)
+				{
+					if (Emulator >= 0.5)
+					{
+						synth->midi_generate(samples, 1);
+					}
+					else
+					{
+						synth->midi_generate_dosbox(samples, 1);
+					}
+				}
+				resampler_write_pair(resampler, samples[0], samples[1]);
+			}
+			resampler_peek_pair(resampler, &ls, &rs);
+			resampler_read_pair(resampler, &ls, &rs);
+			if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
+			if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
+			buffer[0] = (short)ls;
+			buffer[1] = (short)rs;
+			buffer += 2;
+		}
+		buffer -= length*2;
+	}
+#else
 	if (synth)
 	{
 		if (Emulator >= 0.5)
@@ -148,6 +200,7 @@ void OPL3GM::fillBuffer (int length)
 			synth->midi_generate_dosbox(buffer, length);
 		}
 	}
+#endif
 }
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)

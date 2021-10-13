@@ -35,6 +35,9 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	Emulator = 1;
 	strcpy (ProgramName, "Default");
 	synth = NULL;
+#ifdef hqresampler
+	resampler = NULL;
+#endif
 	buffer = NULL;
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
