@@ -159,10 +159,10 @@ void OPL3GM::fillBuffer (int length)
 #ifdef hqresampler
 	if (resampler)
 	{
-		for(unsigned int i = 0; i < length; i++)
+		for(int i = 0; i < length; i++)
 		{
 			sample_t ls, rs;
-			for(unsigned int j = 0; j = resampler_get_min_fill(resampler); j++)
+			for(int j = 0; j = resampler_get_min_fill(resampler); j++)
 			{
 				signed short samples[2];
 				if (synth)
