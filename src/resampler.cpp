@@ -5,7 +5,7 @@
 #include <string.h>
 
 /* Copyright (C) 2004-2008 Shay Green.
-   Copyright (C) 2015 Christopher Snowhill. This module is free software; you
+   Copyright (C) 2015-2019 Christopher Snowhill. This module is free software; you
 can redistribute it and/or modify it under the terms of the GNU Lesser
 General Public License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version. This
@@ -22,6 +22,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 enum { imp_scale = 0x7FFF };
 typedef int16_t imp_t;
 typedef int32_t imp_off_t; /* for max_res of 512 and impulse width of 32, end offsets must be 32 bits */
+typedef float imp_pos_t; /* Must be same size as imp_off_t, saves position so new sample rates are initialized starting from the last phase position */
 
 #if RESAMPLER_BITS == 16
 typedef int32_t intermediate_t;
@@ -80,7 +81,7 @@ typedef struct _resampler
 	int latency;
 
 	imp_t * imp;
-	imp_t impulses [max_res * (adj_width + 2 * (sizeof(imp_off_t) / sizeof(imp_t)))];
+	imp_t impulses [max_res * (adj_width + 2 * (sizeof(imp_off_t) / sizeof(imp_t)) + (sizeof(imp_pos_t) / sizeof(imp_t))) + (sizeof(imp_off_t) / sizeof(imp_t))];
 	sample_t buffer_in[buffer_size * stereo * 2];
 	sample_t buffer_out[buffer_size * stereo];
 } resampler;
@@ -122,7 +123,8 @@ void resampler_clear(void *_r)
 	r->outptr = 0;
 	r->outfilled = 0;
 	r->latency = 0;
-	r->imp = r->impulses;
+	r->imp = r->impulses + (sizeof(imp_pos_t) / sizeof(imp_t));
+	((imp_pos_t*)r->imp)[-1] = 0;
 
 	resampler_set_rate(r, 1.0);
 }
@@ -143,6 +145,10 @@ void resampler_set_rate( void *_r, double new_factor )
 	imp_t* out;
 
 	int n;
+
+	/* Start generation at correct phase */
+	if (rs->imp > rs->impulses)
+		pos = ((imp_pos_t*)rs->imp)[-1];
 
 	/* determine number of sub-phases that yield lowest error */
 	double ratio_ = 0.0;
@@ -173,7 +179,10 @@ void resampler_set_rate( void *_r, double new_factor )
 
 	filter = (ratio_ < 1.0) ? 1.0 : 1.0 / ratio_;
 	/*int input_per_cycle = 0;*/
-	out = rs->impulses;
+	
+	out = rs->impulses + (sizeof(imp_pos_t) / sizeof(imp_t));
+	((imp_pos_t*)out)[-1] = pos;
+
 	for ( n = res; --n >= 0; )
 	{
 		int cur_step;
@@ -191,14 +200,15 @@ void resampler_set_rate( void *_r, double new_factor )
 		}
 
 		((imp_off_t*)out)[0] = (cur_step - rs->width_ * 2 + 4) * sizeof (sample_t);
-		((imp_off_t*)out)[1] = 2 * sizeof (imp_t) + 2 * sizeof (imp_off_t);
-		out += 2 * (sizeof(imp_off_t) / sizeof(imp_t));
+		((imp_off_t*)out)[1] = 2 * sizeof (imp_t) + 2 * sizeof (imp_off_t) + sizeof (imp_pos_t);
+		out += 2 * (sizeof(imp_off_t) / sizeof(imp_t)) + (sizeof(imp_pos_t) / sizeof(imp_t));
+		((imp_pos_t*)out)[-1] = pos; /* Next impulse's phase */
 		/*input_per_cycle += cur_step;*/
 	}
 	/* last offset moves back to beginning of impulses*/
-	((imp_off_t*)out) [-1] -= (char*) out - (char*) rs->impulses;
+	((imp_off_t*)out) [-2] -= (char*) out - ((char*) rs->impulses) - sizeof(imp_pos_t);
 
-	rs->imp = rs->impulses;
+	rs->imp = rs->impulses + (sizeof(imp_pos_t) / sizeof(imp_t));
 }
 
 int resampler_get_free(void *_r)
