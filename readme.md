@@ -64,6 +64,8 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * Nukeykt, for writing the Nuked OPL3 emulator and the MIDI drivers that this project is based on.
 * Wohlstand, for applying various updates to the aforementioned MIDI drivers.
 * The DOSBox Team, for providing a faster alternative to the Nuked OPL3 emulator.
+* Kode54, for providing a high quality resampler.
 * Me, for writing the VST interface for this synth.
 * Developers in the 90s, for creating the original MIDI drivers that this project replicates, as well as the included instrument banks.
+* Sneakernets, for creating the DMXOPL patch set.
 
