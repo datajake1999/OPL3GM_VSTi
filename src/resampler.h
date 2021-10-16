@@ -14,25 +14,6 @@ License along with this module; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
 #define RESAMPLER_BITS 32
-#define RESAMPLER_DECORATE midi
-
-#ifdef RESAMPLER_DECORATE
-#undef PASTE
-#undef EVALUATE
-#define PASTE(a,b) a ## b
-#define EVALUATE(a,b) PASTE(a,b)
-#define resampler_create EVALUATE(RESAMPLER_DECORATE,_resampler_create)
-#define resampler_dup EVALUATE(RESAMPLER_DECORATE,_resampler_dup)
-#define resampler_destroy EVALUATE(RESAMPLER_DECORATE,_resampler_destroy)
-#define resampler_clear EVALUATE(RESAMPLER_DECORATE,_resampler_clear)
-#define resampler_set_rate EVALUATE(RESAMPLER_DECORATE,_resampler_set_rate)
-#define resampler_get_free EVALUATE(RESAMPLER_DECORATE,_resampler_get_free)
-#define resampler_get_min_fill EVALUATE(RESAMPLER_DECORATE,_resampler_get_min_fill)
-#define resampler_write_pair EVALUATE(RESAMPLER_DECORATE,_resampler_write_pair)
-#define resampler_get_avail EVALUATE(RESAMPLER_DECORATE,_resampler_get_avail)
-#define resampler_read_pair EVALUATE(RESAMPLER_DECORATE,_resampler_read_pair)
-#define resampler_peek_pair EVALUATE(RESAMPLER_DECORATE,_resampler_peek_pair)
-#endif
 
 #include <stdint.h>
 
