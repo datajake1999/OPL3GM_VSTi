@@ -166,6 +166,7 @@ void OPL3GM::fillBuffer (int length)
 			for (int j = 0; j < to_write; j++)
 			{
 				short samples[2];
+				memset(samples, 0, sizeof(samples));
 				if (synth)
 				{
 					if (Emulator >= 0.5)
