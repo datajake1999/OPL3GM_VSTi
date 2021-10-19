@@ -19,6 +19,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 #include <math.h>
+//#define gui
+#ifdef gui
+#include "editor.h"
+#endif
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 : AudioEffectX (audioMaster, kNumPrograms, kNumParams)
@@ -41,6 +45,9 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	buffer = NULL;
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
+#ifdef gui
+	editor = new Editor (this);
+#endif
 }
 
 OPL3GM::~OPL3GM ()
