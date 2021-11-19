@@ -41,6 +41,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	synth = NULL;
 #ifdef hqresampler
 	resampler = NULL;
+	memset(samples, 0, sizeof(samples));
 #endif
 	buffer = NULL;
 	initSynth ((int)sampleRate);

@@ -85,6 +85,7 @@ private:
 	midisynth *synth;
 #ifdef hqresampler
 	void *resampler;
+	short samples[2];
 #endif
 	short *buffer;
 	int bufferSize;
