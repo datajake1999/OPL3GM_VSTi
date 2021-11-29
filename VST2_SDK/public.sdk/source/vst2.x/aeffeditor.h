@@ -79,4 +79,5 @@ protected:
 	AudioEffect* effect;	///< associated effect instance
 	void* systemWindow;		///< platform-dependent parent window (HWND or WindowRef)
 };
+
 #endif // __aeffeditor__

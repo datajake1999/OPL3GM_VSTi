@@ -195,4 +195,5 @@ protected:
 #endif // VST_2_4_EXTENSIONS
 /// @endcond
 };
+
 #endif // __audioeffect__
