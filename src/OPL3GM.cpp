@@ -35,6 +35,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	isSynth ();
 	Volume = 1;
 	VolumeDisplay = 0;
+	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
 	strcpy (ProgramName, "Default");
@@ -66,6 +67,9 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		break;
 	case kVolumeDisplay:
 		VolumeDisplay = value;
+		break;
+	case kDCBlock:
+		DCBlock = value;
 		break;
 	case kTranspose:
 		Transpose = (value*24.0f)-12.0f;
@@ -102,6 +106,9 @@ float OPL3GM::getParameter (VstInt32 index)
 	case kVolumeDisplay:
 		value = VolumeDisplay;
 		break;
+	case kDCBlock:
+		value = DCBlock;
+		break;
 	case kTranspose:
 		value = (Transpose+12.0f)/24.0f;
 		break;
@@ -134,6 +141,16 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 		else
 		{
 			strcpy (text, "dB");
+		}
+		break;
+	case kDCBlock:
+		if (DCBlock >= 0.5)
+		{
+			strcpy (text, "ON");
+		}
+		else
+		{
+			strcpy (text, "OFF");
 		}
 		break;
 	case kTranspose:
@@ -195,6 +212,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 		break;
 	case kVolumeDisplay:
 		strcpy (text, "VolumeDisplay");
+		break;
+	case kDCBlock:
+		strcpy (text, "DCBlock");
 		break;
 	case kTranspose:
 		strcpy (text, "Transpose");

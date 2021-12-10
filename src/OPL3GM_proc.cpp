@@ -124,6 +124,11 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 		out2[i] = buffer[1] / 32768.0f;
 		out1[i] = out1[i] * Volume;
 		out2[i] = out2[i] * Volume;
+		if (DCBlock >= 0.5)
+		{
+			out1[i] = (float)dcf[0].Process(out1[i]);
+			out2[i] = (float)dcf[1].Process(out2[i]);
+		}
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;
@@ -149,6 +154,11 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 		out2[i] = buffer[1] / 32768.0;
 		out1[i] = out1[i] * Volume;
 		out2[i] = out2[i] * Volume;
+		if (DCBlock >= 0.5)
+		{
+			out1[i] = dcf[0].Process(out1[i]);
+			out2[i] = dcf[1].Process(out2[i]);
+		}
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;

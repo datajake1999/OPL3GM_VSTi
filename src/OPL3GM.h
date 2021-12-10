@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define OPL3GM_H
 
 #include "../interface.h"
+#include "../dsp/DCFilter.h"
 #define hqresampler
 #ifdef hqresampler
 #include "../dsp/resampler.h"
@@ -35,6 +36,7 @@ enum
 	// Parameters Tags
 	kVolume = 0,
 	kVolumeDisplay,
+	kDCBlock,
 	kTranspose,
 	kEmulator,
 
@@ -83,6 +85,7 @@ private:
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 	midisynth *synth;
+	DCFilter dcf[2];
 #ifdef hqresampler
 	void *resampler;
 	short samples[2];
@@ -91,6 +94,7 @@ private:
 	int bufferSize;
 	float Volume;
 	float VolumeDisplay;
+	float DCBlock;
 	float Transpose;
 	float Emulator;
 	char ProgramName[32];
