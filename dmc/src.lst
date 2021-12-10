@@ -1,0 +1,15 @@
+..\fmopl3lib\opl.cpp
+..\fmopl3lib\opl3.cpp
+..\fmopl3lib\opl3class.cpp
+..\src\editor.cpp
+..\src\main.cpp
+..\src\midiprog.cpp
+..\src\OPL3GM.cpp
+..\src\OPL3GM_proc.cpp
+..\src\resampler.cpp
+..\synthlib_apogee\al_midi.cpp
+..\synthlib_doom\i_oplmusic.cpp
+..\synthlib_w9x\opl3midi.cpp
+..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.cpp
+..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.cpp
+..\VST2_SDK\public.sdk\source\vst2.x\vstplugmain.cpp
