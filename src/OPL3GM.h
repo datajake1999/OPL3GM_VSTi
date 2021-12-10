@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../interface.h"
 #define hqresampler
 #ifdef hqresampler
-#include "resampler.h"
+#include "../dsp/resampler.h"
 #endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 
