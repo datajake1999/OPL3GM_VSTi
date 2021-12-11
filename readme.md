@@ -1,5 +1,5 @@
 # Introduction
-This is a collection of VST instruments that emulates MIDI drivers for OPL3 based sound cards. The synthesizer code is based on [the Windows OPL3 drivers from this thread](https://www.vogons.org/viewtopic.php?t=36667)
+This is a collection of VST instruments that emulate MIDI drivers for OPL3 based sound cards. The synthesizer code is based on [the Windows OPL3 drivers from this thread](https://www.vogons.org/viewtopic.php?t=36667)
 
 # Included synths
 
