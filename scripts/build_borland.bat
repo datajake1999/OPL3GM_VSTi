@@ -5,7 +5,7 @@ set path=C:\BCC55\Bin;%path%
 set include=C:\BCC55\Include
 set lib=C:\BCC55\Lib
 echo Compiling source files.
-bcc32 -q -c -I..\pstdint;..\VST2_SDK -w-8004 -w-8057 @src.lst
+bcc32 -q -c -I..\include\pstdint;..\VST2_SDK -w-8004 -w-8057 @src.lst
 echo Compiling resource script.
 brcc32 -fo OPL3GM.res ..\res\OPL3GM.rc
 echo Linking DLLs.
