@@ -53,6 +53,7 @@ public:
 	virtual void getParameterDisplay (VstInt32 index, char* text);
 	virtual void getParameterLabel (VstInt32 index, char* label);
 	virtual void getParameterName (VstInt32 index, char* text);
+	virtual void setProgram (VstInt32 program);
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);

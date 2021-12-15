@@ -225,6 +225,15 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	}
 }
 
+void OPL3GM::setProgram (VstInt32 program)
+{
+	if (program >= kNumPrograms || program < 0)
+	{
+		return;
+	}
+	curProgram = program;
+}
+
 void OPL3GM::setProgramName (char *name)
 {
 	strcpy (ProgramName, name);
