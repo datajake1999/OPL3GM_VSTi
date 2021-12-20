@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../dsp/resampler.h"
 #endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
+//#define demo
 
 enum
 {
@@ -99,6 +100,9 @@ private:
 	float Transpose;
 	float Emulator;
 	char ProgramName[32];
+	#ifdef demo
+	int startTime;
+#endif
 };
 
 #endif

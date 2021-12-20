@@ -18,6 +18,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
+#ifdef demo
+#include <stdlib.h>
+#include <time.h>
+#endif
 
 void OPL3GM::setSampleRate (float sampleRate)
 {
@@ -129,6 +133,13 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 			out1[i] = (float)dcf[0].Process(out1[i]);
 			out2[i] = (float)dcf[1].Process(out2[i]);
 		}
+#ifdef demo
+		if (time(NULL) >= startTime + 600)
+		{
+			out1[i] += (rand() / (float)RAND_MAX) / 256;
+			out2[i] += (rand() / (float)RAND_MAX) / 256;
+		}
+#endif
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;
@@ -159,6 +170,13 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 			out1[i] = dcf[0].Process(out1[i]);
 			out2[i] = dcf[1].Process(out2[i]);
 		}
+#ifdef demo
+		if (time(NULL) >= startTime + 600)
+		{
+			out1[i] += (rand() / (double)RAND_MAX) / 256;
+			out2[i] += (rand() / (double)RAND_MAX) / 256;
+		}
+#endif
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;

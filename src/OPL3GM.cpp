@@ -23,6 +23,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifdef gui
 #include "editor/editor.h"
 #endif
+#ifdef demo
+#include <stdlib.h>
+#include <time.h>
+#endif
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 : AudioEffectX (audioMaster, kNumPrograms, kNumParams)
@@ -49,6 +53,10 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	initBuffer (blockSize);
 #ifdef gui
 	editor = new Editor (this);
+#endif
+#ifdef demo
+	startTime = time(NULL);
+	srand(startTime);
 #endif
 }
 
@@ -278,6 +286,9 @@ bool OPL3GM::getEffectName (char* name)
 	if (synth)
 	{
 		strcpy (name, synth->midi_synthname());
+#ifdef demo
+		strcat (name, " Demo");
+#endif
 		return true;
 	}
 	return false;
