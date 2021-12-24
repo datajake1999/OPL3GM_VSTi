@@ -105,7 +105,7 @@ private:
 	float DCBlock;
 	float Transpose;
 	float Emulator;
-	char ProgramName[32];
+	char ProgramName[kVstMaxProgNameLen];
 	#ifdef demo
 	int startTime;
 #endif
