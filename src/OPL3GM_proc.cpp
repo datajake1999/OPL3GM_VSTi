@@ -99,6 +99,14 @@ void OPL3GM::clearBuffer ()
 	}
 }
 
+void OPL3GM::suspend ()
+{
+	if (synth)
+	{
+		synth->midi_panic();
+	}
+}
+
 void OPL3GM::resume ()
 {
 	AudioEffectX::resume ();

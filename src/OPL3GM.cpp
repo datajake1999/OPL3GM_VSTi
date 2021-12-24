@@ -99,10 +99,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	}
 	if (index >= kTranspose && index < kNumParams)
 	{
-		if (synth)
-		{
-			synth->midi_panic();
-		}
+		suspend ();
 	}
 }
 

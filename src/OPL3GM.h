@@ -74,6 +74,7 @@ public:
 	virtual VstInt32 getNumMidiOutputChannels ();
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
+	virtual void suspend ();
 	virtual void resume ();
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
