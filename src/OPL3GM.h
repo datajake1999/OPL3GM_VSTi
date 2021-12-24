@@ -54,6 +54,11 @@ public:
 	virtual void getParameterDisplay (VstInt32 index, char* text);
 	virtual void getParameterLabel (VstInt32 index, char* label);
 	virtual void getParameterName (VstInt32 index, char* text);
+#define chunk
+#ifdef chunk
+	virtual VstInt32 setChunk (void* data, VstInt32 byteSize, bool isPreset);
+	virtual VstInt32 getChunk (void** data, bool isPreset);
+#endif
 	virtual void setProgram (VstInt32 program);
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);

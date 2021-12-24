@@ -36,6 +36,9 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	setUniqueID ('O3GM');
 	canProcessReplacing ();
 	canDoubleReplacing ();
+#ifdef chunk
+	programsAreChunks ();
+#endif
 	isSynth ();
 	Volume = 1;
 	VolumeDisplay = 0;
@@ -233,6 +236,29 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	}
 }
 
+#ifdef chunk
+VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
+{
+	float *chunkData = (float *)data;
+	for (int i = 0; i < kNumParams; i++)
+	{
+		setParameter (i, chunkData[i]);
+	}
+	return byteSize;
+}
+
+VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
+{
+	float *chunkData = new float[kNumParams];
+	for (int i = 0; i < kNumParams; i++)
+	{
+		chunkData[i] = getParameter (i);
+	}
+	*data = chunkData;
+	return kNumParams * sizeof(float);
+}
+
+#endif
 void OPL3GM::setProgram (VstInt32 program)
 {
 	if (program >= kNumPrograms || program < 0)
