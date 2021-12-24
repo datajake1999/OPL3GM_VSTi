@@ -325,7 +325,8 @@ bool OPL3GM::getVendorString (char* text)
 
 bool OPL3GM::getProductString (char* text)
 {
-	return getEffectName (text);
+	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen);
+	return true;
 }
 
 VstInt32 OPL3GM::getVendorVersion ()
