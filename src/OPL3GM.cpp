@@ -290,14 +290,14 @@ bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 	if (index == 0)
 	{
 		vst_strncpy (properties->label, "Left Output", kVstMaxLabelLen);
-		vst_strncpy (properties->shortLabel, "LeftOut", kVstMaxShortLabelLen*2);
+		vst_strncpy (properties->shortLabel, "OutL", kVstMaxShortLabelLen);
 		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
 	else if (index == 1)
 	{
 		vst_strncpy (properties->label, "Right Output", kVstMaxLabelLen);
-		vst_strncpy (properties->shortLabel, "RightOut", kVstMaxShortLabelLen*2);
+		vst_strncpy (properties->shortLabel, "OutR", kVstMaxShortLabelLen);
 		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
