@@ -309,9 +309,6 @@ bool OPL3GM::getEffectName (char* name)
 	if (synth)
 	{
 		vst_strncpy (name, synth->midi_synthname(), kVstMaxEffectNameLen);
-#ifdef demo
-		vst_strncat (name, " Demo", kVstMaxEffectNameLen);
-#endif
 		return true;
 	}
 	return false;
@@ -326,6 +323,9 @@ bool OPL3GM::getVendorString (char* text)
 bool OPL3GM::getProductString (char* text)
 {
 	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen);
+#ifdef demo
+	vst_strncat (text, " Demo", kVstMaxProductStrLen);
+#endif
 	return true;
 }
 
