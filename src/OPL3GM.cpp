@@ -34,6 +34,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	setNumInputs (0);
 	setNumOutputs (2);
 	setUniqueID ('O3GM');
+	setInitialDelay (0);
 	canProcessReplacing ();
 	canDoubleReplacing ();
 #ifdef chunk
