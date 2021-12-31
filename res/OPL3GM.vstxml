@@ -1,0 +1,21 @@
+<VSTPluginProperties>
+	<VSTParametersStructure>
+		<Param name="Volume" id="0"/>
+		<Param name="VolumeDisplay" id="1" numberOfStates="2"/>
+		<ValueType name="VolumeDisplay">
+			<Entry name="dB" value="[0, 0.5["/> 
+			<Entry name="%" value="[0.5, 1]"/> 
+		</ValueType>
+		<Param name="DCBlock" id="2" numberOfStates="2"/>
+		<ValueType name="DCBlock">
+			<Entry name="OFF" value="[0, 0.5["/> 
+			<Entry name="ON" value="[0.5, 1]"/> 
+		</ValueType>
+		<Param name="Transpose" id="3" numberOfStates="24" label="Semitones"/>
+		<Param name="Emulator" id="4" numberOfStates="2"/>
+		<ValueType name="Emulator">
+			<Entry name="DOSBox" value="[0, 0.5["/> 
+			<Entry name="Nuked" value="[0.5, 1]"/> 
+		</ValueType>
+	</VSTParametersStructure>
+</VSTPluginProperties>
