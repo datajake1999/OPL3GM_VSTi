@@ -144,8 +144,8 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 #ifdef demo
 		if (time(NULL) >= startTime + 600)
 		{
-			out1[i] += (rand() / (float)RAND_MAX) / 256;
-			out2[i] += (rand() / (float)RAND_MAX) / 256;
+			out1[i] += ((rand() / (float)RAND_MAX) / 256.0f);
+			out2[i] += ((rand() / (float)RAND_MAX) / 256.0f);
 		}
 #endif
 		buffer += 2;
@@ -181,8 +181,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 #ifdef demo
 		if (time(NULL) >= startTime + 600)
 		{
-			out1[i] += (rand() / (double)RAND_MAX) / 256;
-			out2[i] += (rand() / (double)RAND_MAX) / 256;
+			out1[i] += ((rand() / (double)RAND_MAX) / 256.0);
+			out2[i] += ((rand() / (double)RAND_MAX) / 256.0);
 		}
 #endif
 		buffer += 2;
