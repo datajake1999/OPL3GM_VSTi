@@ -102,8 +102,12 @@ END
 // remains consistent on all systems.
 IDI_ICON1               ICON    DISCARDABLE     "YMF262-M.ico"
 
-1		VSTXML		"OPL3GM.vstxml"
+/////////////////////////////////////////////////////////////////////////////
+//
+// VSTXML
+//
 
+1                       VSTXML  MOVEABLE PURE   "OPL3GM.vstxml"
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
