@@ -108,6 +108,17 @@ IDI_ICON1               ICON    DISCARDABLE     "YMF262-M.ico"
 //
 
 1                       VSTXML  MOVEABLE PURE   "OPL3GM.vstxml"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+	ICON_ALTTEXT1   	"Yamaha YMF262 (year 1994)"
+END
+
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
