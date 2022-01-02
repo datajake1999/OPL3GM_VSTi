@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../dsp/resampler.h"
 #endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
+#define chunk
 //#define demo
 
 enum
@@ -54,7 +55,6 @@ public:
 	virtual void getParameterDisplay (VstInt32 index, char* text);
 	virtual void getParameterLabel (VstInt32 index, char* label);
 	virtual void getParameterName (VstInt32 index, char* text);
-#define chunk
 #ifdef chunk
 	virtual VstInt32 setChunk (void* data, VstInt32 byteSize, bool isPreset);
 	virtual VstInt32 getChunk (void** data, bool isPreset);
