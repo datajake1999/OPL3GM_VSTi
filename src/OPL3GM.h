@@ -105,6 +105,9 @@ private:
 	float DCBlock;
 	float Transpose;
 	float Emulator;
+#ifdef chunk
+	float Parameters[kNumParams];
+#endif
 	char ProgramName[kVstMaxProgNameLen];
 	#ifdef demo
 	int startTime;

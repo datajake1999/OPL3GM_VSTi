@@ -46,6 +46,9 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
+#ifdef chunk
+	memset(Parameters, 0, sizeof(Parameters));
+#endif
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	synth = NULL;
 #ifdef hqresampler
@@ -247,12 +250,11 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 
 VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 {
-	float *chunkData = new float[kNumParams];
 	for (int i = 0; i < kNumParams; i++)
 	{
-		chunkData[i] = getParameter (i);
+		Parameters[i] = getParameter (i);
 	}
-	*data = chunkData;
+	*data = Parameters;
 	return kNumParams * sizeof(float);
 }
 
