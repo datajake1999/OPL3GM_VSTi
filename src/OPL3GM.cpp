@@ -46,7 +46,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
-	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen);
+	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	synth = NULL;
 #ifdef hqresampler
 	resampler = NULL;
@@ -135,51 +135,51 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	case kVolume:
 		if (VolumeDisplay >= 0.5)
 		{
-			float2string (Volume*100, text, kVstMaxParamStrLen*2);
+			float2string (Volume*100, text, (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			dB2string (Volume, text, kVstMaxParamStrLen*2);
+			dB2string (Volume, text, (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	case kVolumeDisplay:
 		if (VolumeDisplay >= 0.5)
 		{
-			vst_strncpy (text, "%", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "%", (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (text, "dB", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "dB", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	case kDCBlock:
 		if (DCBlock >= 0.5)
 		{
-			vst_strncpy (text, "ON", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (text, "OFF", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	case kTranspose:
 		if (Transpose >= 1 || Transpose <= -1)
 		{
-			int2string ((int)Transpose, text, kVstMaxParamStrLen*2);
+			int2string ((int)Transpose, text, (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (text, "0", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "0", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	case kEmulator:
 		if (Emulator >= 0.5)
 		{
-			vst_strncpy (text, "Nuked", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "Nuked", (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (text, "DOSBox", kVstMaxParamStrLen*2);
+			vst_strncpy (text, "DOSBox", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	}
@@ -192,21 +192,21 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 	case kVolume:
 		if (VolumeDisplay >= 0.5)
 		{
-			vst_strncpy (label, "%", kVstMaxParamStrLen*2);
+			vst_strncpy (label, "%", (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (label, "dB", kVstMaxParamStrLen*2);
+			vst_strncpy (label, "dB", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	case kTranspose:
 		if (floor(Transpose) == 1 || ceil(Transpose) == -1)
 		{
-			vst_strncpy (label, "Semitone", kVstMaxParamStrLen*2);
+			vst_strncpy (label, "Semitone", (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
-			vst_strncpy (label, "Semitones", kVstMaxParamStrLen*2);
+			vst_strncpy (label, "Semitones", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
 	}
@@ -217,19 +217,19 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	switch(index)
 	{
 	case kVolume:
-		vst_strncpy (text, "Volume", kVstMaxParamStrLen*2);
+		vst_strncpy (text, "Volume", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kVolumeDisplay:
-		vst_strncpy (text, "VolumeDisplay", kVstMaxParamStrLen*2);
+		vst_strncpy (text, "VolumeDisplay", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kDCBlock:
-		vst_strncpy (text, "DCBlock", kVstMaxParamStrLen*2);
+		vst_strncpy (text, "DCBlock", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kTranspose:
-		vst_strncpy (text, "Transpose", kVstMaxParamStrLen*2);
+		vst_strncpy (text, "Transpose", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kEmulator:
-		vst_strncpy (text, "Emulator", kVstMaxParamStrLen*2);
+		vst_strncpy (text, "Emulator", (kVstMaxParamStrLen*2)-1);
 		break;
 	}
 }
@@ -268,19 +268,19 @@ void OPL3GM::setProgram (VstInt32 program)
 
 void OPL3GM::setProgramName (char *name)
 {
-	vst_strncpy (ProgramName, name, kVstMaxProgNameLen);
+	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
 }
 
 void OPL3GM::getProgramName (char *name)
 {
-	vst_strncpy (name, ProgramName, kVstMaxProgNameLen);
+	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
 
 bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text)
 {
 	if (index == 0)
 	{
-		vst_strncpy (text, ProgramName, kVstMaxProgNameLen);
+		vst_strncpy (text, ProgramName, kVstMaxProgNameLen-1);
 		return true;
 	}
 	return false;
@@ -290,15 +290,15 @@ bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 {
 	if (index == 0)
 	{
-		vst_strncpy (properties->label, "Left Output", kVstMaxLabelLen);
-		vst_strncpy (properties->shortLabel, "OutL", kVstMaxShortLabelLen);
+		vst_strncpy (properties->label, "Left Output", kVstMaxLabelLen-1);
+		vst_strncpy (properties->shortLabel, "OutL", kVstMaxShortLabelLen-1);
 		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
 	else if (index == 1)
 	{
-		vst_strncpy (properties->label, "Right Output", kVstMaxLabelLen);
-		vst_strncpy (properties->shortLabel, "OutR", kVstMaxShortLabelLen);
+		vst_strncpy (properties->label, "Right Output", kVstMaxLabelLen-1);
+		vst_strncpy (properties->shortLabel, "OutR", kVstMaxShortLabelLen-1);
 		properties->flags = kVstPinIsActive | kVstPinIsStereo;
 		return true;
 	}
@@ -309,7 +309,7 @@ bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
 	{
-		vst_strncpy (name, synth->midi_synthname(), kVstMaxEffectNameLen);
+		vst_strncpy (name, synth->midi_synthname(), kVstMaxEffectNameLen-1);
 		return true;
 	}
 	return false;
@@ -317,15 +317,15 @@ bool OPL3GM::getEffectName (char* name)
 
 bool OPL3GM::getVendorString (char* text)
 {
-	vst_strncpy (text, "Datajake", kVstMaxVendorStrLen);
+	vst_strncpy (text, "Datajake", kVstMaxVendorStrLen-1);
 	return true;
 }
 
 bool OPL3GM::getProductString (char* text)
 {
-	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen);
+	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen-1);
 #ifdef demo
-	vst_strncat (text, " Demo", kVstMaxProductStrLen);
+	vst_strncat (text, " Demo", kVstMaxProductStrLen-1);
 #endif
 	return true;
 }

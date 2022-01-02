@@ -54,13 +54,13 @@ void OPL3GM::fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn)
 
 	if (channel == 9)	// drums
 	{
-		vst_strncpy (mpn->name, "Standard", kVstMaxNameLen);
+		vst_strncpy (mpn->name, "Standard", kVstMaxNameLen-1);
 		mpn->midiProgram = 0;
 		mpn->parentCategoryIndex = 0;
 	}
 	else
 	{
-		vst_strncpy (mpn->name, GmNames[prg], kVstMaxNameLen);
+		vst_strncpy (mpn->name, GmNames[prg], kVstMaxNameLen-1);
 		mpn->midiProgram = (char)prg;
 		mpn->parentCategoryIndex = -1;	// for now
 
@@ -82,11 +82,11 @@ VstInt32 OPL3GM::getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* 
 	VstInt32 category = cat->thisCategoryIndex;
 	if (channel == 9)
 	{
-		vst_strncpy (cat->name, "Drums", kVstMaxNameLen);
+		vst_strncpy (cat->name, "Drums", kVstMaxNameLen-1);
 		return 1;
 	}
 	if (category >= 0 && category < kNumGmCategories)
-	vst_strncpy (cat->name, GmCategories[category], kVstMaxNameLen);
+	vst_strncpy (cat->name, GmCategories[category], kVstMaxNameLen-1);
 	else
 	cat->name[0] = 0;
 	return kNumGmCategories;
