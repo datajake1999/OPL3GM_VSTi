@@ -13,7 +13,7 @@ cl -c /I ".\include\msinttypes" /I ".\VST2_SDK" dsp\*.cpp fmopl3lib\*.cpp src\*.
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3GM.obj OPL3GM_proc.obj DCFilter.obj resampler.obj opl.obj opl3.obj opl3class.obj al_midi.obj res\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\res\vstplug.def" /OUT:OPL3Apogee_X64.dll
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3GM.obj OPL3GM_proc.obj DCFilter.obj resampler.obj opl.obj opl3.obj opl3class.obj i_oplmusic.obj res\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\res\vstplug.def" /OUT:OPL3Doom_X64.dll
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3GM.obj OPL3GM_proc.obj DCFilter.obj resampler.obj opl.obj opl3.obj opl3class.obj opl3midi.obj res\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /dll /def:".\res\vstplug.def" /OUT:OPL3W9x_X64.dll
-del *.obj
+del *.exp *.lib *.obj
 del res\OPL3GM.res
 iscc "install.iss"
 7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9x.dll OPL3W9x_X64.dll license.txt readme.md Banks
