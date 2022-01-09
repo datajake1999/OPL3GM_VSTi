@@ -109,7 +109,7 @@ private:
 	float Parameters[kNumParams];
 #endif
 	char ProgramName[kVstMaxProgNameLen];
-	#ifdef demo
+#ifdef demo
 	int startTime;
 #endif
 };
