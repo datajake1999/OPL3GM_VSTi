@@ -76,6 +76,7 @@ public:
 	virtual void setBlockSize (VstInt32 blockSize);
 	virtual void suspend ();
 	virtual void resume ();
+	virtual void process (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
 	virtual VstInt32 processEvents (VstEvents* events);

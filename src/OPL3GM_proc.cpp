@@ -116,6 +116,11 @@ void OPL3GM::resume ()
 	}
 }
 
+void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
+{
+	processReplacing (inputs, outputs, sampleFrames);
+}
+
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	float* out1 = outputs[0];
