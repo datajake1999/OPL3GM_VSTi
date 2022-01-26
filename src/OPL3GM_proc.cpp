@@ -18,6 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
+#include <math.h>
 #ifdef demo
 #include <stdlib.h>
 #include <time.h>
@@ -116,6 +117,16 @@ void OPL3GM::resume ()
 	}
 }
 
+float OPL3GM::getVu ()
+{
+	double value = fabs((vu[0] + vu[1]) / 2);
+	if (value > 1)
+	{
+		value = 1;
+	}
+	return (float)value;
+}
+
 void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	processReplacing (inputs, outputs, sampleFrames);
@@ -153,6 +164,8 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 			out2[i] += ((rand() / (float)RAND_MAX) / 256.0f);
 		}
 #endif
+		vu[0] = out1[i];
+		vu[1] = out2[i];
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;
@@ -190,6 +203,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 			out2[i] += ((rand() / (double)RAND_MAX) / 256.0);
 		}
 #endif
+		vu[0] = out1[i];
+		vu[1] = out2[i];
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;

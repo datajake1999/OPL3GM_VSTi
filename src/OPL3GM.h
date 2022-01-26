@@ -76,6 +76,7 @@ public:
 	virtual void setBlockSize (VstInt32 blockSize);
 	virtual void suspend ();
 	virtual void resume ();
+	virtual float getVu ();
 	virtual void process (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
@@ -101,6 +102,7 @@ private:
 #endif
 	short *buffer;
 	int bufferSize;
+	double vu[2];
 	float Volume;
 	float VolumeDisplay;
 	float DCBlock;

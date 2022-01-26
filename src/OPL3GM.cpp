@@ -41,6 +41,8 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	programsAreChunks ();
 #endif
 	isSynth ();
+	//hasVu ();
+	//hasClip ();
 	Volume = 1;
 	VolumeDisplay = 0;
 	DCBlock = 0;
@@ -56,6 +58,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(samples, 0, sizeof(samples));
 #endif
 	buffer = NULL;
+	memset(vu, 0, sizeof(vu));
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
 #ifdef gui
