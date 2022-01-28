@@ -263,22 +263,27 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 {
 	for (VstInt32 i = 0; i < ev->numEvents; i++)
 	{
-		if ((ev->events[i])->type == kVstMidiType)
-		{
-			VstMidiEvent* event = (VstMidiEvent*)ev->events[i];
-			char* midiData = event->midiData;
-			sendMidi (midiData);
-		}
-		else if ((ev->events[i])->type == kVstSysExType)
-		{
-			VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev->events[i];
-			if (synth)
-			{
-				synth->midi_write_sysex(event->sysexDump, event->dumpBytes);
-			}
-		}
+		processEvent (ev->events[i]);
 	}
 	return 1;
+}
+
+void OPL3GM::processEvent (VstEvent* ev)
+{
+	if (ev->type == kVstMidiType)
+	{
+		VstMidiEvent* event = (VstMidiEvent*)ev;
+		char* midiData = event->midiData;
+		sendMidi (midiData);
+	}
+	else if (ev->type == kVstSysExType)
+	{
+		VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev;
+		if (synth)
+		{
+			synth->midi_write_sysex(event->sysexDump, event->dumpBytes);
+		}
+	}
 }
 
 void OPL3GM::sendMidi (char *data)

@@ -92,6 +92,7 @@ private:
 	void clearSynth ();
 	void clearBuffer ();
 	void fillBuffer (int length);
+	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 	midisynth *synth;
