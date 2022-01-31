@@ -124,6 +124,10 @@ float OPL3GM::getVu ()
 	{
 		value = 1;
 	}
+	else if (value < 0)
+	{
+		value = 0;
+	}
 	return (float)value;
 }
 
