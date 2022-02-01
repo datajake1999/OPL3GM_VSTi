@@ -15,7 +15,7 @@ link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3
 link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3GM.obj OPL3GM_proc.obj DCFilter.obj resampler.obj opl.obj opl3.obj opl3class.obj opl3midi.obj res\OPL3GM.res bufferoverflowU.lib kernel32.lib user32.lib /nologo /dll /def:".\res\vstplug.def" /OUT:OPL3W9x_X64.dll
 del *.exp *.lib *.obj
 del res\OPL3GM.res
-iscc "install.iss"
+iscc /Qp "install.iss"
 7z a -tzip output\OPL3GM.zip OPL3Apogee.dll OPL3Apogee_X64.dll OPL3Doom.dll OPL3Doom_X64.dll OPL3W9x.dll OPL3W9x_X64.dll license.txt readme.md Banks
 del *.dll
 pause > nul
