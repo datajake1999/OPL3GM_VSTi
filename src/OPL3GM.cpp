@@ -59,6 +59,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 #endif
 	buffer = NULL;
 	memset(vu, 0, sizeof(vu));
+	bypassed = false;
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
 #ifdef gui
@@ -310,6 +311,20 @@ bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 	return false;
 }
 
+bool OPL3GM::setBypass (bool onOff)
+{
+	bypassed = onOff;
+	if (bypassed)
+	{
+		suspend ();
+	}
+	else
+	{
+		resume ();
+	}
+	return true;
+}
+
 bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
@@ -352,6 +367,8 @@ VstInt32 OPL3GM::canDo (char* text)
 	if (!strcmp (text, "receiveVstMidiEvent"))
 	return 1;
 	if (!strcmp (text, "midiProgramNames"))
+	return 1;
+	if (!strcmp (text, "bypass"))
 	return 1;
 	return -1;	// explicitly can't do; 0 => don't know
 }

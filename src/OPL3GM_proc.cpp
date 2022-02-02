@@ -119,6 +119,10 @@ void OPL3GM::resume ()
 
 float OPL3GM::getVu ()
 {
+	if (bypassed)
+	{
+		return 0;
+	}
 	double value = fabs((vu[0] + vu[1]) / 2);
 	if (value > 1)
 	{
@@ -138,6 +142,10 @@ void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
+	if (bypassed)
+	{
+		return;
+	}
 	float* out1 = outputs[0];
 	float* out2 = outputs[1];
 
@@ -177,6 +185,10 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
 {
+	if (bypassed)
+	{
+		return;
+	}
 	double* out1 = outputs[0];
 	double* out2 = outputs[1];
 
@@ -265,6 +277,10 @@ void OPL3GM::fillBuffer (int length)
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)
 {
+	if (bypassed)
+	{
+		return 0;
+	}
 	for (VstInt32 i = 0; i < ev->numEvents; i++)
 	{
 		processEvent (ev->events[i]);

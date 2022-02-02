@@ -64,6 +64,7 @@ public:
 	virtual void getProgramName (char* name);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
+	virtual bool setBypass (bool onOff);
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
@@ -103,6 +104,7 @@ private:
 #endif
 	short *buffer;
 	int bufferSize;
+	bool bypassed;
 	double vu[2];
 	float Volume;
 	float VolumeDisplay;
