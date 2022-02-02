@@ -43,6 +43,14 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	isSynth ();
 	//hasVu ();
 	//hasClip ();
+	synth = NULL;
+	buffer = NULL;
+#ifdef hqresampler
+	resampler = NULL;
+	memset(samples, 0, sizeof(samples));
+#endif
+	bypassed = false;
+	memset(vu, 0, sizeof(vu));
 	Volume = 1;
 	VolumeDisplay = 0;
 	DCBlock = 0;
@@ -52,14 +60,6 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(Parameters, 0, sizeof(Parameters));
 #endif
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
-	synth = NULL;
-#ifdef hqresampler
-	resampler = NULL;
-	memset(samples, 0, sizeof(samples));
-#endif
-	buffer = NULL;
-	memset(vu, 0, sizeof(vu));
-	bypassed = false;
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
 #ifdef gui

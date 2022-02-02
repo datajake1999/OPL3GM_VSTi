@@ -98,12 +98,12 @@ private:
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 	midisynth *synth;
 	DCFilter dcf[2];
+	short *buffer;
+	int bufferSize;
 #ifdef hqresampler
 	void *resampler;
 	short samples[2];
 #endif
-	short *buffer;
-	int bufferSize;
 	bool bypassed;
 	double vu[2];
 	float Volume;
