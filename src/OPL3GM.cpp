@@ -37,9 +37,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	setInitialDelay (0);
 	canProcessReplacing ();
 	canDoubleReplacing ();
-#ifdef chunk
 	programsAreChunks ();
-#endif
 	isSynth ();
 	//hasVu ();
 	//hasClip ();
@@ -56,9 +54,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
-#ifdef chunk
 	memset(Parameters, 0, sizeof(Parameters));
-#endif
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
@@ -241,7 +237,6 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	}
 }
 
-#ifdef chunk
 VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 {
 	float *chunkData = (float *)data;
@@ -262,7 +257,6 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	return kNumParams * sizeof(float);
 }
 
-#endif
 void OPL3GM::setProgram (VstInt32 program)
 {
 	if (program >= kNumPrograms || program < 0)
