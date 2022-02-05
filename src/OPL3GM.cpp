@@ -266,6 +266,11 @@ void OPL3GM::setProgram (VstInt32 program)
 	curProgram = program;
 }
 
+VstInt32 OPL3GM::getProgram ()
+{
+	return curProgram%kNumPrograms;
+}
+
 void OPL3GM::setProgramName (char *name)
 {
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);

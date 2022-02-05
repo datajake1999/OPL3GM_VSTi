@@ -57,6 +57,7 @@ public:
 	virtual VstInt32 setChunk (void* data, VstInt32 byteSize, bool isPreset);
 	virtual VstInt32 getChunk (void** data, bool isPreset);
 	virtual void setProgram (VstInt32 program);
+	virtual VstInt32 getProgram ();
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
