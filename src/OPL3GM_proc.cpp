@@ -338,3 +338,15 @@ void OPL3GM::sendMidi (char *data)
 		synth->midi_write(msg);
 	}
 }
+
+VstInt32 OPL3GM::startProcess ()
+{
+	memset(buffer, 0, 4*bufferSize);
+	return 1;
+}
+
+VstInt32 OPL3GM::stopProcess ()
+{
+	memset(buffer, 0, 4*bufferSize);
+	return 1;
+}

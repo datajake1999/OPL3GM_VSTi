@@ -80,6 +80,8 @@ public:
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
 	virtual VstInt32 processEvents (VstEvents* events);
+	virtual VstInt32 startProcess ();
+	virtual VstInt32 stopProcess ();
 	virtual VstInt32 getMidiProgramName (VstInt32 channel, MidiProgramName* midiProgramName);
 	virtual VstInt32 getCurrentMidiProgram (VstInt32 channel, MidiProgramName* currentProgram);
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
