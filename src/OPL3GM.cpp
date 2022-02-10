@@ -18,13 +18,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
+#include <stdlib.h>
 #include <math.h>
 //#define gui
 #ifdef gui
 #include "editor/editor.h"
 #endif
 #ifdef demo
-#include <stdlib.h>
 #include <time.h>
 #endif
 
