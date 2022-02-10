@@ -60,6 +60,7 @@ public:
 	virtual VstInt32 getProgram ();
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);
+	virtual bool string2parameter (VstInt32 index, char* text);
 	virtual bool getParameterProperties (VstInt32 index, VstParameterProperties* p);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
