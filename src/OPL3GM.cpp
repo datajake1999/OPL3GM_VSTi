@@ -281,6 +281,11 @@ void OPL3GM::getProgramName (char *name)
 	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
 
+bool OPL3GM::canParameterBeAutomated (VstInt32 index)
+{
+	return true;
+}
+
 bool OPL3GM::string2parameter (VstInt32 index, char* text)
 {
 	float value = atof(text);
