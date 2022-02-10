@@ -281,6 +281,17 @@ void OPL3GM::getProgramName (char *name)
 	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
 
+bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
+{
+	getParameterName (index, p->label);
+	p->shortLabel[0] = 0;
+	p->flags = kVstParameterUsesFloatStep;
+	p->stepFloat = 0.01f;
+	p->smallStepFloat = 0.001f;
+	p->largeStepFloat = 0.1f;
+	return true;
+}
+
 bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text)
 {
 	if (index == 0)
