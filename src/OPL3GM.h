@@ -77,6 +77,7 @@ public:
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
 	virtual void setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate);
+	virtual bool getErrorText (char* text);
 	virtual void suspend ();
 	virtual void resume ();
 	virtual float getVu ();

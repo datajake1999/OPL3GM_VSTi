@@ -107,6 +107,28 @@ void OPL3GM::clearBuffer ()
 	}
 }
 
+bool OPL3GM::getErrorText (char* text)
+{
+	if (!synth)
+	{
+		sprintf(text, "Error initializing synth.\n");
+		return true;
+	}
+#ifdef hqresampler
+	if (!resampler)
+	{
+		sprintf(text, "Error initializing resampler.\n");
+		return true;
+	}
+#endif
+	if (!buffer)
+	{
+		sprintf(text, "Error initializing buffer.\n");
+		return true;
+	}
+	return false;
+}
+
 void OPL3GM::suspend ()
 {
 	if (synth)
