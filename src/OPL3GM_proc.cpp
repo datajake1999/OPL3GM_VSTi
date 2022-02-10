@@ -341,12 +341,20 @@ void OPL3GM::sendMidi (char *data)
 
 VstInt32 OPL3GM::startProcess ()
 {
-	memset(buffer, 0, 4*bufferSize);
-	return 1;
+	if (buffer)
+	{
+		memset(buffer, 0, 4*bufferSize);
+		return 1;
+	}
+	return 0;
 }
 
 VstInt32 OPL3GM::stopProcess ()
 {
-	memset(buffer, 0, 4*bufferSize);
-	return 1;
+	if (buffer)
+	{
+		memset(buffer, 0, 4*bufferSize);
+		return 1;
+	}
+	return 0;
 }
