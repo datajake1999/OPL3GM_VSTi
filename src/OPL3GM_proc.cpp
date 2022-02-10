@@ -18,12 +18,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#ifdef demo
-#include <time.h>
-#endif
 
 void OPL3GM::setSampleRate (float sampleRate)
 {
