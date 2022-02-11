@@ -317,6 +317,25 @@ bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* tex
 	return false;
 }
 
+bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
+{
+	if (index == 0)
+	{
+		vst_strncpy (properties->label, "Left Input", kVstMaxLabelLen-1);
+		vst_strncpy (properties->shortLabel, "InL", kVstMaxShortLabelLen-1);
+		properties->flags = kVstPinIsActive | kVstPinIsStereo;
+		return true;
+	}
+	else if (index == 1)
+	{
+		vst_strncpy (properties->label, "Right Input", kVstMaxLabelLen-1);
+		vst_strncpy (properties->shortLabel, "InR", kVstMaxShortLabelLen-1);
+		properties->flags = kVstPinIsActive | kVstPinIsStereo;
+		return true;
+	}
+	return false;
+}
+
 bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 {
 	if (index == 0)

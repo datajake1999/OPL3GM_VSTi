@@ -70,6 +70,7 @@ public:
 	virtual bool string2parameter (VstInt32 index, char* text);
 	virtual bool getParameterProperties (VstInt32 index, VstParameterProperties* p);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
+	virtual bool getInputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool setBypass (bool onOff);
 	virtual bool getEffectName (char* name);
