@@ -369,6 +369,12 @@ bool OPL3GM::setBypass (bool onOff)
 	return true;
 }
 
+bool OPL3GM::setPanLaw (VstInt32 type, float val)
+{
+	Volume = val;
+	return true;
+}
+
 bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
