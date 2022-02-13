@@ -74,6 +74,7 @@ public:
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool setBypass (bool onOff);
 	virtual bool setPanLaw (VstInt32 type, float val);
+	virtual bool setProcessPrecision (VstInt32 precision);
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);

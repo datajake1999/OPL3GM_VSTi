@@ -375,6 +375,11 @@ bool OPL3GM::setPanLaw (VstInt32 type, float val)
 	return true;
 }
 
+bool OPL3GM::setProcessPrecision (VstInt32 precision)
+{
+	return false;
+}
+
 bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
