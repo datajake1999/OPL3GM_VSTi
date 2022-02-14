@@ -361,10 +361,12 @@ bool OPL3GM::setBypass (bool onOff)
 	if (bypassed)
 	{
 		suspend ();
+		stopProcess ();
 	}
 	else
 	{
 		resume ();
+		startProcess ();
 	}
 	return true;
 }
