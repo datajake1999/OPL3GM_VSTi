@@ -381,3 +381,17 @@ VstInt32 OPL3GM::stopProcess ()
 	}
 	return 0;
 }
+
+bool OPL3GM::beginSetProgram ()
+{
+	suspend ();
+	stopProcess ();
+	return true;
+}
+
+bool OPL3GM::endSetProgram ()
+{
+	resume ();
+	startProcess ();
+	return true;
+}
