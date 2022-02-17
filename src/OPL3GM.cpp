@@ -304,6 +304,25 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 	p->stepFloat = 0.01f;
 	p->smallStepFloat = 0.001f;
 	p->largeStepFloat = 0.1f;
+	switch(index)
+	{
+	case kVolumeDisplay:
+		p->flags |= kVstParameterIsSwitch;
+		break;
+	case kDCBlock:
+		p->flags |= kVstParameterIsSwitch;
+		break;
+	case kTranspose:
+		p->flags |= (kVstParameterUsesIntegerMinMax | kVstParameterUsesIntStep);
+		p->minInteger = -12;
+		p->maxInteger = 12;
+		p->stepInteger = 1;
+		p->largeStepInteger = 1;
+		break;
+	case kEmulator:
+		p->flags |= kVstParameterIsSwitch;
+		break;
+	}
 	return true;
 }
 
