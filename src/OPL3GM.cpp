@@ -68,6 +68,18 @@ OPL3GM::~OPL3GM ()
 	clearBuffer ();
 }
 
+void OPL3GM::open ()
+{
+	getHostVendorString (hi.VendorString);
+	getHostProductString (hi.ProductString);
+	hi.VendorVersion = getHostVendorVersion ();
+}
+
+void OPL3GM::close ()
+{
+	memset(&hi, 0, sizeof(HostInfo));
+}
+
 void OPL3GM::setParameter (VstInt32 index, float value)
 {
 	switch(index)

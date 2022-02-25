@@ -50,11 +50,20 @@ enum
 	kNumParams
 };
 
+typedef struct
+{
+	char VendorString[kVstMaxVendorStrLen];
+	char ProductString[kVstMaxProductStrLen];
+	VstInt32 VendorVersion;
+}HostInfo;
+
 class OPL3GM : public AudioEffectX
 {
 public:
 	OPL3GM (audioMasterCallback audioMaster);
 	~OPL3GM ();
+	virtual void open ();
+	virtual void close ();
 	virtual void setParameter (VstInt32 index, float value);
 	virtual float getParameter (VstInt32 index);
 	virtual void getParameterDisplay (VstInt32 index, char* text);
@@ -131,6 +140,7 @@ private:
 	float Emulator;
 	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
+	HostInfo hi;
 #ifdef demo
 	int startTime;
 #endif
