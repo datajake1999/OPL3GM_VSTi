@@ -98,6 +98,8 @@ public:
 	virtual VstInt32 stopProcess ();
 	virtual bool beginSetProgram ();
 	virtual bool endSetProgram ();
+	virtual VstInt32 beginLoadBank (VstPatchChunkInfo* ptr);
+	virtual VstInt32 beginLoadProgram (VstPatchChunkInfo* ptr);
 	virtual VstInt32 getMidiProgramName (VstInt32 channel, MidiProgramName* midiProgramName);
 	virtual VstInt32 getCurrentMidiProgram (VstInt32 channel, MidiProgramName* currentProgram);
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);

@@ -395,3 +395,13 @@ bool OPL3GM::endSetProgram ()
 	startProcess ();
 	return true;
 }
+
+VstInt32 OPL3GM::beginLoadBank (VstPatchChunkInfo* ptr)
+{
+	return 0;
+}
+
+VstInt32 OPL3GM::beginLoadProgram (VstPatchChunkInfo* ptr)
+{
+	return 0;
+}
