@@ -165,13 +165,15 @@ void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
-	if (bypassed)
-	{
-		return;
-	}
 	float* out1 = outputs[0];
 	float* out2 = outputs[1];
 
+	if (bypassed)
+	{
+		memset(out1, 0, sampleFrames*sizeof(float));
+		memset(out2, 0, sampleFrames*sizeof(float));
+		return;
+	}
 	if (buffer == NULL)
 	{
 		return;
@@ -208,13 +210,15 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
 {
-	if (bypassed)
-	{
-		return;
-	}
 	double* out1 = outputs[0];
 	double* out2 = outputs[1];
 
+	if (bypassed)
+	{
+		memset(out1, 0, sampleFrames*sizeof(double));
+		memset(out2, 0, sampleFrames*sizeof(double));
+		return;
+	}
 	if (buffer == NULL)
 	{
 		return;
@@ -238,8 +242,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 #ifdef demo
 		if (time(NULL) >= startTime + 600)
 		{
-			out1[i] += ((rand() / (double)RAND_MAX) / 256.0);
-			out2[i] += ((rand() / (double)RAND_MAX) / 256.0);
+			out1[i] += ((rand() / (float)RAND_MAX) / 256.0);
+			out2[i] += ((rand() / (float)RAND_MAX) / 256.0);
 		}
 #endif
 		vu[0] = out1[i];
