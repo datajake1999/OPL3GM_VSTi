@@ -448,6 +448,50 @@ VstPlugCategory OPL3GM::getPlugCategory ()
 	return kPlugCategSynth;
 }
 
+VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg)
+{
+	switch(lArg)
+	{
+	case effGetParamDisplay:
+		if (ptrArg)
+		{
+			sprintf((char *)ptrArg, "%f", floatArg);
+			return 0xbeef;
+		}
+		break;
+	case effString2Parameter:
+		if (ptrArg)
+		{
+			float value = atof((char *)ptrArg);
+			if (value > 1)
+			{
+				value = 1;
+			}
+			else if (value < 0)
+			{
+				value = 0;
+			}
+			sprintf((char *)ptrArg, "%f", value);
+			return 0xbeef;
+		}
+		break;
+	case kVstParameterUsesIntStep:
+		switch(lArg2)
+		{
+		case kVolumeDisplay:
+			return 0xbeef;
+		case kDCBlock:
+			return 0xbeef;
+		case kTranspose:
+			return 0xbeef;
+		case kEmulator:
+			return 0xbeef;
+		}
+		break;
+	}
+	return 0;
+}
+
 VstInt32 OPL3GM::canDo (char* text)
 {
 	if (!strcmp (text, "receiveVstEvents"))
@@ -458,6 +502,8 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	if (!strcmp (text, "bypass"))
 	return 1;
+	if (!strcmp (text, "hasCockosExtensions"))
+	return 0xbeef0000;
 	return -1;	// explicitly can't do; 0 => don't know
 }
 

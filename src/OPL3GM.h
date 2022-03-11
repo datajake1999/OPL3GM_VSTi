@@ -89,6 +89,7 @@ public:
 	virtual bool getProductString (char* text);
 	virtual VstInt32 getVendorVersion ();
 	virtual VstPlugCategory getPlugCategory ();
+	virtual VstIntPtr vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg);
 	virtual VstInt32 canDo (char* text);
 	virtual VstInt32 getNumMidiInputChannels ();
 	virtual VstInt32 getNumMidiOutputChannels ();
