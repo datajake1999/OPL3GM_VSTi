@@ -26,6 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifdef hqresampler
 #include "../dsp/resampler.h"
 #endif
+#include "queue.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -133,6 +134,7 @@ private:
 	void *resampler;
 	short samples[2];
 #endif
+	EventQueue evq;
 	bool bypassed;
 	double vu[2];
 	float Volume;
