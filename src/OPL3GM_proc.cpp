@@ -182,7 +182,7 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		sampleFrames = bufferSize;
 	}
-	fillBuffer (sampleFrames);
+	fillBuffer (buffer, sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		out1[i] = buffer[0] / 32768.0f;
@@ -227,7 +227,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		sampleFrames = bufferSize;
 	}
-	fillBuffer (sampleFrames);
+	fillBuffer (buffer, sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		out1[i] = buffer[0] / 32768.0;
@@ -253,7 +253,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	buffer -= sampleFrames*2;
 }
 
-void OPL3GM::fillBuffer (int length)
+void OPL3GM::fillBuffer (short *bufpos, int length)
 {
 #ifdef hqresampler
 	if (resampler)
@@ -281,22 +281,21 @@ void OPL3GM::fillBuffer (int length)
 			resampler_read_pair(resampler, &ls, &rs);
 			if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
 			if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
-			buffer[0] = (short)ls;
-			buffer[1] = (short)rs;
-			buffer += 2;
+			bufpos[0] = (short)ls;
+			bufpos[1] = (short)rs;
+			bufpos += 2;
 		}
-		buffer -= length*2;
 	}
 #else
 	if (synth)
 	{
 		if (Emulator >= 0.5)
 		{
-			synth->midi_generate(buffer, length);
+			synth->midi_generate(bufpos, length);
 		}
 		else
 		{
-			synth->midi_generate_dosbox(buffer, length);
+			synth->midi_generate_dosbox(bufpos, length);
 		}
 	}
 #endif
