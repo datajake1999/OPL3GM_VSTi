@@ -182,7 +182,7 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		sampleFrames = bufferSize;
 	}
-	fillBuffer (buffer, sampleFrames);
+	render (buffer, sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		out1[i] = buffer[0] / 32768.0f;
@@ -227,7 +227,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		sampleFrames = bufferSize;
 	}
-	fillBuffer (buffer, sampleFrames);
+	render (buffer, sampleFrames);
 	for (int i = 0; i < sampleFrames; i++)
 	{
 		out1[i] = buffer[0] / 32768.0;
@@ -251,6 +251,11 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 		buffer += 2;
 	}
 	buffer -= sampleFrames*2;
+}
+
+void OPL3GM::render (short *bufpos, int length)
+{
+	fillBuffer (bufpos, length);
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length)

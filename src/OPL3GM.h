@@ -120,6 +120,7 @@ private:
 	void initBuffer (int blockSize);
 	void clearSynth ();
 	void clearBuffer ();
+	void render (short *bufpos, int length);
 	void fillBuffer (short *bufpos, int length);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
