@@ -257,8 +257,7 @@ void OPL3GM::render (short *bufpos, int length)
 {
 	while (evq.GetEventCount())
 	{
-		VstEvent *ev = evq.GetNextEvent();
-		processEvent (ev);
+		processEvent (evq.GetNextEvent());
 	}
 	fillBuffer (bufpos, length);
 }
