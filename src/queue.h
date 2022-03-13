@@ -31,6 +31,7 @@ public:
 	VstInt32 GetEventCount();
 	VstEvent *GetNextEvent();
 	VstInt32 GetEventTime();
+	VstInt32 GetEventTimeAt(VstInt32 ahead);
 private:
 	VstEvent Events[evbufsize];
 	VstInt32 Count;

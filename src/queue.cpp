@@ -52,3 +52,9 @@ VstInt32 EventQueue::GetEventTime()
 {
 	return Events[Next].deltaFrames;
 }
+
+VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
+{
+	VstInt32 num = (Next+ahead)%evbufsize;
+	return Events[num].deltaFrames;
+}
