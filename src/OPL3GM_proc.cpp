@@ -264,6 +264,10 @@ void OPL3GM::render (int numsamples)
 		}
 		fillBuffer (buffer, 1, i);
 	}
+	while (evq.GetEventCount())
+	{
+		processEvent (evq.GetNextEvent());
+	}
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
