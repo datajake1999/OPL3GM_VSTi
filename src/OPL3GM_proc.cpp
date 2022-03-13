@@ -188,8 +188,8 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
-		out1[i] = buffer[0] / 32768.0f;
-		out2[i] = buffer[1] / 32768.0f;
+		out1[i] = buffer[i*2+0] / 32768.0f;
+		out2[i] = buffer[i*2+1] / 32768.0f;
 		out1[i] = out1[i] * Volume;
 		out2[i] = out2[i] * Volume;
 		if (DCBlock >= 0.5)
@@ -206,9 +206,7 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 #endif
 		vu[0] = out1[i];
 		vu[1] = out2[i];
-		buffer += 2;
 	}
-	buffer -= sampleFrames*2;
 }
 
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
@@ -235,8 +233,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
-		out1[i] = buffer[0] / 32768.0;
-		out2[i] = buffer[1] / 32768.0;
+		out1[i] = buffer[i*2+0] / 32768.0;
+		out2[i] = buffer[i*2+1] / 32768.0;
 		out1[i] = out1[i] * Volume;
 		out2[i] = out2[i] * Volume;
 		if (DCBlock >= 0.5)
@@ -253,9 +251,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 #endif
 		vu[0] = out1[i];
 		vu[1] = out2[i];
-		buffer += 2;
 	}
-	buffer -= sampleFrames*2;
 }
 
 void OPL3GM::render (int numsamples)
