@@ -245,8 +245,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 #ifdef demo
 		if (time(NULL) >= startTime + 600)
 		{
-			out1[i] += ((rand() / (float)RAND_MAX) / 256.0);
-			out2[i] += ((rand() / (float)RAND_MAX) / 256.0);
+			out1[i] += ((rand() / (double)RAND_MAX) / 256.0);
+			out2[i] += ((rand() / (double)RAND_MAX) / 256.0);
 		}
 #endif
 		vu[0] = out1[i];
