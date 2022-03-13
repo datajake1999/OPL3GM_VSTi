@@ -21,9 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 EventQueue::EventQueue()
 {
-	memset(Events, 0, sizeof(VstEvent)*evbufsize);
-	Count = 0;
-	Next = 0;
+	Flush();
 }
 
 void EventQueue::EnqueueEvent(VstEvent *ev)
@@ -57,4 +55,11 @@ VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 {
 	VstInt32 num = (Next+ahead)%evbufsize;
 	return Events[num].deltaFrames;
+}
+
+void EventQueue::Flush()
+{
+	memset(Events, 0, sizeof(VstEvent)*evbufsize);
+	Count = 0;
+	Next = 0;
 }
