@@ -265,12 +265,13 @@ void OPL3GM::render (short *bufpos, int length)
 			}
 			processEvent (evq.GetNextEvent());
 		}
-		fillBuffer (bufpos+2*i, 1);
+		fillBuffer (bufpos, 1, i);
 	}
 }
 
-void OPL3GM::fillBuffer (short *bufpos, int length)
+void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 {
+	bufpos += 2*offset;
 #ifdef hqresampler
 	if (resampler)
 	{

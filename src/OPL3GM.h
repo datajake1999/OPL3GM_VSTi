@@ -122,7 +122,7 @@ private:
 	void clearSynth ();
 	void clearBuffer ();
 	void render (short *bufpos, int length);
-	void fillBuffer (short *bufpos, int length);
+	void fillBuffer (short *bufpos, int length, int offset);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
