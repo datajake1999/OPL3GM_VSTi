@@ -255,11 +255,18 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 
 void OPL3GM::render (short *bufpos, int length)
 {
-	while (evq.GetEventCount())
+	for (int i = 0; i < length; i++)
 	{
-		processEvent (evq.GetNextEvent());
+		while (evq.GetEventCount())
+		{
+			if (evq.GetEventTime() > i)
+			{
+				break;
+			}
+			processEvent (evq.GetNextEvent());
+		}
+		fillBuffer (bufpos+2*i, 1);
 	}
-	fillBuffer (bufpos, length);
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length)
