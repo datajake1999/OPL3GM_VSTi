@@ -184,7 +184,7 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		sampleFrames = bufferSize;
 	}
-	render (buffer, sampleFrames);
+	render (sampleFrames);
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
@@ -231,7 +231,7 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		sampleFrames = bufferSize;
 	}
-	render (buffer, sampleFrames);
+	render (sampleFrames);
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
@@ -258,15 +258,15 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	buffer -= sampleFrames*2;
 }
 
-void OPL3GM::render (short *bufpos, int length)
+void OPL3GM::render (int numsamples)
 {
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < numsamples; i++)
 	{
 		while (evq.GetEventCount() && evq.GetEventTime() <= i)
 		{
 			processEvent (evq.GetNextEvent());
 		}
-		fillBuffer (bufpos, 1, i);
+		fillBuffer (buffer, 1, i);
 	}
 }
 
