@@ -59,7 +59,7 @@ VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 
 void EventQueue::Flush()
 {
-	memset(Events, 0, sizeof(VstEvent)*evbufsize);
+	memset(Events, 0, sizeof(Events));
 	Count = 0;
 	Next = 0;
 }
