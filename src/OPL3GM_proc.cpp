@@ -262,12 +262,8 @@ void OPL3GM::render (short *bufpos, int length)
 {
 	for (int i = 0; i < length; i++)
 	{
-		while (evq.GetEventCount())
+		while (evq.GetEventCount() && evq.GetEventTime() <= i)
 		{
-			if (evq.GetEventTime() > i)
-			{
-				break;
-			}
 			processEvent (evq.GetNextEvent());
 		}
 		fillBuffer (bufpos, 1, i);
