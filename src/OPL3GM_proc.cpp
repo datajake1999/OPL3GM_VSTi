@@ -299,9 +299,8 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 			resampler_read_pair(resampler, &ls, &rs);
 			if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
 			if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
-			bufpos[0] = (short)ls;
-			bufpos[1] = (short)rs;
-			bufpos += 2;
+			bufpos[i*2+0] = (short)ls;
+			bufpos[i*2+1] = (short)rs;
 		}
 	}
 #else
