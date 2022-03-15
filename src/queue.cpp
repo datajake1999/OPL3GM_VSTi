@@ -30,7 +30,10 @@ void EventQueue::EnqueueEvent(VstEvent *ev)
 	Write++;
 	Write = Write%evbufsize;
 	Count++;
-	Count = Count%evbufsize;
+	if (Count > evbufsize)
+	{
+		Count = evbufsize;
+	}
 }
 
 VstEvent *EventQueue::GetNextEvent()
@@ -39,6 +42,10 @@ VstEvent *EventQueue::GetNextEvent()
 	Read++;
 	Read = Read%evbufsize;
 	Count--;
+	if (Count < 0)
+	{
+		Count = 0;
+	}
 	return ev;
 }
 
