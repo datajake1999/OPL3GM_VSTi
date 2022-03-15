@@ -29,6 +29,8 @@ void EventQueue::EnqueueEvent(VstEvent *ev)
 	memcpy(&Events[Write], ev, sizeof(VstEvent));
 	Write++;
 	Write = Write%evbufsize;
+	Count++;
+	Count = Count%evbufsize;
 }
 
 VstEvent *EventQueue::GetNextEvent()
@@ -36,6 +38,7 @@ VstEvent *EventQueue::GetNextEvent()
 	VstEvent *ev = &Events[Read];
 	Read++;
 	Read = Read%evbufsize;
+	Count--;
 	return ev;
 }
 
@@ -46,6 +49,11 @@ bool EventQueue::HasEvents()
 		return false;
 	}
 	return true;
+}
+
+VstInt32 EventQueue::GetEventCount()
+{
+	return Count;
 }
 
 VstInt32 EventQueue::GetEventTime()
@@ -64,4 +72,5 @@ void EventQueue::Flush()
 	memset(Events, 0, sizeof(Events));
 	Write = 0;
 	Read = 0;
+	Count = 0;
 }

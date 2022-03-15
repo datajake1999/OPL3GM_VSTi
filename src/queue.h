@@ -30,6 +30,7 @@ public:
 	void EnqueueEvent(VstEvent *ev);
 	VstEvent *GetNextEvent();
 	bool HasEvents();
+	VstInt32 GetEventCount();
 	VstInt32 GetEventTime();
 	VstInt32 GetEventTimeAt(VstInt32 ahead);
 	void Flush();
@@ -37,6 +38,7 @@ private:
 	VstEvent Events[evbufsize];
 	VstInt32 Write;
 	VstInt32 Read;
+	VstInt32 Count;
 };
 
 #endif
