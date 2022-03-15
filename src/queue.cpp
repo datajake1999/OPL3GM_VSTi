@@ -38,6 +38,10 @@ void EventQueue::EnqueueEvent(VstEvent *ev)
 
 VstEvent *EventQueue::GetNextEvent()
 {
+	if (Read == Write)
+	{
+		return NULL;
+	}
 	VstEvent *ev = &Events[Read];
 	Read++;
 	Read = Read%evbufsize;
