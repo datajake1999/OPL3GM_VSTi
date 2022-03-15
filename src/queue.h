@@ -28,15 +28,15 @@ class EventQueue
 public:
 	EventQueue();
 	void EnqueueEvent(VstEvent *ev);
-	VstInt32 GetEventCount();
 	VstEvent *GetNextEvent();
+	bool HasEvents();
 	VstInt32 GetEventTime();
 	VstInt32 GetEventTimeAt(VstInt32 ahead);
 	void Flush();
 private:
 	VstEvent Events[evbufsize];
-	VstInt32 Count;
-	VstInt32 Next;
+	VstInt32 Write;
+	VstInt32 Read;
 };
 
 #endif

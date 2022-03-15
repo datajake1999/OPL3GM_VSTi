@@ -26,40 +26,42 @@ EventQueue::EventQueue()
 
 void EventQueue::EnqueueEvent(VstEvent *ev)
 {
-	VstInt32 num = (Count+Next)%evbufsize;
-	memcpy(&Events[num], ev, sizeof(VstEvent));
-	Count++;
-	Count = Count%evbufsize;
-}
-
-VstInt32 EventQueue::GetEventCount()
-{
-	return Count;
+	memcpy(&Events[Write], ev, sizeof(VstEvent));
+	Write++;
+	Write = Write%evbufsize;
 }
 
 VstEvent *EventQueue::GetNextEvent()
 {
-	VstEvent *ev = &Events[Next];
-	Next++;
-	Next = Next%evbufsize;
-	Count--;
+	VstEvent *ev = &Events[Read];
+	Read++;
+	Read = Read%evbufsize;
 	return ev;
+}
+
+bool EventQueue::HasEvents()
+{
+	if (Read == Write)
+	{
+		return false;
+	}
+	return true;
 }
 
 VstInt32 EventQueue::GetEventTime()
 {
-	return Events[Next].deltaFrames;
+	return Events[Read].deltaFrames;
 }
 
 VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 {
-	VstInt32 num = (Next+ahead)%evbufsize;
+	VstInt32 num = (Read+ahead)%evbufsize;
 	return Events[num].deltaFrames;
 }
 
 void EventQueue::Flush()
 {
 	memset(Events, 0, sizeof(Events));
-	Count = 0;
-	Next = 0;
+	Write = 0;
+	Read = 0;
 }

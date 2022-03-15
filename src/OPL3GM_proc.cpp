@@ -258,13 +258,13 @@ void OPL3GM::render (int numsamples)
 {
 	for (int i = 0; i < numsamples; i++)
 	{
-		while (evq.GetEventCount() && evq.GetEventTime() <= i)
+		while (evq.HasEvents() && evq.GetEventTime() <= i)
 		{
 			processEvent (evq.GetNextEvent());
 		}
 		fillBuffer (buffer, 1, i);
 	}
-	while (evq.GetEventCount())
+	while (evq.HasEvents())
 	{
 		processEvent (evq.GetNextEvent());
 	}
