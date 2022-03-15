@@ -69,11 +69,19 @@ VstInt32 EventQueue::GetEventCount()
 
 VstInt32 EventQueue::GetEventTime()
 {
+	if (Read == Write)
+	{
+		return -1;
+	}
 	return Events[Read].deltaFrames;
 }
 
 VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 {
+	if (Read == Write)
+	{
+		return -1;
+	}
 	VstInt32 num = (Read+ahead)%evbufsize;
 	return Events[num].deltaFrames;
 }
