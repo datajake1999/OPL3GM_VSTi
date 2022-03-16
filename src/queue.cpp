@@ -26,7 +26,7 @@ EventQueue::EventQueue()
 
 bool EventQueue::EnqueueEvent(VstEvent *ev)
 {
-	if (Count == evbufsize)
+	if (Count == evbufsize || !ev)
 	{
 		return false;
 	}
