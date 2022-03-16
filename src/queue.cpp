@@ -24,8 +24,12 @@ EventQueue::EventQueue()
 	Flush();
 }
 
-void EventQueue::EnqueueEvent(VstEvent *ev)
+bool EventQueue::EnqueueEvent(VstEvent *ev)
 {
+	if (Count == evbufsize)
+	{
+		return false;
+	}
 	memcpy(&Events[Write], ev, sizeof(VstEvent));
 	Write++;
 	Write = Write%evbufsize;
@@ -34,6 +38,7 @@ void EventQueue::EnqueueEvent(VstEvent *ev)
 	{
 		Count = evbufsize;
 	}
+	return true;
 }
 
 VstEvent *EventQueue::GetNextEvent()

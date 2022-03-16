@@ -27,7 +27,7 @@ class EventQueue
 {
 public:
 	EventQueue();
-	void EnqueueEvent(VstEvent *ev);
+	bool EnqueueEvent(VstEvent *ev);
 	VstEvent *GetNextEvent();
 	bool HasEvents();
 	VstInt32 GetEventCount();
