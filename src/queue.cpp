@@ -43,7 +43,7 @@ bool EventQueue::EnqueueEvent(VstEvent *ev)
 
 VstEvent *EventQueue::GetNextEvent()
 {
-	if (Read == Write)
+	if (Count == 0)
 	{
 		return NULL;
 	}
@@ -60,7 +60,7 @@ VstEvent *EventQueue::GetNextEvent()
 
 bool EventQueue::HasEvents()
 {
-	if (Read == Write)
+	if (Count == 0)
 	{
 		return false;
 	}
@@ -74,7 +74,7 @@ VstInt32 EventQueue::GetEventCount()
 
 VstInt32 EventQueue::GetEventTime()
 {
-	if (Read == Write)
+	if (Count == 0)
 	{
 		return -1;
 	}
@@ -83,7 +83,7 @@ VstInt32 EventQueue::GetEventTime()
 
 VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 {
-	if (Read == Write)
+	if (Count == 0)
 	{
 		return -1;
 	}
