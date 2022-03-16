@@ -33,7 +33,7 @@ public:
 	VstInt32 GetEventCount();
 	VstInt32 GetEventTime();
 	VstInt32 GetEventTimeAt(VstInt32 ahead);
-	void Flush();
+	void Flush(bool clear);
 private:
 	VstEvent Events[evbufsize];
 	VstInt32 Write;

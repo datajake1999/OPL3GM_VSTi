@@ -125,7 +125,7 @@ bool OPL3GM::getErrorText (char* text)
 
 void OPL3GM::suspend ()
 {
-	evq.Flush();
+	evq.Flush(true);
 	if (synth)
 	{
 		synth->midi_panic();

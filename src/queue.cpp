@@ -21,7 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 EventQueue::EventQueue()
 {
-	Flush();
+	Flush(true);
 }
 
 bool EventQueue::EnqueueEvent(VstEvent *ev)
@@ -91,9 +91,12 @@ VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 	return Events[num].deltaFrames;
 }
 
-void EventQueue::Flush()
+void EventQueue::Flush(bool clear)
 {
-	memset(Events, 0, sizeof(Events));
+	if (clear)
+	{
+		memset(Events, 0, sizeof(Events));
+	}
 	Write = 0;
 	Read = 0;
 	Count = 0;
