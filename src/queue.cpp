@@ -60,11 +60,11 @@ VstEvent *EventQueue::GetNextEvent()
 
 bool EventQueue::HasEvents()
 {
-	if (Count == 0)
+	if (Count > 0)
 	{
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 VstInt32 EventQueue::GetEventCount()
