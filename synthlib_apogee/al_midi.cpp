@@ -1471,7 +1471,7 @@ void ApogeeOPL::midi_write(unsigned int data)
     }
 }
 
-void ApogeeOPL::midi_write_sysex(char *buffer, unsigned int length)
+void ApogeeOPL::midi_write_sysex(unsigned char *buffer, unsigned int length)
 {
     const unsigned char resetArray[6] = {0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7};
     if (length == 6 && memcmp(&resetArray[0], buffer, 6) == 0)

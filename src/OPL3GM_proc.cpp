@@ -344,7 +344,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 		VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev;
 		if (synth)
 		{
-			synth->midi_write_sysex(event->sysexDump, event->dumpBytes);
+			synth->midi_write_sysex((unsigned char *)event->sysexDump, event->dumpBytes);
 		}
 	}
 }
