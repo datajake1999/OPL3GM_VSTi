@@ -295,7 +295,7 @@ bool OPL3GM::canParameterBeAutomated (VstInt32 index)
 
 bool OPL3GM::string2parameter (VstInt32 index, char* text)
 {
-	float value = atof(text);
+	float value = (float)atof(text);
 	if (value > 1)
 	{
 		value = 1;
@@ -467,7 +467,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				float value = atof((char *)ptrArg);
+				float value = (float)atof((char *)ptrArg);
 				if (value > 1)
 				{
 					value = 1;
