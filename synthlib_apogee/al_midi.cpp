@@ -1389,7 +1389,11 @@ int ApogeeOPL::AL_InitSynth()
 void ApogeeOPL::AL_LoadBank()
 {
     memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
+#ifdef _WIN32
     FILE *tmb = fopen("C:\\OPLSynth\\APOGEE.TMB","rb");
+#else
+    FILE *tmb = fopen("APOGEE.TMB","rb");
+#endif
     if(tmb)
     {
        fseek(tmb,0,SEEK_END);
