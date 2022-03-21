@@ -318,7 +318,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	}
 	for (VstInt32 i = 0; i < ev->numEvents; i++)
 	{
-		evq.EnqueueEvent (ev->events[i]);
+		if (!evq.EnqueueEvent (ev->events[i]))
+		{
+			break;
+		}
 	}
 	return 1;
 }
