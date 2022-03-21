@@ -21,7 +21,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 EventQueue::EventQueue()
 {
-	Flush(true);
+	memset(Events, 0, sizeof(Events));
+	Write = 0;
+	Read = 0;
+	Count = 0;
 }
 
 bool EventQueue::EnqueueEvent(VstEvent *ev)
