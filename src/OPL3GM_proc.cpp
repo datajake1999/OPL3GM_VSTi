@@ -328,6 +328,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 
 void OPL3GM::processEvent (VstEvent* ev)
 {
+	if (!ev)
+	{
+		return;
+	}
 	if (ev->type == kVstMidiType)
 	{
 		VstMidiEvent* event = (VstMidiEvent*)ev;
