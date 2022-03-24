@@ -264,6 +264,10 @@ void OPL3GM::render (int numsamples)
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 {
+	if (!bufpos)
+	{
+		return;
+	}
 	bufpos += 2*offset;
 #ifdef hqresampler
 	if (resampler)
@@ -350,6 +354,10 @@ void OPL3GM::processEvent (VstEvent* ev)
 
 void OPL3GM::sendMidi (char *data)
 {
+	if (!data)
+	{
+		return;
+	}
 	unsigned char byte1 = data[0] & 0xff;
 	unsigned char byte2 = data[1] & 0x7f;
 	unsigned char byte3 = data[2] & 0x7f;
