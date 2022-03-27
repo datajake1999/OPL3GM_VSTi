@@ -77,7 +77,7 @@ void OPL3GM::open ()
 
 void OPL3GM::close ()
 {
-	memset(&hi, 0, sizeof(HostInfo));
+	memset(&hi, 0, sizeof(hi));
 }
 
 void OPL3GM::setParameter (VstInt32 index, float value)
