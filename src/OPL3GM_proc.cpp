@@ -69,7 +69,7 @@ void OPL3GM::initBuffer (int blockSize)
 	buffer = new short[2*bufferSize];
 	if (buffer)
 	{
-		memset(buffer, 0, 4*bufferSize);
+		memset(buffer, 0, (2*bufferSize)*sizeof(short));
 	}
 }
 
@@ -95,7 +95,7 @@ void OPL3GM::clearBuffer ()
 {
 	if (buffer)
 	{
-		memset(buffer, 0, 4*bufferSize);
+		memset(buffer, 0, (2*bufferSize)*sizeof(short));
 		delete[] buffer;
 		buffer = NULL;
 	}
@@ -393,7 +393,7 @@ VstInt32 OPL3GM::startProcess ()
 {
 	if (buffer)
 	{
-		memset(buffer, 0, 4*bufferSize);
+		memset(buffer, 0, (2*bufferSize)*sizeof(short));
 		return 1;
 	}
 	return 0;
@@ -403,7 +403,7 @@ VstInt32 OPL3GM::stopProcess ()
 {
 	if (buffer)
 	{
-		memset(buffer, 0, 4*bufferSize);
+		memset(buffer, 0, (2*bufferSize)*sizeof(short));
 		return 1;
 	}
 	return 0;
