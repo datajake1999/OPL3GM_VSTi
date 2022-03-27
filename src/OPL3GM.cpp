@@ -494,6 +494,21 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			return 0xbeef;
 		}
 		break;
+	case effCanBeAutomated:
+		if (lArg2 >= 0 && lArg2 < kNumParams)
+		{
+			VstParameterEvent ev;
+			ev.type = DECLARE_VST_DEPRECATED (kVstParameterType);
+			ev.deltaFrames = (VstInt32)ptrArg;
+			ev.index = lArg2;
+			ev.value = floatArg;
+			if (!evq.EnqueueEvent ((VstEvent *)&ev))
+			{
+				return 0;
+			}
+			return 0xbeef;
+		}
+		break;
 	}
 	return 0;
 }
@@ -509,6 +524,8 @@ VstInt32 OPL3GM::canDo (char* text)
 	if (!strcmp (text, "bypass"))
 	return 1;
 	if (!strcmp (text, "hasCockosExtensions"))
+	return 0xbeef0000;
+	if (!strcmp (text, "hasCockosSampleAccurateAutomation"))
 	return 0xbeef0000;
 	return -1;	// explicitly can't do; 0 => don't know
 }

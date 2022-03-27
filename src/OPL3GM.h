@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../dsp/resampler.h"
 #endif
 #include "queue.h"
+#include "parmstruct.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include <stdio.h>
 #include <stdlib.h>
