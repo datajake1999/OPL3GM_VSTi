@@ -180,10 +180,14 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	{
 		sampleFrames = bufferSize;
 	}
-	render (sampleFrames);
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
+		while (evq.HasEvents() && evq.GetEventTime() <= i)
+		{
+			processEvent (evq.GetNextEvent());
+		}
+		fillBuffer (buffer, 1, i);
 		out1[i] = buffer[i*2+0] / 32768.0f;
 		out2[i] = buffer[i*2+1] / 32768.0f;
 		out1[i] = out1[i] * Volume;
@@ -203,6 +207,10 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 		vu[0] = out1[i];
 		vu[1] = out2[i];
 	}
+	while (evq.HasEvents())
+	{
+		processEvent (evq.GetNextEvent());
+	}
 }
 
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
@@ -221,10 +229,14 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 	{
 		sampleFrames = bufferSize;
 	}
-	render (sampleFrames);
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
+		while (evq.HasEvents() && evq.GetEventTime() <= i)
+		{
+			processEvent (evq.GetNextEvent());
+		}
+		fillBuffer (buffer, 1, i);
 		out1[i] = buffer[i*2+0] / 32768.0;
 		out2[i] = buffer[i*2+1] / 32768.0;
 		out1[i] = out1[i] * Volume;
@@ -243,18 +255,6 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 #endif
 		vu[0] = out1[i];
 		vu[1] = out2[i];
-	}
-}
-
-void OPL3GM::render (int numsamples)
-{
-	for (int i = 0; i < numsamples; i++)
-	{
-		while (evq.HasEvents() && evq.GetEventTime() <= i)
-		{
-			processEvent (evq.GetNextEvent());
-		}
-		fillBuffer (buffer, 1, i);
 	}
 	while (evq.HasEvents())
 	{

@@ -121,7 +121,6 @@ private:
 	void initBuffer (int blockSize);
 	void clearSynth ();
 	void clearBuffer ();
-	void render (int numsamples);
 	void fillBuffer (short *bufpos, int length, int offset);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
