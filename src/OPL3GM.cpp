@@ -482,16 +482,19 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		}
 		break;
 	case kVstParameterUsesIntStep:
-		switch(lArg2)
+		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
-		case kVolumeDisplay:
-			return 0xbeef;
-		case kDCBlock:
-			return 0xbeef;
-		case kTranspose:
-			return 0xbeef;
-		case kEmulator:
-			return 0xbeef;
+			switch(lArg2)
+			{
+			case kVolumeDisplay:
+				return 0xbeef;
+			case kDCBlock:
+				return 0xbeef;
+			case kTranspose:
+				return 0xbeef;
+			case kEmulator:
+				return 0xbeef;
+			}
 		}
 		break;
 	case effCanBeAutomated:
