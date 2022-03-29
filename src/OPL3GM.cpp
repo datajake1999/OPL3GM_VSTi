@@ -501,7 +501,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
 			VstParameterEvent ev;
-			ev.type = DECLARE_VST_DEPRECATED (kVstParameterType);
+			ev.type = kVstParameterType;
 			ev.deltaFrames = (VstInt32)ptrArg;
 			ev.index = lArg2;
 			ev.value = floatArg;

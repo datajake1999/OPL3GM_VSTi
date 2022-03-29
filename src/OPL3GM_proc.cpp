@@ -350,7 +350,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 			synth->midi_write_sysex((unsigned char *)event->sysexDump, event->dumpBytes);
 		}
 	}
-	else if (ev->type == DECLARE_VST_DEPRECATED (kVstParameterType))
+	else if (ev->type == kVstParameterType)
 	{
 		VstParameterEvent* event = (VstParameterEvent*)ev;
 		setParameter (event->index, event->value);

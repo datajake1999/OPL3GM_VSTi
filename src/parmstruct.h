@@ -22,6 +22,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include <pluginterfaces/vst2.x/aeffectx.h>
 
+#if VST_FORCE_DEPRECATED
+#define kVstParameterType DECLARE_VST_DEPRECATED (kVstParameterType)
+#endif
+
 struct VstParameterEvent
 {
 	VstInt32 type;
