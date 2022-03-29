@@ -503,7 +503,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			VstParameterEvent ev;
 			ev.type = kVstParameterType;
 			ev.deltaFrames = (VstInt32)ptrArg;
-			ev.index = lArg2;
+			ev.index = (VstInt32)lArg2;
 			ev.value = floatArg;
 			if (!evq.EnqueueEvent ((VstEvent *)&ev))
 			{
