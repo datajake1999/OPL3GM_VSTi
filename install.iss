@@ -35,24 +35,27 @@ Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Components]
 Name: "Docs"; Description: "Documentation"; Types: "full"
-Name: "Apogee"; Description: "Apogee OPL3"; Types: "full"
-Name: "Doom"; Description: "Doom OPL3"; Types: "full"
-Name: "W9x"; Description: "Windows 9x OPL3"; Types: "full"
+Name: "Apogee32"; Description: "Apogee OPL3 (32-bit)"; Types: "full"
+Name: "Apogee64"; Description: "Apogee OPL3 (64-bit)"; Types: "full"; Check: Is64BitInstallMode
+Name: "Doom32"; Description: "Doom OPL3 (32-bit)"; Types: "full"
+Name: "Doom64"; Description: "Doom OPL3 (64-bit)"; Types: "full"; Check: Is64BitInstallMode
+Name: "W9x32"; Description: "Windows 9x OPL3 (32-bit)"; Types: "full"
+Name: "W9x64"; Description: "Windows 9x OPL3 (64-bit)"; Types: "full"; Check: Is64BitInstallMode
 Name: "ApogeeBanks"; Description: "Apogee Instrument Bank Files"; Types: "full"
 Name: "DoomBanks"; Description: "Doom Instrument Bank Files"; Types: "full"
 
 [Files]
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
-Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee
-Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee; Check: Is64BitInstallMode
-Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom
-Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom; Check: Is64BitInstallMode
-Source: "OPL3W9x.dll"; DestDir: {code:GetVSTDir_32}; Components: W9x
-Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x; Check: Is64BitInstallMode
+Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
+Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: Is64BitInstallMode
+Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
+Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: Is64BitInstallMode
+Source: "OPL3W9x.dll"; DestDir: {code:GetVSTDir_32}; Components: W9x32
+Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: Is64BitInstallMode
 Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
-Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
