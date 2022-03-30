@@ -34,8 +34,8 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canDoubleReplacing ();
 	programsAreChunks ();
 	isSynth ();
-	//hasVu ();
-	//hasClip ();
+	hasVu ();
+	hasClip ();
 	synth = NULL;
 	buffer = NULL;
 #ifdef hqresampler
