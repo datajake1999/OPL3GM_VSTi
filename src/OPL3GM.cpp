@@ -34,8 +34,10 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	canDoubleReplacing ();
 	programsAreChunks ();
 	isSynth ();
+#if !VST_FORCE_DEPRECATED
 	hasVu ();
 	hasClip ();
+#endif
 	synth = NULL;
 	buffer = NULL;
 #ifdef hqresampler
