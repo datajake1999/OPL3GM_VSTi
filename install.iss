@@ -64,6 +64,9 @@ Name: "{group}\Open Apogee Banks Directory"; Filename: "{app}\Banks\Apogee"; Com
 Name: "{group}\Open Doom Banks Directory"; Filename: "{app}\Banks\Doom"; Components: "DoomBanks"
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
 
+[Messages]
+SelectDirLabel3=The documentation and instrument banks will be installed in the following folder.
+
 [Code]
 var
   VSTDirPage_32: TInputDirWizardPage;
