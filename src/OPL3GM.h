@@ -48,6 +48,7 @@ enum
 	kDCBlock,
 	kTranspose,
 	kEmulator,
+	kPushEvents,
 
 	kNumParams
 };
@@ -142,6 +143,7 @@ private:
 	float DCBlock;
 	float Transpose;
 	float Emulator;
+	float PushEvents;
 	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
 	HostInfo hi;

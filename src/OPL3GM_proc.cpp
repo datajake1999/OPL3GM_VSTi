@@ -320,11 +320,21 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	{
 		return 0;
 	}
-	for (VstInt32 i = 0; i < ev->numEvents; i++)
+	if (PushEvents >= 0.5)
 	{
-		if (!evq.EnqueueEvent (ev->events[i]))
+		for (VstInt32 i = 0; i < ev->numEvents; i++)
 		{
-			break;
+			if (!evq.EnqueueEvent (ev->events[i]))
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (VstInt32 i = 0; i < ev->numEvents; i++)
+		{
+			processEvent (ev->events[i]);
 		}
 	}
 	return 1;
