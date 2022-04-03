@@ -148,7 +148,7 @@ private:
 	char ProgramName[kVstMaxProgNameLen];
 	HostInfo hi;
 #ifdef demo
-	int startTime;
+	time_t startTime;
 #endif
 };
 
