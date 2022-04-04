@@ -18,7 +18,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * apogee_nam.tmb - NAM
 * apogee_sw.tmb - Shadow Warrior(Shareware)
 
-## Apogee patch installation
+### Apogee patch installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.tmb files to C:\OPLSynth folder.
@@ -34,7 +34,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * dmx_raptor.op2 - Raptor
 * dmxopl.op2 - DMXOPL3
 
-## Doom patch installation
+### Doom patch installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.op2 files to C:\OPLSynth folder.
