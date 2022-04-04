@@ -161,67 +161,29 @@ float OPL3GM::getVu ()
 
 void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
-	processReplacing (inputs, outputs, sampleFrames);
+	processTemplate (inputs, outputs, sampleFrames);
 }
 
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
-	float* out1 = outputs[0];
-	float* out2 = outputs[1];
-
-	if (bypassed || !buffer)
-	{
-		memset(out1, 0, sampleFrames*sizeof(float));
-		memset(out2, 0, sampleFrames*sizeof(float));
-		return;
-	}
-
-	if (sampleFrames > bufferSize)
-	{
-		sampleFrames = bufferSize;
-	}
-
-	for (int i = 0; i < sampleFrames; i++)
-	{
-		while (evq.HasEvents() && evq.GetEventTime() <= i)
-		{
-			processEvent (evq.GetNextEvent());
-		}
-		fillBuffer (buffer, 1, i);
-		out1[i] = buffer[i*2+0] / 32768.0f;
-		out2[i] = buffer[i*2+1] / 32768.0f;
-		out1[i] = out1[i] * Volume;
-		out2[i] = out2[i] * Volume;
-		if (DCBlock >= 0.5)
-		{
-			out1[i] = (float)dcf[0].Process(out1[i]);
-			out2[i] = (float)dcf[1].Process(out2[i]);
-		}
-#ifdef demo
-		if (time(NULL) >= startTime + 600)
-		{
-			out1[i] += ((rand() / (float)RAND_MAX) / 256.0f);
-			out2[i] += ((rand() / (float)RAND_MAX) / 256.0f);
-		}
-#endif
-		vu[0] = out1[i];
-		vu[1] = out2[i];
-	}
-	while (evq.HasEvents())
-	{
-		processEvent (evq.GetNextEvent());
-	}
+	processTemplate (inputs, outputs, sampleFrames);
 }
 
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
 {
-	double* out1 = outputs[0];
-	double* out2 = outputs[1];
+	processTemplate (inputs, outputs, sampleFrames);
+}
+
+template <class sampletype>
+void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames)
+{
+	sampletype* out1 = outputs[0];
+	sampletype* out2 = outputs[1];
 
 	if (bypassed || !buffer)
 	{
-		memset(out1, 0, sampleFrames*sizeof(double));
-		memset(out2, 0, sampleFrames*sizeof(double));
+		memset(out1, 0, sampleFrames*sizeof(sampletype));
+		memset(out2, 0, sampleFrames*sizeof(sampletype));
 		return;
 	}
 
@@ -237,20 +199,20 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 			processEvent (evq.GetNextEvent());
 		}
 		fillBuffer (buffer, 1, i);
-		out1[i] = buffer[i*2+0] / 32768.0;
-		out2[i] = buffer[i*2+1] / 32768.0;
+		out1[i] = buffer[i*2+0] / (sampletype)32768;
+		out2[i] = buffer[i*2+1] / (sampletype)32768;
 		out1[i] = out1[i] * Volume;
 		out2[i] = out2[i] * Volume;
 		if (DCBlock >= 0.5)
 		{
-			out1[i] = dcf[0].Process(out1[i]);
-			out2[i] = dcf[1].Process(out2[i]);
+			out1[i] = (sampletype)dcf[0].Process(out1[i]);
+			out2[i] = (sampletype)dcf[1].Process(out2[i]);
 		}
 #ifdef demo
 		if (time(NULL) >= startTime + 600)
 		{
-			out1[i] += ((rand() / (double)RAND_MAX) / 256.0);
-			out2[i] += ((rand() / (double)RAND_MAX) / 256.0);
+			out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
+			out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 		}
 #endif
 		vu[0] = out1[i];
