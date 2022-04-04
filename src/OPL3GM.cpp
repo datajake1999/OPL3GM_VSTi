@@ -373,6 +373,30 @@ bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* tex
 	return false;
 }
 
+bool OPL3GM::beginSetProgram ()
+{
+	suspend ();
+	stopProcess ();
+	return true;
+}
+
+bool OPL3GM::endSetProgram ()
+{
+	resume ();
+	startProcess ();
+	return true;
+}
+
+VstInt32 OPL3GM::beginLoadBank (VstPatchChunkInfo* ptr)
+{
+	return 0;
+}
+
+VstInt32 OPL3GM::beginLoadProgram (VstPatchChunkInfo* ptr)
+{
+	return 0;
+}
+
 bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
 {
 	if (index == 0)
