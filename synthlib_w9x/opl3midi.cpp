@@ -555,6 +555,10 @@ void OPL3MIDI::midi_write(unsigned int data)
 void OPL3MIDI::midi_write_sysex(unsigned char *buffer, unsigned int length)
 {
     const unsigned char resetArray[6] = {0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7};
+    if (buffer[0] != 0xF0 || buffer[length-1] != 0xF7)
+    {
+        return;
+    }
     if (length == 6 && memcmp(&resetArray[0], buffer, 6) == 0)
     {
         midi_reset();
