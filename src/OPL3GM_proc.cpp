@@ -286,6 +286,11 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	{
 		for (VstInt32 i = 0; i < ev->numEvents; i++)
 		{
+			if (ev->events[i]->type == kVstSysExType)
+			{
+				processEvent (ev->events[i]);
+				continue;
+			}
 			if (!evq.EnqueueEvent (ev->events[i]))
 			{
 				break;
