@@ -48,6 +48,15 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 
 You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-doom1"
 
+# Automatable parameters
+
+* Volume: Synth master volume.
+* VolumeDisplay: Sets the unit for displaying the aforementioned Volume parameter, either dB or %.
+* DCBlock: Filters out DC offset from the final output.
+* Transpose: Applies an offset to Incoming MIDI notes.
+* Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
+* PushEvents: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
+
 # License
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
