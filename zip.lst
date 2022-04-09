@@ -1,8 +1,11 @@
 OPL3Apogee.dll
+OPL3Apogee_IA64.dll
 OPL3Apogee_X64.dll
 OPL3Doom.dll
+OPL3Doom_IA64.dll
 OPL3Doom_X64.dll
 OPL3W9x.dll
+OPL3W9x_IA64.dll
 OPL3W9x_X64.dll
 license.txt
 readme.md

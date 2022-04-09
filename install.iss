@@ -5,7 +5,7 @@ DefaultDirName={pf}\OPL3GM
 DefaultGroupName=OPL3GM
 AllowNoIcons=yes
 OutputBaseFilename=OPL3GM
-ArchitecturesInstallIn64BitMode=X64
+ArchitecturesInstallIn64BitMode=X64 IA64
 
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"
@@ -48,11 +48,14 @@ Name: "DoomBanks"; Description: "Doom Instrument Bank Files"; Types: "full"
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
 Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
-Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: Is64BitInstallMode
+Source: "OPL3Apogee_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsIA64
+Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsX64
 Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
-Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: Is64BitInstallMode
+Source: "OPL3Doom_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsIA64
+Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsX64
 Source: "OPL3W9x.dll"; DestDir: {code:GetVSTDir_32}; Components: W9x32
-Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: Is64BitInstallMode
+Source: "OPL3W9x_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsIA64
+Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsX64
 Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
@@ -68,6 +71,16 @@ Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
 SelectDirLabel3=The documentation and instrument banks will be installed in the following folder.
 
 [Code]
+function IsX64: Boolean;
+begin
+  Result := Is64BitInstallMode and (ProcessorArchitecture = paX64);
+end;
+
+function IsIA64: Boolean;
+begin
+  Result := Is64BitInstallMode and (ProcessorArchitecture = paIA64);
+end;
+
 var
   VSTDirPage_32: TInputDirWizardPage;
   VSTDirPage_64: TInputDirWizardPage;
