@@ -34,7 +34,6 @@ Name: sp; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: uk; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Components]
-Name: "Docs"; Description: "Documentation"; Types: "full"
 Name: "Apogee32"; Description: "Apogee OPL3 (32-bit)"; Types: "full"
 Name: "Apogee64"; Description: "Apogee OPL3 (64-bit)"; Types: "full"; Check: Is64BitInstallMode
 Name: "Doom32"; Description: "Doom OPL3 (32-bit)"; Types: "full"
@@ -43,10 +42,9 @@ Name: "W9x32"; Description: "Windows 9x OPL3 (32-bit)"; Types: "full"
 Name: "W9x64"; Description: "Windows 9x OPL3 (64-bit)"; Types: "full"; Check: Is64BitInstallMode
 Name: "ApogeeBanks"; Description: "Apogee Instrument Bank Files"; Types: "full"
 Name: "DoomBanks"; Description: "Doom Instrument Bank Files"; Types: "full"
+Name: "Docs"; Description: "Documentation"; Types: "full"
 
 [Files]
-Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
-Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
 Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
 Source: "OPL3Apogee_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsIA64
 Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsX64
@@ -59,12 +57,14 @@ Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Chec
 Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
+Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
 
 [Icons]
-Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
-Name: "{group}\Readme"; Filename: "{app}\readme.txt"; Components: "Docs"
 Name: "{group}\Open Apogee Banks Directory"; Filename: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Name: "{group}\Open Doom Banks Directory"; Filename: "{app}\Banks\Doom"; Components: "DoomBanks"
+Name: "{group}\License"; Filename: "{app}\license.txt"; Components: "Docs"
+Name: "{group}\Readme"; Filename: "{app}\readme.txt"; Components: "Docs"
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
 
 [Messages]
