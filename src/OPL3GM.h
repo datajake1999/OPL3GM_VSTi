@@ -102,12 +102,16 @@ public:
 	virtual VstInt32 getNumMidiOutputChannels ();
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
+#if !VST_FORCE_DEPRECATED
 	virtual void setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate);
 	virtual bool getErrorText (char* text);
+#endif
 	virtual void suspend ();
 	virtual void resume ();
+#if !VST_FORCE_DEPRECATED
 	virtual float getVu ();
 	virtual void process (float** inputs, float** outputs, VstInt32 sampleFrames);
+#endif
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
 	virtual VstInt32 processEvents (VstEvents* events);

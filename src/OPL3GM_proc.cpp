@@ -33,12 +33,14 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	initBuffer (blockSize);
 }
 
+#if !VST_FORCE_DEPRECATED
 void OPL3GM::setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate)
 {
 	setBlockSize (blockSize);
 	setSampleRate (sampleRate);
 }
 
+#endif
 void OPL3GM::initSynth (int sampleRate)
 {
 	synth = getsynth();
@@ -101,6 +103,7 @@ void OPL3GM::clearBuffer ()
 	}
 }
 
+#if !VST_FORCE_DEPRECATED
 bool OPL3GM::getErrorText (char* text)
 {
 	if (!synth)
@@ -123,6 +126,7 @@ bool OPL3GM::getErrorText (char* text)
 	return false;
 }
 
+#endif
 void OPL3GM::suspend ()
 {
 	evq.Flush(true);
@@ -141,6 +145,7 @@ void OPL3GM::resume ()
 	}
 }
 
+#if !VST_FORCE_DEPRECATED
 float OPL3GM::getVu ()
 {
 	if (bypassed)
@@ -164,6 +169,7 @@ void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 	processTemplate (inputs, outputs, sampleFrames);
 }
 
+#endif
 void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	processTemplate (inputs, outputs, sampleFrames);
