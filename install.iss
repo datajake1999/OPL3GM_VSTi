@@ -5,6 +5,8 @@ DefaultDirName={pf}\OPL3GM
 DefaultGroupName=OPL3GM
 AllowNoIcons=yes
 OutputBaseFilename=OPL3GM
+Compression=lzma
+SolidCompression=yes
 ArchitecturesInstallIn64BitMode=X64 IA64
 
 [Languages]
