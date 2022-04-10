@@ -8,6 +8,7 @@ OutputBaseFilename=OPL3GM
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=X64 IA64
+LicenseFile=license.txt
 
 [Languages]
 Name: en; MessagesFile: "compiler:Default.isl"
