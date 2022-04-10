@@ -61,7 +61,7 @@ Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBank
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
-Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"
+Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"; Flags: isreadme
 
 [Icons]
 Name: "{group}\Open Apogee Banks Directory"; Filename: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
