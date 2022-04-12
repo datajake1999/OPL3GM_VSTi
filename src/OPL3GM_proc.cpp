@@ -290,7 +290,12 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	}
 	if (PushEvents >= 0.5)
 	{
-		for (VstInt32 i = 0; i < ev->numEvents; i++)
+		VstInt32 eventCount = ev->numEvents;
+		if (eventCount > evbufsize)
+		{
+			eventCount = evbufsize;
+		}
+		for (VstInt32 i = 0; i < eventCount; i++)
 		{
 			if (ev->events[i]->type == kVstSysExType)
 			{
