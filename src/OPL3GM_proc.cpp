@@ -129,7 +129,8 @@ bool OPL3GM::getErrorText (char* text)
 #endif
 void OPL3GM::suspend ()
 {
-	evq.Flush(true);
+	MidiQueue.Flush(true);
+	ParameterQueue.Flush(true);
 	if (synth)
 	{
 		synth->midi_panic();
@@ -200,9 +201,13 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 
 	for (int i = 0; i < sampleFrames; i++)
 	{
-		while (evq.HasEvents() && evq.GetEventTime() <= i)
+		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= i)
 		{
-			processEvent (evq.GetNextEvent());
+			processEvent (MidiQueue.GetNextEvent());
+		}
+		while (ParameterQueue.HasEvents() && ParameterQueue.GetEventTime() <= i)
+		{
+			processEvent (ParameterQueue.GetNextEvent());
 		}
 		fillBuffer (buffer, 1, i);
 		out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
@@ -222,9 +227,13 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		vu[0] = out1[i];
 		vu[1] = out2[i];
 	}
-	while (evq.HasEvents())
+	while (MidiQueue.HasEvents())
 	{
-		processEvent (evq.GetNextEvent());
+		processEvent (MidiQueue.GetNextEvent());
+	}
+	while (ParameterQueue.HasEvents())
+	{
+		processEvent (ParameterQueue.GetNextEvent());
 	}
 }
 
@@ -300,7 +309,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 				processEvent (ev->events[i]);
 				continue;
 			}
-			if (!evq.EnqueueEvent (ev->events[i]))
+			if (!MidiQueue.EnqueueEvent (ev->events[i]))
 			{
 				break;
 			}

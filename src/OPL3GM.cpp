@@ -558,7 +558,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			ev.flags = 0;
 			ev.index = (VstInt32)lArg2;
 			ev.value = floatArg;
-			if (!evq.EnqueueEvent ((VstEvent *)&ev))
+			if (!ParameterQueue.EnqueueEvent ((VstEvent *)&ev))
 			{
 				return 0;
 			}

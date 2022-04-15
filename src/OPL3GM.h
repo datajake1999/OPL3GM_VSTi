@@ -141,7 +141,8 @@ private:
 	void *resampler;
 	short samples[2];
 #endif
-	EventQueue evq;
+	EventQueue MidiQueue;
+	EventQueue ParameterQueue;
 	bool bypassed;
 	double vu[2];
 	float Volume;
