@@ -55,7 +55,7 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * DCBlock: Filters out DC offset from the final output.
 * Transpose: Applies an offset to Incoming MIDI notes.
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
-* PushEvents: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
+* PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
 
 # License
     This program is free software; you can redistribute it and/or modify

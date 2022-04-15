@@ -51,7 +51,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
-	PushEvents = 1;
+	PushMidi = 1;
 	memset(Parameters, 0, sizeof(Parameters));
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	initSynth ((int)sampleRate);
@@ -110,8 +110,8 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	case kEmulator:
 		Emulator = value;
 		break;
-	case kPushEvents:
-		PushEvents = value;
+	case kPushMidi:
+		PushMidi = value;
 		break;
 	}
 	if (index >= kTranspose && index < kNumParams)
@@ -140,8 +140,8 @@ float OPL3GM::getParameter (VstInt32 index)
 	case kEmulator:
 		value = Emulator;
 		break;
-	case kPushEvents:
-		value = PushEvents;
+	case kPushMidi:
+		value = PushMidi;
 		break;
 	}
 	return value;
@@ -201,8 +201,8 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 			vst_strncpy (text, "DOSBox", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
-	case kPushEvents:
-		if (PushEvents >= 0.5)
+	case kPushMidi:
+		if (PushMidi >= 0.5)
 		{
 			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
 		}
@@ -260,8 +260,8 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 	case kEmulator:
 		vst_strncpy (text, "Emulator", (kVstMaxParamStrLen*2)-1);
 		break;
-	case kPushEvents:
-		vst_strncpy (text, "PushEvents", (kVstMaxParamStrLen*2)-1);
+	case kPushMidi:
+		vst_strncpy (text, "PushMidi", (kVstMaxParamStrLen*2)-1);
 		break;
 	}
 }
@@ -356,7 +356,7 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 	case kEmulator:
 		p->flags |= kVstParameterIsSwitch;
 		break;
-	case kPushEvents:
+	case kPushMidi:
 		p->flags |= kVstParameterIsSwitch;
 		break;
 	}
@@ -543,7 +543,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 				return 0xbeef;
 			case kEmulator:
 				return 0xbeef;
-			case kPushEvents:
+			case kPushMidi:
 				return 0xbeef;
 			}
 		}
