@@ -205,10 +205,8 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			processEvent (evq.GetNextEvent());
 		}
 		fillBuffer (buffer, 1, i);
-		out1[i] = buffer[i*2+0] / (sampletype)32768;
-		out2[i] = buffer[i*2+1] / (sampletype)32768;
-		out1[i] = out1[i] * Volume;
-		out2[i] = out2[i] * Volume;
+		out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
+		out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
 		if (DCBlock >= 0.5)
 		{
 			out1[i] = (sampletype)dcf[0].Process(out1[i]);
