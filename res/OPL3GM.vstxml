@@ -17,5 +17,10 @@
 			<Entry name="DOSBox" value="[0, 0.5["/> 
 			<Entry name="Nuked" value="[0.5, 1]"/> 
 		</ValueType>
+		<Param name="PushMidi" id="5" numberOfStates="2"/>
+		<ValueType name="PushMidi">
+			<Entry name="OFF" value="[0, 0.5["/> 
+			<Entry name="ON" value="[0.5, 1]"/> 
+		</ValueType>
 	</VSTParametersStructure>
 </VSTPluginProperties>
