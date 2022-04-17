@@ -116,7 +116,7 @@ IDI_ICON1               ICON    DISCARDABLE     "YMF262-M.ico"
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-	ICON_ALTTEXT1   	"Yamaha YMF262 (year 1994)"
+    ICON_ALTTEXT1           "Yamaha YMF262 (year 1994)"
 END
 
 #endif    // English (U.S.) resources
