@@ -199,7 +199,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		sampleFrames = bufferSize;
 	}
 
-	for (int i = 0; i < sampleFrames; i++)
+	for (VstInt32 i = 0; i < sampleFrames; i++)
 	{
 		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= i)
 		{

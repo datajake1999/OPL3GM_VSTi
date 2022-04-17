@@ -269,7 +269,7 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 {
 	float *chunkData = (float *)data;
-	for (int i = 0; i < kNumParams; i++)
+	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		setParameter (i, chunkData[i]);
 	}
@@ -278,7 +278,7 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 
 VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 {
-	for (int i = 0; i < kNumParams; i++)
+	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		Parameters[i] = getParameter (i);
 	}
