@@ -85,7 +85,7 @@ void OPL3GM::close ()
 
 void OPL3GM::setParameter (VstInt32 index, float value)
 {
-	switch(index)
+	switch (index)
 	{
 	case kVolume:
 		Volume = value;
@@ -123,7 +123,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 float OPL3GM::getParameter (VstInt32 index)
 {
 	float value = 0;
-	switch(index)
+	switch (index)
 	{
 	case kVolume:
 		value = Volume;
@@ -149,7 +149,7 @@ float OPL3GM::getParameter (VstInt32 index)
 
 void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 {
-	switch(index)
+	switch (index)
 	{
 	case kVolume:
 		if (VolumeDisplay >= 0.5)
@@ -216,7 +216,7 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 
 void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 {
-	switch(index)
+	switch (index)
 	{
 	case kVolume:
 		if (VolumeDisplay >= 0.5)
@@ -243,7 +243,7 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 
 void OPL3GM::getParameterName (VstInt32 index, char* text)
 {
-	switch(index)
+	switch (index)
 	{
 	case kVolume:
 		vst_strncpy (text, "Volume", (kVstMaxParamStrLen*2)-1);
@@ -338,7 +338,7 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 	p->stepFloat = 0.01f;
 	p->smallStepFloat = 0.001f;
 	p->largeStepFloat = 0.1f;
-	switch(index)
+	switch (index)
 	{
 	case kVolumeDisplay:
 		p->flags |= kVstParameterIsSwitch;
@@ -499,7 +499,7 @@ VstPlugCategory OPL3GM::getPlugCategory ()
 
 VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg)
 {
-	switch(lArg)
+	switch (lArg)
 	{
 	case effGetParamDisplay:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
@@ -533,7 +533,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case kVstParameterUsesIntStep:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
-			switch(lArg2)
+			switch (lArg2)
 			{
 			case kVolumeDisplay:
 				return 0xbeef;
