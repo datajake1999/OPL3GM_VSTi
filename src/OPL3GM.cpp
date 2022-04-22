@@ -52,7 +52,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	Transpose = 0;
 	Emulator = 1;
 	PushMidi = 1;
-	memset(Parameters, 0, sizeof(Parameters));
+	memset(ParameterChunk, 0, sizeof(ParameterChunk));
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
@@ -280,10 +280,10 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 {
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
-		Parameters[i] = getParameter (i);
+		ParameterChunk[i] = getParameter (i);
 	}
-	*data = Parameters;
-	return kNumParams * sizeof(float);
+	*data = ParameterChunk;
+	return kNumParams*sizeof(float);
 }
 
 void OPL3GM::setProgram (VstInt32 program)

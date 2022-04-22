@@ -151,7 +151,7 @@ private:
 	float Transpose;
 	float Emulator;
 	float PushMidi;
-	float Parameters[kNumParams];
+	float ParameterChunk[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
 	HostInfo hi;
 #ifdef demo
