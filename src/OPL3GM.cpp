@@ -58,12 +58,12 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
-#ifdef gui
-	editor = new Editor (this);
-#endif
 #ifdef demo
 	startTime = time(NULL);
 	srand(startTime);
+#endif
+#ifdef gui
+	editor = new Editor (this);
 #endif
 }
 
