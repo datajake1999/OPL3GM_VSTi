@@ -28,7 +28,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include "queue.h"
+#define reaper
+#ifdef reaper
 #include "parmstruct.h"
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -142,7 +145,9 @@ private:
 	short samples[2];
 #endif
 	EventQueue MidiQueue;
+#ifdef reaper
 	EventQueue ParameterQueue;
+#endif
 	bool bypassed;
 #if !VST_FORCE_DEPRECATED
 	double vu[2];

@@ -503,6 +503,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 {
 	switch (lArg)
 	{
+#ifdef reaper
 	case effGetParamDisplay:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
@@ -567,6 +568,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			return 0xbeef;
 		}
 		break;
+#endif
 	}
 	return 0;
 }
@@ -581,10 +583,12 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	if (!strcmp (text, "bypass"))
 	return 1;
+#ifdef reaper
 	if (!strcmp (text, "hasCockosExtensions"))
 	return 0xbeef0000;
 	if (!strcmp (text, "hasCockosSampleAccurateAutomation"))
 	return 0xbeef0000;
+#endif
 	return -1;	// explicitly can't do; 0 => don't know
 }
 

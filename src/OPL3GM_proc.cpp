@@ -130,7 +130,9 @@ bool OPL3GM::getErrorText (char* text)
 void OPL3GM::suspend ()
 {
 	MidiQueue.Flush(true);
+#ifdef reaper
 	ParameterQueue.Flush(true);
+#endif
 	if (synth)
 	{
 		synth->midi_panic();
@@ -205,10 +207,12 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		{
 			processEvent (MidiQueue.GetNextEvent());
 		}
+#ifdef reaper
 		while (ParameterQueue.HasEvents() && ParameterQueue.GetEventTime() <= i)
 		{
 			processEvent (ParameterQueue.GetNextEvent());
 		}
+#endif
 		fillBuffer (buffer, 1, i);
 		out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
 		out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
@@ -233,10 +237,12 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	{
 		processEvent (MidiQueue.GetNextEvent());
 	}
+#ifdef reaper
 	while (ParameterQueue.HasEvents())
 	{
 		processEvent (ParameterQueue.GetNextEvent());
 	}
+#endif
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
@@ -347,11 +353,13 @@ void OPL3GM::processEvent (VstEvent* ev)
 			synth->midi_write_sysex((unsigned char *)event->sysexDump, event->dumpBytes);
 		}
 	}
+#ifdef reaper
 	else if (ev->type == kVstParameterType)
 	{
 		VstParameterEvent* event = (VstParameterEvent*)ev;
 		setParameter (event->index, event->value);
 	}
+#endif
 }
 
 void OPL3GM::sendMidi (char *data)
