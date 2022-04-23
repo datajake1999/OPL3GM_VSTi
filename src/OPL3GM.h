@@ -144,7 +144,9 @@ private:
 	EventQueue MidiQueue;
 	EventQueue ParameterQueue;
 	bool bypassed;
+#if !VST_FORCE_DEPRECATED
 	double vu[2];
+#endif
 	float Volume;
 	float VolumeDisplay;
 	float DCBlock;

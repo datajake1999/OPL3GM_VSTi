@@ -224,8 +224,10 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 		}
 #endif
+#if !VST_FORCE_DEPRECATED
 		vu[0] = out1[i];
 		vu[1] = out2[i];
+#endif
 	}
 	while (MidiQueue.HasEvents())
 	{
