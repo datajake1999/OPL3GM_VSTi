@@ -336,10 +336,11 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 {
 	getParameterName (index, p->label);
 	p->shortLabel[0] = 0;
-	p->flags = kVstParameterUsesFloatStep;
+	p->flags = kVstParameterUsesFloatStep | kVstParameterSupportsDisplayIndex;
 	p->stepFloat = 0.01f;
 	p->smallStepFloat = 0.001f;
 	p->largeStepFloat = 0.1f;
+	p->displayIndex = (VstInt16)index;
 	switch (index)
 	{
 	case kVolumeDisplay:
