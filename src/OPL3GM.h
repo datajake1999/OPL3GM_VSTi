@@ -56,12 +56,12 @@ enum
 	kNumParams
 };
 
-typedef struct
+struct HostInfo
 {
 	char VendorString[kVstMaxVendorStrLen];
 	char ProductString[kVstMaxProductStrLen];
 	VstInt32 VendorVersion;
-}HostInfo;
+};
 
 class OPL3GM : public AudioEffectX
 {
