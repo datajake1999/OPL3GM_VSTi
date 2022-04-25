@@ -57,6 +57,11 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
 * PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
 
+# Extra notes
+
+* This is only a VST2 compatible plug-in. A VST3 version Is not planned for various reasons.
+* This plug-in has no User Interface of Its own, so the host application should provide a method of interacting with automatable parameters.
+
 # License
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
