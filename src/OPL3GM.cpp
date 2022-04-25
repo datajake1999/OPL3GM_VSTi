@@ -500,6 +500,75 @@ VstPlugCategory OPL3GM::getPlugCategory ()
 	return kPlugCategSynth;
 }
 
+#ifdef reaper
+void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
+{
+	switch (index)
+	{
+	case kVolume:
+		if (VolumeDisplay >= 0.5)
+		{
+			float2string (value*100, text, (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			dB2string (value, text, (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kVolumeDisplay:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "%", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "dB", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kDCBlock:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kTranspose:
+		if (value >= 1 || value <= -1)
+		{
+			int2string ((int)value, text, (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "0", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kEmulator:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "Nuked", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "DOSBox", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kPushMidi:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	}
+}
+
+#endif
 VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg)
 {
 	switch (lArg)
@@ -510,7 +579,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				sprintf((char *)ptrArg, "%f", floatArg);
+				getParameterDisplayValue ((VstInt32)lArg2, (char *)ptrArg, floatArg);
 				return 0xbeef;
 			}
 		}

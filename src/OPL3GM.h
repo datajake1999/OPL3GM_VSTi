@@ -126,6 +126,9 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 private:
+#ifdef reaper
+	void getParameterDisplayValue (VstInt32 index, char* text, float value);
+#endif
 	void initSynth (int sampleRate);
 	void initBuffer (int blockSize);
 	void clearSynth ();
