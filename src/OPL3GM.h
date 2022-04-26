@@ -128,6 +128,7 @@ public:
 private:
 #ifdef reaper
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
+	void string2parameterReplace (VstInt32 index, char* text);
 #endif
 	void initSynth (int sampleRate);
 	void initBuffer (int blockSize);

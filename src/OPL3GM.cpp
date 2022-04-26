@@ -577,6 +577,20 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 	}
 }
 
+void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
+{
+	float value = (float)atof(text);
+	if (value > 1)
+	{
+		value = 1;
+	}
+	else if (value < 0)
+	{
+		value = 0;
+	}
+	float2string (value, text, (kVstMaxParamStrLen*2)-1);
+}
+
 #endif
 VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg)
 {
@@ -598,16 +612,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				float value = (float)atof((char *)ptrArg);
-				if (value > 1)
-				{
-					value = 1;
-				}
-				else if (value < 0)
-				{
-					value = 0;
-				}
-				sprintf((char *)ptrArg, "%f", value);
+				string2parameterReplace ((VstInt32)lArg2, (char *)ptrArg);
 				return 0xbeef;
 			}
 		}
