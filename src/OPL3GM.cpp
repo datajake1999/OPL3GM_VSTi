@@ -320,6 +320,12 @@ bool OPL3GM::canParameterBeAutomated (VstInt32 index)
 bool OPL3GM::string2parameter (VstInt32 index, char* text)
 {
 	float value = (float)atof(text);
+	switch (index)
+	{
+	case kTranspose:
+		value = (value+12.0f)/24.0f;
+		break;
+	}
 	if (value > 1)
 	{
 		value = 1;
@@ -580,6 +586,12 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 {
 	float value = (float)atof(text);
+	switch (index)
+	{
+	case kTranspose:
+		value = (value+12.0f)/24.0f;
+		break;
+	}
 	if (value > 1)
 	{
 		value = 1;
