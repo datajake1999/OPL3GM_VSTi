@@ -591,6 +591,40 @@ void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 	float2string (value, text, (kVstMaxParamStrLen*2)-1);
 }
 
+bool OPL3GM::isEnumParameter (VstInt32 index)
+{
+	switch (index)
+	{
+	case kVolumeDisplay:
+		return true;
+	case kDCBlock:
+		return true;
+	case kTranspose:
+		return true;
+	case kEmulator:
+		return true;
+	case kPushMidi:
+		return true;
+	}
+	return false;
+}
+
+bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
+{
+	VstParameterEvent ev;
+	ev.type = kVstParameterType;
+	ev.byteSize = sizeof(VstParameterEvent);
+	ev.deltaFrames = timestamp;
+	ev.flags = 0;
+	ev.index = index;
+	ev.value = value;
+	if (!ParameterQueue.EnqueueEvent ((VstEvent *)&ev))
+	{
+		return false;
+	}
+	return true;
+}
+
 #endif
 VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg)
 {
@@ -620,17 +654,8 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case kVstParameterUsesIntStep:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
-			switch (lArg2)
+			if (isEnumParameter ((VstInt32)lArg2))
 			{
-			case kVolumeDisplay:
-				return 0xbeef;
-			case kDCBlock:
-				return 0xbeef;
-			case kTranspose:
-				return 0xbeef;
-			case kEmulator:
-				return 0xbeef;
-			case kPushMidi:
 				return 0xbeef;
 			}
 		}
@@ -638,18 +663,10 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case effCanBeAutomated:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
-			VstParameterEvent ev;
-			ev.type = kVstParameterType;
-			ev.byteSize = sizeof(VstParameterEvent);
-			ev.deltaFrames = (VstInt32)ptrArg;
-			ev.flags = 0;
-			ev.index = (VstInt32)lArg2;
-			ev.value = floatArg;
-			if (!ParameterQueue.EnqueueEvent ((VstEvent *)&ev))
+			if (automateParameter ((VstInt32)lArg2, floatArg, (VstInt32)ptrArg))
 			{
-				return 0;
+				return 0xbeef;
 			}
-			return 0xbeef;
 		}
 		break;
 #endif

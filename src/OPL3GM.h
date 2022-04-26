@@ -129,6 +129,8 @@ private:
 #ifdef reaper
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
 	void string2parameterReplace (VstInt32 index, char* text);
+	bool isEnumParameter (VstInt32 index);
+	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
 #endif
 	void initSynth (int sampleRate);
 	void initBuffer (int blockSize);
