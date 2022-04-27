@@ -322,6 +322,16 @@ bool OPL3GM::string2parameter (VstInt32 index, char* text)
 	float value = (float)atof(text);
 	switch (index)
 	{
+	case kVolume:
+		if (VolumeDisplay >= 0.5)
+		{
+			value = value/100.0f;
+		}
+		else
+		{
+			value = (float)pow(10.0, value/20.0);
+		}
+		break;
 	case kTranspose:
 		value = (value+12.0f)/24.0f;
 		break;
@@ -588,6 +598,16 @@ void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 	float value = (float)atof(text);
 	switch (index)
 	{
+	case kVolume:
+		if (VolumeDisplay >= 0.5)
+		{
+			value = value/100.0f;
+		}
+		else
+		{
+			value = (float)pow(10.0, value/20.0);
+		}
+		break;
 	case kTranspose:
 		value = (value+12.0f)/24.0f;
 		break;
