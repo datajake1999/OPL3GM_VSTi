@@ -56,14 +56,6 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 		break;
 	case kTranspose:
 		value = (value*24.0f)-12.0f;
-		if (value > 12)
-		{
-			value = 12;
-		}
-		else if (value < -12)
-		{
-			value = -12;
-		}
 		if (value >= 1 || value <= -1)
 		{
 			int2string ((int)value, text, (kVstMaxParamStrLen*2)-1);
