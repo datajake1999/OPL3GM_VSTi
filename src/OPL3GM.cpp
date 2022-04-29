@@ -370,7 +370,7 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 		p->minInteger = -12;
 		p->maxInteger = 12;
 		p->stepInteger = 1;
-		p->largeStepInteger = 1;
+		p->largeStepInteger = 2;
 		break;
 	case kEmulator:
 		p->flags |= kVstParameterIsSwitch;
