@@ -58,7 +58,7 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 		value = (value*24.0f)-12.0f;
 		if (value >= 1 || value <= -1)
 		{
-			int2string ((int)value, text, (kVstMaxParamStrLen*2)-1);
+			int2string ((VstInt32)value, text, (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{

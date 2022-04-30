@@ -188,7 +188,7 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 	case kTranspose:
 		if (Transpose >= 1 || Transpose <= -1)
 		{
-			int2string ((int)Transpose, text, (kVstMaxParamStrLen*2)-1);
+			int2string ((VstInt32)Transpose, text, (kVstMaxParamStrLen*2)-1);
 		}
 		else
 		{
