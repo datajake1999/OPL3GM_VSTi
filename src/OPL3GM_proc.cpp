@@ -178,11 +178,13 @@ void OPL3GM::processReplacing (float** inputs, float** outputs, VstInt32 sampleF
 	processTemplate (inputs, outputs, sampleFrames);
 }
 
+#if VST_2_4_EXTENSIONS
 void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames)
 {
 	processTemplate (inputs, outputs, sampleFrames);
 }
 
+#endif
 template <class sampletype>
 void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames)
 {
@@ -312,11 +314,13 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		}
 		for (VstInt32 i = 0; i < eventCount; i++)
 		{
+#if VST_2_4_EXTENSIONS
 			if (ev->events[i]->type == kVstSysExType)
 			{
 				processEvent (ev->events[i]);
 				continue;
 			}
+#endif
 			if (!MidiQueue.EnqueueEvent (ev->events[i]))
 			{
 				break;
@@ -345,6 +349,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 		char* midiData = event->midiData;
 		sendMidi (midiData);
 	}
+#if VST_2_4_EXTENSIONS
 	else if (ev->type == kVstSysExType)
 	{
 		VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev;
@@ -353,6 +358,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 			synth->midi_write_sysex((unsigned char *)event->sysexDump, event->dumpBytes);
 		}
 	}
+#endif
 #ifdef reaper
 	else if (ev->type == kVstParameterType)
 	{

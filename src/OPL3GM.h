@@ -93,7 +93,9 @@ public:
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool setBypass (bool onOff);
 	virtual bool setPanLaw (VstInt32 type, float val);
+#if VST_2_4_EXTENSIONS
 	virtual bool setProcessPrecision (VstInt32 precision);
+#endif
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);
@@ -101,8 +103,10 @@ public:
 	virtual VstPlugCategory getPlugCategory ();
 	virtual VstIntPtr vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, float floatArg);
 	virtual VstInt32 canDo (char* text);
+#if VST_2_4_EXTENSIONS
 	virtual VstInt32 getNumMidiInputChannels ();
 	virtual VstInt32 getNumMidiOutputChannels ();
+#endif
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
 #if !VST_FORCE_DEPRECATED
@@ -116,7 +120,9 @@ public:
 	virtual void process (float** inputs, float** outputs, VstInt32 sampleFrames);
 #endif
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
+#if VST_2_4_EXTENSIONS
 	virtual void processDoubleReplacing (double** inputs, double** outputs, VstInt32 sampleFrames);
+#endif
 	virtual VstInt32 processEvents (VstEvents* events);
 	virtual VstInt32 startProcess ();
 	virtual VstInt32 stopProcess ();

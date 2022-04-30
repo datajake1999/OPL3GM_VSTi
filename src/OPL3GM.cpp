@@ -31,7 +31,9 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	setUniqueID ('O3GM');
 	setInitialDelay (0);
 	canProcessReplacing ();
+#if VST_2_4_EXTENSIONS
 	canDoubleReplacing ();
+#endif
 	programsAreChunks ();
 	isSynth ();
 #if !VST_FORCE_DEPRECATED
@@ -476,11 +478,13 @@ bool OPL3GM::setPanLaw (VstInt32 type, float val)
 	return true;
 }
 
+#if VST_2_4_EXTENSIONS
 bool OPL3GM::setProcessPrecision (VstInt32 precision)
 {
 	return false;
 }
 
+#endif
 bool OPL3GM::getEffectName (char* name)
 {
 	if (synth)
@@ -583,6 +587,7 @@ VstInt32 OPL3GM::canDo (char* text)
 	return -1;	// explicitly can't do; 0 => don't know
 }
 
+#if VST_2_4_EXTENSIONS
 VstInt32 OPL3GM::getNumMidiInputChannels ()
 {
 	return 16;
@@ -592,3 +597,4 @@ VstInt32 OPL3GM::getNumMidiOutputChannels ()
 {
 	return 0;
 }
+#endif
