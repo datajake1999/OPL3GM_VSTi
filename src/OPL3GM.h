@@ -28,8 +28,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include "queue.h"
-#define reaper
-#ifdef reaper
+#define reaper_extensions 1
+#if reaper_extensions
 #include "parmstruct.h"
 #endif
 #include <stdio.h>
@@ -132,7 +132,7 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 private:
-#ifdef reaper
+#if reaper_extensions
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
 	void string2parameterReplace (VstInt32 index, char* text);
 	bool isEnumParameter (VstInt32 index);
@@ -157,7 +157,7 @@ private:
 	short samples[2];
 #endif
 	EventQueue MidiQueue;
-#ifdef reaper
+#if reaper_extensions
 	EventQueue ParameterQueue;
 #endif
 	bool bypassed;

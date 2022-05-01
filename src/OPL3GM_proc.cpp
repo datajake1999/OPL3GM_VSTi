@@ -130,7 +130,7 @@ bool OPL3GM::getErrorText (char* text)
 void OPL3GM::suspend ()
 {
 	MidiQueue.Flush(true);
-#ifdef reaper
+#if reaper_extensions
 	ParameterQueue.Flush(true);
 #endif
 	if (synth)
@@ -209,7 +209,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		{
 			processEvent (MidiQueue.GetNextEvent());
 		}
-#ifdef reaper
+#if reaper_extensions
 		while (ParameterQueue.HasEvents() && ParameterQueue.GetEventTime() <= i)
 		{
 			processEvent (ParameterQueue.GetNextEvent());
@@ -239,7 +239,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	{
 		processEvent (MidiQueue.GetNextEvent());
 	}
-#ifdef reaper
+#if reaper_extensions
 	while (ParameterQueue.HasEvents())
 	{
 		processEvent (ParameterQueue.GetNextEvent());
@@ -359,7 +359,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 		}
 	}
 #endif
-#ifdef reaper
+#if reaper_extensions
 	else if (ev->type == kVstParameterType)
 	{
 		VstParameterEvent* event = (VstParameterEvent*)ev;
