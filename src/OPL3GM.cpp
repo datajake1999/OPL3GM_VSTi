@@ -563,6 +563,13 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			}
 		}
 		break;
+	case effGetEffectName:
+		if (lArg2 == 0x50 && ptrArg)
+		{
+			renamePlug ((char **)ptrArg, "OPL3GM");
+			return 0xf00d;
+		}
+		break;
 #endif
 	}
 	return 0;

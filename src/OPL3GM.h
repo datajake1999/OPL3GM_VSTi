@@ -137,6 +137,7 @@ private:
 	void string2parameterReplace (VstInt32 index, char* text);
 	bool isEnumParameter (VstInt32 index);
 	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
+	void renamePlug (char **text, char *newName);
 #endif
 	void initSynth (int sampleRate);
 	void initBuffer (int blockSize);
