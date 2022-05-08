@@ -563,6 +563,19 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			}
 		}
 		break;
+	case effGetChunk:
+		if (lArg2 && ptrArg)
+		{
+			vst_strncpy ((char *)ptrArg, (char *)lArg2, (VstInt32)floatArg-1);
+			return 0xf00d;
+		}
+		break;
+	case effSetChunk:
+		if (lArg2 && ptrArg)
+		{
+			return 0xf00d;
+		}
+		break;
 	case effGetEffectName:
 		if (lArg2 == 0x50 && ptrArg)
 		{
