@@ -563,6 +563,16 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 			}
 		}
 		break;
+	case 0xdeadbef0:
+		if (lArg2 >= 0 && lArg2 < kNumParams)
+		{
+			if (ptrArg)
+			{
+				parameterRange ((VstInt32)lArg2, (double *)ptrArg);
+				return 0xbeef;
+			}
+		}
+		break;
 	case effGetChunk:
 		if (lArg2 && ptrArg)
 		{

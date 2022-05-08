@@ -152,6 +152,17 @@ bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
 	return true;
 }
 
+void OPL3GM::parameterRange (VstInt32 index, double *range)
+{
+	switch (index)
+	{
+	case kVolume:
+		range[0] = 0;
+		range[1] = 10;
+		break;
+	}
+}
+
 void OPL3GM::renamePlug (char **text, char *newName)
 {
 	*text = newName;
