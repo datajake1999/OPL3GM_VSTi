@@ -107,13 +107,27 @@ void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 		value = (value+12.0f)/24.0f;
 		break;
 	}
-	if (value > 1)
+	if (index == kVolume)
 	{
-		value = 1;
+		if (value > 10)
+		{
+			value = 10;
+		}
+		else if (value < 0)
+		{
+			value = 0;
+		}
 	}
-	else if (value < 0)
+	else
 	{
-		value = 0;
+		if (value > 1)
+		{
+			value = 1;
+		}
+		else if (value < 0)
+		{
+			value = 0;
+		}
 	}
 	float2string (value, text, (kVstMaxParamStrLen*2)-1);
 }
