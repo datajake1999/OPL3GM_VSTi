@@ -163,6 +163,12 @@ void OPL3GM::parameterRange (VstInt32 index, double *range)
 	}
 }
 
+void OPL3GM::adjustParameterIndex (VstInt32 index, VstInt32 newIndex)
+{
+	VstInt32 idxadj[2] = { index, newIndex };
+	hostVendorSpecific (0xdeadbeef, audioMasterAutomate, idxadj, 0);
+}
+
 void OPL3GM::renamePlug (char **text, char *newName)
 {
 	*text = newName;

@@ -138,6 +138,7 @@ private:
 	bool isEnumParameter (VstInt32 index);
 	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
 	void parameterRange (VstInt32 index, double *range);
+	void adjustParameterIndex (VstInt32 index, VstInt32 newIndex);
 	void renamePlug (char **text, char *newName);
 #endif
 	void initSynth (int sampleRate);
