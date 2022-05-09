@@ -163,9 +163,9 @@ void OPL3GM::parameterRange (VstInt32 index, double *range)
 	}
 }
 
-void OPL3GM::adjustParameterIndex (VstInt32 index, VstInt32 newIndex)
+void OPL3GM::adjustParameterIndex (VstInt32 index, VstInt32 adjust)
 {
-	VstInt32 idxadj[2] = { index, newIndex };
+	VstInt32 idxadj[2] = { index, adjust };
 	hostVendorSpecific (0xdeadbeef, audioMasterAutomate, idxadj, 0);
 }
 
