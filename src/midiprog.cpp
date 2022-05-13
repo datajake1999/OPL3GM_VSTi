@@ -22,6 +22,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 VstInt32 OPL3GM::getMidiProgramName (VstInt32 channel, MidiProgramName* mpn)
 {
+	if (channel < 0 || channel >= 16 || !mpn)
+	return 0;
 	VstInt32 prg = mpn->thisProgramIndex;
 	if (prg < 0 || prg >= 128)
 	return 0;
@@ -77,6 +79,8 @@ void OPL3GM::fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn)
 
 VstInt32 OPL3GM::getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* cat)
 {
+	if (channel < 0 || channel >= 16 || !cat)
+	return 0;
 	cat->parentCategoryIndex = -1;	// -1:no parent category
 	cat->flags = 0;					// reserved, none defined yet, zero.
 	VstInt32 category = cat->thisCategoryIndex;
@@ -102,6 +106,8 @@ bool OPL3GM::getMidiKeyName (VstInt32 channel, MidiKeyName* key)
 // if keyName is "" the standard name of the key will be displayed.
 // if false is returned, no MidiKeyNames defined for 'thisProgramIndex'.
 {
+	if (channel < 0 || channel >= 16 || !key)
+	return false;
 	// key->thisProgramIndex;		// >= 0. fill struct for this program index.
 	// key->thisKeyNumber;			// 0 - 127. fill struct for this key number.
 	key->keyName[0] = 0;
