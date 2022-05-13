@@ -420,38 +420,66 @@ VstInt32 OPL3GM::beginLoadProgram (VstPatchChunkInfo* ptr)
 
 bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
 {
-	if (index == 0)
+	switch (cEffect.numInputs)
 	{
-		vst_strncpy (properties->label, "Left Input", kVstMaxLabelLen-1);
-		vst_strncpy (properties->shortLabel, "InL", kVstMaxShortLabelLen-1);
-		properties->flags = kVstPinIsActive | kVstPinIsStereo;
-		return true;
-	}
-	else if (index == 1)
-	{
-		vst_strncpy (properties->label, "Right Input", kVstMaxLabelLen-1);
-		vst_strncpy (properties->shortLabel, "InR", kVstMaxShortLabelLen-1);
-		properties->flags = kVstPinIsActive | kVstPinIsStereo;
-		return true;
+	case 1:
+		if (index == 0)
+		{
+			vst_strncpy (properties->label, "Mono Input", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "InM", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive;
+			return true;
+		}
+		break;
+	case 2:
+		if (index == 0)
+		{
+			vst_strncpy (properties->label, "Left Input", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "InL", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive | kVstPinIsStereo;
+			return true;
+		}
+		else if (index == 1)
+		{
+			vst_strncpy (properties->label, "Right Input", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "InR", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive | kVstPinIsStereo;
+			return true;
+		}
+		break;
 	}
 	return false;
 }
 
 bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 {
-	if (index == 0)
+	switch (cEffect.numOutputs)
 	{
-		vst_strncpy (properties->label, "Left Output", kVstMaxLabelLen-1);
-		vst_strncpy (properties->shortLabel, "OutL", kVstMaxShortLabelLen-1);
-		properties->flags = kVstPinIsActive | kVstPinIsStereo;
-		return true;
-	}
-	else if (index == 1)
-	{
-		vst_strncpy (properties->label, "Right Output", kVstMaxLabelLen-1);
-		vst_strncpy (properties->shortLabel, "OutR", kVstMaxShortLabelLen-1);
-		properties->flags = kVstPinIsActive | kVstPinIsStereo;
-		return true;
+	case 1:
+		if (index == 0)
+		{
+			vst_strncpy (properties->label, "Mono Output", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "OutM", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive;
+			return true;
+		}
+		break;
+	case 2:
+		if (index == 0)
+		{
+			vst_strncpy (properties->label, "Left Output", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "OutL", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive | kVstPinIsStereo;
+			return true;
+		}
+		else if (index == 1)
+		{
+			vst_strncpy (properties->label, "Right Output", kVstMaxLabelLen-1);
+			vst_strncpy (properties->shortLabel, "OutR", kVstMaxShortLabelLen-1);
+			properties->flags = kVstPinIsActive | kVstPinIsStereo;
+			return true;
+		}
+		break;
 	}
 	return false;
 }
