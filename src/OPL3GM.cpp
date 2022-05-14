@@ -356,6 +356,10 @@ bool OPL3GM::string2parameter (VstInt32 index, char* text)
 
 bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 {
+	if (!p)
+	{
+		return false;
+	}
 	getParameterName (index, p->label);
 	p->shortLabel[0] = 0;
 	p->flags = kVstParameterUsesFloatStep | kVstParameterSupportsDisplayIndex;
@@ -424,6 +428,10 @@ VstInt32 OPL3GM::beginLoadProgram (VstPatchChunkInfo* ptr)
 
 bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
 {
+	if (!properties)
+	{
+		return false;
+	}
 	switch (cEffect.numInputs)
 	{
 	case 1:
@@ -457,6 +465,10 @@ bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
 
 bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 {
+	if (!properties)
+	{
+		return false;
+	}
 	switch (cEffect.numOutputs)
 	{
 	case 1:
