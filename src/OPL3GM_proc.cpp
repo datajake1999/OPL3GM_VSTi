@@ -301,7 +301,7 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)
 {
-	if (bypassed)
+	if (bypassed || !ev)
 	{
 		return 0;
 	}
