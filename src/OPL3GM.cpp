@@ -628,9 +628,15 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 
 VstInt32 OPL3GM::canDo (char* text)
 {
+	if (!strcmp (text, "sendVstEvents"))
+	return 1;
+	if (!strcmp (text, "sendVstMidiEvent"))
+	return 1;
 	if (!strcmp (text, "receiveVstEvents"))
 	return 1;
 	if (!strcmp (text, "receiveVstMidiEvent"))
+	return 1;
+	if (!strcmp (text, "receiveVstTimeInfo"))
 	return 1;
 	if (!strcmp (text, "midiProgramNames"))
 	return 1;
