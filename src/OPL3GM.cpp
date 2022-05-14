@@ -80,6 +80,10 @@ void OPL3GM::open ()
 	getHostVendorString (hi.VendorString);
 	getHostProductString (hi.ProductString);
 	hi.VendorVersion = getHostVendorVersion ();
+	if (canHostDo ("receiveVstEvents") || canHostDo ("receiveVstMidiEvent"))
+	{
+		hi.ReceiveMidi = true;
+	}
 }
 
 void OPL3GM::close ()
@@ -659,6 +663,10 @@ VstInt32 OPL3GM::getNumMidiInputChannels ()
 
 VstInt32 OPL3GM::getNumMidiOutputChannels ()
 {
+	if (hi.ReceiveMidi)
+	{
+		return 16;
+	}
 	return 0;
 }
 #endif

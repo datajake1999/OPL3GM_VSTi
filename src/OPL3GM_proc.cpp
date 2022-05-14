@@ -336,7 +336,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			processEvent (ev->events[i]);
 		}
 	}
-	sendVstEventsToHost (ev);
+	if (hi.ReceiveMidi)
+	{
+		sendVstEventsToHost (ev);
+	}
 	return 1;
 }
 

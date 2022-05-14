@@ -61,6 +61,7 @@ struct HostInfo
 	char VendorString[kVstMaxVendorStrLen];
 	char ProductString[kVstMaxProductStrLen];
 	VstInt32 VendorVersion;
+	bool ReceiveMidi;
 };
 
 class OPL3GM : public AudioEffectX
