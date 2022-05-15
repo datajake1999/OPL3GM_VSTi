@@ -49,6 +49,8 @@ VstInt32 OPL3GM::getCurrentMidiProgram (VstInt32 channel, MidiProgramName* mpn)
 
 void OPL3GM::fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn)
 {
+	if (channel < 0 || channel >= 16 || prg < 0 || prg >= 128 || !mpn)
+	return;
 	mpn->midiBankMsb =
 	mpn->midiBankLsb = -1;
 	mpn->reserved = 0;
