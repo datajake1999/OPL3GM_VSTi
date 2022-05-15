@@ -197,11 +197,25 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	{
 		if (out1)
 		{
-			memset(out1, 0, sampleFrames*sizeof(sampletype));
+			if (in1)
+			{
+				memcpy(out1, in1, sampleFrames*sizeof(sampletype));
+			}
+			else
+			{
+				memset(out1, 0, sampleFrames*sizeof(sampletype));
+			}
 		}
 		if (out2)
 		{
-			memset(out2, 0, sampleFrames*sizeof(sampletype));
+			if (in2)
+			{
+				memcpy(out2, in2, sampleFrames*sizeof(sampletype));
+			}
+			else
+			{
+				memset(out2, 0, sampleFrames*sizeof(sampletype));
+			}
 		}
 		return;
 	}
