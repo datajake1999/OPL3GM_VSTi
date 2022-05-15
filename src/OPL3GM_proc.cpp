@@ -351,6 +351,10 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 {
 	if (bypassed || !ev)
 	{
+		if (ev && hi.ReceiveEvents)
+		{
+			sendVstEventsToHost (ev);
+		}
 		return 0;
 	}
 	if (PushMidi >= 0.5)
