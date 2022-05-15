@@ -195,8 +195,14 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 
 	if (bypassed || !buffer)
 	{
-		memset(out1, 0, sampleFrames*sizeof(sampletype));
-		memset(out2, 0, sampleFrames*sizeof(sampletype));
+		if (out1)
+		{
+			memset(out1, 0, sampleFrames*sizeof(sampletype));
+		}
+		if (out2)
+		{
+			memset(out2, 0, sampleFrames*sizeof(sampletype));
+		}
 		return;
 	}
 
@@ -220,26 +226,48 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		}
 #endif
 		fillBuffer (buffer, 1, i);
-		out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
-		out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
-		out1[i] += in1[i];
-		out2[i] += in2[i];
-		if (DCBlock >= 0.5)
+		if (out1)
 		{
-			out1[i] = (sampletype)dcf[0].Process(out1[i]);
-			out2[i] = (sampletype)dcf[1].Process(out2[i]);
-		}
+			out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
+			if (in1)
+			{
+				out1[i] += in1[i];
+			}
+			if (DCBlock >= 0.5)
+			{
+				out1[i] = (sampletype)dcf[0].Process(out1[i]);
+			}
 #ifdef demo
-		if (time(NULL) >= startTime + 600)
-		{
-			out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
-			out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
-		}
+			if (time(NULL) >= startTime + 600)
+			{
+				out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
+			}
 #endif
 #if !VST_FORCE_DEPRECATED
-		vu[0] = out1[i];
-		vu[1] = out2[i];
+			vu[0] = out1[i];
 #endif
+		}
+		if (out2)
+		{
+			out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
+			if (in2)
+			{
+				out2[i] += in2[i];
+			}
+			if (DCBlock >= 0.5)
+			{
+				out2[i] = (sampletype)dcf[1].Process(out2[i]);
+			}
+#ifdef demo
+			if (time(NULL) >= startTime + 600)
+			{
+				out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
+			}
+#endif
+#if !VST_FORCE_DEPRECATED
+			vu[1] = out2[i];
+#endif
+		}
 	}
 	while (MidiQueue.HasEvents())
 	{
