@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 : AudioEffectX (audioMaster, kNumPrograms, kNumParams)
 {
-	setNumInputs (0);
+	setNumInputs (2);
 	setNumOutputs (2);
 	setUniqueID ('O3GM');
 	setInitialDelay (0);

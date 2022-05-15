@@ -188,6 +188,8 @@ void OPL3GM::processDoubleReplacing (double** inputs, double** outputs, VstInt32
 template <class sampletype>
 void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames)
 {
+	sampletype* in1 = inputs[0];
+	sampletype* in2 = inputs[1];
 	sampletype* out1 = outputs[0];
 	sampletype* out2 = outputs[1];
 
@@ -220,6 +222,8 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		fillBuffer (buffer, 1, i);
 		out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
 		out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
+		out1[i] += in1[i];
+		out2[i] += in2[i];
 		if (DCBlock >= 0.5)
 		{
 			out1[i] = (sampletype)dcf[0].Process(out1[i]);
