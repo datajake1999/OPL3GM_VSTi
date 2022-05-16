@@ -193,7 +193,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	sampletype* out1 = outputs[0];
 	sampletype* out2 = outputs[1];
 
-	if (bypassed || !buffer)
+	if (bypassed || !buffer || !out1 || !out2)
 	{
 		if (out1)
 		{
