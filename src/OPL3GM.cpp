@@ -39,6 +39,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 #if !VST_FORCE_DEPRECATED
 	hasVu ();
 	hasClip ();
+	canMono ();
 #endif
 	synth = NULL;
 	buffer = NULL;
