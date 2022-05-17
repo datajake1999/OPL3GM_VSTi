@@ -357,6 +357,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		}
 		return 0;
 	}
+
 	if (PushMidi >= 0.5)
 	{
 		VstInt32 eventCount = ev->numEvents;
