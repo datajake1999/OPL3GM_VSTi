@@ -1,5 +1,5 @@
 /*
-Event Queue
+VST Event Queue
 Copyright (C) 2021-2022  Datajake
 
 This program is free software; you can redistribute it and/or modify
