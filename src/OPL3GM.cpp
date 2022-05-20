@@ -85,6 +85,10 @@ void OPL3GM::open ()
 	{
 		hi.ReceiveEvents = true;
 	}
+	else
+	{
+		hi.ReceiveEvents = false;
+	}
 }
 
 void OPL3GM::close ()
