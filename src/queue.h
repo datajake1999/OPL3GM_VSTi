@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <pluginterfaces/vst2.x/aeffectx.h>
 
 #define evbufsize 1024
+
 class EventQueue
 {
 public:
