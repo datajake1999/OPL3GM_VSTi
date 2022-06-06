@@ -35,9 +35,9 @@ void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 	}
 }
 
-BOOL InitDialog(HWND hWnd, AudioEffectX* effect)
+BOOL InitDialog(HWND hWnd)
 {
-	if (hWnd && effect)
+	if (hWnd)
 	{
 		HICON hIcon = LoadIcon((HINSTANCE)hInstance, MAKEINTRESOURCE(IDI_ICON1));
 		if (hIcon)
@@ -48,6 +48,15 @@ BOOL InitDialog(HWND hWnd, AudioEffectX* effect)
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
 		float ParamValue;
 		char text[MAX_PATH];
 		ParamValue = effect->getParameter (kVolume)*100;
@@ -222,7 +231,7 @@ BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				return TRUE;
 			}
 		case IDC_REFRESH:
-			return InitDialog(hWnd, effect);
+			return RefreshDialog(hWnd, effect);
 		case IDC_ABOUT:
 			return AboutBox(hWnd);
 		case IDC_STATS:
@@ -280,7 +289,8 @@ bool Editor::open (void* ptr)
 #else
 		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
-		InitDialog((HWND)dlg, (AudioEffectX*)effect);
+		InitDialog((HWND)dlg);
+		RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
 		return true;
@@ -319,6 +329,6 @@ void Editor::refreshParameters ()
 {
 	if (effect && dlg)
 	{
-		InitDialog((HWND)dlg, (AudioEffectX*)effect);
+		RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
 	}
 }
