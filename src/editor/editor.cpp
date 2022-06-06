@@ -48,10 +48,20 @@ BOOL InitDialog(HWND hWnd, AudioEffectX* effect)
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
-		float ParamValue = effect->getParameter (kVolume)*100;
+		float ParamValue;
+		char text[MAX_PATH];
+		ParamValue = effect->getParameter (kVolume)*100;
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
+		effect->getParameterDisplay (kVolume, text);
+		SetWindowText(GetDlgItem(hWnd, IDC_VOLDISP1), text);
+		effect->getParameterLabel (kVolume, text);
+		SetWindowText(GetDlgItem(hWnd, IDC_VOLDISP2), text);
 		ParamValue = effect->getParameter (kTranspose)*25;
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (long)ParamValue);
+		effect->getParameterDisplay (kTranspose, text);
+		SetWindowText(GetDlgItem(hWnd, IDC_TRANDISP1), text);
+		effect->getParameterLabel (kTranspose, text);
+		SetWindowText(GetDlgItem(hWnd, IDC_TRANDISP2), text);
 		ParamValue = effect->getParameter (kVolumeDisplay);
 		if (ParamValue >= 0.5)
 		{
@@ -292,15 +302,6 @@ void Editor::idle ()
 {
 	if (effect && dlg)
 	{
-		char text[MAX_PATH];
-		effect->getParameterDisplay (kVolume, text);
-		SetWindowText(GetDlgItem((HWND)dlg, IDC_VOLDISP1), text);
-		effect->getParameterLabel (kVolume, text);
-		SetWindowText(GetDlgItem((HWND)dlg, IDC_VOLDISP2), text);
-		effect->getParameterDisplay (kTranspose, text);
-		SetWindowText(GetDlgItem((HWND)dlg, IDC_TRANDISP1), text);
-		effect->getParameterLabel (kTranspose, text);
-		SetWindowText(GetDlgItem((HWND)dlg, IDC_TRANDISP2), text);
 	}
 }
 
