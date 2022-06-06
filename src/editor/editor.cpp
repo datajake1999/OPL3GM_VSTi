@@ -57,20 +57,36 @@ BOOL InitDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_SETCHECK, BST_CHECKED, 0);
 		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_SETCHECK, BST_UNCHECKED, 0);
+		}
 		ParamValue = effect->getParameter (kEmulator);
 		if (ParamValue >= 0.5)
 		{
 			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
 		ParamValue = effect->getParameter (kDCBlock);
 		if (ParamValue >= 0.5)
 		{
 			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_CHECKED, 0);
 		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_UNCHECKED, 0);
+		}
 		ParamValue = effect->getParameter (kPushMidi);
 		if (ParamValue >= 0.5)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
 		return TRUE;
 	}
