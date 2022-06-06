@@ -131,6 +131,12 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	{
 		suspend ();
 	}
+#ifdef gui
+	if (editor)
+	{
+		((Editor*)editor)->refreshParameters ();
+	}
+#endif
 }
 
 float OPL3GM::getParameter (VstInt32 index)

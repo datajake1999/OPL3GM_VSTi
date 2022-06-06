@@ -297,3 +297,11 @@ bool Editor::onKeyUp (VstKeyCode& keyCode)
 {
 	return false;
 }
+
+void Editor::refreshParameters ()
+{
+	if (effect && dlg)
+	{
+		InitDialog((HWND)dlg, (AudioEffectX*)effect);
+	}
+}
