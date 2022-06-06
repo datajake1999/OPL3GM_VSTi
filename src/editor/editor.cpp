@@ -195,6 +195,8 @@ BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				effect->resume ();
 				return TRUE;
 			}
+		case IDC_REFRESH:
+			return InitDialog(hWnd, effect);
 		case IDC_ABOUT:
 			return AboutBox(hWnd);
 		case IDC_STATS:

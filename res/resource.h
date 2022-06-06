@@ -22,15 +22,16 @@
 #define IDC_QUEUE                       410
 #define IDC_PANIC                       411
 #define IDC_RESET                       412
-#define IDC_ABOUT                       413
-#define IDC_STATS                       414
-#define IDC_PROJPAGE                       415
+#define IDC_REFRESH                       413
+#define IDC_ABOUT                       414
+#define IDC_STATS                       415
+#define IDC_PROJPAGE                       416
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        416
+#define _APS_NEXT_RESOURCE_VALUE        417
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
