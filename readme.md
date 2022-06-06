@@ -60,7 +60,6 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 # Extra notes
 
 * This is only a VST2 compatible plug-in. A VST3 version Is not planned for various reasons.
-* This plug-in has no User Interface of Its own, so the host application should provide a method of interacting with automatable parameters.
 
 # License
     This program is free software; you can redistribute it and/or modify
