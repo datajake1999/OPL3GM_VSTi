@@ -3,9 +3,9 @@
 // Used by OPL3GM.rc
 //
 #define IDI_ICON1                       101
-#define ICON_ALTTEXT1                       201
-#define ABOUTCAP                       202
-#define ABOUTTXT                       203
+#define IDS_ICON_ALTTEXT1                       201
+#define IDS_ABOUTCAP                       202
+#define IDS_ABOUTTXT                       203
 #define IDD_DIALOG                       301
 #ifndef IDC_STATIC
 #define IDC_STATIC                       -1

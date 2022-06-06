@@ -106,8 +106,8 @@ BOOL AboutBox(HWND hWnd)
 	{
 		char caption[MAX_PATH];
 		char text[MAX_PATH];
-		LoadString((HINSTANCE)hInstance, ABOUTCAP, caption, MAX_PATH);
-		LoadString((HINSTANCE)hInstance, ABOUTTXT, text, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_ABOUTCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_ABOUTTXT, text, MAX_PATH);
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}

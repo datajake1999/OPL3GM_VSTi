@@ -164,9 +164,9 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    ICON_ALTTEXT1           "Yamaha YMF262 (year 1994)"
-    ABOUTCAP           "About OPL3GM VSTi"
-    ABOUTTXT           "Copyright (C) 2021-2022 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
+    IDS_ICON_ALTTEXT1           "Yamaha YMF262 (year 1994)"
+    IDS_ABOUTCAP           "About OPL3GM VSTi"
+    IDS_ABOUTTXT           "Copyright (C) 2021-2022 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
 END
 
 #endif    // English (U.S.) resources
