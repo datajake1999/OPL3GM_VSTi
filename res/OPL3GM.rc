@@ -111,12 +111,61 @@ IDI_ICON1               ICON    DISCARDABLE     "YMF262-M.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 208
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 92
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG DIALOG DISCARDABLE  0, 0, 300, 300
+CAPTION "OPL3GM"
+STYLE WS_CHILD|DS_CONTROL
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT      "&Volume:",IDC_STATIC,20,30,45,7
+    CONTROL      "Slider1",IDC_VOLUME,"msctls_trackbar32",WS_TABSTOP,70,30,100,21
+    LTEXT      "",IDC_VOLDISP1,180,30,45,7
+    LTEXT      "",IDC_VOLDISP2,225,30,45,7
+    LTEXT      "&Transpose:",IDC_STATIC,20,60,45,7
+    CONTROL      "Slider1",IDC_TRANSPOSE,"msctls_trackbar32",WS_TABSTOP,70,60,100,21
+    LTEXT      "",IDC_TRANDISP1,180,60,45,7
+    LTEXT      "",IDC_TRANDISP2,225,60,45,7
+    AUTOCHECKBOX      "&Show Volume as Percentage",IDC_DISPLAY,20,90,110,10,WS_TABSTOP
+    AUTOCHECKBOX      "Use &Nuked OPL3 Emulator",IDC_NUKED,140,90,110,10,WS_TABSTOP
+    AUTOCHECKBOX      "Filter &DC Offset",IDC_DC,20,120,110,10,WS_TABSTOP
+    AUTOCHECKBOX      "Push MIDI to &Queue",IDC_QUEUE,140,120,110,10,WS_TABSTOP
+    PUSHBUTTON      "&Panic Synth",IDC_PANIC,20,150,70,15,WS_TABSTOP
+    PUSHBUTTON      "&Reset Synth",IDC_RESET,100,150,70,15,WS_TABSTOP
+    PUSHBUTTON      "&About...",IDC_ABOUT,20,180,70,15,WS_TABSTOP
+    PUSHBUTTON      "Plugin &Statistics...",IDC_STATS,100,180,70,15,WS_TABSTOP
+    PUSHBUTTON      "Open Project Pa&ge",IDC_PROJPAGE,180,180,70,15,WS_TABSTOP
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
 STRINGTABLE DISCARDABLE 
 BEGIN
     ICON_ALTTEXT1           "Yamaha YMF262 (year 1994)"
+    ABOUTCAP           "About OPL3GM VSTi"
+    ABOUTTXT           "Copyright (C) 2021-2022 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
 END
 
 #endif    // English (U.S.) resources

@@ -35,6 +35,7 @@ public:
 	virtual bool onKeyUp (VstKeyCode& keyCode);
 private:
 	ERect vstrect;
+	void* dlg;
 };
 
 #endif

@@ -18,11 +18,200 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "editor.h"
+#include "../OPL3GM.h"
+#include <windows.h>
+#include <commctrl.h>
+#include "../../res/resource.h"
+
+extern void* hInstance;
+
+void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
+{
+	if (effect)
+	{
+		effect->beginEdit (index);
+		effect->setParameterAutomated (index, value);
+		effect->endEdit (index);
+	}
+}
+
+BOOL InitDialog(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		HICON hIcon = LoadIcon((HINSTANCE)hInstance, MAKEINTRESOURCE(IDI_ICON1));
+		if (hIcon)
+		{
+			SendMessage(hWnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+		}
+		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETRANGE, 0, MAKELONG(0, 100));
+		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
+		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
+		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
+		float ParamValue = effect->getParameter (kVolume)*100;
+		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
+		ParamValue = effect->getParameter (kTranspose)*25;
+		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (long)ParamValue);
+		ParamValue = effect->getParameter (kVolumeDisplay);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		ParamValue = effect->getParameter (kEmulator);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		ParamValue = effect->getParameter (kDCBlock);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		ParamValue = effect->getParameter (kPushMidi);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
+BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		LPARAM VolumeHandle = (LPARAM)GetDlgItem(hWnd, IDC_VOLUME);
+		LPARAM TransposeHandle = (LPARAM)GetDlgItem(hWnd, IDC_TRANSPOSE);
+		float ParamValue;
+		if (lParam == VolumeHandle)
+		{
+			ParamValue = SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_GETPOS, 0, 0)/100.0f;
+			SetParameterValue(effect, kVolume, ParamValue);
+			return TRUE;
+		}
+		else if (lParam == TransposeHandle)
+		{
+			ParamValue = SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_GETPOS, 0, 0)/25.0f;
+			SetParameterValue(effect, kTranspose, ParamValue);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOL AboutBox(HWND hWnd)
+{
+	if (hWnd)
+	{
+		char caption[MAX_PATH];
+		char text[MAX_PATH];
+		LoadString((HINSTANCE)hInstance, ABOUTCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, ABOUTTXT, text, MAX_PATH);
+		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		char caption[MAX_PATH];
+		char text[MAX_PATH];
+		sprintf(caption, "VST Plugin Statistics");
+		sprintf(text, "Sample rate: %d hZ\nBlock size: %d", (VstInt32)effect->getSampleRate (), effect->getBlockSize ());
+		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+#ifdef _WIN64
+	AudioEffectX* effect = (AudioEffectX*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+#else
+	AudioEffectX* effect = (AudioEffectX*)GetWindowLong   (hWnd, GWL_USERDATA );
+#endif
+	switch (message)
+	{
+	case WM_HSCROLL:
+	case WM_VSCROLL:
+		return ProcessScrollParameter(hWnd, lParam, effect);
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_DISPLAY:
+			if (SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_GETCHECK, 0, 0))
+			{
+				SetParameterValue(effect, kVolumeDisplay, 1);
+			}
+			else
+			{
+				SetParameterValue(effect, kVolumeDisplay, 0);
+			}
+			return TRUE;
+		case IDC_NUKED:
+			if (SendDlgItemMessage(hWnd, IDC_NUKED, BM_GETCHECK, 0, 0))
+			{
+				SetParameterValue(effect, kEmulator, 1);
+			}
+			else
+			{
+				SetParameterValue(effect, kEmulator, 0);
+			}
+			return TRUE;
+		case IDC_DC:
+			if (SendDlgItemMessage(hWnd, IDC_DC, BM_GETCHECK, 0, 0))
+			{
+				SetParameterValue(effect, kDCBlock, 1);
+			}
+			else
+			{
+				SetParameterValue(effect, kDCBlock, 0);
+			}
+			return TRUE;
+		case IDC_QUEUE:
+			if (SendDlgItemMessage(hWnd, IDC_QUEUE, BM_GETCHECK, 0, 0))
+			{
+				SetParameterValue(effect, kPushMidi, 1);
+			}
+			else
+			{
+				SetParameterValue(effect, kPushMidi, 0);
+			}
+			return TRUE;
+		case IDC_PANIC:
+			if (effect)
+			{
+				effect->suspend ();
+				return TRUE;
+			}
+		case IDC_RESET:
+			if (effect)
+			{
+				effect->resume ();
+				return TRUE;
+			}
+		case IDC_ABOUT:
+			return AboutBox(hWnd);
+		case IDC_STATS:
+			return StatisticsBox(hWnd, effect);
+		case IDC_PROJPAGE:
+			ShellExecute(hWnd, NULL, "https://github.com/datajake1999/OPL3GM_VSTi", NULL, NULL, 0);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
 
 Editor::Editor (AudioEffect* effect)
 : AEffEditor (effect)
 {
 	memset(&vstrect, 0, sizeof(vstrect));
+	dlg = NULL;
 	if (effect)
 	{
 		effect->setEditor (this);
@@ -35,23 +224,66 @@ Editor::~Editor ()
 
 bool Editor::getRect (ERect** rect)
 {
-	*rect = &vstrect;
-	return true;
+	if (dlg)
+	{
+		RECT wndrect;
+		if (GetWindowRect((HWND)dlg, &wndrect))
+		{
+			vstrect.top = (VstInt16)wndrect.top;
+			vstrect.left = (VstInt16)wndrect.left;
+			vstrect.bottom = (VstInt16)wndrect.bottom;
+			vstrect.right = (VstInt16)wndrect.right;
+			*rect = &vstrect;
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Editor::open (void* ptr)
 {
 	AEffEditor::open (ptr);
-	return true;
+	InitCommonControls();
+	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
+	if (dlg)
+	{
+#ifdef _WIN64
+		SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)effect);
+#else
+		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
+#endif
+		InitDialog((HWND)dlg, (AudioEffectX*)effect);
+		ShowWindow((HWND)dlg, SW_SHOW);
+		UpdateWindow((HWND)dlg);
+		return true;
+	}
+	return false;
 }
 
 void Editor::close ()
 {
+	if (dlg)
+	{
+		DestroyWindow((HWND)dlg);
+		dlg = NULL;
+	}
 	AEffEditor::close ();
 }
 
 void Editor::idle ()
 {
+	if (effect && dlg)
+	{
+		char text[MAX_PATH];
+		effect->getParameterDisplay (kVolume, text);
+		SetWindowText(GetDlgItem((HWND)dlg, IDC_VOLDISP1), text);
+		effect->getParameterLabel (kVolume, text);
+		SetWindowText(GetDlgItem((HWND)dlg, IDC_VOLDISP2), text);
+		effect->getParameterDisplay (kTranspose, text);
+		SetWindowText(GetDlgItem((HWND)dlg, IDC_TRANDISP1), text);
+		effect->getParameterLabel (kTranspose, text);
+		SetWindowText(GetDlgItem((HWND)dlg, IDC_TRANDISP2), text);
+	}
 }
 
 bool Editor::onKeyDown (VstKeyCode& keyCode)
