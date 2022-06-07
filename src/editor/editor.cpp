@@ -310,9 +310,6 @@ void Editor::close ()
 
 void Editor::idle ()
 {
-	if (effect && dlg)
-	{
-	}
 }
 
 bool Editor::onKeyDown (VstKeyCode& keyCode)
@@ -327,8 +324,5 @@ bool Editor::onKeyUp (VstKeyCode& keyCode)
 
 void Editor::refreshParameters ()
 {
-	if (effect && dlg)
-	{
-		RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
-	}
+	RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
 }
