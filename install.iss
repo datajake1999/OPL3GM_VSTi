@@ -48,15 +48,15 @@ Name: "DoomBanks"; Description: "Doom Instrument Bank Files"; Types: "full"
 Name: "Docs"; Description: "Documentation"; Types: "full"
 
 [Files]
-Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32
-Source: "OPL3Apogee_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsIA64
-Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsX64
-Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32
-Source: "OPL3Doom_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsIA64
-Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsX64
-Source: "OPL3W9x.dll"; DestDir: {code:GetVSTDir_32}; Components: W9x32
-Source: "OPL3W9x_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsIA64
-Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsX64
+Source: "OPL3Apogee.dll"; DestDir: {code:GetVSTDir_32}; Components: Apogee32; Flags: ignoreversion
+Source: "OPL3Apogee_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsIA64; Flags: ignoreversion
+Source: "OPL3Apogee_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Apogee64; Check: IsX64; Flags: ignoreversion
+Source: "OPL3Doom.dll"; DestDir: {code:GetVSTDir_32}; Components: Doom32; Flags: ignoreversion
+Source: "OPL3Doom_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsIA64; Flags: ignoreversion
+Source: "OPL3Doom_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: Doom64; Check: IsX64; Flags: ignoreversion
+Source: "OPL3W9x.dll"; DestDir: {code:GetVSTDir_32}; Components: W9x32; Flags: ignoreversion
+Source: "OPL3W9x_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsIA64; Flags: ignoreversion
+Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsX64; Flags: ignoreversion
 Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
