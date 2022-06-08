@@ -253,6 +253,7 @@ Editor::Editor (AudioEffect* effect)
 	{
 		effect->setEditor (this);
 	}
+	InitCommonControls();
 }
 
 Editor::~Editor ()
@@ -280,7 +281,6 @@ bool Editor::getRect (ERect** rect)
 bool Editor::open (void* ptr)
 {
 	AEffEditor::open (ptr);
-	InitCommonControls();
 	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
 	if (dlg)
 	{
