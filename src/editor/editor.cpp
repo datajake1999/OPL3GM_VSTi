@@ -63,15 +63,15 @@ BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		ParamValue = effect->getParameter (kVolume)*100;
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
 		effect->getParameterDisplay (kVolume, text);
-		SetWindowText(GetDlgItem(hWnd, IDC_VOLDISP1), text);
+		SetDlgItemText(hWnd, IDC_VOLDISP1, text);
 		effect->getParameterLabel (kVolume, text);
-		SetWindowText(GetDlgItem(hWnd, IDC_VOLDISP2), text);
+		SetDlgItemText(hWnd, IDC_VOLDISP2, text);
 		ParamValue = effect->getParameter (kTranspose)*25;
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (long)ParamValue);
 		effect->getParameterDisplay (kTranspose, text);
-		SetWindowText(GetDlgItem(hWnd, IDC_TRANDISP1), text);
+		SetDlgItemText(hWnd, IDC_TRANDISP1, text);
 		effect->getParameterLabel (kTranspose, text);
-		SetWindowText(GetDlgItem(hWnd, IDC_TRANDISP2), text);
+		SetDlgItemText(hWnd, IDC_TRANDISP2, text);
 		ParamValue = effect->getParameter (kVolumeDisplay);
 		if (ParamValue >= 0.5)
 		{
