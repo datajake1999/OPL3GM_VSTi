@@ -481,3 +481,11 @@ VstInt32 OPL3GM::stopProcess ()
 	}
 	return 0;
 }
+
+void OPL3GM::loadInstruments (char *filename)
+{
+	if (synth)
+	{
+		synth->midi_loadbank(filename);
+	}
+}

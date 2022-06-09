@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../OPL3GM.h"
 #include <windows.h>
 #include <commctrl.h>
+#include <commdlg.h>
 #include "../../res/resource.h"
 
 extern void* hInstance;
@@ -135,6 +136,31 @@ BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
 	return FALSE;
 }
 
+BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
+{
+	if (hWnd && effect)
+	{
+		OPENFILENAME ofn;
+		char filename[MAX_PATH];
+		ZeroMemory(&ofn, sizeof(ofn));
+		ZeroMemory(filename, sizeof(filename));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = hWnd;
+		ofn.lpstrFilter = "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0";
+		ofn.nFilterIndex =1;
+		ofn.lpstrFile = filename;
+		ofn.nMaxFile = sizeof(filename);
+		ofn.lpstrTitle = "Load an Instrument Bank";
+		ofn.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+		if (GetOpenFileName(&ofn))
+		{
+			effect->loadInstruments (ofn.lpstrFile);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 BOOL AboutBox(HWND hWnd)
 {
 	if (hWnd)
@@ -218,6 +244,10 @@ BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				SetParameterValue(effect, kPushMidi, 0);
 			}
 			return TRUE;
+		case IDC_REFRESH:
+			return RefreshDialog(hWnd, effect);
+		case IDC_LOAD:
+			return LoadInstrumentBank(hWnd, (OPL3GM*)effect);
 		case IDC_PANIC:
 			if (effect)
 			{
@@ -230,8 +260,6 @@ BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				effect->resume ();
 				return TRUE;
 			}
-		case IDC_REFRESH:
-			return RefreshDialog(hWnd, effect);
 		case IDC_ABOUT:
 			return AboutBox(hWnd);
 		case IDC_STATS:
