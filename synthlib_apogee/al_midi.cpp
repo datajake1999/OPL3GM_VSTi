@@ -1365,13 +1365,16 @@ int ApogeeOPL::midi_init
    {
       return 0;
    }
+#ifdef _WIN32
+   AL_LoadBank("C:\\OPLSynth\\APOGEE.TMB");
+#else
+   AL_LoadBank("APOGEE.TMB");
+#endif
    return AL_InitSynth();
 }
 
 int ApogeeOPL::AL_InitSynth()
 {
-    AL_LoadBank();
-
     memset(VoiceLevel, 0, sizeof(VoiceLevel));
     memset(VoiceKsl, 0, sizeof(VoiceKsl));
     memset(VoiceReserved, 0, sizeof(VoiceReserved));
@@ -1386,14 +1389,10 @@ int ApogeeOPL::AL_InitSynth()
     return 1;
 }
 
-void ApogeeOPL::AL_LoadBank()
+void ApogeeOPL::AL_LoadBank(const char *filename)
 {
     memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
-#ifdef _WIN32
-    FILE *tmb = fopen("C:\\OPLSynth\\APOGEE.TMB","rb");
-#else
-    FILE *tmb = fopen("APOGEE.TMB","rb");
-#endif
+    FILE *tmb = fopen(filename,"rb");
     if(tmb)
     {
        fseek(tmb,0,SEEK_END);
@@ -1529,6 +1528,11 @@ int ApogeeOPL::midi_getprogram(unsigned int channel)
         return 0;
     }
     return Channel[ channel ].Timbre;
+}
+
+void ApogeeOPL::midi_loadbank(char *filename)
+{
+    AL_LoadBank(filename);
 }
 
 midisynth *getsynth()

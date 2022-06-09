@@ -83,7 +83,7 @@ private:
     void AL_RegisterTimbreBank( unsigned char *timbres );
 
     int AL_InitSynth();
-    void AL_LoadBank();
+    void AL_LoadBank(const char *filename);
 public:
     int midi_init(unsigned int rate);
     void midi_write(unsigned int data);
@@ -95,6 +95,7 @@ public:
     void midi_close();
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);
+    void midi_loadbank(char *filename);
 };
 
 void AL_RemoveNode ( char *item, char **head, char **tail, int next, int prev );

@@ -97,15 +97,11 @@ void DoomOPL::OPL_InitRegisters(bool opl_new)
 
 // Load instrument table from GENMIDI lump:
 
-bool DoomOPL::LoadInstrumentTable(void)
+bool DoomOPL::LoadInstrumentTable(const char *filename)
 {
 	unsigned int size;
 
-#ifdef _WIN32
-	FILE *file = fopen("C:\\OPLSynth\\GENMIDI.OP2", "rb");
-#else
-	FILE *file = fopen("GENMIDI.OP2", "rb");
-#endif
+	FILE *file = fopen(filename, "rb");
 	if (!file)
 	{
 		return false;
@@ -983,7 +979,20 @@ int DoomOPL::midi_init(unsigned int rate)
 	{
 		return 0;
 	}
+
+	// Load instruments from GENMIDI lump:
 	lump = NULL;
+	main_instrs = NULL;
+	percussion_instrs = NULL;
+#ifdef _WIN32
+	if (!LoadInstrumentTable("C:\\OPLSynth\\GENMIDI.OP2"))
+#else
+	if (!LoadInstrumentTable("GENMIDI.OP2"))
+#endif
+	{
+		return 0;
+	}
+
 	return InitSynth();
 }
 
@@ -993,8 +1002,6 @@ int DoomOPL::InitSynth()
 	unsigned int i;
 
 	memset(channels, 0, sizeof(channels));
-	main_instrs = NULL;
-	percussion_instrs = NULL;
 	memset(voices, 0, sizeof(voices));
 	voice_alloced_num = 0;
 	voice_free_num = 0;
@@ -1021,13 +1028,6 @@ int DoomOPL::InitSynth()
 	}
 
 	OPL_InitRegisters(opl_new);
-
-	// Load instruments from GENMIDI lump:
-
-    if (!LoadInstrumentTable())
-    {
-        return 0;
-    }
 
 	for (i = 0; i < MIDI_CHANNELS_PER_TRACK; i++) {
 		InitChannel(&channels[i]);
@@ -1069,6 +1069,11 @@ int DoomOPL::midi_getprogram(unsigned int channel) {
 	opl_channel_data_t *channelp;
 	channelp = TrackChannelForEvent(channel);
 	return channelp->program;
+}
+
+void DoomOPL::midi_loadbank(char *filename)
+{
+	LoadInstrumentTable(filename);
 }
 
 midisynth *getsynth() {
