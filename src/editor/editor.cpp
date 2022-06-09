@@ -142,15 +142,19 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 	{
 		OPENFILENAME ofn;
 		char filename[MAX_PATH];
+		char filter[MAX_PATH];
+		char caption[MAX_PATH];
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
+		LoadString((HINSTANCE)hInstance, IDS_FILEFLT, filter, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_FILECAP, caption, MAX_PATH);
 		ofn.lStructSize = sizeof(ofn);
 		ofn.hwndOwner = hWnd;
-		ofn.lpstrFilter = "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0";
+		ofn.lpstrFilter = filter;
 		ofn.nFilterIndex =1;
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = sizeof(filename);
-		ofn.lpstrTitle = "Load an Instrument Bank";
+		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 		if (GetOpenFileName(&ofn))
 		{
