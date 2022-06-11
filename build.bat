@@ -22,6 +22,8 @@ link audioeffect.obj audioeffectx.obj vstplugmain.obj main.obj midiprog.obj OPL3
 del *.exp *.lib *.obj
 del res\OPL3GM.res
 iscc /Qp "install.iss"
-7z a -tzip output\OPL3GM.zip @zip.lst
+7z a -tzip output\OPL3GM_X86.zip @zip_X86.lst
+7z a -tzip output\OPL3GM_X64.zip @zip_X64.lst
+7z a -tzip output\OPL3GM_IA64.zip @zip_IA64.lst
 del *.dll
 pause > nul
