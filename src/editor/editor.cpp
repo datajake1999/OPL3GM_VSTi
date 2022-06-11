@@ -60,6 +60,7 @@ BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 	{
 		float ParamValue;
 		char text[MAX_PATH];
+		SendDlgItemMessage(hWnd, IDC_PRESET, CB_RESETCONTENT, 0, 0);
 		for (VstInt32 i = 0; i < kNumPrograms; i++)
 		{
 			effect->getProgramNameIndexed (-1, i, text);
