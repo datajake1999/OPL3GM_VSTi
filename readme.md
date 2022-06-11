@@ -18,7 +18,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * apogee_nam.tmb - NAM
 * apogee_sw.tmb - Shadow Warrior(Shareware)
 
-### Apogee patch installation
+### Default Apogee patch installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.tmb files to C:\OPLSynth folder.
@@ -34,7 +34,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * dmx_raptor.op2 - Raptor
 * dmxopl.op2 - DMXOPL3
 
-### Doom patch installation
+### Default Doom patch installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.op2 files to C:\OPLSynth folder.
@@ -52,7 +52,7 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 
 * Volume: Synth master volume.
 * VolumeDisplay: Sets the unit for displaying the aforementioned Volume parameter, either dB or %.
-* DCBlock: Filters out DC offset from the final output.
+* DCBlock: Filters out DC offset and gates low level noise from the final output.
 * Transpose: Applies an offset to Incoming MIDI notes.
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
 * PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
