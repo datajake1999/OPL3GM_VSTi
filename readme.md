@@ -13,6 +13,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 
 * built in patch - ROTT 1.3, Build engine games setup utility.
 * apogee_blood.tmb - Blood
+* apogee_default.tmb - Copy of built in patch
 * apogee_duke3d.tmb - Duke Nukem 3D
 * apogee_lee.tmb - ROTT 1.0-1.2
 * apogee_nam.tmb - NAM
