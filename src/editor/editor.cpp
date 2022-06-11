@@ -60,6 +60,12 @@ BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 	{
 		float ParamValue;
 		char text[MAX_PATH];
+		for (VstInt32 i = 0; i < kNumPrograms; i++)
+		{
+			effect->getProgramNameIndexed (-1, i, text);
+			SendDlgItemMessage(hWnd, IDC_PRESET, CB_INSERTSTRING, i, (LPARAM)text);
+		}
+		SendDlgItemMessage(hWnd, IDC_PRESET, CB_SETCURSEL, effect->getProgram (), 0);
 		ParamValue = effect->getParameter (kVolume)*100;
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
 		effect->getParameterDisplay (kVolume, text);
@@ -210,6 +216,9 @@ BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
+		case IDC_PRESET:
+			effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
+			return TRUE;
 		case IDC_DISPLAY:
 			if (SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_GETCHECK, 0, 0))
 			{
