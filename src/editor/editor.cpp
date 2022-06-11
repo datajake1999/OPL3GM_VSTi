@@ -184,9 +184,11 @@ BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 	if (hWnd && effect)
 	{
 		char caption[MAX_PATH];
+		char temp[MAX_PATH];
 		char text[MAX_PATH];
-		sprintf(caption, "VST Plugin Statistics");
-		sprintf(text, "Sample rate: %d hZ\nBlock size: %d", (VstInt32)effect->getSampleRate (), effect->getBlockSize ());
+		LoadString((HINSTANCE)hInstance, IDS_STATSCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_STATSTXT, temp, MAX_PATH);
+		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getBlockSize ());
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}

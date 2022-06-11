@@ -6,8 +6,10 @@
 #define IDS_ICON_ALTTEXT1                       201
 #define IDS_ABOUTCAP                       202
 #define IDS_ABOUTTXT                       203
-#define IDS_FILEFLT                       204
-#define IDS_FILECAP                       205
+#define IDS_STATSCAP                       204
+#define IDS_STATSTXT                       205
+#define IDS_FILEFLT                       206
+#define IDS_FILECAP                       207
 #define IDD_DIALOG                       301
 #ifndef IDC_STATIC
 #define IDC_STATIC                       -1
