@@ -354,6 +354,12 @@ void Editor::close ()
 
 void Editor::idle ()
 {
+	if (effect && dlg)
+	{
+		char text[MAX_PATH];
+		sprintf(text, "%d", ((OPL3GM*)effect)->getActiveVoices ());
+		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
+	}
 }
 
 bool Editor::onKeyDown (VstKeyCode& keyCode)

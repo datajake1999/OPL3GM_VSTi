@@ -489,3 +489,12 @@ void OPL3GM::loadInstruments (char *filename)
 		synth->midi_loadbank(filename);
 	}
 }
+
+VstInt32 OPL3GM::getActiveVoices ()
+{
+	if (synth)
+	{
+		return synth->midi_getvoicecount();
+	}
+	return 0;
+}

@@ -133,6 +133,7 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 	virtual void loadInstruments (char *filename);
+	virtual VstInt32 getActiveVoices ();
 private:
 #if reaper_extensions
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);

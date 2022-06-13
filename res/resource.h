@@ -27,17 +27,18 @@
 #define IDC_QUEUE                       411
 #define IDC_PANIC                       412
 #define IDC_RESET                       413
-#define IDC_REFRESH                       414
-#define IDC_LOAD                       415
-#define IDC_ABOUT                       416
-#define IDC_STATS                       417
-#define IDC_PROJPAGE                       418
+#define IDC_VOICECOUNT                       414
+#define IDC_REFRESH                       415
+#define IDC_LOAD                       416
+#define IDC_ABOUT                       417
+#define IDC_STATS                       418
+#define IDC_PROJPAGE                       419
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        419
+#define _APS_NEXT_RESOURCE_VALUE        420
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
