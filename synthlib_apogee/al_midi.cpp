@@ -1535,6 +1535,19 @@ void ApogeeOPL::midi_loadbank(char *filename)
     AL_LoadBank(filename);
 }
 
+int ApogeeOPL::midi_getvoicecount()
+{
+    int count = 0;
+    for (int i = 0; i < NUM_VOICES * 2; i++)
+    {
+        if (Voice[i].status == NOTE_ON)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
 midisynth *getsynth()
 {
     ApogeeOPL *synth = new ApogeeOPL;

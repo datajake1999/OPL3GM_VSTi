@@ -614,6 +614,19 @@ int OPL3MIDI::midi_getprogram(unsigned int channel) {
     return opl_channels[channel].program;
 }
 
+int OPL3MIDI::midi_getvoicecount()
+{
+    int count = 0;
+    for (int i = 0; i < 18; i++)
+    {
+        if (opl_voices[i].keyon)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
 midisynth *getsynth() {
     OPL3MIDI *synth = new OPL3MIDI;
     return synth;

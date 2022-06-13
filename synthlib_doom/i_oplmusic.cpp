@@ -1076,6 +1076,11 @@ void DoomOPL::midi_loadbank(char *filename)
 	LoadInstrumentTable(filename);
 }
 
+int DoomOPL::midi_getvoicecount()
+{
+	return voice_alloced_num;
+}
+
 midisynth *getsynth() {
 	DoomOPL *synth = new DoomOPL;
 	return synth;

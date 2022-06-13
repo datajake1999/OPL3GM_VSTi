@@ -34,6 +34,7 @@ public:
 	virtual const char *midi_synthname(void) = 0;
 	virtual int midi_getprogram(unsigned int channel) = 0;
 	virtual void midi_loadbank(char *filename) {};
+	virtual int midi_getvoicecount() = 0;
 };
 
 midisynth* getsynth();

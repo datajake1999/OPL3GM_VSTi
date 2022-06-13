@@ -133,4 +133,5 @@ public:
     void midi_close();
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);
+    int midi_getvoicecount();
 };

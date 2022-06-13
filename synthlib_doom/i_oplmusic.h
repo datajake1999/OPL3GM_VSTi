@@ -393,4 +393,5 @@ public:
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);
     void midi_loadbank(char *filename);
+    int midi_getvoicecount();
 };
