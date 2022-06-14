@@ -357,7 +357,7 @@ void Editor::idle ()
 	if (effect && dlg)
 	{
 		char text[MAX_PATH];
-		sprintf(text, "%d", ((OPL3GM*)effect)->getActiveVoices ());
+		sprintf(text, "%d/18", ((OPL3GM*)effect)->getActiveVoices ());
 		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
 	}
 }
