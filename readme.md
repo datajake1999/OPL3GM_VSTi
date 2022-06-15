@@ -28,7 +28,8 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 
 ## Included Doom patches
 
-* dmx_dmx.op2 - DMX, Heretic, Hexen, Doom Beta, Strife Demo
+* built in patch - DMX, Heretic, Hexen, Doom Beta, Strife Demo
+* dmx_dmx.op2 - Copy of built in patch
 * dmx_doom1.op2 - Doom, Ultimate Doom, Chex Quest
 * dmx_doom2.op2 - Doom II, Final Doom
 * dmx_strife.op2 - Strife
@@ -40,6 +41,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.op2 files to C:\OPLSynth folder.
 3. Rename needed op2 file to genmidi.op2.
+4. If you want to use built in patch remove genmidi.op2
 
 ## DMXOPTION toggles
 
