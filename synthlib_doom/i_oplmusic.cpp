@@ -18,6 +18,7 @@
 //
 
 #include "i_oplmusic.h"
+#include "dmx_dmx.h"
 
 void DoomOPL::OPL_WriteRegister(unsigned int reg, unsigned char data) {
 	opl->fm_writereg(reg, data);
@@ -97,21 +98,21 @@ void DoomOPL::OPL_InitRegisters(bool opl_new)
 
 // Load instrument table from GENMIDI lump:
 
-bool DoomOPL::LoadInstrumentTable(const char *filename)
+void DoomOPL::LoadInstrumentTable(const char *filename)
 {
 	unsigned int size;
 
 	FILE *file = fopen(filename, "rb");
 	if (!file)
 	{
-		return false;
+		return;
 	}
 	fseek(file, 0, SEEK_END);
 	size = ftell(file);
 	if (size != GENMIDI_SIZE)
 	{
 		fclose(file);
-		return false;
+		return;
 	}
 	fseek(file, 0, SEEK_SET);
 
@@ -125,7 +126,7 @@ bool DoomOPL::LoadInstrumentTable(const char *filename)
 	if (!lump)
 	{
 		fclose(file);
-		return false;
+		return;
 	}
 
     fread(lump, size, 1, file);
@@ -133,8 +134,6 @@ bool DoomOPL::LoadInstrumentTable(const char *filename)
 
     main_instrs = (genmidi_instr_t *) (lump + strlen(GENMIDI_HEADER));
     percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
-
-    return true;
 }
 
 // Release a voice back to the freelist.
@@ -987,16 +986,13 @@ int DoomOPL::midi_init(unsigned int rate)
 
 	// Load instruments from GENMIDI lump:
 	lump = NULL;
-	main_instrs = NULL;
-	percussion_instrs = NULL;
+	main_instrs =  (genmidi_instr_t *) (dmx_dmx + strlen(GENMIDI_HEADER));
+	percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
 #ifdef _WIN32
-	if (!LoadInstrumentTable("C:\\OPLSynth\\GENMIDI.OP2"))
+	LoadInstrumentTable("C:\\OPLSynth\\GENMIDI.OP2");
 #else
-	if (!LoadInstrumentTable("GENMIDI.OP2"))
+	LoadInstrumentTable("GENMIDI.OP2");
 #endif
-	{
-		return 0;
-	}
 
 	return InitSynth();
 }
