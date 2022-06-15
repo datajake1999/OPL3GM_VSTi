@@ -61,6 +61,7 @@
 #define GENMIDI_NUM_PERCUSSION 47
 
 #define GENMIDI_HEADER          "#OPL_II#"
+#define GENMIDI_SIZE            11908
 #define GENMIDI_FLAG_FIXED      0x0001         /* fixed pitch */
 #define GENMIDI_FLAG_2VOICE     0x0004         /* double voice (OPL3) */
 

@@ -108,6 +108,11 @@ bool DoomOPL::LoadInstrumentTable(const char *filename)
 	}
 	fseek(file, 0, SEEK_END);
 	size = ftell(file);
+	if (size != GENMIDI_SIZE)
+	{
+		fclose(file);
+		return false;
+	}
 	fseek(file, 0, SEEK_SET);
 
 	if (lump)
