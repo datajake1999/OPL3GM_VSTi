@@ -330,6 +330,12 @@ VstInt32 OPL3GM::getProgram ()
 void OPL3GM::setProgramName (char *name)
 {
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
+#ifdef gui
+	if (editor)
+	{
+		((Editor*)editor)->refreshParameters ();
+	}
+#endif
 }
 
 void OPL3GM::getProgramName (char *name)
