@@ -180,7 +180,7 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		{
 			ofn.Flags |= OFN_EXPLORER;
 		}
-		ofn.lpfnHook = HookProc;
+		ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
 		{
