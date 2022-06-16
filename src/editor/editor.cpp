@@ -145,6 +145,11 @@ BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
 	return FALSE;
 }
 
+UINT WINAPI HookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	return 0;
+}
+
 BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
@@ -169,7 +174,13 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.lpstrFileTitle = title;
 		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
-		ofn.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+		srand(GetTickCount());
+		if (rand() & 1)
+		{
+			ofn.Flags |= OFN_EXPLORER;
+		}
+		ofn.lpfnHook = HookProc;
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
 		{
