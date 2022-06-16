@@ -154,6 +154,7 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		char title[MAX_PATH];
 		char filter[MAX_PATH];
 		char caption[MAX_PATH];
+		char synthname[kVstMaxEffectNameLen];
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
 		ZeroMemory(title, sizeof(title));
@@ -162,13 +163,33 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.lStructSize = sizeof(ofn);
 		ofn.hwndOwner = hWnd;
 		ofn.lpstrFilter = filter;
-		ofn.nFilterIndex =1;
+		ofn.nFilterIndex = 1;
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = sizeof(filename);
 		ofn.lpstrFileTitle = title;
 		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+		effect->getEffectName (synthname);
+		if (!strcmp(synthname, "Apogee OPL3"))
+		{
+			ofn.nFilterIndex = 2;
+			ofn.lpstrDefExt = "TMB";
+		}
+		else if (!strcmp(synthname, "Doom OPL3"))
+		{
+			ofn.nFilterIndex = 3;
+			ofn.lpstrDefExt = "OP2";
+		}
+		else if (!strcmp(synthname, "Windows 9x OPL3"))
+		{
+			char caption[MAX_PATH];
+			char text[MAX_PATH];
+			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
+			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
+			MessageBox(hWnd, text, caption, MB_ICONEXCLAMATION);
+			return FALSE;
+		}
 		if (GetOpenFileName(&ofn))
 		{
 			effect->loadInstruments (ofn.lpstrFile, ofn.lpstrFileTitle);

@@ -10,6 +10,8 @@
 #define IDS_STATSTXT                       205
 #define IDS_FILEFLT                       206
 #define IDS_FILECAP                       207
+#define IDS_W9XCAP                       208
+#define IDS_W9XTXT                       209
 #define IDD_DIALOG                       301
 #ifndef IDC_STATIC
 #define IDC_STATIC                       -1
