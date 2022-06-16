@@ -1389,7 +1389,7 @@ int ApogeeOPL::AL_InitSynth()
     return 1;
 }
 
-void ApogeeOPL::AL_LoadBank(const char *filename)
+bool ApogeeOPL::AL_LoadBank(const char *filename)
 {
     memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
     FILE *tmb = fopen(filename,"rb");
@@ -1403,9 +1403,13 @@ void ApogeeOPL::AL_LoadBank(const char *filename)
           unsigned char timbre[256*13];
           fread(timbre,1,256*13,tmb);
           AL_RegisterTimbreBank(timbre);
+          fclose(tmb);
+          return true;
        }
        fclose(tmb);
+       return false;
     }
+    return false;
 }
 
 
@@ -1530,9 +1534,9 @@ int ApogeeOPL::midi_getprogram(unsigned int channel)
     return Channel[ channel ].Timbre;
 }
 
-void ApogeeOPL::midi_loadbank(char *filename)
+bool ApogeeOPL::midi_loadbank(char *filename)
 {
-    AL_LoadBank(filename);
+    return AL_LoadBank(filename);
 }
 
 int ApogeeOPL::midi_getvoicecount()

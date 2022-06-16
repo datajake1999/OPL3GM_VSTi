@@ -98,21 +98,21 @@ void DoomOPL::OPL_InitRegisters(bool opl_new)
 
 // Load instrument table from GENMIDI lump:
 
-void DoomOPL::LoadInstrumentTable(const char *filename)
+bool DoomOPL::LoadInstrumentTable(const char *filename)
 {
 	unsigned int size;
 
 	FILE *file = fopen(filename, "rb");
 	if (!file)
 	{
-		return;
+		return false;
 	}
 	fseek(file, 0, SEEK_END);
 	size = ftell(file);
 	if (size != GENMIDI_SIZE)
 	{
 		fclose(file);
-		return;
+		return false;
 	}
 	fseek(file, 0, SEEK_SET);
 
@@ -121,6 +121,8 @@ void DoomOPL::LoadInstrumentTable(const char *filename)
 
     main_instrs = (genmidi_instr_t *) (lump + strlen(GENMIDI_HEADER));
     percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
+
+    return true;
 }
 
 // Release a voice back to the freelist.
@@ -1053,9 +1055,9 @@ int DoomOPL::midi_getprogram(unsigned int channel) {
 	return channelp->program;
 }
 
-void DoomOPL::midi_loadbank(char *filename)
+bool DoomOPL::midi_loadbank(char *filename)
 {
-	LoadInstrumentTable(filename);
+	return LoadInstrumentTable(filename);
 }
 
 int DoomOPL::midi_getvoicecount()

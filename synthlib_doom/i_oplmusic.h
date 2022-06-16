@@ -356,7 +356,7 @@ private:
 
     void OPL_WriteRegister(unsigned int reg, unsigned char data);
     void OPL_InitRegisters(bool opl_new);
-    void LoadInstrumentTable(const char *filename);
+    bool LoadInstrumentTable(const char *filename);
     void ReleaseVoice(unsigned int id);
     void LoadOperatorData(int slot, genmidi_op_t *data, bool max_level, unsigned int *volume);
     void SetVoiceInstrument(opl_voice_t *voice, genmidi_instr_t *instr, unsigned int instr_voice);
@@ -393,6 +393,6 @@ public:
     void midi_close();
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);
-    void midi_loadbank(char *filename);
+    bool midi_loadbank(char *filename);
     int midi_getvoicecount();
 };

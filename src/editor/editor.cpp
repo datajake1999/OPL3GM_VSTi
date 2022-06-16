@@ -202,7 +202,16 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		}
 		if (GetOpenFileName(&ofn))
 		{
-			effect->loadInstruments (ofn.lpstrFile, ofn.lpstrFileTitle);
+			if (!effect->loadInstruments (ofn.lpstrFile, ofn.lpstrFileTitle))
+			{
+				char temp[MAX_PATH];
+				char text[MAX_PATH];
+				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
+				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
+				sprintf(text, temp, ofn.lpstrFile);
+				MessageBox(hWnd, text, caption, MB_ICONERROR);
+				return FALSE;
+			}
 			SetDlgItemText(hWnd, IDC_CURBANK, ofn.lpstrFileTitle);
 			return TRUE;
 		}

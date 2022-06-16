@@ -133,7 +133,7 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 #ifdef gui
-	virtual void loadInstruments (char *filename, char *display);
+	virtual bool loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text);
 #endif

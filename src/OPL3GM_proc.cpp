@@ -486,13 +486,17 @@ VstInt32 OPL3GM::stopProcess ()
 }
 
 #ifdef gui
-void OPL3GM::loadInstruments (char *filename, char *display)
+bool OPL3GM::loadInstruments (char *filename, char *display)
 {
 	if (synth)
 	{
-		synth->midi_loadbank(filename);
-		sprintf(BankName, display);
+		if (synth->midi_loadbank(filename))
+		{
+			sprintf(BankName, display);
+			return true;
+		}
 	}
+	return false;
 }
 
 VstInt32 OPL3GM::getActiveVoices ()

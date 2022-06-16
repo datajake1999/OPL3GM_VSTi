@@ -182,6 +182,8 @@ BEGIN
     IDS_FILECAP           "Load an Instrument Bank"
     IDS_W9XCAP           "Sorry"
     IDS_W9XTXT           "Windows 9X OPL3 can't load custom patches!"
+    IDS_FAILCAP           "Error"
+    IDS_FAILTXT           "%s Failed to load!"
 END
 
 #endif    // English (U.S.) resources
