@@ -132,9 +132,11 @@ public:
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
+#ifdef gui
 	virtual void loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text);
+#endif
 private:
 #if reaper_extensions
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
@@ -179,7 +181,9 @@ private:
 	float PushMidi;
 	float ParameterChunk[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
+#ifdef gui
 	char BankName[256];
+#endif
 	HostInfo hi;
 #ifdef demo
 	time_t startTime;

@@ -63,7 +63,9 @@ void OPL3GM::initSynth (int sampleRate)
 		resampler_set_rate(resampler, 49716.0 / sampleRate);
 	}
 #endif
+#ifdef gui
 	sprintf(BankName, "Default");
+#endif
 }
 
 void OPL3GM::initBuffer (int blockSize)
@@ -483,6 +485,7 @@ VstInt32 OPL3GM::stopProcess ()
 	return 0;
 }
 
+#ifdef gui
 void OPL3GM::loadInstruments (char *filename, char *display)
 {
 	if (synth)
@@ -505,3 +508,4 @@ void OPL3GM::getBankName (char *text)
 {
 	sprintf(text, BankName);
 }
+#endif
