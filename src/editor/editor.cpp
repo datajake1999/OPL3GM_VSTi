@@ -194,7 +194,6 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		}
 		else if (!strcmp(synthname, "Windows 9x OPL3"))
 		{
-			char caption[MAX_PATH];
 			char text[MAX_PATH];
 			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
 			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
