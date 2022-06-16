@@ -59,7 +59,6 @@ Source: "OPL3W9x_IA64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Che
 Source: "OPL3W9x_X64.dll"; DestDir: {code:GetVSTDir_64}; Components: W9x64; Check: IsX64; Flags: ignoreversion
 Source: "Banks\Apogee\*"; DestDir: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
-Source: "Banks\Doom\dmx_dmx.op2"; DestDir: "C:\OPLSynth"; DestName: "GENMIDI.op2"; Components: "Doom32 Doom64"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"; Flags: isreadme
 
