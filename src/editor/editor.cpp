@@ -115,6 +115,8 @@ BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
+		((OPL3GM*)effect)->getBankName (text);
+		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
 	}
 	return FALSE;
@@ -149,10 +151,12 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 	{
 		OPENFILENAME ofn;
 		char filename[MAX_PATH];
+		char title[MAX_PATH];
 		char filter[MAX_PATH];
 		char caption[MAX_PATH];
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
+		ZeroMemory(title, sizeof(title));
 		LoadString((HINSTANCE)hInstance, IDS_FILEFLT, filter, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_FILECAP, caption, MAX_PATH);
 		ofn.lStructSize = sizeof(ofn);
@@ -161,11 +165,14 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.nFilterIndex =1;
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = sizeof(filename);
+		ofn.lpstrFileTitle = title;
+		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 		if (GetOpenFileName(&ofn))
 		{
-			effect->loadInstruments (ofn.lpstrFile);
+			effect->loadInstruments (ofn.lpstrFile, ofn.lpstrFileTitle);
+			SetDlgItemText(hWnd, IDC_CURBANK, ofn.lpstrFileTitle);
 			return TRUE;
 		}
 	}

@@ -63,6 +63,7 @@ void OPL3GM::initSynth (int sampleRate)
 		resampler_set_rate(resampler, 49716.0 / sampleRate);
 	}
 #endif
+	sprintf(BankName, "Default");
 }
 
 void OPL3GM::initBuffer (int blockSize)
@@ -482,11 +483,12 @@ VstInt32 OPL3GM::stopProcess ()
 	return 0;
 }
 
-void OPL3GM::loadInstruments (char *filename)
+void OPL3GM::loadInstruments (char *filename, char *display)
 {
 	if (synth)
 	{
 		synth->midi_loadbank(filename);
+		sprintf(BankName, display);
 	}
 }
 
@@ -497,4 +499,9 @@ VstInt32 OPL3GM::getActiveVoices ()
 		return synth->midi_getvoicecount();
 	}
 	return 0;
+}
+
+void OPL3GM::getBankName (char *text)
+{
+	sprintf(text, BankName);
 }
