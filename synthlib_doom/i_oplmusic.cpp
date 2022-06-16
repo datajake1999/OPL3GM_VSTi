@@ -116,19 +116,6 @@ void DoomOPL::LoadInstrumentTable(const char *filename)
 	}
 	fseek(file, 0, SEEK_SET);
 
-	if (lump)
-	{
-		free(lump);
-		lump = NULL;
-	}
-	lump = (byte*)malloc(size);
-
-	if (!lump)
-	{
-		fclose(file);
-		return;
-	}
-
     fread(lump, size, 1, file);
     fclose(file);
 
@@ -985,7 +972,6 @@ int DoomOPL::midi_init(unsigned int rate)
 	}
 
 	// Load instruments from GENMIDI lump:
-	lump = NULL;
 	main_instrs =  (genmidi_instr_t *) (dmx_dmx + strlen(GENMIDI_HEADER));
 	percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
 #ifdef _WIN32
@@ -1048,11 +1034,6 @@ void DoomOPL::midi_generate_dosbox(signed short *buffer, unsigned int length) {
 }
 
 void DoomOPL::midi_close() {
-	if (lump)
-	{
-		free(lump);
-		lump = NULL;
-	}
 	opl->fm_close();
 	delete opl;
 }
