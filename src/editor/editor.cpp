@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 extern void* hInstance;
 
-void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
+static void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 {
 	if (effect)
 	{
@@ -36,7 +36,7 @@ void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 	}
 }
 
-BOOL InitDialog(HWND hWnd)
+static BOOL InitDialog(HWND hWnd)
 {
 	if (hWnd)
 	{
@@ -54,7 +54,7 @@ BOOL InitDialog(HWND hWnd)
 	return FALSE;
 }
 
-BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
+static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -122,7 +122,7 @@ BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
-BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
+static BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -145,12 +145,12 @@ BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
 	return FALSE;
 }
 
-UINT WINAPI HookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static UINT WINAPI HookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return 0;
 }
 
-BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
+static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
@@ -210,7 +210,7 @@ BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 	return FALSE;
 }
 
-BOOL AboutBox(HWND hWnd)
+static BOOL AboutBox(HWND hWnd)
 {
 	if (hWnd)
 	{
@@ -224,7 +224,7 @@ BOOL AboutBox(HWND hWnd)
 	return FALSE;
 }
 
-BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
+static BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -240,7 +240,7 @@ BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
-BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
 	AudioEffectX* effect = (AudioEffectX*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
