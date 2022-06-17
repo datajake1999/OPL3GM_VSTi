@@ -200,7 +200,15 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ZeroMemory(directory, sizeof(directory));
 		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
-			ULONG len;
+			ULONG type = REG_DWORD;
+			DWORD expstyle = 0;
+			ULONG len = sizeof(DWORD);
+			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
+			if (expstyle)
+			{
+				ofn.Flags |= OFN_EXPLORER;
+			}
+			len = sizeof(directory);
 			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
