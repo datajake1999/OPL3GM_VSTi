@@ -159,7 +159,6 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		char title[MAX_PATH];
 		char filter[MAX_PATH];
 		char caption[MAX_PATH];
-		char synthname[kVstMaxEffectNameLen];
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
 		ZeroMemory(title, sizeof(title));
@@ -181,6 +180,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			ofn.Flags |= OFN_EXPLORER;
 		}
 		ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
+		char synthname[kVstMaxEffectNameLen];
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
 		{
@@ -199,6 +199,18 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
 			MessageBox(hWnd, text, caption, MB_ICONEXCLAMATION);
 			return FALSE;
+		}
+		HKEY hKey;
+		char directory[MAX_PATH];
+		ZeroMemory(directory, sizeof(directory));
+		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+		{
+			ULONG len;
+			if (RegQueryValueEx(hKey, "PatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS)
+			{
+				ofn.lpstrInitialDir = directory;
+			}
+			RegCloseKey(hKey);
 		}
 		if (GetOpenFileName(&ofn))
 		{
