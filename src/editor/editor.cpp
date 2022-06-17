@@ -174,11 +174,6 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
-		srand(GetTickCount());
-		if (rand() & 1)
-		{
-			ofn.Flags |= OFN_EXPLORER;
-		}
 		ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
 		char synthname[kVstMaxEffectNameLen];
 		effect->getEffectName (synthname);
