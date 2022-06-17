@@ -201,7 +201,11 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			ULONG len;
-			if (RegQueryValueEx(hKey, "PatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS)
+			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
+			{
+				ofn.lpstrInitialDir = directory;
+			}
+			else if (RegQueryValueEx(hKey, "DoomPatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Doom OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
 			}
