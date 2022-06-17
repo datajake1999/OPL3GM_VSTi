@@ -204,9 +204,17 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			DWORD expstyle = 0;
 			ULONG len = sizeof(DWORD);
 			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
-			if (expstyle)
+			if (expstyle == 1)
 			{
 				ofn.Flags |= OFN_EXPLORER;
+			}
+			else if (expstyle == 2)
+			{
+				srand(GetTickCount());
+				if (rand() & 1)
+				{
+					ofn.Flags |= OFN_EXPLORER;
+				}
 			}
 			len = sizeof(directory);
 			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
