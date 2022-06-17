@@ -196,26 +196,14 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			return FALSE;
 		}
 		HKEY hKey;
+		DWORD expstyle = 1;
 		char directory[MAX_PATH];
 		ZeroMemory(directory, sizeof(directory));
 		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			ULONG type = REG_DWORD;
-			DWORD expstyle = 0;
 			ULONG len = sizeof(DWORD);
 			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
-			if (expstyle == 1)
-			{
-				ofn.Flags |= OFN_EXPLORER;
-			}
-			else if (expstyle == 2)
-			{
-				srand(GetTickCount());
-				if (rand() & 1)
-				{
-					ofn.Flags |= OFN_EXPLORER;
-				}
-			}
 			len = sizeof(directory);
 			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
 			{
@@ -226,6 +214,18 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 				ofn.lpstrInitialDir = directory;
 			}
 			RegCloseKey(hKey);
+		}
+		if (expstyle == 1)
+		{
+			ofn.Flags |= OFN_EXPLORER;
+		}
+		else if (expstyle == 2)
+		{
+			srand(GetTickCount());
+			if (rand() & 1)
+			{
+				ofn.Flags |= OFN_EXPLORER;
+			}
 		}
 		if (GetOpenFileName(&ofn))
 		{
