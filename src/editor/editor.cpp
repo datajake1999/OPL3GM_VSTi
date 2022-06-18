@@ -211,6 +211,9 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_LONGNAMES;
+#ifdef OFN_ENABLESIZING
+		ofn.Flags |= OFN_ENABLESIZING;
+#endif
 		char synthname[kVstMaxEffectNameLen];
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
