@@ -145,8 +145,45 @@ static BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effec
 	return FALSE;
 }
 
+static UINT HelpBox(HWND hWnd)
+{
+	if (hWnd)
+	{
+		char caption[MAX_PATH];
+		char text[MAX_PATH];
+		LoadString((HINSTANCE)hInstance, IDS_HELPCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_HELPTXT, text, MAX_PATH);
+		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
+		return 1;
+	}
+	return 0;
+}
+
 static UINT WINAPI HookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	switch (message)
+	{
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case pshHelp:
+			return HelpBox(hWnd);
+		}
+	}
+	return 0;
+}
+
+static UINT WINAPI ExplorerHookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_NOTIFY:
+		switch (((OFNOTIFY *)lParam)->hdr.code)
+		{
+		case CDN_HELP:
+			return HelpBox(hWnd);
+		}
+	}
 	return 0;
 }
 
@@ -174,7 +211,6 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.nMaxFileTitle = sizeof(title);
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_LONGNAMES;
-		ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
 		char synthname[kVstMaxEffectNameLen];
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
@@ -197,6 +233,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		}
 		HKEY hKey;
 		DWORD expstyle = 1;
+		DWORD help = 0;
 		char directory[MAX_PATH];
 		ZeroMemory(directory, sizeof(directory));
 		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
@@ -204,6 +241,8 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			ULONG type = REG_DWORD;
 			ULONG len = sizeof(DWORD);
 			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
+			len = sizeof(DWORD);
+			RegQueryValueEx(hKey, "HelpButton", NULL, &type, (LPBYTE)&help, &len);
 			len = sizeof(directory);
 			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
 			{
@@ -226,6 +265,18 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			{
 				ofn.Flags |= OFN_EXPLORER;
 			}
+		}
+		if (help)
+		{
+			ofn.Flags |= OFN_SHOWHELP;
+		}
+		if (ofn.Flags & OFN_EXPLORER)
+		{
+			ofn.lpfnHook = (LPOFNHOOKPROC)ExplorerHookProc;
+		}
+		else
+		{
+			ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
 		}
 		if (GetOpenFileName(&ofn))
 		{

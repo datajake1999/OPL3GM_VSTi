@@ -184,6 +184,8 @@ BEGIN
     IDS_W9XTXT           "Windows 9X OPL3 can't load custom patches!"
     IDS_FAILCAP           "Error"
     IDS_FAILTXT           "%s Failed to load!"
+    IDS_HELPCAP           "Congratulations"
+    IDS_HELPTXT           "You pressed the help button! This feature Isn't particularly useful, so you might want to consult your favorite search engine If you have an Internet connection."
 END
 
 #endif    // English (U.S.) resources

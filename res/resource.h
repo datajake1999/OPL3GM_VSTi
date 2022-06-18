@@ -14,6 +14,8 @@
 #define IDS_W9XTXT                       209
 #define IDS_FAILCAP                       210
 #define IDS_FAILTXT                       211
+#define IDS_HELPCAP                       212
+#define IDS_HELPTXT                       213
 #define IDD_DIALOG                       301
 #ifndef IDC_STATIC
 #define IDC_STATIC                       -1
