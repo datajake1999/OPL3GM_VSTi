@@ -62,6 +62,10 @@ Source: "Banks\Doom\*"; DestDir: "{app}\Banks\Doom"; Components: "DoomBanks"
 Source: "license.txt"; DestDir: "{app}"; Components: "Docs"
 Source: "readme.md"; DestDir: "{app}"; Components: "Docs"; DestName: "readme.txt"; Flags: isreadme
 
+[Registry]
+Root: HKCU; Subkey: "SOFTWARE\Datajake\OPL3GM"; ValueName: "ApogeePatchDir"; ValueType: String; ValueData: "{app}\Banks\Apogee"; Components: "ApogeeBanks"; Flags: createvalueifdoesntexist
+Root: HKCU; Subkey: "SOFTWARE\Datajake\OPL3GM"; ValueName: "DoomPatchDir"; ValueType: String; ValueData: "{app}\Banks\Doom"; Components: "DoomBanks"; Flags: createvalueifdoesntexist
+
 [Icons]
 Name: "{group}\Open Apogee Banks Directory"; Filename: "{app}\Banks\Apogee"; Components: "ApogeeBanks"
 Name: "{group}\Open Doom Banks Directory"; Filename: "{app}\Banks\Doom"; Components: "DoomBanks"
