@@ -342,6 +342,8 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 #endif
 	switch (message)
 	{
+	case WM_INITDIALOG:
+		return InitDialog(hWnd);
 	case WM_HSCROLL:
 	case WM_VSCROLL:
 		return ProcessScrollParameter(hWnd, lParam, effect);
@@ -464,7 +466,6 @@ bool Editor::open (void* ptr)
 #else
 		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
-		InitDialog((HWND)dlg);
 		RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
