@@ -214,6 +214,9 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 #ifdef OFN_ENABLESIZING
 		ofn.Flags |= OFN_ENABLESIZING;
 #endif
+#ifdef OFN_DONTADDTORECENT
+		ofn.Flags |= OFN_DONTADDTORECENT;
+#endif
 		char synthname[kVstMaxEffectNameLen];
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
