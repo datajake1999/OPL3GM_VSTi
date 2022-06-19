@@ -23,31 +23,32 @@
 #define IDC_STATIC                       -1
 #endif
 #define IDC_PRESET                       401
-#define IDC_VOLUME                       402
-#define IDC_VOLDISP1                       403
-#define IDC_VOLDISP2                       404
-#define IDC_TRANSPOSE                       405
-#define IDC_TRANDISP1                       406
-#define IDC_TRANDISP2                       407
-#define IDC_DISPLAY                       408
-#define IDC_NUKED                       409
-#define IDC_DC                       410
-#define IDC_QUEUE                       411
-#define IDC_PANIC                       412
-#define IDC_RESET                       413
-#define IDC_VOICECOUNT                       414
-#define IDC_REFRESH                       415
-#define IDC_LOAD                       416
-#define IDC_CURBANK                       417
-#define IDC_ABOUT                       418
-#define IDC_STATS                       419
-#define IDC_PROJPAGE                       420
+#define IDC_PRESETNAME                       402
+#define IDC_VOLUME                       403
+#define IDC_VOLDISP1                       404
+#define IDC_VOLDISP2                       405
+#define IDC_TRANSPOSE                       406
+#define IDC_TRANDISP1                       407
+#define IDC_TRANDISP2                       408
+#define IDC_DISPLAY                       409
+#define IDC_NUKED                       410
+#define IDC_DC                       411
+#define IDC_QUEUE                       412
+#define IDC_PANIC                       413
+#define IDC_RESET                       414
+#define IDC_VOICECOUNT                       415
+#define IDC_REFRESH                       416
+#define IDC_LOAD                       417
+#define IDC_CURBANK                       418
+#define IDC_ABOUT                       419
+#define IDC_STATS                       420
+#define IDC_PROJPAGE                       421
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        421
+#define _APS_NEXT_RESOURCE_VALUE        422
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

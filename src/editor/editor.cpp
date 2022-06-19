@@ -26,6 +26,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 extern void* hInstance;
 
+static bool SetPresetName(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		char text[MAX_PATH];
+		ZeroMemory(text, sizeof(text));
+		if (GetDlgItemText(hWnd, IDC_PRESETNAME, text, sizeof(text)))
+		{
+			effect->setProgramName (text);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 {
 	if (effect)
@@ -45,6 +60,7 @@ static BOOL InitDialog(HWND hWnd)
 		{
 			SendMessage(hWnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
 		}
+		SendDlgItemMessage(hWnd, IDC_PRESETNAME, EM_LIMITTEXT, kVstMaxProgNameLen-1, 0);
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETRANGE, 0, MAKELONG(0, 100));
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
@@ -67,6 +83,8 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 			SendDlgItemMessage(hWnd, IDC_PRESET, CB_INSERTSTRING, i, (LPARAM)text);
 		}
 		SendDlgItemMessage(hWnd, IDC_PRESET, CB_SETCURSEL, effect->getProgram (), 0);
+		effect->getProgramName (text);
+		SetDlgItemText(hWnd, IDC_PRESETNAME, text);
 		ParamValue = effect->getParameter (kVolume)*100;
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
 		effect->getParameterDisplay (kVolume, text);
@@ -370,6 +388,14 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_PRESET:
 			effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
 			return TRUE;
+		case IDC_PRESETNAME:
+			switch (HIWORD(wParam))
+			{
+			case EN_KILLFOCUS:
+				return SetPresetName(hWnd, effect);
+			default:
+				return FALSE;
+			}
 		case IDC_DISPLAY:
 			if (SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_GETCHECK, 0, 0))
 			{
