@@ -386,8 +386,11 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		switch (LOWORD(wParam))
 		{
 		case IDC_PRESET:
-			effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
-			return TRUE;
+			if (effect)
+			{
+				effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
+				return TRUE;
+			}
 		case IDC_PRESETNAME:
 			switch (HIWORD(wParam))
 			{
