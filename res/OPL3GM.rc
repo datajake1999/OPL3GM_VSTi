@@ -186,6 +186,8 @@ BEGIN
     IDS_FAILTXT           "%s Failed to load!"
     IDS_HELPCAP           "Congratulations"
     IDS_HELPTXT           "You pressed the help button! This feature Isn't particularly useful, so you might want to consult your favorite search engine If you have an Internet connection."
+    IDS_WEBCAP           "Confirm"
+    IDS_WEBTXT           "Are you connected to the Internet?"
 END
 
 #endif    // English (U.S.) resources

@@ -333,6 +333,23 @@ static BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
+static BOOL ProjectPage(HWND hWnd)
+{
+	if (hWnd)
+	{
+		char caption[MAX_PATH];
+		char text[MAX_PATH];
+		LoadString((HINSTANCE)hInstance, IDS_WEBCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_WEBTXT, text, MAX_PATH);
+		if (MessageBox(hWnd, text, caption, MB_ICONQUESTION | MB_YESNO) == IDYES)
+		{
+			ShellExecute(hWnd, NULL, "https://github.com/datajake1999/OPL3GM_VSTi", NULL, NULL, 0);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
@@ -414,8 +431,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_STATS:
 			return StatisticsBox(hWnd, effect);
 		case IDC_PROJPAGE:
-			ShellExecute(hWnd, NULL, "https://github.com/datajake1999/OPL3GM_VSTi", NULL, NULL, 0);
-			return TRUE;
+			return ProjectPage(hWnd);
 		}
 	}
 	return FALSE;
