@@ -59,6 +59,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	PushMidi = 1;
 	memset(ParameterChunk, 0, sizeof(ParameterChunk));
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
+	memset(&hi, 0, sizeof(hi));
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
 #ifdef demo
