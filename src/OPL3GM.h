@@ -39,6 +39,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifdef demo
 #include <time.h>
 #endif
+//#define gui
 
 enum
 {
