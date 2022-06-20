@@ -362,6 +362,10 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
 		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString);
+		if (!strcmp(hi->VendorString, "Cockos"))
+		{
+			strncat(text, "\nI approve!", sizeof(text));
+		}
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}
