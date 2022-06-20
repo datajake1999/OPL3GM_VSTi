@@ -512,4 +512,9 @@ void OPL3GM::getBankName (char *text)
 {
 	sprintf(text, BankName);
 }
+
+HostInfo *OPL3GM::getHostInfo ()
+{
+	return &hi;
+}
 #endif

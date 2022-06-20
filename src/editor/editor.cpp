@@ -351,6 +351,23 @@ static BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
+static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
+{
+	if (hWnd && effect)
+	{
+		char caption[MAX_PATH];
+		char temp[MAX_PATH];
+		char text[MAX_PATH];
+		HostInfo *hi = effect->getHostInfo ();
+		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
+		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
+		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString);
+		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static BOOL ProjectPage(HWND hWnd)
 {
 	if (hWnd)
@@ -459,6 +476,8 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			return AboutBox(hWnd);
 		case IDC_STATS:
 			return StatisticsBox(hWnd, effect);
+		case IDC_HOSTINFO:
+			return HostInfoBox(hWnd, (OPL3GM*)effect);
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
 		}

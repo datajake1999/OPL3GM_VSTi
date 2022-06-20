@@ -136,6 +136,7 @@ public:
 	virtual bool loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text);
+	virtual HostInfo *getHostInfo ();
 #endif
 private:
 #if reaper_extensions
