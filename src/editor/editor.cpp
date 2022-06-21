@@ -364,7 +364,9 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString);
 		if (!strcmp(hi->VendorString, "Cockos"))
 		{
-			strncat(text, "\nI approve!", sizeof(text));
+			char approve[32];
+			LoadString((HINSTANCE)hInstance, IDS_REAPPROVE, approve, sizeof(approve));
+			strncat(text, approve, sizeof(text));
 		}
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
