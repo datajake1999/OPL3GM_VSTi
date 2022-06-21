@@ -62,6 +62,7 @@ struct HostInfo
 	char VendorString[kVstMaxVendorStrLen];
 	char ProductString[kVstMaxProductStrLen];
 	VstInt32 VendorVersion;
+	VstInt32 MasterVersion;
 	bool ReceiveEvents;
 };
 

@@ -81,6 +81,7 @@ void OPL3GM::open ()
 	getHostVendorString (hi.VendorString);
 	getHostProductString (hi.ProductString);
 	hi.VendorVersion = getHostVendorVersion ();
+	hi.MasterVersion = getMasterVersion ();
 	if (canHostDo ("receiveVstEvents") || canHostDo ("receiveVstMidiEvent"))
 	{
 		hi.ReceiveEvents = true;
