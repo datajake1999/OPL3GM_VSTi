@@ -361,7 +361,7 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		HostInfo *hi = effect->getHostInfo ();
 		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
-		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString);
+		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString, effect->getMasterVersion () / 1000.0f);
 		if (!strcmp(hi->VendorString, "Cockos"))
 		{
 			char approve[32];

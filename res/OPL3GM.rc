@@ -182,7 +182,7 @@ BEGIN
     IDS_STATSCAP           "VST Plugin Statistics"
     IDS_STATSTXT           "Sample rate: %d hZ\nBlock size: %d"
     IDS_HOSTCAP           "VST Host Information"
-    IDS_HOSTTXT           "Product name: %s\nProduct version: %f\nVendor: %s"
+    IDS_HOSTTXT           "Product name: %s\nProduct version: %f\nVendor: %s\nMaster version: %f"
     IDS_FILEFLT           "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0\0"
     IDS_FILECAP           "Load an Instrument Bank"
     IDS_W9XCAP           "Sorry"
