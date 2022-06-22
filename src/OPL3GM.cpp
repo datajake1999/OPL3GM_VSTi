@@ -59,7 +59,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	PushMidi = 1;
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	memset(BankFile, 0, sizeof(BankFile));
-	sprintf(BankName, "Default");
+	strncpy(BankName, "Default", sizeof(BankName));
 	memset(&chunk, 0, sizeof(chunk));
 	memset(&hi, 0, sizeof(hi));
 	initSynth ((int)sampleRate);
@@ -316,8 +316,8 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 		chunk.Parameters[i] = getParameter (i);
 	}
 	getProgramName (chunk.ProgramName);
-	sprintf(chunk.BankFile, BankFile);
-	sprintf(chunk.BankName, BankName);
+	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
+	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
 	*data = &chunk;
 	return sizeof(OPL3GMChunk);
 }

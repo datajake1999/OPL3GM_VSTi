@@ -489,8 +489,8 @@ bool OPL3GM::loadInstruments (char *filename, char *display)
 	{
 		if (synth->midi_loadbank(filename))
 		{
-			sprintf(BankFile, filename);
-			sprintf(BankName, display);
+			strncpy(BankFile, filename, sizeof(BankFile));
+			strncpy(BankName, display, sizeof(BankName));
 			return true;
 		}
 	}
@@ -508,7 +508,7 @@ VstInt32 OPL3GM::getActiveVoices ()
 
 void OPL3GM::getBankName (char *text)
 {
-	sprintf(text, BankName);
+	strncpy(text, BankName, sizeof(BankName));
 }
 
 HostInfo *OPL3GM::getHostInfo ()
