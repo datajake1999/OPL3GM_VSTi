@@ -578,37 +578,3 @@ void Editor::refreshParameters ()
 {
 	RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
 }
-
-#ifdef gui
-bool OPL3GM::loadInstruments (char *filename, char *display)
-{
-	if (synth)
-	{
-		if (synth->midi_loadbank(filename))
-		{
-			sprintf(BankName, display);
-			return true;
-		}
-	}
-	return false;
-}
-
-VstInt32 OPL3GM::getActiveVoices ()
-{
-	if (synth)
-	{
-		return synth->midi_getvoicecount();
-	}
-	return 0;
-}
-
-void OPL3GM::getBankName (char *text)
-{
-	sprintf(text, BankName);
-}
-
-HostInfo *OPL3GM::getHostInfo ()
-{
-	return &hi;
-}
-#endif
