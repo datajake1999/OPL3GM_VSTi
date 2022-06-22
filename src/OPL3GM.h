@@ -65,6 +65,14 @@ struct HostInfo
 	bool ReceiveEvents;
 };
 
+struct OPL3GMChunk
+{
+	float Parameters[kNumParams];
+	char ProgramName[kVstMaxProgNameLen];
+	char BankFile[256];
+	char BankName[256];
+};
+
 class OPL3GM : public AudioEffectX
 {
 public:
@@ -179,9 +187,10 @@ private:
 	float Transpose;
 	float Emulator;
 	float PushMidi;
-	float ParameterChunk[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
+	char BankFile[256];
 	char BankName[256];
+	OPL3GMChunk chunk;
 	HostInfo hi;
 #ifdef demo
 	time_t startTime;

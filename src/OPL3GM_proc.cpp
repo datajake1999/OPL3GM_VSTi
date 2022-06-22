@@ -63,9 +63,7 @@ void OPL3GM::initSynth (int sampleRate)
 		resampler_set_rate(resampler, 49716.0 / sampleRate);
 	}
 #endif
-#ifdef gui
-	sprintf(BankName, "Default");
-#endif
+	loadInstruments (BankFile, BankName);
 }
 
 void OPL3GM::initBuffer (int blockSize)
@@ -491,6 +489,7 @@ bool OPL3GM::loadInstruments (char *filename, char *display)
 	{
 		if (synth->midi_loadbank(filename))
 		{
+			sprintf(BankFile, filename);
 			sprintf(BankName, display);
 			return true;
 		}

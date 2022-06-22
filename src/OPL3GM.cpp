@@ -57,8 +57,10 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	Transpose = 0;
 	Emulator = 1;
 	PushMidi = 1;
-	memset(ParameterChunk, 0, sizeof(ParameterChunk));
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
+	memset(BankFile, 0, sizeof(BankFile));
+	sprintf(BankName, "Default");
+	memset(&chunk, 0, sizeof(chunk));
 	memset(&hi, 0, sizeof(hi));
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
@@ -293,11 +295,13 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	{
 		return 0;
 	}
-	float *chunkData = (float *)data;
+	OPL3GMChunk *chunkData = (OPL3GMChunk *)data;
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
-		setParameter (i, chunkData[i]);
+		setParameter (i, chunkData->Parameters[i]);
 	}
+	setProgramName (chunkData->ProgramName);
+	loadInstruments (chunkData->BankFile, chunkData->BankName);
 	return byteSize;
 }
 
@@ -309,10 +313,13 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	}
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
-		ParameterChunk[i] = getParameter (i);
+		chunk.Parameters[i] = getParameter (i);
 	}
-	*data = ParameterChunk;
-	return kNumParams*sizeof(float);
+	getProgramName (chunk.ProgramName);
+	sprintf(chunk.BankFile, BankFile);
+	sprintf(chunk.BankName, BankName);
+	*data = &chunk;
+	return sizeof(OPL3GMChunk);
 }
 
 void OPL3GM::setProgram (VstInt32 program)
