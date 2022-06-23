@@ -506,9 +506,9 @@ VstInt32 OPL3GM::getActiveVoices ()
 	return 0;
 }
 
-void OPL3GM::getBankName (char *text)
+void OPL3GM::getBankName (char *text, VstInt32 size)
 {
-	strncpy(text, BankName, sizeof(BankName));
+	strncpy(text, BankName, size);
 }
 
 HostInfo *OPL3GM::getHostInfo ()

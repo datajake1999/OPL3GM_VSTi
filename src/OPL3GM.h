@@ -143,7 +143,7 @@ public:
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 	virtual bool loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
-	virtual void getBankName (char *text);
+	virtual void getBankName (char *text, VstInt32 size);
 	virtual HostInfo *getHostInfo ();
 private:
 #if reaper_extensions

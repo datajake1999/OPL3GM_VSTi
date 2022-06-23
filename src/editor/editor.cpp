@@ -133,7 +133,7 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
-		((OPL3GM*)effect)->getBankName (text);
+		((OPL3GM*)effect)->getBankName (text, sizeof(text));
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
 	}
