@@ -67,6 +67,7 @@ struct HostInfo
 
 struct OPL3GMChunk
 {
+	VstInt32 Size;
 	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
 	char BankFile[256];

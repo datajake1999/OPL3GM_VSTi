@@ -296,6 +296,10 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		return 0;
 	}
 	OPL3GMChunk *chunkData = (OPL3GMChunk *)data;
+	if (chunkData->Size != sizeof(OPL3GMChunk))
+	{
+		return 0;
+	}
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		setParameter (i, chunkData->Parameters[i]);
@@ -311,6 +315,7 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	{
 		return 0;
 	}
+	chunk.Size = sizeof(OPL3GMChunk);
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		chunk.Parameters[i] = getParameter (i);
