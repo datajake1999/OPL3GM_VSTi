@@ -126,3 +126,22 @@ function GetVSTDir_64(Param: String): String;
 begin
   Result := VSTDirPage_64.Values[0]
 end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usUninstall:
+      begin
+        if RegKeyExists(HKEY_CURRENT_USER, 'Software\Datajake\OPL3GM') then
+        begin
+          if MsgBox('Would you like to remove your registry settings?', mbConfirmation, MB_YESNO) = IDYES then
+          begin
+            if RegDeleteKeyIncludingSubkeys(HKEY_CURRENT_USER, 'Software\Datajake\OPL3GM') = false then
+            begin
+              MsgBox('Error deleting registry key', mbError, MB_OK)
+            end;
+          end;
+        end;
+      end;
+  end;
+end;
