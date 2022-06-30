@@ -1057,7 +1057,15 @@ int DoomOPL::midi_getprogram(unsigned int channel) {
 
 bool DoomOPL::midi_loadbank(char *filename)
 {
-	return LoadInstrumentTable(filename);
+	if (LoadInstrumentTable(filename))
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			ProgramChangeEvent(i, midi_getprogram(i));
+		}
+		return true;
+	}
+	return false;
 }
 
 int DoomOPL::midi_getvoicecount()
