@@ -323,6 +323,48 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 	return FALSE;
 }
 
+static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
+{
+	HDROP hDrop = (HDROP)wParam;
+	if (hWnd && effect)
+	{
+		char synthname[kVstMaxEffectNameLen];
+		effect->getEffectName (synthname);
+		if (!strcmp(synthname, "Windows 9x OPL3"))
+		{
+			char caption[MAX_PATH];
+			char text[MAX_PATH];
+			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
+			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
+			MessageBox(hWnd, text, caption, MB_ICONEXCLAMATION);
+			DragFinish(hDrop);
+			return FALSE;
+		}
+		char filename[MAX_PATH];
+		ZeroMemory(filename, sizeof(filename));
+		if (DragQueryFile(hDrop, 0, filename, MAX_PATH))
+		{
+			if (!effect->loadInstruments (filename, filename))
+			{
+				char caption[MAX_PATH];
+				char temp[MAX_PATH];
+				char text[MAX_PATH];
+				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
+				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
+				sprintf(text, temp, filename);
+				MessageBox(hWnd, text, caption, MB_ICONERROR);
+				DragFinish(hDrop);
+				return FALSE;
+			}
+			SetDlgItemText(hWnd, IDC_CURBANK, filename);
+			DragFinish(hDrop);
+			return TRUE;
+		}
+	}
+	DragFinish(hDrop);
+	return FALSE;
+}
+
 static BOOL AboutBox(HWND hWnd)
 {
 	if (hWnd)
@@ -407,6 +449,8 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	case WM_HSCROLL:
 	case WM_VSCROLL:
 		return ProcessScrollParameter(hWnd, lParam, effect);
+	case WM_DROPFILES:
+		return LoadInstrumentBankDragDrop(hWnd, wParam, (OPL3GM*)effect);
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
