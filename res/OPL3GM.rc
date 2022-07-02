@@ -2,6 +2,10 @@
 //
 #include "resource.h"
 
+#ifndef DS_SHELLFONT
+#define DS_SHELLFONT        (DS_SETFONT | DS_FIXEDSYS)
+#endif
+
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -134,7 +138,7 @@ END
 
 IDD_DIALOG DIALOGEX DISCARDABLE  0, 0, 400, 400
 CAPTION "OPL3GM"
-STYLE WS_CHILD|DS_CONTROL|DS_SETFONT|DS_FIXEDSYS
+STYLE WS_CHILD|DS_CONTROL|DS_SHELLFONT
 EXSTYLE WS_EX_CONTROLPARENT|WS_EX_ACCEPTFILES
 FONT 8, "MS Shell Dlg"
 BEGIN
