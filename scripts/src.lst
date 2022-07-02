@@ -3,6 +3,7 @@
 ..\fmopl3lib\opl.cpp
 ..\fmopl3lib\opl3.cpp
 ..\fmopl3lib\opl3class.cpp
+..\src\guihelp.cpp
 ..\src\main.cpp
 ..\src\midiprog.cpp
 ..\src\OPL3GM.cpp

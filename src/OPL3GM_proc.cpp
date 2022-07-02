@@ -482,36 +482,3 @@ VstInt32 OPL3GM::stopProcess ()
 	}
 	return 0;
 }
-
-bool OPL3GM::loadInstruments (char *filename, char *display)
-{
-	if (synth)
-	{
-		if (synth->midi_loadbank(filename))
-		{
-			strncpy(BankFile, filename, sizeof(BankFile));
-			strncpy(BankName, display, sizeof(BankName));
-			return true;
-		}
-	}
-	return false;
-}
-
-VstInt32 OPL3GM::getActiveVoices ()
-{
-	if (synth)
-	{
-		return synth->midi_getvoicecount();
-	}
-	return 0;
-}
-
-void OPL3GM::getBankName (char *text, VstInt32 size)
-{
-	strncpy(text, BankName, size);
-}
-
-HostInfo *OPL3GM::getHostInfo ()
-{
-	return &hi;
-}
