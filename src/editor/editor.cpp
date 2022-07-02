@@ -29,6 +29,16 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 extern void* hInstance;
 
+static bool SetPreset(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static bool SetPresetName(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
@@ -455,10 +465,12 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		switch (LOWORD(wParam))
 		{
 		case IDC_PRESET:
-			if (effect)
+			switch (HIWORD(wParam))
 			{
-				effect->setProgram (SendDlgItemMessage(hWnd, IDC_PRESET, CB_GETCURSEL, 0, 0));
-				return TRUE;
+			case CBN_SELCHANGE:
+				return SetPreset(hWnd, effect);
+			default:
+				return FALSE;
 			}
 		case IDC_PRESETNAME:
 			switch (HIWORD(wParam))
