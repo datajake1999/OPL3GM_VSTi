@@ -617,8 +617,19 @@ void Editor::idle ()
 	if (effect && dlg)
 	{
 		char text[MAX_PATH];
-		sprintf(text, "%d/18", ((OPL3GM*)effect)->getActiveVoices ());
+		int numvoices = ((OPL3GM*)effect)->getActiveVoices ();
+		sprintf(text, "%d/18", numvoices);
 		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
+		HDC hDc = GetDC(GetDlgItem((HWND)dlg, IDC_VOICECOUNT));
+		if (hDc)
+		{
+			COLORREF color = 0;
+			if (numvoices > 15)
+			{
+				color = RGB(255, 0, 0);
+			}
+			SetTextColor(hDc, color);
+		}
 	}
 }
 
