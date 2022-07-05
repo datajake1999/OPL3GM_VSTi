@@ -119,6 +119,12 @@ bool DoomOPL::LoadInstrumentTable(const char *filename)
     fread(lump, size, 1, file);
     fclose(file);
 
+    if (memcmp(GENMIDI_HEADER, lump, strlen(GENMIDI_HEADER)))
+    {
+        memcpy(&lump, &dmx_dmx, sizeof(dmx_dmx));
+        return false;
+    }
+
     return true;
 }
 
