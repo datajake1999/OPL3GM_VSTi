@@ -294,7 +294,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		{
 			ofn.Flags |= OFN_EXPLORER;
 		}
-		else if (expstyle == 2)
+		else if (expstyle >= 2)
 		{
 			srand(GetTickCount());
 			if (rand() & 1)
