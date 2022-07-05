@@ -1365,6 +1365,7 @@ int ApogeeOPL::midi_init
    {
       return 0;
    }
+   memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
 #ifdef _WIN32
    AL_LoadBank("C:\\OPLSynth\\APOGEE.TMB");
 #else
@@ -1391,7 +1392,6 @@ int ApogeeOPL::AL_InitSynth()
 
 bool ApogeeOPL::AL_LoadBank(const char *filename)
 {
-    memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
     FILE *tmb = fopen(filename,"rb");
     if(tmb)
     {
