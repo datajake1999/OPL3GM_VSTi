@@ -119,9 +119,6 @@ bool DoomOPL::LoadInstrumentTable(const char *filename)
     fread(lump, size, 1, file);
     fclose(file);
 
-    main_instrs = (genmidi_instr_t *) (lump + strlen(GENMIDI_HEADER));
-    percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
-
     return true;
 }
 
@@ -974,7 +971,8 @@ int DoomOPL::midi_init(unsigned int rate)
 	}
 
 	// Load instruments from GENMIDI lump:
-	main_instrs =  (genmidi_instr_t *) (dmx_dmx + strlen(GENMIDI_HEADER));
+	memcpy(&lump, &dmx_dmx, sizeof(dmx_dmx));
+	main_instrs = (genmidi_instr_t *) (lump + strlen(GENMIDI_HEADER));
 	percussion_instrs = main_instrs + GENMIDI_NUM_INSTRS;
 #ifdef _WIN32
 	LoadInstrumentTable("C:\\OPLSynth\\GENMIDI.OP2");
@@ -1057,15 +1055,7 @@ int DoomOPL::midi_getprogram(unsigned int channel) {
 
 bool DoomOPL::midi_loadbank(char *filename)
 {
-	if (LoadInstrumentTable(filename))
-	{
-		for (int i = 0; i < 16; i++)
-		{
-			ProgramChangeEvent(i, midi_getprogram(i));
-		}
-		return true;
-	}
-	return false;
+	return LoadInstrumentTable(filename);
 }
 
 int DoomOPL::midi_getvoicecount()
