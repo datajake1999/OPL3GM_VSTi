@@ -183,8 +183,8 @@ void OPL3GM::adjustParameterIndex (VstInt32 index, VstInt32 adjust)
 	hostVendorSpecific (0xdeadbeef, audioMasterAutomate, idxadj, 0);
 }
 
-void OPL3GM::renamePlug (char **text, char *newName)
+void OPL3GM::renamePlug (char **text, const char *newName)
 {
-	*text = newName;
+	*text = (char *)newName;
 }
 #endif

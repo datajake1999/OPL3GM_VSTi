@@ -154,7 +154,7 @@ private:
 	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
 	void parameterRange (VstInt32 index, double *range);
 	void adjustParameterIndex (VstInt32 index, VstInt32 adjust);
-	void renamePlug (char **text, char *newName);
+	void renamePlug (char **text, const char *newName);
 #endif
 	void initSynth (int sampleRate);
 	void initBuffer (int blockSize);
