@@ -614,8 +614,7 @@ int OPL3MIDI::midi_getprogram(unsigned int channel) {
     return opl_channels[channel].program;
 }
 
-int OPL3MIDI::midi_getvoicecount()
-{
+int OPL3MIDI::midi_getvoicecount() {
     int count = 0;
     int i;
     for (i = 0; i < opl_voice_num; i++)
