@@ -617,7 +617,8 @@ int OPL3MIDI::midi_getprogram(unsigned int channel) {
 int OPL3MIDI::midi_getvoicecount()
 {
     int count = 0;
-    for (int i = 0; i < 18; i++)
+    int i;
+    for (i = 0; i < 18; i++)
     {
         if (opl_voices[i].keyon)
         {

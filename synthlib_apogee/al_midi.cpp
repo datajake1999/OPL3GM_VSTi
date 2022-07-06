@@ -1542,7 +1542,8 @@ bool ApogeeOPL::midi_loadbank(char *filename)
 int ApogeeOPL::midi_getvoicecount()
 {
     int count = 0;
-    for (int i = 0; i < NUM_VOICES * 2; i++)
+    int i;
+    for (i = 0; i < NUM_VOICES * 2; i++)
     {
         if (Voice[i].status == NOTE_ON)
         {
