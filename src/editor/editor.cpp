@@ -45,7 +45,7 @@ static bool SetPresetName(HWND hWnd, AudioEffectX* effect)
 	{
 		char text[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
-		if (GetDlgItemText(hWnd, IDC_PRESETNAME, text, sizeof(text)))
+		if (GetDlgItemText(hWnd, IDC_PRESETNAME, text, MAX_PATH))
 		{
 			effect->setProgramName (text);
 			return TRUE;
@@ -146,7 +146,7 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
-		((OPL3GM*)effect)->getBankName (text, sizeof(text));
+		((OPL3GM*)effect)->getBankName (text, MAX_PATH);
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
 	}
@@ -237,9 +237,9 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.lpstrFilter = filter;
 		ofn.nFilterIndex = 1;
 		ofn.lpstrFile = filename;
-		ofn.nMaxFile = sizeof(filename);
+		ofn.nMaxFile = MAX_PATH;
 		ofn.lpstrFileTitle = title;
-		ofn.nMaxFileTitle = sizeof(title);
+		ofn.nMaxFileTitle = MAX_PATH;
 		ofn.lpstrTitle = caption;
 		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_LONGNAMES;
 #ifdef OFN_ENABLESIZING
