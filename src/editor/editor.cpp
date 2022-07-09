@@ -420,7 +420,7 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		{
 			char approve[32];
 			LoadString((HINSTANCE)hInstance, IDS_REAPPROVE, approve, sizeof(approve));
-			strncat(text, approve, sizeof(text));
+			strncat(text, approve, sizeof(approve));
 		}
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
