@@ -56,6 +56,8 @@ void OPL3GM::initSynth (int sampleRate)
 			synth = NULL;
 		}
 	}
+	dcf[0].SetRate(sampleRate);
+	dcf[1].SetRate(sampleRate);
 #ifdef hqresampler
 	resampler = resampler_create();
 	if (resampler)
