@@ -145,6 +145,8 @@ void OPL3GM::suspend ()
 void OPL3GM::resume ()
 {
 	AudioEffectX::resume ();
+	dcf[0].ResetState();
+	dcf[1].ResetState();
 	if (synth)
 	{
 		synth->midi_reset();

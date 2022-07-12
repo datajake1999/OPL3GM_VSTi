@@ -18,6 +18,15 @@ DCFilter::DCFilter()
 	HoldTime = 0;
 }
 
+void DCFilter::ResetState()
+{
+	LastIn = 0;
+	LastOut = 0;
+	open = false;
+	envelope = 0;
+	HoldTime = 0;
+}
+
 void DCFilter::SetRate(double rate)
 {
 	double wn = M_PI * (fltfreq / rate);

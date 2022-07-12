@@ -10,6 +10,7 @@
 class DCFilter {
 public:
 	DCFilter();
+	void ResetState();
 	void SetRate(double rate);
 	double Process(double in);
 private:
