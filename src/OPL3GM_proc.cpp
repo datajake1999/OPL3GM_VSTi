@@ -153,7 +153,6 @@ void OPL3GM::resume ()
 	}
 }
 
-#if !VST_FORCE_DEPRECATED
 float OPL3GM::getVu ()
 {
 	if (bypassed)
@@ -172,6 +171,7 @@ float OPL3GM::getVu ()
 	return (float)value;
 }
 
+#if !VST_FORCE_DEPRECATED
 void OPL3GM::process (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	processTemplate (inputs, outputs, sampleFrames);
@@ -262,9 +262,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 			}
 #endif
-#if !VST_FORCE_DEPRECATED
 			vu[0] = out1[i];
-#endif
 		}
 		if (out2)
 		{
@@ -283,9 +281,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 			}
 #endif
-#if !VST_FORCE_DEPRECATED
 			vu[1] = out2[i];
-#endif
 		}
 	}
 	while (MidiQueue.HasEvents())

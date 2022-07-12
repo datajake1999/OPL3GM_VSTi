@@ -48,9 +48,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(samples, 0, sizeof(samples));
 #endif
 	bypassed = false;
-#if !VST_FORCE_DEPRECATED
 	memset(vu, 0, sizeof(vu));
-#endif
 	Volume = 1;
 	VolumeDisplay = 0;
 	DCBlock = 0;

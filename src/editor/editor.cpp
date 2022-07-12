@@ -620,6 +620,11 @@ void Editor::idle ()
 		int numvoices = ((OPL3GM*)effect)->getActiveVoices ();
 		sprintf(text, "%d/18", numvoices);
 		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
+		float vu = ((OPL3GM*)effect)->getVu ();
+		char vustr[kVstMaxParamStrLen*2];
+		effect->dB2string (vu, vustr, (kVstMaxParamStrLen*2)-1);
+		sprintf(text, "%s dB", vustr);
+		SetDlgItemText((HWND)dlg, IDC_VU, text);
 		HDC hDc = GetDC(GetDlgItem((HWND)dlg, IDC_VOICECOUNT));
 		if (hDc)
 		{

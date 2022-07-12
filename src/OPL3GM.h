@@ -126,8 +126,8 @@ public:
 #endif
 	virtual void suspend ();
 	virtual void resume ();
-#if !VST_FORCE_DEPRECATED
 	virtual float getVu ();
+#if !VST_FORCE_DEPRECATED
 	virtual void process (float** inputs, float** outputs, VstInt32 sampleFrames);
 #endif
 	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
@@ -179,9 +179,7 @@ private:
 	EventQueue ParameterQueue;
 #endif
 	bool bypassed;
-#if !VST_FORCE_DEPRECATED
 	double vu[2];
-#endif
 	float Volume;
 	float VolumeDisplay;
 	float DCBlock;

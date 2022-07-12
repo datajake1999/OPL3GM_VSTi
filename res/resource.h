@@ -45,8 +45,9 @@
 #define IDC_CURBANK                     418
 #define IDC_ABOUT                       419
 #define IDC_STATS                       420
-#define IDC_HOSTINFO                    421
-#define IDC_PROJPAGE                    422
+#define IDC_VU                          421
+#define IDC_HOSTINFO                    422
+#define IDC_PROJPAGE                    423
 
 // Next default values for new objects
 // 
