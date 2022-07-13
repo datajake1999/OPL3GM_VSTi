@@ -159,16 +159,7 @@ float OPL3GM::getVu ()
 	{
 		return 0;
 	}
-	double value = fabs((vu[0] + vu[1]) / 2);
-	if (value > 1)
-	{
-		value = 1;
-	}
-	else if (value < 0)
-	{
-		value = 0;
-	}
-	return (float)value;
+	return (float)fabs((vu[0] + vu[1]) / 2);
 }
 
 #if !VST_FORCE_DEPRECATED
