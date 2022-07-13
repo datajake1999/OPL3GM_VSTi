@@ -397,4 +397,5 @@ public:
     bool midi_loadbank(char *filename);
     int midi_getvoicecount();
 };
+
 #endif

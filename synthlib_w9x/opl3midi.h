@@ -136,4 +136,5 @@ public:
     int midi_getprogram(unsigned int channel);
     int midi_getvoicecount();
 };
+
 #endif

@@ -31,4 +31,5 @@ public:
 	void fm_generate_dosbox(signed short *buffer, unsigned int length);
 	void fm_close();
 };
+
 #endif
