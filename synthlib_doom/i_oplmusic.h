@@ -17,7 +17,8 @@
 //   System interface for music.
 //
 
-#pragma once
+#ifndef I_OPLMUSIC_H
+#define I_OPLMUSIC_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -396,3 +397,4 @@ public:
     bool midi_loadbank(char *filename);
     int midi_getvoicecount();
 };
+#endif

@@ -12,6 +12,9 @@
 // GNU General Public License for more details.
 //
 
+#ifndef OPL3CLASS_H
+#define OPL3CLASS_H
+
 #include "../interface.h"
 #include "opl3.h"
 #include "opl.h"
@@ -28,3 +31,4 @@ public:
 	void fm_generate_dosbox(signed short *buffer, unsigned int length);
 	void fm_close();
 };
+#endif

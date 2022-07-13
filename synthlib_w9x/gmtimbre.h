@@ -13,7 +13,9 @@
 // GNU General Public License for more details.
 //
 
-#pragma once
+#ifndef GMTIMBRE_H
+#define GMTIMBRE_H
+
 #include "opl3type.h"
 
 #pragma pack(1)
@@ -430,3 +432,5 @@ opl_drum_map opl_drum_maps[128] =
     { 255, 0 },
     { 255, 0 }
 };
+
+#endif

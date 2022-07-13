@@ -12,7 +12,8 @@
 // GNU General Public License for more details.
 //
 
-#pragma once
+#ifndef OPL3MIDI_H
+#define OPL3MIDI_H
 
 #include <stdint.h>
 #include "opl3type.h"
@@ -135,3 +136,4 @@ public:
     int midi_getprogram(unsigned int channel);
     int midi_getvoicecount();
 };
+#endif

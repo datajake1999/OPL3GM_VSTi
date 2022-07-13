@@ -12,6 +12,9 @@
 // GNU General Public License for more details.
 //
 
+#ifndef INTERFACE_H
+#define INTERFACE_H
+
 class fm_chip {
 public:
 	virtual int fm_init(unsigned int rate) = 0;
@@ -39,3 +42,4 @@ public:
 
 midisynth* getsynth();
 fm_chip* getchip();
+#endif
