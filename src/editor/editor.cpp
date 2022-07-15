@@ -66,6 +66,23 @@ static BOOL SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 	return FALSE;
 }
 
+static bool SetBypassState(HWND hWnd, AudioEffectX* effect)
+{
+	if (hWnd && effect)
+	{
+		if (SendDlgItemMessage(hWnd, IDC_BYPASS, BM_GETCHECK, 0, 0))
+		{
+			effect->setBypass (true);
+		}
+		else
+		{
+			effect->setBypass (false);
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static BOOL InitDialog(HWND hWnd)
 {
 	if (hWnd)
@@ -525,15 +542,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kPushMidi, 0);
 			}
 		case IDC_BYPASS:
-			if (SendDlgItemMessage(hWnd, IDC_BYPASS, BM_GETCHECK, 0, 0))
-			{
-				effect->setBypass (true);
-			}
-			else
-			{
-				effect->setBypass (false);
-			}
-			return TRUE;
+			return SetBypassState(hWnd, effect);
 		case IDC_REFRESH:
 			return RefreshDialog(hWnd, effect);
 		case IDC_LOAD:
