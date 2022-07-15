@@ -33,14 +33,12 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	initBuffer (blockSize);
 }
 
-#if !VST_FORCE_DEPRECATED
 void OPL3GM::setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate)
 {
 	setBlockSize (blockSize);
 	setSampleRate (sampleRate);
 }
 
-#endif
 void OPL3GM::initSynth (int sampleRate)
 {
 	synth = getsynth();

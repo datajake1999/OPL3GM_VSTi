@@ -120,8 +120,8 @@ public:
 #endif
 	virtual void setSampleRate (float sampleRate);
 	virtual void setBlockSize (VstInt32 blockSize);
-#if !VST_FORCE_DEPRECATED
 	virtual void setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate);
+#if !VST_FORCE_DEPRECATED
 	virtual bool getErrorText (char* text);
 #endif
 	virtual void suspend ();

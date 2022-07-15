@@ -560,6 +560,12 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			return StatisticsBox(hWnd, effect);
 		case IDC_HOSTINFO:
 			return HostInfoBox(hWnd, (OPL3GM*)effect);
+		case IDC_HARDRESET:
+			if (effect)
+			{
+				((OPL3GM*)effect)->setBlockSizeAndSampleRate (effect->getBlockSize (), effect->getSampleRate ());
+				return TRUE;
+			}
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
 		}
