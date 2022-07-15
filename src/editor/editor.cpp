@@ -102,7 +102,7 @@ static BOOL InitDialog(HWND hWnd)
 	return FALSE;
 }
 
-static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
+static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
@@ -165,7 +165,7 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
-		if (((OPL3GM*)effect)->getBypass ())
+		if (effect->getBypass ())
 		{
 			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_CHECKED, 0);
 		}
@@ -173,7 +173,7 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
-		((OPL3GM*)effect)->getBankName (text, MAX_PATH);
+		effect->getBankName (text, MAX_PATH);
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
 	}
@@ -473,9 +473,9 @@ static BOOL ProjectPage(HWND hWnd)
 static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
-	AudioEffectX* effect = (AudioEffectX*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+	OPL3GM* effect = (OPL3GM*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 #else
-	AudioEffectX* effect = (AudioEffectX*)GetWindowLong   (hWnd, GWL_USERDATA );
+	OPL3GM* effect = (OPL3GM*)GetWindowLong(hWnd, GWL_USERDATA);
 #endif
 	switch (message)
 	{
@@ -485,7 +485,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	case WM_VSCROLL:
 		return ProcessScrollParameter(hWnd, lParam, effect);
 	case WM_DROPFILES:
-		return LoadInstrumentBankDragDrop(hWnd, wParam, (OPL3GM*)effect);
+		return LoadInstrumentBankDragDrop(hWnd, wParam, effect);
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -546,7 +546,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_REFRESH:
 			return RefreshDialog(hWnd, effect);
 		case IDC_LOAD:
-			return LoadInstrumentBank(hWnd, (OPL3GM*)effect);
+			return LoadInstrumentBank(hWnd, effect);
 		case IDC_PANIC:
 			if (effect)
 			{
@@ -564,11 +564,11 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_STATS:
 			return StatisticsBox(hWnd, effect);
 		case IDC_HOSTINFO:
-			return HostInfoBox(hWnd, (OPL3GM*)effect);
+			return HostInfoBox(hWnd, effect);
 		case IDC_HARDRESET:
 			if (effect)
 			{
-				((OPL3GM*)effect)->setBlockSizeAndSampleRate (effect->getBlockSize (), effect->getSampleRate ());
+				effect->setBlockSizeAndSampleRate (effect->getBlockSize (), effect->getSampleRate ());
 				return TRUE;
 			}
 		case IDC_PROJPAGE:
@@ -623,7 +623,7 @@ bool Editor::open (void* ptr)
 #else
 		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
-		RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
+		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
 		return true;
@@ -689,5 +689,5 @@ bool Editor::onKeyUp (VstKeyCode& keyCode)
 
 void Editor::refreshParameters ()
 {
-	RefreshDialog((HWND)dlg, (AudioEffectX*)effect);
+	RefreshDialog((HWND)dlg, (OPL3GM*)effect);
 }
