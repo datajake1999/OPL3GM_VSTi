@@ -142,6 +142,7 @@ public:
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
+	virtual bool getBypass ();
 	virtual bool loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text, VstInt32 size);

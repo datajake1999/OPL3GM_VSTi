@@ -19,6 +19,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 
+bool OPL3GM::getBypass ()
+{
+	return bypassed;
+}
+
 bool OPL3GM::loadInstruments (char *filename, char *display)
 {
 	if (synth)

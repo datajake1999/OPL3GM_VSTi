@@ -146,6 +146,14 @@ static BOOL RefreshDialog(HWND hWnd, AudioEffectX* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
+		if (((OPL3GM*)effect)->getBypass ())
+		{
+			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_UNCHECKED, 0);
+		}
 		((OPL3GM*)effect)->getBankName (text, MAX_PATH);
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
@@ -518,6 +526,16 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			else
 			{
 				SetParameterValue(effect, kPushMidi, 0);
+			}
+			return TRUE;
+		case IDC_BYPASS:
+			if (SendDlgItemMessage(hWnd, IDC_BYPASS, BM_GETCHECK, 0, 0))
+			{
+				effect->setBypass (true);
+			}
+			else
+			{
+				effect->setBypass (false);
 			}
 			return TRUE;
 		case IDC_REFRESH:
