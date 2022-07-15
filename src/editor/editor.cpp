@@ -54,14 +54,16 @@ static bool SetPresetName(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
-static void SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
+static BOOL SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 {
 	if (effect)
 	{
 		effect->beginEdit (index);
 		effect->setParameterAutomated (index, value);
 		effect->endEdit (index);
+		return TRUE;
 	}
+	return FALSE;
 }
 
 static BOOL InitDialog(HWND hWnd)
@@ -171,14 +173,12 @@ static BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effec
 		if (lParam == VolumeHandle)
 		{
 			ParamValue = SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_GETPOS, 0, 0)/100.0f;
-			SetParameterValue(effect, kVolume, ParamValue);
-			return TRUE;
+			return SetParameterValue(effect, kVolume, ParamValue);
 		}
 		else if (lParam == TransposeHandle)
 		{
 			ParamValue = SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_GETPOS, 0, 0)/25.0f;
-			SetParameterValue(effect, kTranspose, ParamValue);
-			return TRUE;
+			return SetParameterValue(effect, kTranspose, ParamValue);
 		}
 	}
 	return FALSE;
@@ -491,43 +491,39 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_DISPLAY:
 			if (SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_GETCHECK, 0, 0))
 			{
-				SetParameterValue(effect, kVolumeDisplay, 1);
+				return SetParameterValue(effect, kVolumeDisplay, 1);
 			}
 			else
 			{
-				SetParameterValue(effect, kVolumeDisplay, 0);
+				return SetParameterValue(effect, kVolumeDisplay, 0);
 			}
-			return TRUE;
 		case IDC_NUKED:
 			if (SendDlgItemMessage(hWnd, IDC_NUKED, BM_GETCHECK, 0, 0))
 			{
-				SetParameterValue(effect, kEmulator, 1);
+				return SetParameterValue(effect, kEmulator, 1);
 			}
 			else
 			{
-				SetParameterValue(effect, kEmulator, 0);
+				return SetParameterValue(effect, kEmulator, 0);
 			}
-			return TRUE;
 		case IDC_DC:
 			if (SendDlgItemMessage(hWnd, IDC_DC, BM_GETCHECK, 0, 0))
 			{
-				SetParameterValue(effect, kDCBlock, 1);
+				return SetParameterValue(effect, kDCBlock, 1);
 			}
 			else
 			{
-				SetParameterValue(effect, kDCBlock, 0);
+				return SetParameterValue(effect, kDCBlock, 0);
 			}
-			return TRUE;
 		case IDC_QUEUE:
 			if (SendDlgItemMessage(hWnd, IDC_QUEUE, BM_GETCHECK, 0, 0))
 			{
-				SetParameterValue(effect, kPushMidi, 1);
+				return SetParameterValue(effect, kPushMidi, 1);
 			}
 			else
 			{
-				SetParameterValue(effect, kPushMidi, 0);
+				return SetParameterValue(effect, kPushMidi, 0);
 			}
-			return TRUE;
 		case IDC_BYPASS:
 			if (SendDlgItemMessage(hWnd, IDC_BYPASS, BM_GETCHECK, 0, 0))
 			{
