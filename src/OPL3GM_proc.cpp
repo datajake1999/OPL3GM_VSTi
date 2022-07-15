@@ -236,7 +236,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		fillBuffer (buffer, 1, i);
 		if (out1)
 		{
-			out1[i] = (buffer[i*2+0] / (sampletype)32768) * Volume;
+			out1[i] = buffer[i*2+0] / (sampletype)32768;
 			if (in1)
 			{
 				out1[i] += in1[i];
@@ -245,6 +245,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			{
 				out1[i] = (sampletype)dcf[0].Process(out1[i]);
 			}
+			out1[i] = out1[i] * Volume;
 #ifdef demo
 			if (time(NULL) >= startTime + 600)
 			{
@@ -255,7 +256,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		}
 		if (out2)
 		{
-			out2[i] = (buffer[i*2+1] / (sampletype)32768) * Volume;
+			out2[i] = buffer[i*2+1] / (sampletype)32768;
 			if (in2)
 			{
 				out2[i] += in2[i];
@@ -264,6 +265,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			{
 				out2[i] = (sampletype)dcf[1].Process(out2[i]);
 			}
+			out2[i] = out2[i] * Volume;
 #ifdef demo
 			if (time(NULL) >= startTime + 600)
 			{
