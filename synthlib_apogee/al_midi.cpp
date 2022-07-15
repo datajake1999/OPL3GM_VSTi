@@ -465,7 +465,8 @@ void ApogeeOPL::AL_SendOutputToPort
    {
    if(port)
         reg |= 0x100;
-   chip->fm_writereg(reg, data);
+   if(chip)
+        chip->fm_writereg(reg, data);
    }
 
 
@@ -1505,18 +1506,28 @@ void ApogeeOPL::midi_reset()
 
 void ApogeeOPL::midi_generate(signed short *buffer, unsigned int length)
 {
-    chip->fm_generate(buffer, length);
+    if (chip)
+    {
+        chip->fm_generate(buffer, length);
+    }
 }
 
 void ApogeeOPL::midi_generate_dosbox(signed short *buffer, unsigned int length)
 {
-    chip->fm_generate_dosbox(buffer, length);
+    if (chip)
+    {
+        chip->fm_generate_dosbox(buffer, length);
+    }
 }
 
 void ApogeeOPL::midi_close()
 {
-    chip->fm_close();
-    delete chip;
+    if (chip)
+    {
+        chip->fm_close();
+        delete chip;
+        chip = NULL;
+    }
 }
 
 const char *ApogeeOPL::midi_synthname(void)

@@ -19,7 +19,10 @@
 
 void OPL3MIDI::opl_writereg(uint32_t reg, byte data)
 {
-    opl_chip->fm_writereg(reg, data);
+    if (opl_chip)
+    {
+        opl_chip->fm_writereg(reg, data);
+    }
 }
 
 uint32_t OPL3MIDI::opl_tofnum(double freq)
@@ -589,16 +592,26 @@ void OPL3MIDI::midi_reset()
 }
 
 void OPL3MIDI::midi_generate(signed short *buffer, unsigned int length) {
-    opl_chip->fm_generate(buffer, length);
+    if (opl_chip)
+    {
+        opl_chip->fm_generate(buffer, length);
+    }
 }
 
 void OPL3MIDI::midi_generate_dosbox(signed short *buffer, unsigned int length) {
-    opl_chip->fm_generate_dosbox(buffer, length);
+    if (opl_chip)
+    {
+        opl_chip->fm_generate_dosbox(buffer, length);
+    }
 }
 
 void OPL3MIDI::midi_close() {
-    opl_chip->fm_close();
-    delete opl_chip;
+    if (opl_chip)
+    {
+        opl_chip->fm_close();
+        delete opl_chip;
+        opl_chip = NULL;
+    }
 }
 
 const char *OPL3MIDI::midi_synthname(void) {

@@ -21,7 +21,10 @@
 #include "dmx_dmx.h"
 
 void DoomOPL::OPL_WriteRegister(unsigned int reg, unsigned char data) {
-	opl->fm_writereg(reg, data);
+	if (opl)
+	{
+		opl->fm_writereg(reg, data);
+	}
 }
 
 void DoomOPL::OPL_InitRegisters(bool opl_new)
@@ -1032,16 +1035,26 @@ int DoomOPL::InitSynth()
 }
 
 void DoomOPL::midi_generate(signed short *buffer, unsigned int length) {
-	opl->fm_generate(buffer, length);
+	if (opl)
+	{
+		opl->fm_generate(buffer, length);
+	}
 }
 
 void DoomOPL::midi_generate_dosbox(signed short *buffer, unsigned int length) {
-	opl->fm_generate_dosbox(buffer, length);
+	if (opl)
+	{
+		opl->fm_generate_dosbox(buffer, length);
+	}
 }
 
 void DoomOPL::midi_close() {
-	opl->fm_close();
-	delete opl;
+	if (opl)
+	{
+		opl->fm_close();
+		delete opl;
+		opl = NULL;
+	}
 }
 
 const char *DoomOPL::midi_synthname(void) {
