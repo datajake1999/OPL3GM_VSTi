@@ -113,7 +113,7 @@ private:
     opl_voice * opl_allocvoice(opl_timbre *timbre);
     opl_voice * opl_findvoice(opl_channel *channel, byte note);
     void opl_midikeyon(opl_channel *channel, byte note, opl_timbre *timbre, byte velocity);
-    void opl_midikeyoff(opl_channel *channel, byte note, opl_timbre *timbre, bool sustained);
+    void opl_midikeyoff(opl_channel *channel, byte note, bool sustained);
     void opl_midikeyoffall(opl_channel *channel);
     void opl_updatevolpan(opl_channel *channel);
     void opl_updatevol(opl_channel *channel, byte vol);

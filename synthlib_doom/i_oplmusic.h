@@ -378,7 +378,7 @@ private:
     void ProgramChangeEvent(unsigned char channel_num, unsigned char instrument);
     void SetChannelVolume(opl_channel_data_t *channel, unsigned int volume);
     void SetChannelPan(opl_channel_data_t *channel, unsigned int pan);
-    void AllNotesOff(opl_channel_data_t *channel, unsigned int param);
+    void AllNotesOff(opl_channel_data_t *channel);
     void ControllerEvent(unsigned char channel_num, unsigned char controller, unsigned char param);
     void PitchBendEvent(unsigned char channel_num, unsigned char bend);
     void InitChannel(opl_channel_data_t *channel);

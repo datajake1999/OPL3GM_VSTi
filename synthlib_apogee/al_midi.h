@@ -74,7 +74,7 @@ private:
     int  AL_ReleaseVoice( int voice );
     void AL_SetMaxMidiChannel( int channel );
     void AL_Reset( void );
-    void AL_NoteOff( int channel, int key, int velocity );
+    void AL_NoteOff( int channel, int key );
     void AL_NoteOn( int channel, int key, int vel );
     void AL_AllNotesOff( int channel );
     void AL_ControlChange( int channel, int type, int data );

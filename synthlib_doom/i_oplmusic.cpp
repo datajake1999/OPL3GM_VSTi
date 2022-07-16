@@ -798,7 +798,7 @@ void DoomOPL::SetChannelPan(opl_channel_data_t *channel, unsigned int pan)
 }
 
 // Handler for the MIDI_CONTROLLER_ALL_NOTES_OFF channel event.
-void DoomOPL::AllNotesOff(opl_channel_data_t *channel, unsigned int param)
+void DoomOPL::AllNotesOff(opl_channel_data_t *channel)
 {
     unsigned int i;
 
@@ -839,7 +839,7 @@ void DoomOPL::ControllerEvent(unsigned char channel_num, unsigned char controlle
             break;
 
         case MIDI_CONTROLLER_ALL_NOTES_OFF:
-            AllNotesOff(channel, param);
+            AllNotesOff(channel);
             break;
 
         default:
@@ -948,7 +948,7 @@ void DoomOPL::midi_panic()
 {
     for(int i = 0; i < 16; i++)
     {
-        AllNotesOff(TrackChannelForEvent(i), 0);
+        AllNotesOff(TrackChannelForEvent(i));
     }
 }
 

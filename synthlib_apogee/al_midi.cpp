@@ -1031,7 +1031,7 @@ int ApogeeOPL::AL_ReserveVoice
 
    if ( Voice[ voice ].status == NOTE_ON )
       {
-      AL_NoteOff( Voice[ voice ].channel, Voice[ voice ].key, 0 );
+      AL_NoteOff( Voice[ voice ].channel, Voice[ voice ].key );
       }
 
    VoiceReserved[ voice ] = true;
@@ -1079,8 +1079,7 @@ int ApogeeOPL::AL_ReleaseVoice
 void ApogeeOPL::AL_NoteOff
    (
    int channel,
-   int key,
-   int velocity
+   int key
    )
 
    {
@@ -1138,7 +1137,7 @@ void ApogeeOPL::AL_NoteOn
 
    if ( velocity == 0 )
       {
-      AL_NoteOff( channel, key, velocity );
+      AL_NoteOff( channel, key );
       return;
       }
 
@@ -1148,7 +1147,7 @@ void ApogeeOPL::AL_NoteOn
       {
       if ( Channel[ 9 ].Voices.start )
          {
-         AL_NoteOff( 9, Channel[ 9 ].Voices.start->key, 0 );
+         AL_NoteOff( 9, Channel[ 9 ].Voices.start->key );
          voice = AL_AllocVoice();
          }
       if ( voice == AL_VoiceNotFound )
@@ -1184,7 +1183,7 @@ void ApogeeOPL::AL_AllNotesOff
    {
    while( Channel[ channel ].Voices.start != NULL )
       {
-      AL_NoteOff( channel, Channel[ channel ].Voices.start->key, 0 );
+      AL_NoteOff( channel, Channel[ channel ].Voices.start->key );
       }
    }
 
@@ -1455,7 +1454,7 @@ void ApogeeOPL::midi_write(unsigned int data)
     switch (command)
     {
     case MIDI_NOTE_OFF:
-        AL_NoteOff(channel, c1, c2);
+        AL_NoteOff(channel, c1);
         break;
 
     case MIDI_NOTE_ON:

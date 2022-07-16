@@ -238,7 +238,7 @@ void OPL3MIDI::opl_midikeyon(opl_channel *channel, byte note, opl_timbre *timbre
     voice->sustained = false;
 }
 
-void OPL3MIDI::opl_midikeyoff(opl_channel *channel, byte note, opl_timbre *timbre, bool sustained)
+void OPL3MIDI::opl_midikeyoff(opl_channel *channel, byte note, bool sustained)
 {
     opl_voice *voice;
 
@@ -268,7 +268,7 @@ void OPL3MIDI::opl_midikeyoffall(opl_channel *channel)
     {
         if (opl_voices[i].channel == channel)
         {
-            opl_midikeyoff(opl_voices[i].channel, opl_voices[i].note, opl_voices[i].timbre, false);
+            opl_midikeyoff(opl_voices[i].channel, opl_voices[i].note, false);
         }
     }
 }
@@ -351,7 +351,7 @@ void OPL3MIDI::opl_updatesustain(opl_channel *channel, byte sustain)
         {
             if (opl_voices[i].channel == channel && opl_voices[i].sustained)
             {
-                opl_midikeyoff(channel, opl_voices[i].note, opl_voices[i].timbre, false);
+                opl_midikeyoff(channel, opl_voices[i].note, false);
             }
         }
     }
@@ -535,12 +535,12 @@ void OPL3MIDI::midi_write(unsigned int data)
         {
             if (opl_drum_maps[parm1].base != 0xff)
             {
-                opl_midikeyoff(channelp, opl_drum_maps[parm1].note, &opl_timbres[opl_drum_maps[parm1].base + 128], false);
+                opl_midikeyoff(channelp, opl_drum_maps[parm1].note, false);
             }
         }
         else
         {
-            opl_midikeyoff(channelp, parm1, channelp->timbre, channelp->sustained);
+            opl_midikeyoff(channelp, parm1, channelp->sustained);
         }
         break;
     case MIDI_CONTROL:
