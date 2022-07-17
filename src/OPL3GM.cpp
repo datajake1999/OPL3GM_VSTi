@@ -136,7 +136,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 #ifdef gui
 	if (editor)
 	{
-		((Editor*)editor)->refreshParameters ();
+		((Editor*)editor)->refresh ();
 	}
 #endif
 }
@@ -307,7 +307,7 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 #ifdef gui
 	if (editor)
 	{
-		((Editor*)editor)->refreshParameters ();
+		((Editor*)editor)->refresh ();
 	}
 #endif
 	return byteSize;
@@ -341,7 +341,7 @@ void OPL3GM::setProgram (VstInt32 program)
 #ifdef gui
 	if (editor)
 	{
-		((Editor*)editor)->refreshParameters ();
+		((Editor*)editor)->refresh ();
 	}
 #endif
 }
@@ -357,7 +357,7 @@ void OPL3GM::setProgramName (char *name)
 #ifdef gui
 	if (editor)
 	{
-		((Editor*)editor)->refreshParameters ();
+		((Editor*)editor)->refresh ();
 	}
 #endif
 }

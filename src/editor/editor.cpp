@@ -623,7 +623,7 @@ bool Editor::open (void* ptr)
 #else
 		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
-		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+		refresh ();
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
 		return true;
@@ -687,7 +687,7 @@ bool Editor::onKeyUp (VstKeyCode& keyCode)
 	return false;
 }
 
-void Editor::refreshParameters ()
+void Editor::refresh ()
 {
 	RefreshDialog((HWND)dlg, (OPL3GM*)effect);
 }
