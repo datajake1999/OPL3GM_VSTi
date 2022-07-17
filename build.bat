@@ -1,5 +1,8 @@
 @ECHO OFF
 set path="C:\Program Files\7-Zip";"C:\Program Files\Inno Setup 5"
+cd..
+7z a -tzip OPL3GM_VSTi\output\OPL3GM-src.zip @OPL3GM_VSTi\zip-src.lst
+cd OPL3GM_VSTi
 call "C:\Program Files\Microsoft Visual Studio 8\VC\bin\vcvars32.bat"
 call "C:\Program Files\Microsoft Platform SDK\SetEnv.Cmd" /SRV32 /RETAIL
 cl /nologo -c /D _CRT_SECURE_NO_DEPRECATE /D VST_FORCE_DEPRECATED=0 /D gui /I ".\include\msinttypes" /I ".\VST2_SDK" /O2 dsp\*.cpp fmopl3lib\*.cpp src\*.cpp src\editor\*.cpp synthlib_apogee\*.cpp synthlib_doom\*.cpp synthlib_w9x\*.cpp VST2_SDK\public.sdk\source\vst2.x\*.cpp
