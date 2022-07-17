@@ -304,6 +304,12 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	}
 	setProgramName (chunkData->ProgramName);
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
+#ifdef gui
+	if (editor)
+	{
+		((Editor*)editor)->refreshParameters ();
+	}
+#endif
 	return byteSize;
 }
 
@@ -332,6 +338,12 @@ void OPL3GM::setProgram (VstInt32 program)
 		return;
 	}
 	curProgram = program;
+#ifdef gui
+	if (editor)
+	{
+		((Editor*)editor)->refreshParameters ();
+	}
+#endif
 }
 
 VstInt32 OPL3GM::getProgram ()
