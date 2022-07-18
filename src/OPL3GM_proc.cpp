@@ -21,16 +21,20 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 void OPL3GM::setSampleRate (float sampleRate)
 {
+	lock.acquire();
 	AudioEffectX::setSampleRate (sampleRate);
 	clearSynth ();
 	initSynth ((int)sampleRate);
+	lock.release();
 }
 
 void OPL3GM::setBlockSize (VstInt32 blockSize)
 {
+	lock.acquire();
 	AudioEffectX::setBlockSize (blockSize);
 	clearBuffer ();
 	initBuffer (blockSize);
+	lock.release();
 }
 
 void OPL3GM::setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate)
@@ -130,6 +134,7 @@ bool OPL3GM::getErrorText (char* text)
 #endif
 void OPL3GM::suspend ()
 {
+	lock.acquire();
 	MidiQueue.Flush(true);
 #if reaper_extensions
 	ParameterQueue.Flush(true);
@@ -138,10 +143,12 @@ void OPL3GM::suspend ()
 	{
 		synth->midi_panic();
 	}
+	lock.release();
 }
 
 void OPL3GM::resume ()
 {
+	lock.acquire();
 	AudioEffectX::resume ();
 	dcf[0].ResetState();
 	dcf[1].ResetState();
@@ -149,6 +156,7 @@ void OPL3GM::resume ()
 	{
 		synth->midi_reset();
 	}
+	lock.release();
 }
 
 float OPL3GM::getVu ()
@@ -187,6 +195,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	sampletype* out1 = outputs[0];
 	sampletype* out2 = outputs[1];
 
+	lock.acquire();
 	if (bypassed || !buffer || !out1 || !out2)
 	{
 		if (out1)
@@ -211,6 +220,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				memset(out2, 0, sampleFrames*sizeof(sampletype));
 			}
 		}
+		lock.release();
 		return;
 	}
 
@@ -285,6 +295,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		processEvent (ParameterQueue.GetNextEvent());
 	}
 #endif
+	lock.release();
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
@@ -341,12 +352,14 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)
 {
+	lock.acquire();
 	if (bypassed || !ev)
 	{
 		if (ev && hi.ReceiveEvents)
 		{
 			sendVstEventsToHost (ev);
 		}
+		lock.release();
 		return 0;
 	}
 
@@ -383,6 +396,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	{
 		sendVstEventsToHost (ev);
 	}
+	lock.release();
 	return 1;
 }
 
@@ -456,20 +470,26 @@ void OPL3GM::sendMidi (char *data)
 
 VstInt32 OPL3GM::startProcess ()
 {
+	lock.acquire();
 	if (buffer)
 	{
 		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		lock.release();
 		return 1;
 	}
+	lock.release();
 	return 0;
 }
 
 VstInt32 OPL3GM::stopProcess ()
 {
+	lock.acquire();
 	if (buffer)
 	{
 		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		lock.release();
 		return 1;
 	}
+	lock.release();
 	return 0;
 }

@@ -32,6 +32,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #if reaper_extensions
 #include "parmstruct.h"
 #endif
+#include "lock.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -192,6 +193,7 @@ private:
 	char BankName[256];
 	OPL3GMChunk chunk;
 	HostInfo hi;
+	LockableObject lock;
 #ifdef demo
 	time_t startTime;
 #endif
