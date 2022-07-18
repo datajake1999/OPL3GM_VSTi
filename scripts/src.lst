@@ -3,6 +3,7 @@
 ..\fmopl3lib\opl.cpp
 ..\fmopl3lib\opl3.cpp
 ..\fmopl3lib\opl3class.cpp
+..\src\editor.cpp
 ..\src\guihelp.cpp
 ..\src\lock.cpp
 ..\src\main.cpp
@@ -11,7 +12,6 @@
 ..\src\OPL3GM_proc.cpp
 ..\src\queue.cpp
 ..\src\reaper.cpp
-..\src\editor\editor.cpp
 ..\synthlib_apogee\al_midi.cpp
 ..\synthlib_doom\i_oplmusic.cpp
 ..\synthlib_w9x\opl3midi.cpp

@@ -20,7 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "OPL3GM.h"
 //#define gui
 #ifdef gui
-#include "editor/editor.h"
+#include "editor.h"
 #endif
 
 OPL3GM::OPL3GM (audioMasterCallback audioMaster)
