@@ -33,6 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "parmstruct.h"
 #endif
 #include "lock.h"
+#include "cpu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -148,6 +149,7 @@ public:
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text, VstInt32 size);
 	virtual HostInfo *getHostInfo ();
+	virtual double getCPULoad ();
 private:
 #if reaper_extensions
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
@@ -194,6 +196,7 @@ private:
 	OPL3GMChunk chunk;
 	HostInfo hi;
 	LockableObject lock;
+	double CPULoad;
 #ifdef demo
 	time_t startTime;
 #endif

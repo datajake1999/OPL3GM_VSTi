@@ -3,6 +3,7 @@
 ..\fmopl3lib\opl.cpp
 ..\fmopl3lib\opl3.cpp
 ..\fmopl3lib\opl3class.cpp
+..\src\cpu.cpp
 ..\src\editor.cpp
 ..\src\guihelp.cpp
 ..\src\lock.cpp

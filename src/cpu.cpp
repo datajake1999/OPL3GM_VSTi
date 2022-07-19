@@ -1,6 +1,5 @@
 /*
-OPL3GM VSTi
-Copyright (C) 2021-2022  Datajake
+Copyright (C) 2022  Datajake
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,47 +16,30 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include "OPL3GM.h"
+#include "cpu.h"
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
-bool OPL3GM::getBypass ()
+double GetCPUTime()
 {
-	return bypassed;
-}
-
-bool OPL3GM::loadInstruments (char *filename, char *display)
-{
-	if (synth)
-	{
-		if (synth->midi_loadbank(filename))
-		{
-			strncpy(BankFile, filename, sizeof(BankFile));
-			strncpy(BankName, display, sizeof(BankName));
-			return true;
-		}
-	}
-	return false;
-}
-
-VstInt32 OPL3GM::getActiveVoices ()
-{
-	if (synth)
-	{
-		return synth->midi_getvoicecount();
-	}
+#ifdef _WIN32
+	LARGE_INTEGER li;
+	QueryPerformanceCounter(&li);
+	return (double)li.QuadPart;
+#else
 	return 0;
+#endif
 }
 
-void OPL3GM::getBankName (char *text, VstInt32 size)
+double GetCPUFrequency()
 {
-	strncpy(text, BankName, size);
-}
-
-HostInfo *OPL3GM::getHostInfo ()
-{
-	return &hi;
-}
-
-double OPL3GM::getCPULoad ()
-{
-	return CPULoad;
+#ifdef _WIN32
+	LARGE_INTEGER li;
+	QueryPerformanceFrequency(&li);
+	return (double)li.QuadPart;
+#else
+	return 0;
+#endif
 }

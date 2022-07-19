@@ -654,6 +654,9 @@ void Editor::idle ()
 		effect->dB2string (vu, vustr, (kVstMaxParamStrLen*2)-1);
 		sprintf(text, "%s dB", vustr);
 		SetDlgItemText((HWND)dlg, IDC_VU, text);
+		double cpu = ((OPL3GM*)effect)->getCPULoad ();
+		sprintf(text, "%lf %%", cpu);
+		SetDlgItemText((HWND)dlg, IDC_CPU, text);
 		COLORREF color = 0;
 		HDC hDc = GetDC(GetDlgItem((HWND)dlg, IDC_VOICECOUNT));
 		if (hDc)
@@ -669,6 +672,16 @@ void Editor::idle ()
 		if (hDc)
 		{
 			if (vu > 1)
+			{
+				color = RGB(255, 0, 0);
+			}
+			SetTextColor(hDc, color);
+		}
+		color = 0;
+		hDc = GetDC(GetDlgItem((HWND)dlg, IDC_CPU));
+		if (hDc)
+		{
+			if (cpu > 50)
 			{
 				color = RGB(255, 0, 0);
 			}

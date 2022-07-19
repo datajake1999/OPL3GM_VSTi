@@ -1,6 +1,5 @@
 /*
-OPL3GM VSTi
-Copyright (C) 2021-2022  Datajake
+Copyright (C) 2022  Datajake
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,47 +16,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include "OPL3GM.h"
+#ifndef CPU_H
+#define CPU_H
 
-bool OPL3GM::getBypass ()
-{
-	return bypassed;
-}
+double GetCPUTime();
+double GetCPUFrequency();
 
-bool OPL3GM::loadInstruments (char *filename, char *display)
-{
-	if (synth)
-	{
-		if (synth->midi_loadbank(filename))
-		{
-			strncpy(BankFile, filename, sizeof(BankFile));
-			strncpy(BankName, display, sizeof(BankName));
-			return true;
-		}
-	}
-	return false;
-}
-
-VstInt32 OPL3GM::getActiveVoices ()
-{
-	if (synth)
-	{
-		return synth->midi_getvoicecount();
-	}
-	return 0;
-}
-
-void OPL3GM::getBankName (char *text, VstInt32 size)
-{
-	strncpy(text, BankName, size);
-}
-
-HostInfo *OPL3GM::getHostInfo ()
-{
-	return &hi;
-}
-
-double OPL3GM::getCPULoad ()
-{
-	return CPULoad;
-}
+#endif

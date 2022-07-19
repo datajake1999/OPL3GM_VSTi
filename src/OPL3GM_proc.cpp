@@ -198,6 +198,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	lock.acquire();
 	if (bypassed || !buffer || !out1 || !out2)
 	{
+		double begin = GetCPUTime();
 		if (out1)
 		{
 			if (in1)
@@ -220,6 +221,11 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				memset(out2, 0, sampleFrames*sizeof(sampletype));
 			}
 		}
+		double end = GetCPUTime();
+		double freq = GetCPUFrequency();
+		double GenerateDuration = (end - begin) / freq;
+		double BufferDuration = sampleFrames * (1.0 / getSampleRate ());
+		CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 		lock.release();
 		return;
 	}
@@ -231,6 +237,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		sampleFrames = bufferSize;
 	}
 
+	double begin = GetCPUTime();
 	for (VstInt32 i = 0; i < sampleFrames; i++)
 	{
 		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= i)
@@ -295,6 +302,11 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		processEvent (ParameterQueue.GetNextEvent());
 	}
 #endif
+	double end = GetCPUTime();
+	double freq = GetCPUFrequency();
+	double GenerateDuration = (end - begin) / freq;
+	double BufferDuration = sampleFrames * (1.0 / getSampleRate ());
+	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 	lock.release();
 }
 
