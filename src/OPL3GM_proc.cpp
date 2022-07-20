@@ -222,10 +222,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			}
 		}
 		double end = GetCPUTime();
-		double freq = GetCPUFrequency();
-		double GenerateDuration = (end - begin) / freq;
-		double BufferDuration = sampleFrames * (1.0 / getSampleRate ());
-		CPULoad = (GenerateDuration / BufferDuration) * 100.0;
+		calculateCPULoad (begin, end, sampleFrames);
 		lock.release();
 		return;
 	}
@@ -303,11 +300,16 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	}
 #endif
 	double end = GetCPUTime();
+	calculateCPULoad (begin, end, sampleFrames);
+	lock.release();
+}
+
+void OPL3GM::calculateCPULoad (double begin, double end, int numsamples)
+{
 	double freq = GetCPUFrequency();
 	double GenerateDuration = (end - begin) / freq;
-	double BufferDuration = sampleFrames * (1.0 / getSampleRate ());
+	double BufferDuration = numsamples * (1.0 / getSampleRate ());
 	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
-	lock.release();
 }
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
