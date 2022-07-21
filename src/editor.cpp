@@ -29,6 +29,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 extern void* hInstance;
 
+static const int rates[] =
+{
+	8000,11025,16000,22050,
+	24000,32000,44100,48000,
+	49716,
+	88200,96000,176400,192000
+};
+
 static bool SetPreset(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
@@ -83,6 +91,23 @@ static bool SetBypassState(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
+static bool SetOPLRate(HWND hWnd, OPL3GM* effect)
+{
+	if (hWnd && effect)
+	{
+		char text[MAX_PATH];
+		ZeroMemory(text, sizeof(text));
+		if (GetDlgItemText(hWnd, IDC_OPLRATE, text, MAX_PATH))
+		{
+			effect->setInternalRate (atoi(text));
+			sprintf(text, "%d", effect->getInternalRate ());
+			SetDlgItemText(hWnd, IDC_OPLRATE, text);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static BOOL InitDialog(HWND hWnd)
 {
 	if (hWnd)
@@ -97,6 +122,12 @@ static BOOL InitDialog(HWND hWnd)
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
+		char text[MAX_PATH];
+		for (VstInt32 i = 0; i < sizeof(rates) / sizeof(int); i++)
+		{
+			sprintf(text, "%d", rates[i]);
+			SendDlgItemMessage(hWnd, IDC_OPLRATE, CB_INSERTSTRING, i, (LPARAM)text);
+		}
 		return TRUE;
 	}
 	return FALSE;
@@ -173,6 +204,8 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
+		sprintf(text, "%d", effect->getInternalRate ());
+		SetDlgItemText(hWnd, IDC_OPLRATE, text);
 		effect->getBankName (text, MAX_PATH);
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		return TRUE;
@@ -543,6 +576,14 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 		case IDC_BYPASS:
 			return SetBypassState(hWnd, effect);
+		case IDC_OPLRATE:
+			switch (HIWORD(wParam))
+			{
+			case CBN_KILLFOCUS:
+				return SetOPLRate(hWnd, effect);
+			default:
+				return FALSE;
+			}
 		case IDC_REFRESH:
 			return RefreshDialog(hWnd, effect);
 		case IDC_LOAD:

@@ -43,11 +43,10 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 #endif
 	synth = NULL;
 	buffer = NULL;
-#ifdef hqresampler
 	resampler = NULL;
 	memset(samples, 0, sizeof(samples));
-#endif
 	bypassed = false;
+	internalRate = 49716;
 	memset(vu, 0, sizeof(vu));
 	Volume = 1;
 	VolumeDisplay = 0;
@@ -304,6 +303,8 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		setParameter (i, chunkData->Parameters[i]);
 	}
 	setProgramName (chunkData->ProgramName);
+	setBypass (chunkData->bypassed);
+	setInternalRate (chunkData->internalRate);
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
 #ifdef gui
 	if (editor)
@@ -326,6 +327,8 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 		chunk.Parameters[i] = getParameter (i);
 	}
 	getProgramName (chunk.ProgramName);
+	chunk.bypassed = bypassed;
+	chunk.internalRate = internalRate;
 	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
 	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
 	*data = &chunk;

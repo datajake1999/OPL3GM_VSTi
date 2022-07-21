@@ -22,10 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "../interface.h"
 #include "../dsp/DCFilter.h"
-#define hqresampler
-#ifdef hqresampler
 #include "../dsp/resampler.h"
-#endif
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include "queue.h"
 #define reaper_extensions 1
@@ -72,6 +69,8 @@ struct OPL3GMChunk
 	VstInt32 Size;
 	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
+	bool bypassed;
+	VstInt32 internalRate;
 	char BankFile[256];
 	char BankName[256];
 };
@@ -145,6 +144,8 @@ public:
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
 	virtual bool getBypass ();
+	virtual void setInternalRate (VstInt32 rate);
+	virtual VstInt32 getInternalRate ();
 	virtual bool loadInstruments (char *filename, char *display);
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text, VstInt32 size);
@@ -175,15 +176,14 @@ private:
 	DCFilter dcf[2];
 	short *buffer;
 	int bufferSize;
-#ifdef hqresampler
 	void *resampler;
 	short samples[2];
-#endif
 	EventQueue MidiQueue;
 #if reaper_extensions
 	EventQueue ParameterQueue;
 #endif
 	bool bypassed;
+	VstInt32 internalRate;
 	double vu[2];
 	float Volume;
 	float VolumeDisplay;

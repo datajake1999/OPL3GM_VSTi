@@ -24,6 +24,28 @@ bool OPL3GM::getBypass ()
 	return bypassed;
 }
 
+void OPL3GM::setInternalRate (VstInt32 rate)
+{
+	if (rate != internalRate)
+	{
+		internalRate = rate;
+		if (internalRate > 1000000)
+		{
+			internalRate = 1000000;
+		}
+		else if (internalRate < 1000)
+		{
+			internalRate = 1000;
+		}
+		setSampleRate (getSampleRate ());
+	}
+}
+
+VstInt32 OPL3GM::getInternalRate ()
+{
+	return internalRate;
+}
+
 bool OPL3GM::loadInstruments (char *filename, char *display)
 {
 	if (synth)

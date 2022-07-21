@@ -25,6 +25,8 @@ void OPL3GM::setSampleRate (float sampleRate)
 	AudioEffectX::setSampleRate (sampleRate);
 	clearSynth ();
 	initSynth ((int)sampleRate);
+	dcf[0].SetRate(sampleRate);
+	dcf[1].SetRate(sampleRate);
 	lock.release();
 }
 
@@ -48,25 +50,17 @@ void OPL3GM::initSynth (int sampleRate)
 	synth = getsynth();
 	if (synth)
 	{
-#ifdef hqresampler
-		if (!synth->midi_init(49716))
-#else
-		if (!synth->midi_init(sampleRate))
-#endif
+		if (!synth->midi_init(internalRate))
 		{
 			delete synth;
 			synth = NULL;
 		}
 	}
-	dcf[0].SetRate(sampleRate);
-	dcf[1].SetRate(sampleRate);
-#ifdef hqresampler
 	resampler = resampler_create();
 	if (resampler)
 	{
-		resampler_set_rate(resampler, 49716.0 / sampleRate);
+		resampler_set_rate(resampler, (double)internalRate / (double)sampleRate);
 	}
-#endif
 	loadInstruments (BankFile, BankName);
 }
 
@@ -88,14 +82,12 @@ void OPL3GM::clearSynth ()
 		delete synth;
 		synth = NULL;
 	}
-#ifdef hqresampler
 	if (resampler)
 	{
 		resampler_clear(resampler);
 		resampler_destroy(resampler);
 		resampler = NULL;
 	}
-#endif
 }
 
 void OPL3GM::clearBuffer ()
@@ -116,13 +108,11 @@ bool OPL3GM::getErrorText (char* text)
 		sprintf(text, "Error initializing synth.\n");
 		return true;
 	}
-#ifdef hqresampler
 	if (!resampler)
 	{
 		sprintf(text, "Error initializing resampler.\n");
 		return true;
 	}
-#endif
 	if (!buffer)
 	{
 		sprintf(text, "Error initializing buffer.\n");
@@ -319,7 +309,21 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 		return;
 	}
 	bufpos += 2*offset;
-#ifdef hqresampler
+	if (sampleRate == internalRate)
+	{
+		if (synth)
+		{
+			if (Emulator >= 0.5)
+			{
+				synth->midi_generate(bufpos, length);
+			}
+			else
+			{
+				synth->midi_generate_dosbox(bufpos, length);
+			}
+		}
+		return;
+	}
 	if (resampler)
 	{
 		for (int i = 0; i < length; i++)
@@ -349,19 +353,6 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 			bufpos[i*2+1] = (short)rs;
 		}
 	}
-#else
-	if (synth)
-	{
-		if (Emulator >= 0.5)
-		{
-			synth->midi_generate(bufpos, length);
-		}
-		else
-		{
-			synth->midi_generate_dosbox(bufpos, length);
-		}
-	}
-#endif
 }
 
 VstInt32 OPL3GM::processEvents (VstEvents* ev)

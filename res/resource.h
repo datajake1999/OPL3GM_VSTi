@@ -38,25 +38,26 @@
 #define IDC_DC                          411
 #define IDC_QUEUE                       412
 #define IDC_BYPASS                      413
-#define IDC_PANIC                       414
-#define IDC_RESET                       415
-#define IDC_VOICECOUNT                  416
-#define IDC_REFRESH                     417
-#define IDC_LOAD                        418
-#define IDC_CURBANK                     419
-#define IDC_ABOUT                       420
-#define IDC_STATS                       421
-#define IDC_VU                          422
-#define IDC_HOSTINFO                    423
-#define IDC_HARDRESET                   424
-#define IDC_CPU                         425
-#define IDC_PROJPAGE                    426
+#define IDC_OPLRATE                     414
+#define IDC_PANIC                       415
+#define IDC_RESET                       416
+#define IDC_VOICECOUNT                  417
+#define IDC_REFRESH                     418
+#define IDC_LOAD                        419
+#define IDC_CURBANK                     420
+#define IDC_ABOUT                       421
+#define IDC_STATS                       422
+#define IDC_VU                          423
+#define IDC_HOSTINFO                    424
+#define IDC_HARDRESET                   425
+#define IDC_CPU                         426
+#define IDC_PROJPAGE                    427
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        427
+#define _APS_NEXT_RESOURCE_VALUE        428
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
