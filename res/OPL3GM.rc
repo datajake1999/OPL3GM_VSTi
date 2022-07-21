@@ -142,41 +142,41 @@ STYLE WS_CHILD|DS_CONTROL|DS_SHELLFONT
 EXSTYLE WS_EX_CONTROLPARENT|WS_EX_ACCEPTFILES
 FONT 8, "MS Shell Dlg"
 BEGIN
-    GROUPBOX      "Settings",IDC_STATIC,5,15,285,180,WS_GROUP
-    LTEXT      "Pre&set:",IDC_STATIC,20,30,45,7
-    COMBOBOX      IDC_PRESET,70,30,70,10,WS_TABSTOP|WS_VSCROLL|CBS_DROPDOWNLIST
-    LTEXT      "Preset Na&me:",IDC_STATIC,145,30,45,7
-    EDITTEXT      IDC_PRESETNAME,195,30,80,11,WS_TABSTOP|ES_AUTOHSCROLL
-    LTEXT      "&Volume:",IDC_STATIC,20,60,45,7
-    CONTROL      "Slider1",IDC_VOLUME,"msctls_trackbar32",WS_TABSTOP,70,60,100,21
-    LTEXT      "",IDC_VOLDISP1,180,60,45,7
-    LTEXT      "",IDC_VOLDISP2,225,60,45,7
-    LTEXT      "&Transpose:",IDC_STATIC,20,90,45,7
-    CONTROL      "Slider1",IDC_TRANSPOSE,"msctls_trackbar32",WS_TABSTOP,70,90,100,21
-    LTEXT      "",IDC_TRANDISP1,180,90,45,7
-    LTEXT      "",IDC_TRANDISP2,225,90,45,7
-    AUTOCHECKBOX      "Sho&w Volume as Percentage",IDC_DISPLAY,20,120,110,10,WS_TABSTOP
-    AUTOCHECKBOX      "Use &Nuked OPL3 Emulator",IDC_NUKED,140,120,110,10,WS_TABSTOP
-    AUTOCHECKBOX      "Filter D&C Offset",IDC_DC,20,150,110,10,WS_TABSTOP
-    AUTOCHECKBOX      "Push MIDI to &Queue",IDC_QUEUE,140,150,110,10,WS_TABSTOP
-    AUTOCHECKBOX      "&Bypass",IDC_BYPASS,20,180,110,10,WS_TABSTOP
-    GROUPBOX      "Misc",IDC_STATIC,5,215,305,155,WS_GROUP
+    GROUPBOX        "Settings",IDC_STATIC,5,15,285,180,WS_GROUP
+    LTEXT           "Pre&set:",IDC_STATIC,20,30,45,7
+    COMBOBOX        IDC_PRESET,70,30,70,10,WS_TABSTOP|WS_VSCROLL|CBS_DROPDOWNLIST
+    LTEXT           "Preset Na&me:",IDC_STATIC,145,30,45,7
+    EDITTEXT        IDC_PRESETNAME,195,30,80,11,WS_TABSTOP|ES_AUTOHSCROLL
+    LTEXT           "&Volume:",IDC_STATIC,20,60,45,7
+    CONTROL         "Slider1",IDC_VOLUME,"msctls_trackbar32",WS_TABSTOP,70,60,100,21
+    LTEXT           "",IDC_VOLDISP1,180,60,45,7
+    LTEXT           "",IDC_VOLDISP2,225,60,45,7
+    LTEXT           "&Transpose:",IDC_STATIC,20,90,45,7
+    CONTROL         "Slider1",IDC_TRANSPOSE,"msctls_trackbar32",WS_TABSTOP,70,90,100,21
+    LTEXT           "",IDC_TRANDISP1,180,90,45,7
+    LTEXT           "",IDC_TRANDISP2,225,90,45,7
+    AUTOCHECKBOX    "Sho&w Volume as Percentage",IDC_DISPLAY,20,120,110,10,WS_TABSTOP
+    AUTOCHECKBOX    "Use &Nuked OPL3 Emulator",IDC_NUKED,140,120,110,10,WS_TABSTOP
+    AUTOCHECKBOX    "Filter D&C Offset",IDC_DC,20,150,110,10,WS_TABSTOP
+    AUTOCHECKBOX    "Push MIDI to &Queue",IDC_QUEUE,140,150,110,10,WS_TABSTOP
+    AUTOCHECKBOX    "&Bypass",IDC_BYPASS,20,180,110,10,WS_TABSTOP
+    GROUPBOX        "Misc",IDC_STATIC,5,215,305,155,WS_GROUP
     PUSHBUTTON      "R&efresh",IDC_REFRESH,20,230,80,15,WS_TABSTOP
     PUSHBUTTON      "&Load Instrument Bank...",IDC_LOAD,110,230,80,15,WS_TABSTOP
-    LTEXT      "Current Bank: ",IDC_STATIC,200,230,45,7
-    LTEXT      "",IDC_CURBANK,245,230,45,7
+    LTEXT           "Current Bank: ",IDC_STATIC,200,230,45,7
+    LTEXT           "",IDC_CURBANK,245,230,45,7
     PUSHBUTTON      "&Panic Synth",IDC_PANIC,20,260,80,15,WS_TABSTOP
     PUSHBUTTON      "&Reset Synth",IDC_RESET,110,260,80,15,WS_TABSTOP
-    LTEXT      "Active Voices: ",IDC_STATIC,200,260,45,7
-    LTEXT      "",IDC_VOICECOUNT,245,260,45,7
+    LTEXT           "Active Voices: ",IDC_STATIC,200,260,45,7
+    LTEXT           "",IDC_VOICECOUNT,245,260,45,7
     PUSHBUTTON      "&About...",IDC_ABOUT,20,290,80,15,WS_TABSTOP
     PUSHBUTTON      "Plug&in Statistics...",IDC_STATS,110,290,80,15,WS_TABSTOP
-    LTEXT      "Output Level: ",IDC_STATIC,200,290,45,7
-    LTEXT      "",IDC_VU,245,290,45,7
+    LTEXT           "Output Level: ",IDC_STATIC,200,290,45,7
+    LTEXT           "",IDC_VU,245,290,45,7
     PUSHBUTTON      "&Host Info...",IDC_HOSTINFO,20,320,80,15,WS_TABSTOP
     PUSHBUTTON      "Har&d Reset",IDC_HARDRESET,110,320,80,15,WS_TABSTOP
-    LTEXT      "CPU Load: ",IDC_STATIC,200,320,45,7
-    LTEXT      "",IDC_CPU,245,320,45,7
+    LTEXT           "CPU Load: ",IDC_STATIC,200,320,45,7
+    LTEXT           "",IDC_CPU,245,320,45,7
     PUSHBUTTON      "Open Project Pa&ge",IDC_PROJPAGE,20,350,80,15,WS_TABSTOP
 END
 
@@ -187,23 +187,23 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDS_ICON_ALTTEXT1           "Yamaha YMF262 (year 1994)"
-    IDS_ABOUTCAP           "About OPL3GM VSTi"
-    IDS_ABOUTTXT           "Copyright (C) 2021-2022 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
-    IDS_STATSCAP           "VST Plugin Statistics"
-    IDS_STATSTXT           "Sample rate: %d hZ\nBlock size: %d"
-    IDS_HOSTCAP           "VST Host Information"
-    IDS_HOSTTXT           "Product name: %s\nProduct version: %f\nVendor: %s\nMaster version: %f"
-    IDS_FILEFLT           "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0\0"
-    IDS_FILECAP           "Load an Instrument Bank"
-    IDS_W9XCAP           "Sorry"
-    IDS_W9XTXT           "Windows 9X OPL3 can't load custom patches!"
-    IDS_FAILCAP           "Error"
-    IDS_FAILTXT           "%s Failed to load!"
-    IDS_HELPCAP           "Congratulations"
-    IDS_HELPTXT           "You pressed the help button! This feature Isn't particularly useful, so you might want to consult your favorite search engine If you have an Internet connection."
-    IDS_WEBCAP           "Confirm"
-    IDS_WEBTXT           "Are you connected to the Internet?"
+    IDS_ICON_ALTTEXT1       "Yamaha YMF262 (year 1994)"
+    IDS_ABOUTCAP            "About OPL3GM VSTi"
+    IDS_ABOUTTXT            "Copyright (C) 2021-2022 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
+    IDS_STATSCAP            "VST Plugin Statistics"
+    IDS_STATSTXT            "Sample rate: %d hZ\nBlock size: %d"
+    IDS_HOSTCAP             "VST Host Information"
+    IDS_HOSTTXT             "Product name: %s\nProduct version: %f\nVendor: %s\nMaster version: %f"
+    IDS_FILEFLT             "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0\0"
+    IDS_FILECAP             "Load an Instrument Bank"
+    IDS_W9XCAP              "Sorry"
+    IDS_W9XTXT              "Windows 9X OPL3 can't load custom patches!"
+    IDS_FAILCAP             "Error"
+    IDS_FAILTXT             "%s Failed to load!"
+    IDS_HELPCAP             "Congratulations"
+    IDS_HELPTXT             "You pressed the help button! This feature Isn't particularly useful, so you might want to consult your favorite search engine If you have an Internet connection."
+    IDS_WEBCAP              "Confirm"
+    IDS_WEBTXT              "Are you connected to the Internet?"
     IDS_REAPPROVE           "\nI approve!"
 END
 
