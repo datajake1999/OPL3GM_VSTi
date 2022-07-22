@@ -447,7 +447,7 @@ static BOOL AboutBox(HWND hWnd)
 	return FALSE;
 }
 
-static BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
+static BOOL StatisticsBox(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
@@ -456,7 +456,7 @@ static BOOL StatisticsBox(HWND hWnd, AudioEffectX* effect)
 		char text[MAX_PATH];
 		LoadString((HINSTANCE)hInstance, IDS_STATSCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_STATSTXT, temp, MAX_PATH);
-		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getBlockSize ());
+		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize ());
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}
