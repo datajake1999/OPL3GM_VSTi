@@ -48,15 +48,18 @@ VstInt32 OPL3GM::getInternalRate ()
 
 bool OPL3GM::loadInstruments (char *filename, char *display)
 {
+	lock.acquire();
 	if (synth)
 	{
 		if (synth->midi_loadbank(filename))
 		{
 			strncpy(BankFile, filename, sizeof(BankFile));
 			strncpy(BankName, display, sizeof(BankName));
+			lock.release();
 			return true;
 		}
 	}
+	lock.release();
 	return false;
 }
 
