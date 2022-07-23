@@ -22,6 +22,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include <public.sdk/source/vst2.x/aeffeditor.h>
 
+struct KeyboardInfo
+{
+	AudioEffectX* Effect;
+	VstInt32 Channel;
+	VstInt32 Octave;
+	VstInt32 Velocity;
+	VstInt32 Program;
+	VstInt32 BendMSB;
+	VstInt32 BendLSB;
+};
+
 class Editor : public AEffEditor
 {
 public:
@@ -37,6 +48,7 @@ public:
 private:
 	ERect vstrect;
 	void* dlg;
+	KeyboardInfo keyboard;
 };
 
 #endif

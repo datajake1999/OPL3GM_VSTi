@@ -26,7 +26,41 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <dlgs.h>
 #include <shellapi.h>
 #include "../res/resource.h"
+#ifndef VK_OEM_1
+#define VK_OEM_1          0xBA   // ';:' for US
+#endif
+#ifndef VK_OEM_2
+#define VK_OEM_2          0xBF   // '/?' for US
+#endif
+#ifndef VK_OEM_3
+#define VK_OEM_3          0xC0   // '`~' for US
+#endif
+#ifndef VK_OEM_4
+#define VK_OEM_4          0xDB  //  '[{' for US
+#endif
+#ifndef VK_OEM_5
+#define VK_OEM_5          0xDC  //  '\|' for US
+#endif
+#ifndef VK_OEM_6
+#define VK_OEM_6          0xDD  //  ']}' for US
+#endif
+#ifndef VK_OEM_7
+#define VK_OEM_7          0xDE  //  ''"' for US
+#endif
+#ifndef VK_OEM_COMMA
+#define VK_OEM_COMMA      0xBC   // ',' any country
+#endif
+#ifndef VK_OEM_PERIOD
+#define VK_OEM_PERIOD     0xBE   // '.' any country
+#endif
+#ifndef VK_OEM_PLUS
+#define VK_OEM_PLUS       0xBB   // '+' any country
+#endif
+#ifndef VK_OEM_MINUS
+#define VK_OEM_MINUS      0xBD   // '-' any country
+#endif
 
+static int g_useCount = 0;
 extern void* hInstance;
 
 static const int rates[] =
@@ -636,20 +670,428 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	return FALSE;
 }
 
+static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channel, VstInt32 data1, VstInt32 data2)
+{
+	if (effect)
+	{
+		VstMidiEvent ev;
+		VstEvents evs;
+		memset(&ev, 0, sizeof(ev));
+		memset(&evs, 0, sizeof(evs));
+		evs.numEvents = 1;
+		evs.events[0] = (VstEvent*)&ev;
+		ev.type = kVstMidiType;
+		ev.byteSize = sizeof(VstMidiEvent);
+		ev.midiData[0] = (char)(status | channel);
+		if (data1 > 127)
+		{
+			data1 = 127;
+		}
+		else if (data1 < 0)
+		{
+			data1 = 0;
+		}
+		ev.midiData[1] = (char)data1;
+		if (data2 > 127)
+		{
+			data2 = 127;
+		}
+		else if (data2 < 0)
+		{
+			data2 = 0;
+		}
+		ev.midiData[2] = (char)data2;
+		effect->processEvents (&evs);
+	}
+}
+
+static VstInt32 char2note(WPARAM wParam)
+{
+	switch (wParam)
+	{
+	case 0x41:	//a,c
+		return 0;
+	case 0x53:	//s,d
+		return 2;
+	case 0x44:	//d,e
+		return 4;
+	case 0x46:	//f,f
+		return 5;
+	case 0x47:	//g,g
+		return 7;
+	case 0x48:	//h,a
+		return 9;
+	case 0x4a:	//j,b
+		return 11;
+	case 0x4b:	//k,c
+		return 12;
+	case 0x4c:	//l,d
+		return 14;
+	case VK_OEM_1:	//e
+		return 16;
+	case VK_OEM_7:	//f
+		return 17;
+	case 0x51:	//q,c#
+		return 1;
+	case 0x57:	//w,d#
+		return 3;
+	case 0x45:	//e,f#
+		return 6;
+	case 0x52:	//r,g#
+		return 8;
+	case 0x54:	//t,a#
+		return 10;
+	case 0x59:	//y,c#
+		return 13;
+	case 0x55:	//u,d#
+		return 15;
+	case 0x49:	//i,f#
+		return 18;
+	case 0x4f:	//o,g#
+		return 20;
+	case 0x50:	//p,a#
+		return 22;
+	case VK_OEM_4:	//c#
+		return 25;
+	case VK_OEM_6:	//d#
+		return 27;
+	}
+	return -1;
+}
+
+static void KeyboardNoteOn(WPARAM wParam, KeyboardInfo* info)
+{
+	VstInt32 note = char2note(wParam);
+	if (note == -1)
+	{
+		return;
+	}
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0x90, info->Channel, 12 * info->Octave + note, info->Velocity);
+	}
+}
+
+static void KeyboardNoteOff(WPARAM wParam, KeyboardInfo* info)
+{
+	VstInt32 note = char2note(wParam);
+	if (note == -1)
+	{
+		return;
+	}
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0x80, info->Channel, 12 * info->Octave + note, info->Velocity);
+	}
+}
+
+static void KeyboardControlChange(KeyboardInfo* info, VstInt32 type, VstInt32 data)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xb0, info->Channel, type, data);
+	}
+}
+
+static void KeyboardProgramChange(KeyboardInfo* info)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xc0, info->Channel, info->Program, 0);
+	}
+}
+
+static void KeyboardPitchBend(KeyboardInfo* info)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xe0, info->Channel, info->BendLSB, info->BendMSB);
+	}
+}
+
+static BOOL KeyDown(WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
+{
+	if (char2note(wParam) >= 0)
+	{
+		if (!(lParam & (1 << 30)))
+		{
+			KeyboardNoteOn(wParam, info);
+			return FALSE;
+		}
+		return TRUE;
+	}
+	KeyboardControlChange(info, 0x7b, 0);
+	switch (wParam)
+	{
+	case 0x5a:	//z
+		info->Velocity = 10;
+		return FALSE;
+	case 0x58:	//x
+		info->Velocity = 20;
+		return FALSE;
+	case 0x43:	//c
+		info->Velocity = 30;
+		return FALSE;
+	case 0x56:	//v
+		info->Velocity = 40;
+		return FALSE;
+	case 0x42:	//b
+		info->Velocity = 50;
+		return FALSE;
+	case 0x4e:	//n
+		info->Velocity = 60;
+		return FALSE;
+	case 0x4d:	//m
+		info->Velocity = 70;
+		return FALSE;
+	case VK_OEM_COMMA:
+		info->Velocity = 80;
+		return FALSE;
+	case VK_OEM_PERIOD:
+		info->Velocity = 90;
+		return FALSE;
+	case VK_OEM_2:
+		info->Velocity = 100;
+		return FALSE;
+	case 0x30:	//0
+		info->Octave = 0;
+		return FALSE;
+	case 0x31:	//1
+		info->Octave = 1;
+		return FALSE;
+	case 0x32:	//2
+		info->Octave = 2;
+		return FALSE;
+	case 0x33:	//3
+		info->Octave = 3;
+		return FALSE;
+	case 0x34:	//4
+		info->Octave = 4;
+		return FALSE;
+	case 0x35:	//5
+		info->Octave = 5;
+		return FALSE;
+	case 0x36:	//6
+		info->Octave = 6;
+		return FALSE;
+	case 0x37:	//7
+		info->Octave = 7;
+		return FALSE;
+	case 0x38:	//8
+		info->Octave = 8;
+		return FALSE;
+	case 0x39:	//9
+		info->Octave = 9;
+		return FALSE;
+	case VK_OEM_PLUS:
+		info->BendMSB++;
+		if (info->BendMSB > 127)
+		{
+			info->BendMSB = 127;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardPitchBend(info);
+		return FALSE;
+	case VK_OEM_MINUS:
+		info->BendMSB--;
+		if (info->BendMSB < 0)
+		{
+			info->BendMSB = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardPitchBend(info);
+		return FALSE;
+	case VK_OEM_5:
+		info->BendLSB++;
+		if (info->BendLSB > 127)
+		{
+			info->BendLSB = 127;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardPitchBend(info);
+		return FALSE;
+	case VK_OEM_3:
+		info->BendLSB--;
+		if (info->BendLSB < 0)
+		{
+			info->BendLSB = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardPitchBend(info);
+		return FALSE;
+	case VK_RIGHT:
+		info->Octave++;
+		if (info->Octave > 10)
+		{
+			info->Octave = 10;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_LEFT:
+		info->Octave--;
+		if (info->Octave < 0)
+		{
+			info->Octave = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_UP:
+		info->Velocity++;
+		if (info->Velocity > 127)
+		{
+			info->Velocity = 127;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_DOWN:
+		info->Velocity--;
+		if (info->Velocity < 0)
+		{
+			info->Velocity = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_NEXT:
+		info->Program++;
+		if (info->Program > 127)
+		{
+			info->Program = 127;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardProgramChange(info);
+		return FALSE;
+	case VK_PRIOR:
+		info->Program--;
+		if (info->Program < 0)
+		{
+			info->Program = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		KeyboardProgramChange(info);
+		return FALSE;
+	case VK_END:
+		info->Channel++;
+		if (info->Channel > 15)
+		{
+			info->Channel = 15;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_HOME:
+		info->Channel--;
+		if (info->Channel < 0)
+		{
+			info->Channel = 0;
+			MessageBeep(MB_OK);
+			return TRUE;
+		}
+		return FALSE;
+	case VK_SHIFT:
+		if (!(lParam & (1 << 30)))
+		{
+			KeyboardControlChange(info, 64, 127);
+			return FALSE;
+		}
+	case VK_SPACE:
+		info->Channel = 0;
+		info->Octave = 4;
+		info->Velocity = 127;
+		info->Program = 0;
+		info->BendMSB = 64;
+		info->BendLSB = 0;
+		KeyboardProgramChange(info);
+		KeyboardPitchBend(info);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
+{
+	if (char2note(wParam) >= 0)
+	{
+		KeyboardNoteOff(wParam, info);
+		return FALSE;
+	}
+	switch (wParam)
+	{
+	case VK_SHIFT:
+		KeyboardControlChange(info, 64, 0);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static BOOL WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+#ifdef _WIN64
+	KeyboardInfo* info = (KeyboardInfo*)GetWindowLongPtr(hWnd, 0);
+#else
+	KeyboardInfo* info = (KeyboardInfo*)GetWindowLong(hWnd, 0);
+#endif
+	switch (message)
+	{
+	case WM_GETDLGCODE:
+		return DLGC_WANTCHARS | DLGC_WANTARROWS;
+	case WM_KEYDOWN:
+		return KeyDown(wParam, lParam, info);
+	case WM_KEYUP:
+		return KeyUp(wParam, info);
+	}
+	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
 Editor::Editor (AudioEffect* effect)
 : AEffEditor (effect)
 {
 	memset(&vstrect, 0, sizeof(vstrect));
 	dlg = NULL;
+	memset(&keyboard, 0, sizeof(keyboard));
+	keyboard.Octave = 4;
+	keyboard.Velocity = 127;
+	keyboard.BendMSB = 64;
 	if (effect)
 	{
 		effect->setEditor (this);
+		keyboard.Effect = (AudioEffectX*)effect;
 	}
 	InitCommonControls();
+	g_useCount++;
+	if (g_useCount == 1)
+	{
+		WNDCLASS KeyboardClass;
+		KeyboardClass.style = 0;
+		KeyboardClass.lpfnWndProc = (WNDPROC)KeyboardProc;
+		KeyboardClass.cbClsExtra = 0;
+		KeyboardClass.cbWndExtra = sizeof(KeyboardInfo*);
+		KeyboardClass.hInstance = (HINSTANCE)hInstance;
+		KeyboardClass.hIcon = 0;
+		KeyboardClass.hCursor = 0;
+		KeyboardClass.hbrBackground = 0;
+		KeyboardClass.lpszMenuName = 0;
+		KeyboardClass.lpszClassName = classname;
+		RegisterClass(&KeyboardClass);
+	}
 }
 
 Editor::~Editor ()
 {
+	g_useCount--;
+	if (g_useCount == 0)
+	{
+		UnregisterClass(classname, (HINSTANCE)hInstance);
+	}
 }
 
 bool Editor::getRect (ERect** rect)
@@ -681,6 +1123,15 @@ bool Editor::open (void* ptr)
 #else
 		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
+		HWND kbdwin = GetDlgItem((HWND)dlg, IDC_KEYBOARD);
+		if (kbdwin)
+		{
+#ifdef _WIN64
+			SetWindowLongPtr(kbdwin, 0, (LONG_PTR)&keyboard);
+#else
+			SetWindowLong(kbdwin, 0, (LONG)&keyboard);
+#endif
+		}
 		refresh ();
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
