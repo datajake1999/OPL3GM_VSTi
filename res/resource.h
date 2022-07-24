@@ -53,6 +53,7 @@
 #define IDC_CPU                         426
 #define IDC_KEYBOARD                    427
 #define IDC_PROJPAGE                    428
+#define IDB_BITMAP1                     501
 
 // Next default values for new objects
 // 
