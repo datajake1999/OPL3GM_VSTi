@@ -769,7 +769,7 @@ static void KeyboardNoteOn(WPARAM wParam, KeyboardInfo* info)
 	}
 	if (info)
 	{
-		KeyboardEvent(info->Effect, 0x90, info->Channel, 12 * info->Octave + note, info->Velocity);
+		KeyboardEvent(info->Effect, 0x90, info->Channel, (12 * info->Octave) + note, info->Velocity);
 	}
 }
 
@@ -782,7 +782,7 @@ static void KeyboardNoteOff(WPARAM wParam, KeyboardInfo* info)
 	}
 	if (info)
 	{
-		KeyboardEvent(info->Effect, 0x80, info->Channel, 12 * info->Octave + note, info->Velocity);
+		KeyboardEvent(info->Effect, 0x80, info->Channel, (12 * info->Octave) + note, info->Velocity);
 	}
 }
 
