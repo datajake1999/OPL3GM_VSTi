@@ -1175,6 +1175,8 @@ void Editor::idle ()
 				color = RGB(255, 0, 0);
 			}
 			SetTextColor(hDc, color);
+			ReleaseDC(GetDlgItem((HWND)dlg, IDC_VOICECOUNT), hDc);
+			hDc = NULL;
 		}
 		color = 0;
 		hDc = GetDC(GetDlgItem((HWND)dlg, IDC_VU));
@@ -1185,6 +1187,8 @@ void Editor::idle ()
 				color = RGB(255, 0, 0);
 			}
 			SetTextColor(hDc, color);
+			ReleaseDC(GetDlgItem((HWND)dlg, IDC_VU), hDc);
+			hDc = NULL;
 		}
 		color = 0;
 		hDc = GetDC(GetDlgItem((HWND)dlg, IDC_CPU));
@@ -1195,6 +1199,8 @@ void Editor::idle ()
 				color = RGB(255, 0, 0);
 			}
 			SetTextColor(hDc, color);
+			ReleaseDC(GetDlgItem((HWND)dlg, IDC_CPU), hDc);
+			hDc = NULL;
 		}
 	}
 }
