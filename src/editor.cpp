@@ -760,6 +760,24 @@ static VstInt32 char2note(WPARAM wParam)
 	return -1;
 }
 
+static bool KeepNotes(WPARAM wParam)
+{
+	switch (wParam)
+	{
+	case VK_OEM_PLUS:
+		return true;
+	case VK_OEM_MINUS:
+		return true;
+	case VK_OEM_5:
+		return true;
+	case VK_OEM_3:
+		return true;
+	case VK_SHIFT:
+		return true;
+	}
+	return false;
+}
+
 static void KeyboardNoteOn(WPARAM wParam, KeyboardInfo* info)
 {
 	VstInt32 note = char2note(wParam);
@@ -821,7 +839,10 @@ static BOOL KeyDown(WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		}
 		return TRUE;
 	}
-	KeyboardControlChange(info, 0x7b, 0);
+	if (!KeepNotes(wParam))
+	{
+		KeyboardControlChange(info, 0x7b, 0);
+	}
 	switch (wParam)
 	{
 	case 0x5a:	//z
