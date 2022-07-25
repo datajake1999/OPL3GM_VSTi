@@ -75,6 +75,10 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * Page up: Move to previous Instrument.
 * End: Increase active channel.
 * Home: Decrease active channel.
+* =: Increase bend MSB.
+* -: Decrease bend MSB.
+* \: Increase bend LSB.
+* `: Decrease bend LSB.
 * Space: Reset keyboard state.
 
 # Extra notes
