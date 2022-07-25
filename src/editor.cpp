@@ -1099,7 +1099,7 @@ Editor::Editor (AudioEffect* effect)
 		KeyboardClass.cbWndExtra = sizeof(KeyboardInfo*);
 		KeyboardClass.hInstance = (HINSTANCE)hInstance;
 		KeyboardClass.hIcon = 0;
-		KeyboardClass.hCursor = 0;
+		KeyboardClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 		KeyboardClass.hbrBackground = 0;
 		HBITMAP hBitmap = LoadBitmap((HINSTANCE)hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 		if (hBitmap)
