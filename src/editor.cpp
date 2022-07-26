@@ -1092,7 +1092,7 @@ Editor::Editor (AudioEffect* effect)
 	if (g_useCount == 1)
 	{
 		WNDCLASS KeyboardClass;
-		KeyboardClass.style = 0;
+		KeyboardClass.style = CS_GLOBALCLASS | CS_HREDRAW | CS_VREDRAW;
 		KeyboardClass.lpfnWndProc = (WNDPROC)KeyboardProc;
 		KeyboardClass.cbClsExtra = 0;
 		KeyboardClass.cbWndExtra = sizeof(KeyboardInfo*);
