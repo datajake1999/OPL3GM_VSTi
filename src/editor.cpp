@@ -61,7 +61,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 
 static int g_useCount = 0;
-static void* hBrush = NULL;
 extern void* hInstance;
 
 static const int rates[] =
@@ -1104,10 +1103,10 @@ Editor::Editor (AudioEffect* effect)
 		HBITMAP hBitmap = LoadBitmap((HINSTANCE)hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 		if (hBitmap)
 		{
-			hBrush = (HBRUSH)CreatePatternBrush(hBitmap);
+			HBRUSH hBrush = CreatePatternBrush(hBitmap);
 			if (hBrush)
 			{
-				KeyboardClass.hbrBackground = (HBRUSH)hBrush;
+				KeyboardClass.hbrBackground = hBrush;
 			}
 		}
 		KeyboardClass.lpszMenuName = 0;
@@ -1122,8 +1121,6 @@ Editor::~Editor ()
 	if (g_useCount == 0)
 	{
 		UnregisterClass(classname, (HINSTANCE)hInstance);
-		DeleteObject((HBRUSH)hBrush);
-		hBrush = NULL;
 	}
 }
 
