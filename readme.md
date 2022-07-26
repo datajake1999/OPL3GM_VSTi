@@ -60,7 +60,11 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
 * PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
 
-# Virtual MIDI Keyboard cheat sheet
+# What's with the GUI?
+
+The User Interfaces of most audio plugins draw graphics directly to the screen. The problem with this approach Is that these controls aren't seen by assistive technology such as screen readers, which are designed to work with native Operating System controls. This project aims to change that. The UI has been programmed from the ground up using raw Win32 with mostly standard controls, The only exception being the Virtual MIDI Keyboard.
+
+## Virtual MIDI Keyboard cheat sheet
 
 * Number row: Select octave.
 * Top row: Sharp notes.
