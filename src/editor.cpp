@@ -267,7 +267,7 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 	return FALSE;
 }
 
-static BOOL ProcessScrollParameter(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
+static BOOL Scroll(HWND hWnd, LPARAM lParam, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -570,7 +570,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		return InitDialog(hWnd);
 	case WM_HSCROLL:
 	case WM_VSCROLL:
-		return ProcessScrollParameter(hWnd, lParam, effect);
+		return Scroll(hWnd, lParam, effect);
 	case WM_DROPFILES:
 		return LoadInstrumentBankDragDrop(hWnd, wParam, effect);
 	case WM_COMMAND:
