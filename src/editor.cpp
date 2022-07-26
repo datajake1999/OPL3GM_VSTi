@@ -507,7 +507,7 @@ static BOOL StatisticsBox(HWND hWnd, OPL3GM* effect)
 		char text[MAX_PATH];
 		LoadString((HINSTANCE)hInstance, IDS_STATSCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_STATSTXT, temp, MAX_PATH);
-		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize ());
+		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize (), g_useCount);
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}
