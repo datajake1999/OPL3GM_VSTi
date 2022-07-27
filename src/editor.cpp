@@ -1151,6 +1151,12 @@ bool Editor::open (void* ptr)
 	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
 	if (dlg)
 	{
+		char synthname[kVstMaxEffectNameLen];
+		if (effect)
+		{
+			((AudioEffectX*)effect)->getEffectName (synthname);
+			SetWindowText((HWND)dlg, synthname);
+		}
 #ifdef _WIN64
 		SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)effect);
 #else
