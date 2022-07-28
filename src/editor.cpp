@@ -1074,6 +1074,10 @@ static BOOL KeyDown(WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			KeyboardControlChange(info, 64, 127);
 			return FALSE;
 		}
+	case VK_BACK:
+		KeyboardProgramChange(info);
+		KeyboardPitchBend(info);
+		return FALSE;
 	case VK_SPACE:
 		info->Channel = 0;
 		info->Octave = 4;

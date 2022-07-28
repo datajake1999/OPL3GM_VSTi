@@ -85,6 +85,7 @@ The User Interfaces of most audio plugins draw graphics directly to the screen. 
 * -: Decrease bend MSB.
 * \: Increase bend LSB.
 * `: Decrease bend LSB.
+* Backspace: Reset pitch bend and program to current keyboard state.
 * Space: Reset keyboard state.
 
 # Extra notes
