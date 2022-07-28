@@ -35,31 +35,32 @@
 #define IDC_TRANDISP2                   408
 #define IDC_DISPLAY                     409
 #define IDC_NUKED                       410
-#define IDC_DC                          411
-#define IDC_QUEUE                       412
-#define IDC_BYPASS                      413
-#define IDC_OPLRATE                     414
-#define IDC_PANIC                       415
-#define IDC_RESET                       416
-#define IDC_VOICECOUNT                  417
-#define IDC_REFRESH                     418
-#define IDC_LOAD                        419
-#define IDC_CURBANK                     420
-#define IDC_ABOUT                       421
-#define IDC_STATS                       422
-#define IDC_VU                          423
-#define IDC_HOSTINFO                    424
-#define IDC_HARDRESET                   425
-#define IDC_CPU                         426
-#define IDC_KEYBOARD                    427
-#define IDC_PROJPAGE                    428
+#define IDC_RESAMPLE                       411
+#define IDC_DC                          412
+#define IDC_QUEUE                       413
+#define IDC_BYPASS                      414
+#define IDC_OPLRATE                     415
+#define IDC_PANIC                       416
+#define IDC_RESET                       417
+#define IDC_VOICECOUNT                  418
+#define IDC_REFRESH                     419
+#define IDC_LOAD                        420
+#define IDC_CURBANK                     421
+#define IDC_ABOUT                       422
+#define IDC_STATS                       423
+#define IDC_VU                          424
+#define IDC_HOSTINFO                    425
+#define IDC_HARDRESET                   426
+#define IDC_CPU                         427
+#define IDC_KEYBOARD                    428
+#define IDC_PROJPAGE                    429
 #define IDB_BITMAP1                     501
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        429
+#define _APS_NEXT_RESOURCE_VALUE        502
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101

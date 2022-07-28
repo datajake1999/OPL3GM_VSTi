@@ -75,6 +75,16 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 			vst_strncpy (text, "DOSBox", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
+	case kHQResample:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
 	case kPushMidi:
 		if (value >= 0.5)
 		{
@@ -143,6 +153,8 @@ bool OPL3GM::isEnumParameter (VstInt32 index)
 	case kTranspose:
 		return true;
 	case kEmulator:
+		return true;
+	case kHQResample:
 		return true;
 	case kPushMidi:
 		return true;

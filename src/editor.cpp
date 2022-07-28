@@ -232,6 +232,17 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
+		ParamValue = effect->getParameter (kHQResample);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_SETCHECK, BST_CHECKED, 0);
+			EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), TRUE);
+		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_SETCHECK, BST_UNCHECKED, 0);
+			EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), FALSE);
+		}
 		ParamValue = effect->getParameter (kDCBlock);
 		if (ParamValue >= 0.5)
 		{
@@ -609,6 +620,17 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			else
 			{
 				return SetParameterValue(effect, kEmulator, 0);
+			}
+		case IDC_RESAMPLE:
+			if (SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_GETCHECK, 0, 0))
+			{
+				EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), TRUE);
+				return SetParameterValue(effect, kHQResample, 1);
+			}
+			else
+			{
+				EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), FALSE);
+				return SetParameterValue(effect, kHQResample, 0);
 			}
 		case IDC_DC:
 			if (SendDlgItemMessage(hWnd, IDC_DC, BM_GETCHECK, 0, 0))

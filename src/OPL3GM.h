@@ -50,6 +50,7 @@ enum
 	kDCBlock,
 	kTranspose,
 	kEmulator,
+	kHQResample,
 	kPushMidi,
 
 	kNumParams
@@ -190,6 +191,7 @@ private:
 	float DCBlock;
 	float Transpose;
 	float Emulator;
+	float HQResample;
 	float PushMidi;
 	char ProgramName[kVstMaxProgNameLen];
 	char BankFile[256];

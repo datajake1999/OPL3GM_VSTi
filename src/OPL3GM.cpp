@@ -53,6 +53,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	DCBlock = 0;
 	Transpose = 0;
 	Emulator = 1;
+	HQResample = 1;
 	PushMidi = 1;
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	memset(BankFile, 0, sizeof(BankFile));
@@ -125,6 +126,17 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	case kEmulator:
 		Emulator = value;
 		break;
+	case kHQResample:
+		HQResample = value;
+		if (HQResample >= 0.5)
+		{
+			setInternalRate (49716);
+		}
+		else
+		{
+			setInternalRate ((VstInt32)sampleRate);
+		}
+		break;
 	case kPushMidi:
 		PushMidi = value;
 		break;
@@ -160,6 +172,9 @@ float OPL3GM::getParameter (VstInt32 index)
 		break;
 	case kEmulator:
 		value = Emulator;
+		break;
+	case kHQResample:
+		value = HQResample;
 		break;
 	case kPushMidi:
 		value = PushMidi;
@@ -222,6 +237,16 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 			vst_strncpy (text, "DOSBox", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
+	case kHQResample:
+		if (HQResample >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
 	case kPushMidi:
 		if (PushMidi >= 0.5)
 		{
@@ -280,6 +305,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 		break;
 	case kEmulator:
 		vst_strncpy (text, "Emulator", (kVstMaxParamStrLen*2)-1);
+		break;
+	case kHQResample:
+		vst_strncpy (text, "HQResample", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kPushMidi:
 		vst_strncpy (text, "PushMidi", (kVstMaxParamStrLen*2)-1);
@@ -436,6 +464,9 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 		p->largeStepInteger = 2;
 		break;
 	case kEmulator:
+		p->flags |= kVstParameterIsSwitch;
+		break;
+	case kHQResample:
 		p->flags |= kVstParameterIsSwitch;
 		break;
 	case kPushMidi:
