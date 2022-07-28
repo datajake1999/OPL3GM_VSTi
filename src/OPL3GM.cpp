@@ -382,7 +382,14 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	}
 	getProgramName (chunk.ProgramName);
 	chunk.bypassed = bypassed;
-	chunk.lastRate = lastRate;
+	if (HQResample >= 0.5)
+	{
+		chunk.lastRate = internalRate;
+	}
+	else
+	{
+		chunk.lastRate = lastRate;
+	}
 	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
 	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
 	*data = &chunk;
