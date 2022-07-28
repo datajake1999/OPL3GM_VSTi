@@ -56,12 +56,17 @@ void DCFilter::SetRate(double rate)
 	HoldLength = rate * holdlen / 1000.0;
 }
 
-double DCFilter::Process(double in)
+double DCFilter::ProcessDC(double in)
 {
 	double out = (in - LastIn) + (pole * LastOut);
 	LastIn = in;
 	LastOut = out;
-	if (fabs(out) > threshold)
+	return out;
+}
+
+double DCFilter::ProcessGate(double in)
+{
+	if (fabs(in) > threshold)
 	{
 		open = true;
 		HoldTime = 0;
@@ -81,6 +86,5 @@ double DCFilter::Process(double in)
 	{
 		envelope = envelope * FadeOut;
 	}
-	out = out * envelope;
-	return out;
+	return in * envelope;
 }

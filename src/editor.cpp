@@ -252,6 +252,15 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		{
 			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_UNCHECKED, 0);
 		}
+		ParamValue = effect->getParameter (kNoiseGate);
+		if (ParamValue >= 0.5)
+		{
+			SendDlgItemMessage(hWnd, IDC_GATE, BM_SETCHECK, BST_CHECKED, 0);
+		}
+		else
+		{
+			SendDlgItemMessage(hWnd, IDC_GATE, BM_SETCHECK, BST_UNCHECKED, 0);
+		}
 		ParamValue = effect->getParameter (kPushMidi);
 		if (ParamValue >= 0.5)
 		{
@@ -640,6 +649,15 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			else
 			{
 				return SetParameterValue(effect, kDCBlock, 0);
+			}
+		case IDC_GATE:
+			if (SendDlgItemMessage(hWnd, IDC_GATE, BM_GETCHECK, 0, 0))
+			{
+				return SetParameterValue(effect, kNoiseGate, 1);
+			}
+			else
+			{
+				return SetParameterValue(effect, kNoiseGate, 0);
 			}
 		case IDC_QUEUE:
 			if (SendDlgItemMessage(hWnd, IDC_QUEUE, BM_GETCHECK, 0, 0))

@@ -30,7 +30,8 @@ public:
 	DCFilter();
 	void ResetState();
 	void SetRate(double rate);
-	double Process(double in);
+	double ProcessDC(double in);
+	double ProcessGate(double in);
 private:
 	double pole;
 	double LastIn;

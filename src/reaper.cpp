@@ -54,6 +54,16 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
 		}
 		break;
+	case kNoiseGate:
+		if (value >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
 	case kTranspose:
 		value = (value*24.0f)-12.0f;
 		if (value >= 1 || value <= -1)
@@ -149,6 +159,8 @@ bool OPL3GM::isEnumParameter (VstInt32 index)
 	case kVolumeDisplay:
 		return true;
 	case kDCBlock:
+		return true;
+	case kNoiseGate:
 		return true;
 	case kTranspose:
 		return true;

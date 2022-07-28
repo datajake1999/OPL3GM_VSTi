@@ -247,7 +247,11 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			}
 			if (DCBlock >= 0.5)
 			{
-				out1[i] = (sampletype)dcf[0].Process(out1[i]);
+				out1[i] = (sampletype)dcf[0].ProcessDC(out1[i]);
+			}
+			if (NoiseGate >= 0.5)
+			{
+				out1[i] = (sampletype)dcf[0].ProcessGate(out1[i]);
 			}
 			out1[i] = out1[i] * Volume;
 #ifdef demo
@@ -267,7 +271,11 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			}
 			if (DCBlock >= 0.5)
 			{
-				out2[i] = (sampletype)dcf[1].Process(out2[i]);
+				out2[i] = (sampletype)dcf[1].ProcessDC(out2[i]);
+			}
+			if (NoiseGate >= 0.5)
+			{
+				out2[i] = (sampletype)dcf[1].ProcessGate(out2[i]);
 			}
 			out2[i] = out2[i] * Volume;
 #ifdef demo

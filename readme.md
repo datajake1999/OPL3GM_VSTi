@@ -55,9 +55,11 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 
 * Volume: Synth master volume.
 * VolumeDisplay: Sets the unit for displaying the aforementioned Volume parameter, either dB or %.
-* DCBlock: Filters out DC offset and gates low level noise from the final output.
+* DCBlock: Filters out DC offset from the final output.
+* NoiseGate: Gates low level noise from the final output.
 * Transpose: Applies an offset to Incoming MIDI notes.
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
+* HQResample: Internally Runs OPL3 emulation at the native OPL3 sample rate (49716 hZ), then resamples to the host sample rate using a decent algorithm.
 * PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
 
 # What's with the GUI?

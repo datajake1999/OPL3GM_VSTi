@@ -51,6 +51,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	Volume = 1;
 	VolumeDisplay = 0;
 	DCBlock = 0;
+	NoiseGate = 0;
 	Transpose = 0;
 	Emulator = 1;
 	HQResample = 1;
@@ -112,6 +113,9 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	case kDCBlock:
 		DCBlock = value;
 		break;
+	case kNoiseGate:
+		NoiseGate = value;
+		break;
 	case kTranspose:
 		Transpose = (value*24.0f)-12.0f;
 		if (Transpose > 12)
@@ -167,6 +171,9 @@ float OPL3GM::getParameter (VstInt32 index)
 	case kDCBlock:
 		value = DCBlock;
 		break;
+	case kNoiseGate:
+		value = NoiseGate;
+		break;
 	case kTranspose:
 		value = (Transpose+12.0f)/24.0f;
 		break;
@@ -209,6 +216,16 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 		break;
 	case kDCBlock:
 		if (DCBlock >= 0.5)
+		{
+			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
+		}
+		else
+		{
+			vst_strncpy (text, "OFF", (kVstMaxParamStrLen*2)-1);
+		}
+		break;
+	case kNoiseGate:
+		if (NoiseGate >= 0.5)
 		{
 			vst_strncpy (text, "ON", (kVstMaxParamStrLen*2)-1);
 		}
@@ -299,6 +316,9 @@ void OPL3GM::getParameterName (VstInt32 index, char* text)
 		break;
 	case kDCBlock:
 		vst_strncpy (text, "DCBlock", (kVstMaxParamStrLen*2)-1);
+		break;
+	case kNoiseGate:
+		vst_strncpy (text, "NoiseGate", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kTranspose:
 		vst_strncpy (text, "Transpose", (kVstMaxParamStrLen*2)-1);
@@ -454,6 +474,9 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 		p->flags |= kVstParameterIsSwitch;
 		break;
 	case kDCBlock:
+		p->flags |= kVstParameterIsSwitch;
+		break;
+	case kNoiseGate:
 		p->flags |= kVstParameterIsSwitch;
 		break;
 	case kTranspose:

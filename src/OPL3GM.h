@@ -48,6 +48,7 @@ enum
 	kVolume = 0,
 	kVolumeDisplay,
 	kDCBlock,
+	kNoiseGate,
 	kTranspose,
 	kEmulator,
 	kHQResample,
@@ -189,6 +190,7 @@ private:
 	float Volume;
 	float VolumeDisplay;
 	float DCBlock;
+	float NoiseGate;
 	float Transpose;
 	float Emulator;
 	float HQResample;
