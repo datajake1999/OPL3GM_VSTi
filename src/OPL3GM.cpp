@@ -354,9 +354,10 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	}
 	setProgramName (chunkData->ProgramName);
 	setBypass (chunkData->bypassed);
+	lastRate = chunkData->lastRate;
 	if (HQResample >= 0.5)
 	{
-		setInternalRate (chunkData->internalRate);
+		setInternalRate (lastRate);
 	}
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
 #ifdef gui
@@ -381,7 +382,7 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	}
 	getProgramName (chunk.ProgramName);
 	chunk.bypassed = bypassed;
-	chunk.internalRate = internalRate;
+	chunk.lastRate = lastRate;
 	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
 	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
 	*data = &chunk;

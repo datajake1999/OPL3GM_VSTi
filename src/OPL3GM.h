@@ -72,7 +72,7 @@ struct OPL3GMChunk
 	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
 	bool bypassed;
-	VstInt32 internalRate;
+	VstInt32 lastRate;
 	char BankFile[256];
 	char BankName[256];
 };
