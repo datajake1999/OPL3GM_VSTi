@@ -191,6 +191,7 @@ BEGIN
     LTEXT           "Virtual MIDI &Keyboard:",IDC_STATIC,20,350,90,8
     CONTROL         "",IDC_KEYBOARD,classname,WS_TABSTOP,120,350,100,100
     PUSHBUTTON      "Open Pro&ject Page",IDC_PROJPAGE,20,470,90,15,WS_TABSTOP
+    PUSHBUTTON      "&Forget Settings",IDC_FORGET,120,470,90,15,WS_TABSTOP
 END
 
 /////////////////////////////////////////////////////////////////////////////

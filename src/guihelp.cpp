@@ -33,6 +33,7 @@ void OPL3GM::initializeSettings ()
 	bypassed = false;
 	internalRate = 49716;
 	lastRate = internalRate;
+	setSampleRate (getSampleRate ());
 }
 
 bool OPL3GM::getBypass ()

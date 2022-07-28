@@ -708,6 +708,13 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			}
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
+		case IDC_FORGET:
+			if (effect)
+			{
+				effect->initializeSettings ();
+				RefreshDialog(hWnd, effect);
+				return TRUE;
+			}
 		}
 	}
 	return FALSE;
