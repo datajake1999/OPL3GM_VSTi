@@ -53,9 +53,10 @@
 #define IDC_HOSTINFO                    426
 #define IDC_HARDRESET                   427
 #define IDC_CPU                         428
-#define IDC_KEYBOARD                    429
-#define IDC_PROJPAGE                    430
-#define IDC_FORGET                      431
+#define IDC_FORGET                      429
+#define IDC_FREEZE                      430
+#define IDC_KEYBOARD                    431
+#define IDC_PROJPAGE                    432
 #define IDB_BITMAP1                     501
 
 // Next default values for new objects

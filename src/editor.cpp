@@ -1244,6 +1244,10 @@ void Editor::idle ()
 {
 	if (effect && dlg)
 	{
+		if (SendDlgItemMessage((HWND)dlg, IDC_FREEZE, BM_GETCHECK, 0, 0))
+		{
+			return;
+		}
 		char text[MAX_PATH];
 		int numvoices = ((OPL3GM*)effect)->getActiveVoices ();
 		sprintf(text, "%d/18", numvoices);
