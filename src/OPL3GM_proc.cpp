@@ -23,6 +23,10 @@ void OPL3GM::setSampleRate (float sampleRate)
 {
 	lock.acquire();
 	AudioEffectX::setSampleRate (sampleRate);
+	if (HQResample < 0.5)
+	{
+		internalRate = (VstInt32)sampleRate;
+	}
 	clearSynth ();
 	initSynth ((int)sampleRate);
 	dcf[0].SetRate(sampleRate);
