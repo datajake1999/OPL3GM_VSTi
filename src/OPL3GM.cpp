@@ -45,7 +45,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	buffer = NULL;
 	resampler = NULL;
 	memset(samples, 0, sizeof(samples));
-	initializeSettings ();
+	initializeSettings (false);
 	memset(BankFile, 0, sizeof(BankFile));
 	strncpy(BankName, "Default", sizeof(BankName));
 	memset(&chunk, 0, sizeof(chunk));

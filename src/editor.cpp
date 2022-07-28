@@ -711,7 +711,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_FORGET:
 			if (effect)
 			{
-				effect->initializeSettings ();
+				effect->initializeSettings (true);
 				RefreshDialog(hWnd, effect);
 				return TRUE;
 			}

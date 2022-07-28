@@ -145,7 +145,7 @@ public:
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
-	virtual void initializeSettings ();
+	virtual void initializeSettings (bool resetRate);
 	virtual bool getBypass ();
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();

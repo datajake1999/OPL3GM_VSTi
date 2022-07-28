@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 
-void OPL3GM::initializeSettings ()
+void OPL3GM::initializeSettings (bool resetRate)
 {
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	Volume = 1;
@@ -33,7 +33,10 @@ void OPL3GM::initializeSettings ()
 	bypassed = false;
 	internalRate = 49716;
 	lastRate = internalRate;
-	setSampleRate (getSampleRate ());
+	if (resetRate)
+	{
+		setSampleRate (getSampleRate ());
+	}
 }
 
 bool OPL3GM::getBypass ()
