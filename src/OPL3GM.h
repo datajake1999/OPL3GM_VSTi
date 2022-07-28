@@ -186,6 +186,7 @@ private:
 #endif
 	bool bypassed;
 	VstInt32 internalRate;
+	VstInt32 lastRate;
 	double vu[2];
 	float Volume;
 	float VolumeDisplay;

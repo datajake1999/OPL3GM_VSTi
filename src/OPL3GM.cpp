@@ -47,6 +47,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(samples, 0, sizeof(samples));
 	bypassed = false;
 	internalRate = 49716;
+	lastRate = internalRate;
 	memset(vu, 0, sizeof(vu));
 	Volume = 1;
 	VolumeDisplay = 0;
@@ -134,10 +135,11 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		HQResample = value;
 		if (HQResample >= 0.5)
 		{
-			setInternalRate (49716);
+			setInternalRate (lastRate);
 		}
 		else
 		{
+			lastRate = internalRate;
 			setInternalRate ((VstInt32)sampleRate);
 		}
 		break;
