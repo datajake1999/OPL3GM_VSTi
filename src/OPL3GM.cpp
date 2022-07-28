@@ -352,7 +352,10 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	}
 	setProgramName (chunkData->ProgramName);
 	setBypass (chunkData->bypassed);
-	setInternalRate (chunkData->internalRate);
+	if (HQResample >= 0.5)
+	{
+		setInternalRate (chunkData->internalRate);
+	}
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
 #ifdef gui
 	if (editor)
