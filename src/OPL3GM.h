@@ -69,8 +69,8 @@ struct HostInfo
 struct OPL3GMChunk
 {
 	VstInt32 Size;
-	float Parameters[kNumParams];
 	char ProgramName[kVstMaxProgNameLen];
+	float Parameters[kNumParams];
 	bool bypassed;
 	VstInt32 lastRate;
 	char BankFile[256];
@@ -145,6 +145,7 @@ public:
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
+	virtual void initializeSettings ();
 	virtual bool getBypass ();
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
@@ -184,10 +185,7 @@ private:
 #if reaper_extensions
 	EventQueue ParameterQueue;
 #endif
-	bool bypassed;
-	VstInt32 internalRate;
-	VstInt32 lastRate;
-	double vu[2];
+	char ProgramName[kVstMaxProgNameLen];
 	float Volume;
 	float VolumeDisplay;
 	float DCBlock;
@@ -196,12 +194,15 @@ private:
 	float Emulator;
 	float HQResample;
 	float PushMidi;
-	char ProgramName[kVstMaxProgNameLen];
+	bool bypassed;
+	VstInt32 internalRate;
+	VstInt32 lastRate;
 	char BankFile[256];
 	char BankName[256];
 	OPL3GMChunk chunk;
 	HostInfo hi;
 	LockableObject lock;
+	double vu[2];
 	double CPULoad;
 #ifdef demo
 	time_t startTime;

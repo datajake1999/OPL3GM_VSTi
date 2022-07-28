@@ -45,26 +45,15 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	buffer = NULL;
 	resampler = NULL;
 	memset(samples, 0, sizeof(samples));
-	bypassed = false;
-	internalRate = 49716;
-	lastRate = internalRate;
-	memset(vu, 0, sizeof(vu));
-	Volume = 1;
-	VolumeDisplay = 0;
-	DCBlock = 0;
-	NoiseGate = 0;
-	Transpose = 0;
-	Emulator = 1;
-	HQResample = 1;
-	PushMidi = 1;
-	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
+	initializeSettings ();
 	memset(BankFile, 0, sizeof(BankFile));
 	strncpy(BankName, "Default", sizeof(BankName));
 	memset(&chunk, 0, sizeof(chunk));
 	memset(&hi, 0, sizeof(hi));
+	memset(vu, 0, sizeof(vu));
+	CPULoad = 0;
 	initSynth ((int)sampleRate);
 	initBuffer (blockSize);
-	CPULoad = 0;
 #ifdef demo
 	startTime = time(NULL);
 	srand(startTime);
@@ -348,11 +337,11 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	{
 		return 0;
 	}
+	setProgramName (chunkData->ProgramName);
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		setParameter (i, chunkData->Parameters[i]);
 	}
-	setProgramName (chunkData->ProgramName);
 	setBypass (chunkData->bypassed);
 	lastRate = chunkData->lastRate;
 	if (HQResample >= 0.5)
@@ -376,11 +365,11 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 		return 0;
 	}
 	chunk.Size = sizeof(OPL3GMChunk);
+	getProgramName (chunk.ProgramName);
 	for (VstInt32 i = 0; i < kNumParams; i++)
 	{
 		chunk.Parameters[i] = getParameter (i);
 	}
-	getProgramName (chunk.ProgramName);
 	chunk.bypassed = bypassed;
 	if (HQResample >= 0.5)
 	{

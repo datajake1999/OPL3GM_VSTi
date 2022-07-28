@@ -19,6 +19,22 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 
+void OPL3GM::initializeSettings ()
+{
+	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
+	Volume = 1;
+	VolumeDisplay = 0;
+	DCBlock = 0;
+	NoiseGate = 0;
+	Transpose = 0;
+	Emulator = 1;
+	HQResample = 1;
+	PushMidi = 1;
+	bypassed = false;
+	internalRate = 49716;
+	lastRate = internalRate;
+}
+
 bool OPL3GM::getBypass ()
 {
 	return bypassed;
