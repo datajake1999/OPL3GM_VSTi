@@ -916,6 +916,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	{
 		KeyboardControlChange(info, 0x7b, 0);
 	}
+	char text[MAX_PATH];
+	ZeroMemory(text, sizeof(text));
 	switch (wParam)
 	{
 	case 0x5a:	//z
@@ -1098,6 +1100,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Channel %d", info->Channel+1);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_HOME:
 		info->Channel--;
@@ -1107,6 +1111,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Channel %d", info->Channel+1);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_SHIFT:
 		if (!(lParam & (1 << 30)))
