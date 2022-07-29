@@ -864,9 +864,9 @@ static void KeyboardNoteOn(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
 	}
 }
 
-static void KeyboardNoteOff(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
+static void KeyboardNoteOff(WPARAM wParam, KeyboardInfo* info)
 {
-	VstInt32 note = char2note(hWnd, wParam);
+	VstInt32 note = char2note(NULL, wParam);
 	if (note == -1)
 	{
 		return;
@@ -1138,11 +1138,11 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	return TRUE;
 }
 
-static BOOL KeyUp(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
+static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 {
-	if (char2note(hWnd, wParam) >= 0)
+	if (char2note(NULL, wParam) >= 0)
 	{
-		KeyboardNoteOff(hWnd, wParam, info);
+		KeyboardNoteOff(wParam, info);
 		return FALSE;
 	}
 	switch (wParam)
@@ -1168,7 +1168,7 @@ static BOOL WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 	case WM_KEYDOWN:
 		return KeyDown(hWnd, wParam, lParam, info);
 	case WM_KEYUP:
-		return KeyUp(hWnd, wParam, info);
+		return KeyUp(wParam, info);
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
