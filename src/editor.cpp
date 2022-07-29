@@ -755,57 +755,81 @@ static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channe
 	}
 }
 
-static VstInt32 char2note(WPARAM wParam)
+static VstInt32 char2note(HWND hWnd, WPARAM wParam)
 {
 	switch (wParam)
 	{
 	case 0x41:	//a,c
+		SetWindowText(hWnd, "C");
 		return 0;
 	case 0x53:	//s,d
+		SetWindowText(hWnd, "D");
 		return 2;
 	case 0x44:	//d,e
+		SetWindowText(hWnd, "E");
 		return 4;
 	case 0x46:	//f,f
+		SetWindowText(hWnd, "F");
 		return 5;
 	case 0x47:	//g,g
+		SetWindowText(hWnd, "G");
 		return 7;
 	case 0x48:	//h,a
+		SetWindowText(hWnd, "A");
 		return 9;
 	case 0x4a:	//j,b
+		SetWindowText(hWnd, "B");
 		return 11;
 	case 0x4b:	//k,c
+		SetWindowText(hWnd, "C");
 		return 12;
 	case 0x4c:	//l,d
+		SetWindowText(hWnd, "D");
 		return 14;
 	case VK_OEM_1:	//e
+		SetWindowText(hWnd, "E");
 		return 16;
 	case VK_OEM_7:	//f
+		SetWindowText(hWnd, "F");
 		return 17;
 	case 0x51:	//q,c#
+		SetWindowText(hWnd, "C#");
 		return 1;
 	case 0x57:	//w,d#
+		SetWindowText(hWnd, "D#");
 		return 3;
 	case 0x45:	//e,f#
+		SetWindowText(hWnd, "F#");
 		return 6;
 	case 0x52:	//r,g#
+		SetWindowText(hWnd, "G#");
 		return 8;
 	case 0x54:	//t,a#
+		SetWindowText(hWnd, "A#");
 		return 10;
 	case 0x59:	//y,c#
+		SetWindowText(hWnd, "C#");
 		return 13;
 	case 0x55:	//u,d#
+		SetWindowText(hWnd, "D#");
 		return 15;
 	case 0x49:	//i,f#
+		SetWindowText(hWnd, "F#");
 		return 18;
 	case 0x4f:	//o,g#
+		SetWindowText(hWnd, "G#");
 		return 20;
 	case 0x50:	//p,a#
+		SetWindowText(hWnd, "A#");
 		return 22;
 	case VK_OEM_4:	//c#
+		SetWindowText(hWnd, "C#");
 		return 25;
 	case VK_OEM_6:	//d#
+		SetWindowText(hWnd, "D#");
 		return 27;
 	}
+	SetWindowText(hWnd, "");
 	return -1;
 }
 
@@ -827,9 +851,9 @@ static bool KeepNotes(WPARAM wParam)
 	return false;
 }
 
-static void KeyboardNoteOn(WPARAM wParam, KeyboardInfo* info)
+static void KeyboardNoteOn(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
 {
-	VstInt32 note = char2note(wParam);
+	VstInt32 note = char2note(hWnd, wParam);
 	if (note == -1)
 	{
 		return;
@@ -840,9 +864,9 @@ static void KeyboardNoteOn(WPARAM wParam, KeyboardInfo* info)
 	}
 }
 
-static void KeyboardNoteOff(WPARAM wParam, KeyboardInfo* info)
+static void KeyboardNoteOff(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
 {
-	VstInt32 note = char2note(wParam);
+	VstInt32 note = char2note(hWnd, wParam);
 	if (note == -1)
 	{
 		return;
@@ -877,13 +901,13 @@ static void KeyboardPitchBend(KeyboardInfo* info)
 	}
 }
 
-static BOOL KeyDown(WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
+static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 {
-	if (char2note(wParam) >= 0)
+	if (char2note(hWnd, wParam) >= 0)
 	{
 		if (!(lParam & (1 << 30)))
 		{
-			KeyboardNoteOn(wParam, info);
+			KeyboardNoteOn(hWnd, wParam, info);
 			return FALSE;
 		}
 		return TRUE;
@@ -1092,11 +1116,11 @@ static BOOL KeyDown(WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	return TRUE;
 }
 
-static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
+static BOOL KeyUp(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
 {
-	if (char2note(wParam) >= 0)
+	if (char2note(hWnd, wParam) >= 0)
 	{
-		KeyboardNoteOff(wParam, info);
+		KeyboardNoteOff(hWnd, wParam, info);
 		return FALSE;
 	}
 	switch (wParam)
@@ -1120,9 +1144,9 @@ static BOOL WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 	case WM_GETDLGCODE:
 		return DLGC_WANTCHARS | DLGC_WANTARROWS;
 	case WM_KEYDOWN:
-		return KeyDown(wParam, lParam, info);
+		return KeyDown(hWnd, wParam, lParam, info);
 	case WM_KEYUP:
-		return KeyUp(wParam, info);
+		return KeyUp(hWnd, wParam, info);
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
