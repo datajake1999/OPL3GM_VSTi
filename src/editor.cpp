@@ -19,6 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "editor.h"
 #include "OPL3GM.h"
+#include "gmnames.h"
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <commctrl.h>
@@ -1061,6 +1062,14 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		if (info->Channel == 9)
+		{
+			SetWindowText(hWnd, GmDrumSets[0]);
+		}
+		else
+		{
+			SetWindowText(hWnd, GmNames[info->Program]);
+		}
 		KeyboardProgramChange(info);
 		return FALSE;
 	case VK_PRIOR:
@@ -1070,6 +1079,14 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			info->Program = 0;
 			MessageBeep(MB_OK);
 			return TRUE;
+		}
+		if (info->Channel == 9)
+		{
+			SetWindowText(hWnd, GmDrumSets[0]);
+		}
+		else
+		{
+			SetWindowText(hWnd, GmNames[info->Program]);
 		}
 		KeyboardProgramChange(info);
 		return FALSE;
