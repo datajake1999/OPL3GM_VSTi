@@ -829,7 +829,6 @@ static VstInt32 char2note(HWND hWnd, WPARAM wParam)
 		SetWindowText(hWnd, "D#");
 		return 27;
 	}
-	SetWindowText(hWnd, "");
 	return -1;
 }
 
