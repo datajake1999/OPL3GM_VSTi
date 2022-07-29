@@ -33,6 +33,8 @@ void OPL3GM::initializeSettings (bool resetRate)
 	bypassed = false;
 	internalRate = 49716;
 	lastRate = internalRate;
+	memset(BankFile, 0, sizeof(BankFile));
+	strncpy(BankName, "Default", sizeof(BankName));
 	if (resetRate)
 	{
 		setSampleRate (getSampleRate ());
