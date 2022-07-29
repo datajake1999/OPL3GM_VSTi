@@ -1170,6 +1170,9 @@ static BOOL WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 		return KeyDown(hWnd, wParam, lParam, info);
 	case WM_KEYUP:
 		return KeyUp(wParam, info);
+	case WM_KILLFOCUS:
+		SetWindowText(hWnd, "");
+		return 0;
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
