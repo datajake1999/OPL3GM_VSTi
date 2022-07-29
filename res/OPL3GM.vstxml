@@ -11,13 +11,23 @@
 			<Entry name="OFF" value="[0, 0.5["/> 
 			<Entry name="ON" value="[0.5, 1]"/> 
 		</ValueType>
-		<Param name="Transpose" id="3" numberOfStates="24" label="Semitones"/>
-		<Param name="Emulator" id="4" numberOfStates="2"/>
+		<Param name="NoiseGate" id="3" numberOfStates="2"/>
+		<ValueType name="NoiseGate">
+			<Entry name="OFF" value="[0, 0.5["/> 
+			<Entry name="ON" value="[0.5, 1]"/> 
+		</ValueType>
+		<Param name="Transpose" id="4" numberOfStates="25" label="Semitones"/>
+		<Param name="Emulator" id="5" numberOfStates="2"/>
 		<ValueType name="Emulator">
 			<Entry name="DOSBox" value="[0, 0.5["/> 
 			<Entry name="Nuked" value="[0.5, 1]"/> 
 		</ValueType>
-		<Param name="PushMidi" id="5" numberOfStates="2"/>
+		<Param name="HQResample" id="6" numberOfStates="2"/>
+		<ValueType name="HQResample">
+			<Entry name="OFF" value="[0, 0.5["/> 
+			<Entry name="ON" value="[0.5, 1]"/> 
+		</ValueType>
+		<Param name="PushMidi" id="7" numberOfStates="2"/>
 		<ValueType name="PushMidi">
 			<Entry name="OFF" value="[0, 0.5["/> 
 			<Entry name="ON" value="[0.5, 1]"/> 
