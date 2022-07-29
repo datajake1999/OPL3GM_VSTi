@@ -1133,6 +1133,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		info->BendLSB = 0;
 		KeyboardProgramChange(info);
 		KeyboardPitchBend(info);
+		SetWindowText(hWnd, "Keyboard reset");
 		return FALSE;
 	}
 	return TRUE;
