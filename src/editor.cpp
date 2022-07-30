@@ -92,7 +92,7 @@ static const int rates[] =
 	795456
 };
 
-static bool SetPreset(HWND hWnd, AudioEffectX* effect)
+static BOOL SetPreset(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -102,7 +102,7 @@ static bool SetPreset(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
-static bool SetPresetName(HWND hWnd, AudioEffectX* effect)
+static BOOL SetPresetName(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -129,7 +129,7 @@ static BOOL SetParameterValue(AudioEffectX* effect, VstInt32 index, float value)
 	return FALSE;
 }
 
-static bool SetBypassState(HWND hWnd, AudioEffectX* effect)
+static BOOL SetBypassState(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
@@ -146,7 +146,7 @@ static bool SetBypassState(HWND hWnd, AudioEffectX* effect)
 	return FALSE;
 }
 
-static bool SetOPLRate(HWND hWnd, OPL3GM* effect)
+static BOOL SetOPLRate(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
@@ -323,7 +323,7 @@ static UINT HelpBox(HWND hWnd)
 	return 0;
 }
 
-static UINT WINAPI HookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static UINT WINAPI OldHookProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -445,7 +445,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		}
 		else
 		{
-			ofn.lpfnHook = (LPOFNHOOKPROC)HookProc;
+			ofn.lpfnHook = (LPOFNHOOKPROC)OldHookProc;
 		}
 		if (GetOpenFileName(&ofn))
 		{
@@ -707,8 +707,6 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				effect->setBlockSizeAndSampleRate (effect->getBlockSize (), effect->getSampleRate ());
 				return TRUE;
 			}
-		case IDC_PROJPAGE:
-			return ProjectPage(hWnd);
 		case IDC_FORGET:
 			if (effect)
 			{
@@ -716,6 +714,8 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				RefreshDialog(hWnd, effect);
 				return TRUE;
 			}
+		case IDC_PROJPAGE:
+			return ProjectPage(hWnd);
 		}
 	}
 	return FALSE;
@@ -729,8 +729,6 @@ static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channe
 		VstEvents evs;
 		memset(&ev, 0, sizeof(ev));
 		memset(&evs, 0, sizeof(evs));
-		evs.numEvents = 1;
-		evs.events[0] = (VstEvent*)&ev;
 		ev.type = kVstMidiType;
 		ev.byteSize = sizeof(VstMidiEvent);
 		ev.midiData[0] = (char)(status | channel);
@@ -752,7 +750,57 @@ static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channe
 			data2 = 0;
 		}
 		ev.midiData[2] = (char)data2;
+		evs.numEvents = 1;
+		evs.events[0] = (VstEvent*)&ev;
 		effect->processEvents (&evs);
+	}
+}
+
+static void KeyboardNoteOn(VstInt32 note, KeyboardInfo* info)
+{
+	if (note == -1)
+	{
+		return;
+	}
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0x90, info->Channel, (12 * info->Octave) + note, info->Velocity);
+	}
+}
+
+static void KeyboardNoteOff(VstInt32 note, KeyboardInfo* info)
+{
+	if (note == -1)
+	{
+		return;
+	}
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0x80, info->Channel, (12 * info->Octave) + note, info->Velocity);
+	}
+}
+
+static void KeyboardControlChange(KeyboardInfo* info, VstInt32 type, VstInt32 data)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xb0, info->Channel, type, data);
+	}
+}
+
+static void KeyboardProgramChange(KeyboardInfo* info)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xc0, info->Channel, info->Program, 0);
+	}
+}
+
+static void KeyboardPitchBend(KeyboardInfo* info)
+{
+	if (info)
+	{
+		KeyboardEvent(info->Effect, 0xe0, info->Channel, info->BendLSB, info->BendMSB);
 	}
 }
 
@@ -833,81 +881,32 @@ static VstInt32 char2note(HWND hWnd, WPARAM wParam)
 	return -1;
 }
 
-static bool KeepNotes(WPARAM wParam)
+static BOOL KeepNotes(WPARAM wParam)
 {
 	switch (wParam)
 	{
 	case VK_OEM_PLUS:
-		return true;
+		return TRUE;
 	case VK_OEM_MINUS:
-		return true;
+		return TRUE;
 	case VK_OEM_5:
-		return true;
+		return TRUE;
 	case VK_OEM_3:
-		return true;
+		return TRUE;
 	case VK_SHIFT:
-		return true;
+		return TRUE;
 	}
-	return false;
-}
-
-static void KeyboardNoteOn(HWND hWnd, WPARAM wParam, KeyboardInfo* info)
-{
-	VstInt32 note = char2note(hWnd, wParam);
-	if (note == -1)
-	{
-		return;
-	}
-	if (info)
-	{
-		KeyboardEvent(info->Effect, 0x90, info->Channel, (12 * info->Octave) + note, info->Velocity);
-	}
-}
-
-static void KeyboardNoteOff(WPARAM wParam, KeyboardInfo* info)
-{
-	VstInt32 note = char2note(NULL, wParam);
-	if (note == -1)
-	{
-		return;
-	}
-	if (info)
-	{
-		KeyboardEvent(info->Effect, 0x80, info->Channel, (12 * info->Octave) + note, info->Velocity);
-	}
-}
-
-static void KeyboardControlChange(KeyboardInfo* info, VstInt32 type, VstInt32 data)
-{
-	if (info)
-	{
-		KeyboardEvent(info->Effect, 0xb0, info->Channel, type, data);
-	}
-}
-
-static void KeyboardProgramChange(KeyboardInfo* info)
-{
-	if (info)
-	{
-		KeyboardEvent(info->Effect, 0xc0, info->Channel, info->Program, 0);
-	}
-}
-
-static void KeyboardPitchBend(KeyboardInfo* info)
-{
-	if (info)
-	{
-		KeyboardEvent(info->Effect, 0xe0, info->Channel, info->BendLSB, info->BendMSB);
-	}
+	return FALSE;
 }
 
 static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 {
-	if (char2note(hWnd, wParam) >= 0)
+	VstInt32 note = char2note(hWnd, wParam);
+	if (note >= 0)
 	{
 		if (!(lParam & (1 << 30)))
 		{
-			KeyboardNoteOn(hWnd, wParam, info);
+			KeyboardNoteOn(note, info);
 			return FALSE;
 		}
 		return TRUE;
@@ -1141,9 +1140,10 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 
 static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 {
-	if (char2note(NULL, wParam) >= 0)
+	VstInt32 note = char2note(NULL, wParam);
+	if (note >= 0)
 	{
-		KeyboardNoteOff(wParam, info);
+		KeyboardNoteOff(note, info);
 		return FALSE;
 	}
 	switch (wParam)
