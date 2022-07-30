@@ -921,63 +921,103 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	{
 	case 0x5a:	//z
 		info->Velocity = 10;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x58:	//x
 		info->Velocity = 20;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x43:	//c
 		info->Velocity = 30;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x56:	//v
 		info->Velocity = 40;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x42:	//b
 		info->Velocity = 50;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x4e:	//n
 		info->Velocity = 60;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x4d:	//m
 		info->Velocity = 70;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_COMMA:
 		info->Velocity = 80;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_PERIOD:
 		info->Velocity = 90;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_2:
 		info->Velocity = 100;
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x30:	//0
 		info->Octave = 0;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x31:	//1
 		info->Octave = 1;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x32:	//2
 		info->Octave = 2;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x33:	//3
 		info->Octave = 3;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x34:	//4
 		info->Octave = 4;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x35:	//5
 		info->Octave = 5;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x36:	//6
 		info->Octave = 6;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x37:	//7
 		info->Octave = 7;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x38:	//8
 		info->Octave = 8;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x39:	//9
 		info->Octave = 9;
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_PLUS:
 		info->BendMSB++;
@@ -1027,6 +1067,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_LEFT:
 		info->Octave--;
@@ -1036,6 +1078,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Octave %d", info->Octave);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_UP:
 		info->Velocity++;
@@ -1045,6 +1089,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_DOWN:
 		info->Velocity--;
@@ -1054,6 +1100,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
+		sprintf(text, "Velocity %d", info->Velocity);
+		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_NEXT:
 		info->Program++;
