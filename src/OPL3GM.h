@@ -168,6 +168,7 @@ private:
 	void initBuffer (int blockSize);
 	void clearSynth ();
 	void clearBuffer ();
+	void setSynthRate (int sampleRate);
 	template <class sampletype>
 	void processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames);
 	void calculateCPULoad (double begin, double end, int numsamples);

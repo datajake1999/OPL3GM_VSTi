@@ -27,8 +27,7 @@ void OPL3GM::setSampleRate (float sampleRate)
 	{
 		internalRate = (VstInt32)sampleRate;
 	}
-	clearSynth ();
-	initSynth ((int)sampleRate);
+	setSynthRate ((int)sampleRate);
 	dcf[0].SetRate(sampleRate);
 	dcf[1].SetRate(sampleRate);
 	lock.release();
@@ -101,6 +100,18 @@ void OPL3GM::clearBuffer ()
 		memset(buffer, 0, (2*bufferSize)*sizeof(short));
 		delete[] buffer;
 		buffer = NULL;
+	}
+}
+
+void OPL3GM::setSynthRate (int sampleRate)
+{
+	if (synth)
+	{
+		synth->midi_changerate(internalRate);
+	}
+	if (resampler)
+	{
+		resampler_set_rate(resampler, (double)internalRate / (double)sampleRate);
 	}
 }
 
