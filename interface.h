@@ -27,6 +27,7 @@ public:
 class midisynth {
 public:
 	virtual int midi_init(unsigned int rate) = 0;
+	virtual void midi_changerate(unsigned int rate) = 0;
 	virtual void midi_write(unsigned int data) = 0;
 	virtual void midi_write_sysex(unsigned char *buffer, unsigned int length) = 0;
 	virtual void midi_panic() = 0;

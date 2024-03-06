@@ -1034,6 +1034,13 @@ int DoomOPL::InitSynth()
 	return 1;
 }
 
+void DoomOPL::midi_changerate(unsigned int rate) {
+	if (opl)
+	{
+		opl->fm_init(rate);
+	}
+}
+
 void DoomOPL::midi_generate(signed short *buffer, unsigned int length) {
 	if (opl)
 	{

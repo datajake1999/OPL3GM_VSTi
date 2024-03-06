@@ -504,6 +504,13 @@ int OPL3MIDI::midi_init(unsigned int rate)
     return 1;
 }
 
+void OPL3MIDI::midi_changerate(unsigned int rate) {
+    if (opl_chip)
+    {
+        opl_chip->fm_init(rate);
+    }
+}
+
 void OPL3MIDI::midi_write(unsigned int data)
 {
     byte event_type = data & 0xf0;

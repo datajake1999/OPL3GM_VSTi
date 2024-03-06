@@ -125,6 +125,7 @@ private:
     void opl_midipitchbend(opl_channel *channel, byte parm1, byte parm2);
 public:
     int midi_init(unsigned int rate);
+    void midi_changerate(unsigned int rate);
     void midi_write(unsigned int data);
     void midi_write_sysex(unsigned char *buffer, unsigned int length);
     void midi_panic();

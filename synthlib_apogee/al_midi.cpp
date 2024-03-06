@@ -1445,6 +1445,14 @@ void ApogeeOPL::AL_RegisterTimbreBank
       }
    }
 
+void ApogeeOPL::midi_changerate(unsigned int rate)
+{
+    if (chip)
+    {
+        chip->fm_init(rate);
+    }
+}
+
 void ApogeeOPL::midi_write(unsigned int data)
 {
     int command = (data & 0xf0) >> 4;

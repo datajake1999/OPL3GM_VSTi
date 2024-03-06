@@ -86,6 +86,7 @@ private:
     bool AL_LoadBank(const char *filename);
 public:
     int midi_init(unsigned int rate);
+    void midi_changerate(unsigned int rate);
     void midi_write(unsigned int data);
     void midi_write_sysex(unsigned char *buffer, unsigned int length);
     void midi_panic();
