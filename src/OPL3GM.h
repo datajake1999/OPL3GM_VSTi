@@ -150,6 +150,7 @@ public:
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
 	virtual bool loadInstruments (char *filename, char *display);
+	virtual void hardReset ();
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char *text, VstInt32 size);
 	virtual HostInfo *getHostInfo ();

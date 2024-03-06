@@ -704,7 +704,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_HARDRESET:
 			if (effect)
 			{
-				effect->setBlockSizeAndSampleRate (effect->getBlockSize (), effect->getSampleRate ());
+				effect->hardReset ();
 				return TRUE;
 			}
 		case IDC_FORGET:

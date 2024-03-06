@@ -85,6 +85,16 @@ bool OPL3GM::loadInstruments (char *filename, char *display)
 	return false;
 }
 
+void OPL3GM::hardReset ()
+{
+	lock.acquire();
+	clearSynth ();
+	clearBuffer ();
+	initSynth ((int)sampleRate);
+	initBuffer (blockSize);
+	lock.release();
+}
+
 VstInt32 OPL3GM::getActiveVoices ()
 {
 	if (synth)
