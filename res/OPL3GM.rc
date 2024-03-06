@@ -53,7 +53,7 @@ BEGIN
             VALUE "FileDescription", "OPL3GM VSTi\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "OPL3GM\0"
-            VALUE "LegalCopyright", "Copyright © 2021-2022\0"
+            VALUE "LegalCopyright", "Copyright   2021-2022\0"
             VALUE "LegalTrademarks", "VST is a trademark of Steinberg Media Technologies GmbH\0"
             VALUE "OriginalFilename", "OPL3GM.dll\0"
             VALUE "PrivateBuild", "\0"
@@ -118,7 +118,7 @@ IDB_BITMAP1             BITMAP                  "notes.bmp"
 // VSTXML
 //
 
-1                       VSTXML  MOVEABLE PURE   "OPL3GM.vstxml"
+IDX_VSTXML              VSTXML  MOVEABLE PURE   "OPL3GM.vstxml"
 
 /////////////////////////////////////////////////////////////////////////////
 //

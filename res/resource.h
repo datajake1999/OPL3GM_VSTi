@@ -2,6 +2,7 @@
 // Microsoft Developer Studio generated include file.
 // Used by OPL3GM.rc
 //
+#define IDX_VSTXML                      1
 #define IDI_ICON1                       101
 #define IDS_ICON_ALTTEXT1               201
 #define IDS_ABOUTCAP                    202
