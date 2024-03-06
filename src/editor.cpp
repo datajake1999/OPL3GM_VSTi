@@ -406,7 +406,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		DWORD help = 0;
 		char directory[MAX_PATH];
 		ZeroMemory(directory, sizeof(directory));
-		if (RegOpenKeyEx(HKEY_CURRENT_USER, "SOFTWARE\\Datajake\\OPL3GM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+		if (RegOpenKeyEx(HKEY_CURRENT_USER, keyname, 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			DWORD type = REG_DWORD;
 			DWORD len = sizeof(DWORD);
@@ -571,7 +571,7 @@ static BOOL ProjectPage(HWND hWnd)
 		LoadString((HINSTANCE)hInstance, IDS_WEBTXT, text, MAX_PATH);
 		if (MessageBox(hWnd, text, caption, MB_ICONQUESTION | MB_YESNO) == IDYES)
 		{
-			ShellExecute(hWnd, NULL, "https://github.com/datajake1999/OPL3GM_VSTi", NULL, NULL, 0);
+			ShellExecute(hWnd, NULL, projpage, NULL, NULL, 0);
 			return TRUE;
 		}
 	}

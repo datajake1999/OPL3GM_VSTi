@@ -70,4 +70,6 @@
 #endif
 #endif
 
+#define keyname "SOFTWARE\\Datajake\\OPL3GM"
+#define projpage "https://github.com/datajake1999/OPL3GM_VSTi"
 #define classname "OPL3GMKBD"
