@@ -39,6 +39,10 @@ void OPL3GM::initializeSettings (bool resetRate)
 	{
 		setSampleRate (getSampleRate ());
 	}
+	if (synth)
+	{
+		synth->midi_resetbank();
+	}
 }
 
 bool OPL3GM::getBypass ()

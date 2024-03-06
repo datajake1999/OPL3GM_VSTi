@@ -1084,6 +1084,15 @@ bool DoomOPL::midi_loadbank(char *filename) {
 	return LoadInstrumentTable(filename);
 }
 
+void DoomOPL::midi_resetbank() {
+	memcpy(&lump, &dmx_dmx, sizeof(dmx_dmx));
+#ifdef _WIN32
+	LoadInstrumentTable("C:\\OPLSynth\\GENMIDI.OP2");
+#else
+	LoadInstrumentTable("GENMIDI.OP2");
+#endif
+}
+
 int DoomOPL::midi_getvoicecount() {
 	return voice_alloced_num;
 }

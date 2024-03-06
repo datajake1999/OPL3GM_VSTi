@@ -1558,6 +1558,16 @@ bool ApogeeOPL::midi_loadbank(char *filename)
     return AL_LoadBank(filename);
 }
 
+void ApogeeOPL::midi_resetbank()
+{
+    memcpy(&ADLIB_TimbreBank, &FatTimbre, sizeof(FatTimbre));
+#ifdef _WIN32
+    AL_LoadBank("C:\\OPLSynth\\APOGEE.TMB");
+#else
+    AL_LoadBank("APOGEE.TMB");
+#endif
+}
+
 int ApogeeOPL::midi_getvoicecount()
 {
     int count = 0;
