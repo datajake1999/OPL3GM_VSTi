@@ -1039,6 +1039,7 @@ void DoomOPL::midi_changerate(unsigned int rate) {
 	{
 		opl->fm_init(rate);
 	}
+	OPL_InitRegisters(opl_new);
 }
 
 void DoomOPL::midi_generate(signed short *buffer, unsigned int length) {

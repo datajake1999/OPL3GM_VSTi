@@ -504,10 +504,41 @@ int OPL3MIDI::midi_init(unsigned int rate)
     return 1;
 }
 
-void OPL3MIDI::midi_changerate(unsigned int rate) {
+void OPL3MIDI::midi_changerate(unsigned int rate)
+{
+    uint32_t i;
+
     if (opl_chip)
     {
         opl_chip->fm_init(rate);
+    }
+
+    opl_writereg(OPL_LSI, 0x00);
+    opl_writereg(OPL_TIMER, 0x60);
+    opl_writereg(OPL_NTS, 0x00);
+    if (opl_opl3mode)
+    {
+        opl_writereg(OPL_NEW, 0x01);
+        opl_writereg(OPL_4OP, 0x00);
+    }
+    opl_writereg(OPL_RHYTHM, 0xc0);
+
+    for (i = 0; i <= 0x15; i++)
+    {
+        opl_writereg(OPL_TL + i, 0x3f);
+        if (opl_opl3mode)
+        {
+            opl_writereg(OPL_TL + 0x100 + i, 0x3f);
+        }
+    }
+
+    for (i = 0; i < 9; i++)
+    {
+        opl_writereg(OPL_BLOCK + i, 0x00);
+        if (opl_opl3mode)
+        {
+            opl_writereg(OPL_BLOCK + 0x100 + i, 0x00);
+        }
     }
 }
 

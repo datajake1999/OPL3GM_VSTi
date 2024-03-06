@@ -1451,6 +1451,7 @@ void ApogeeOPL::midi_changerate(unsigned int rate)
     {
         chip->fm_init(rate);
     }
+    AL_Reset();
 }
 
 void ApogeeOPL::midi_write(unsigned int data)
