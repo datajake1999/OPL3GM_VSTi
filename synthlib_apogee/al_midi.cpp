@@ -871,6 +871,48 @@ void ApogeeOPL::AL_ResetVoices
 
 
 /*---------------------------------------------------------------------
+   Function: AL_ResetVoices2
+
+   Sets all voice info to the default state.
+---------------------------------------------------------------------*/
+
+void ApogeeOPL::AL_ResetVoices2
+   (
+   void
+   )
+
+   {
+   int index;
+   int numvoices;
+
+   Voice_Pool.start = NULL;
+   Voice_Pool.end = NULL;
+
+   numvoices = NUM_VOICES * 2;
+   for( index = 0; index < numvoices; index++ )
+      {
+      if ( VoiceReserved[ index ] == false )
+         {
+         Voice[ index ].num = index;
+         Voice[ index ].key = 0;
+         Voice[ index ].velocity = 0;
+         Voice[ index ].channel = -1;
+         Voice[ index ].timbre = -1;
+         Voice[ index ].port = ( index < NUM_VOICES ) ? 0 : 1;
+         Voice[ index ].status = NOTE_OFF;
+         AL_AddToTail( VOICE, &Voice_Pool, &Voice[ index ] );
+         }
+      }
+
+   for( index = 0; index < NUM_CHANNELS; index++ )
+      {
+      Channel[ index ].Voices.start    = NULL;
+      Channel[ index ].Voices.end      = NULL;
+      }
+   }
+
+
+/*---------------------------------------------------------------------
    Function: AL_CalcPitchInfo
 
    Calculates the pitch table.
@@ -1452,6 +1494,7 @@ void ApogeeOPL::midi_changerate(unsigned int rate)
         chip->fm_init(rate);
     }
     AL_Reset();
+    AL_ResetVoices2();
 }
 
 void ApogeeOPL::midi_write(unsigned int data)

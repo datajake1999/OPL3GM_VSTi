@@ -66,6 +66,7 @@ private:
     void AL_SetChannelPan( int channel, int pan );
     void AL_SetChannelDetune( int channel, int detune );
     void AL_ResetVoices( void );
+    void AL_ResetVoices2( void );
     void AL_CalcPitchInfo( void );
     void AL_FlushCard ( int port );
     void AL_StereoOn( void );
