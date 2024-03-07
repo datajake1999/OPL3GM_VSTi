@@ -50,8 +50,8 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(&hi, 0, sizeof(hi));
 	memset(vu, 0, sizeof(vu));
 	CPULoad = 0;
-	initSynth ((int)sampleRate);
-	initBuffer (blockSize);
+	initSynth ();
+	initBuffer ();
 #ifdef demo
 	startTime = time(NULL);
 	srand(startTime);

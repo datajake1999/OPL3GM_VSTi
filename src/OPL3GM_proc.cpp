@@ -27,7 +27,7 @@ void OPL3GM::setSampleRate (float sampleRate)
 	{
 		internalRate = (VstInt32)sampleRate;
 	}
-	setSynthRate ((int)sampleRate);
+	changeSynthRate ();
 	dcf[0].SetRate(sampleRate);
 	dcf[1].SetRate(sampleRate);
 	lock.release();
@@ -38,7 +38,7 @@ void OPL3GM::setBlockSize (VstInt32 blockSize)
 	lock.acquire();
 	AudioEffectX::setBlockSize (blockSize);
 	clearBuffer ();
-	initBuffer (blockSize);
+	initBuffer ();
 	lock.release();
 }
 
@@ -48,7 +48,7 @@ void OPL3GM::setBlockSizeAndSampleRate (VstInt32 blockSize, float sampleRate)
 	setSampleRate (sampleRate);
 }
 
-void OPL3GM::initSynth (int sampleRate)
+void OPL3GM::initSynth ()
 {
 	synth = getsynth();
 	if (synth)
@@ -67,13 +67,12 @@ void OPL3GM::initSynth (int sampleRate)
 	loadInstruments (BankFile, BankName);
 }
 
-void OPL3GM::initBuffer (int blockSize)
+void OPL3GM::initBuffer ()
 {
-	bufferSize = blockSize;
-	buffer = new short[2*bufferSize];
+	buffer = new short[2*blockSize];
 	if (buffer)
 	{
-		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		memset(buffer, 0, (2*blockSize)*sizeof(short));
 	}
 }
 
@@ -97,13 +96,13 @@ void OPL3GM::clearBuffer ()
 {
 	if (buffer)
 	{
-		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		memset(buffer, 0, (2*blockSize)*sizeof(short));
 		delete[] buffer;
 		buffer = NULL;
 	}
 }
 
-void OPL3GM::setSynthRate (int sampleRate)
+void OPL3GM::changeSynthRate ()
 {
 	if (synth)
 	{
@@ -234,9 +233,9 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 
 	VstTimeInfo *timeinfo = getTimeInfo (0);
 
-	if (sampleFrames > bufferSize)
+	if (sampleFrames > blockSize)
 	{
-		sampleFrames = bufferSize;
+		sampleFrames = blockSize;
 	}
 
 	double begin = GetCPUTime();
@@ -321,7 +320,7 @@ void OPL3GM::calculateCPULoad (double begin, double end, int numsamples)
 {
 	double freq = GetCPUFrequency();
 	double GenerateDuration = (end - begin) / freq;
-	double BufferDuration = numsamples * (1.0 / getSampleRate ());
+	double BufferDuration = numsamples * (1.0 / sampleRate);
 	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 }
 
@@ -501,7 +500,7 @@ VstInt32 OPL3GM::startProcess ()
 	lock.acquire();
 	if (buffer)
 	{
-		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		memset(buffer, 0, (2*blockSize)*sizeof(short));
 		lock.release();
 		return 1;
 	}
@@ -514,7 +513,7 @@ VstInt32 OPL3GM::stopProcess ()
 	lock.acquire();
 	if (buffer)
 	{
-		memset(buffer, 0, (2*bufferSize)*sizeof(short));
+		memset(buffer, 0, (2*blockSize)*sizeof(short));
 		lock.release();
 		return 1;
 	}

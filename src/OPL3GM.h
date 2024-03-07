@@ -145,7 +145,7 @@ public:
 	virtual VstInt32 getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* category);
 	virtual bool hasMidiProgramsChanged (VstInt32 channel);
 	virtual bool getMidiKeyName (VstInt32 channel, MidiKeyName* keyName);
-	virtual void initializeSettings (bool resetRate);
+	virtual void initializeSettings (bool resetSynth);
 	virtual bool getBypass ();
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
@@ -165,11 +165,11 @@ private:
 	void adjustParameterIndex (VstInt32 index, VstInt32 adjust);
 	void renamePlug (char **text, const char *newName);
 #endif
-	void initSynth (int sampleRate);
-	void initBuffer (int blockSize);
+	void initSynth ();
+	void initBuffer ();
 	void clearSynth ();
 	void clearBuffer ();
-	void setSynthRate (int sampleRate);
+	void changeSynthRate ();
 	template <class sampletype>
 	void processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames);
 	void calculateCPULoad (double begin, double end, int numsamples);
@@ -180,7 +180,6 @@ private:
 	midisynth *synth;
 	DCFilter dcf[2];
 	short *buffer;
-	int bufferSize;
 	void *resampler;
 	short samples[2];
 	EventQueue MidiQueue;

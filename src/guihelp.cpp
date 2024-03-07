@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 
-void OPL3GM::initializeSettings (bool resetRate)
+void OPL3GM::initializeSettings (bool resetSynth)
 {
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	Volume = 1;
@@ -35,13 +35,16 @@ void OPL3GM::initializeSettings (bool resetRate)
 	lastRate = internalRate;
 	memset(BankFile, 0, sizeof(BankFile));
 	strncpy(BankName, "Default", sizeof(BankName));
-	if (resetRate)
+	if (resetSynth)
 	{
-		setSampleRate (getSampleRate ());
-	}
-	if (synth)
-	{
-		synth->midi_resetbank();
+		suspend ();
+		lock.acquire();
+		changeSynthRate ();
+		if (synth)
+		{
+			synth->midi_resetbank();
+		}
+		lock.release();
 	}
 }
 
@@ -52,6 +55,7 @@ bool OPL3GM::getBypass ()
 
 void OPL3GM::setInternalRate (VstInt32 rate)
 {
+	lock.acquire();
 	if (rate != internalRate)
 	{
 		internalRate = rate;
@@ -63,8 +67,9 @@ void OPL3GM::setInternalRate (VstInt32 rate)
 		{
 			internalRate = 1000;
 		}
-		setSampleRate (getSampleRate ());
+		changeSynthRate ();
 	}
+	lock.release();
 }
 
 VstInt32 OPL3GM::getInternalRate ()
@@ -94,8 +99,8 @@ void OPL3GM::hardReset ()
 	lock.acquire();
 	clearSynth ();
 	clearBuffer ();
-	initSynth ((int)sampleRate);
-	initBuffer (blockSize);
+	initSynth ();
+	initBuffer ();
 	lock.release();
 }
 
