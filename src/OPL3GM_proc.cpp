@@ -36,8 +36,8 @@ void OPL3GM::setSampleRate (float sampleRate)
 void OPL3GM::setBlockSize (VstInt32 blockSize)
 {
 	lock.acquire();
-	AudioEffectX::setBlockSize (blockSize);
 	clearBuffer ();
+	AudioEffectX::setBlockSize (blockSize);
 	initBuffer ();
 	lock.release();
 }
