@@ -796,8 +796,52 @@ void ApogeeOPL::AL_SetChannelPan
    // Don't pan drum sounds
    if ( channel != 9 )
       {
+      VOICE *voice;
       Channel[ channel ].Pan = pan;
+      voice = Channel[ channel ].Voices.start;
+      while( voice != NULL )
+         {
+         AL_SetVoicePan( voice->num );
+         voice = voice->next;
+         }
       }
+   }
+
+
+/*---------------------------------------------------------------------
+   Function: AL_SetVoicePan
+   
+   Sets the stereo voice panning of the specified AdLib voice.
+---------------------------------------------------------------------*/
+
+void ApogeeOPL::AL_SetVoicePan
+   (
+   int vn
+   )
+
+   {
+   VOICE *voice;
+   int channel;
+   int pan;
+   int port;
+   int voc;
+   int mask;
+   TIMBRE *timbre;
+   
+   voice = &Voice[ vn ];
+   channel = voice->channel;
+   pan = Channel[ channel ].Pan;
+   
+   port = voice->port;
+   voc  = ( vn >= NUM_VOICES ) ? vn - NUM_VOICES : vn;
+   timbre = &ADLIB_TimbreBank[ voice->timbre ];
+   if ( pan >= 96 )
+      mask = 0x10;
+   else if ( pan <= 48 )
+      mask = 0x20;
+   else
+      mask = 0x30;
+   AL_SendOutput( port, 0xC0 + voc, ( timbre->Feedback & 0x0f ) | mask );
    }
 
 
@@ -1208,6 +1252,7 @@ void ApogeeOPL::AL_NoteOn
    AL_SetVoiceTimbre( voice );
    AL_SetVoiceVolume( voice );
    AL_SetVoicePitch( voice );
+   AL_SetVoicePan( voice );
    }
 
 

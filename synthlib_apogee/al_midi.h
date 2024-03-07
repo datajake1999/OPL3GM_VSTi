@@ -59,6 +59,7 @@ private:
     void AL_SendOutput( int  voice, int reg, int data );
     void AL_SetVoiceTimbre( int voice );
     void AL_SetVoiceVolume( int voice );
+    void AL_SetVoicePan( int voice );
     int  AL_AllocVoice( void );
     int  AL_GetVoice( int channel, int key );
     void AL_SetVoicePitch( int voice );
