@@ -154,7 +154,11 @@ static BOOL SetOPLRate(HWND hWnd, OPL3GM* effect)
 		ZeroMemory(text, sizeof(text));
 		if (GetDlgItemText(hWnd, IDC_OPLRATE, text, MAX_PATH))
 		{
-			effect->setInternalRate (atoi(text));
+			VstInt32 rate = atoi(text);
+			if (rate != (VstInt32)effect->getSampleRate ())
+			{
+				effect->setInternalRate (rate);
+			}
 			sprintf(text, "%d", effect->getInternalRate ());
 			SetDlgItemText(hWnd, IDC_OPLRATE, text);
 			return TRUE;
