@@ -126,7 +126,10 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		}
 		else
 		{
-			lastRate = internalRate;
+			if (internalRate != (VstInt32)sampleRate)
+			{
+				lastRate = internalRate;
+			}
 			setInternalRate ((VstInt32)sampleRate);
 		}
 		break;
