@@ -44,4 +44,5 @@ public:
 
 midisynth* getsynth();
 fm_chip* getchip();
+
 #endif
