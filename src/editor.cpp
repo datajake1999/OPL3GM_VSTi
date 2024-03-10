@@ -182,6 +182,7 @@ static BOOL InitDialog(HWND hWnd)
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
 		char text[MAX_PATH];
+		ZeroMemory(text, sizeof(text));
 		for (VstInt32 i = 0; i < sizeof(rates) / sizeof(int); i++)
 		{
 			sprintf(text, "%d", rates[i]);
@@ -198,6 +199,7 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 	{
 		float ParamValue;
 		char text[MAX_PATH];
+		ZeroMemory(text, sizeof(text));
 		SendDlgItemMessage(hWnd, IDC_PRESET, CB_RESETCONTENT, 0, 0);
 		for (VstInt32 i = 0; i < kNumPrograms; i++)
 		{
@@ -319,6 +321,8 @@ static UINT HelpBox(HWND hWnd)
 	{
 		char caption[MAX_PATH];
 		char text[MAX_PATH];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_HELPCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HELPTXT, text, MAX_PATH);
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
@@ -367,6 +371,8 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
 		ZeroMemory(title, sizeof(title));
+		ZeroMemory(filter, sizeof(filter));
+		ZeroMemory(caption, sizeof(caption));
 		LoadString((HINSTANCE)hInstance, IDS_FILEFLT, filter, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_FILECAP, caption, MAX_PATH);
 		ofn.lStructSize = sizeof(ofn);
@@ -386,6 +392,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.Flags |= OFN_DONTADDTORECENT;
 #endif
 		char synthname[kVstMaxEffectNameLen];
+		ZeroMemory(synthname, sizeof(synthname));
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Apogee OPL3"))
 		{
@@ -400,6 +407,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		else if (!strcmp(synthname, "Windows 9x OPL3"))
 		{
 			char text[MAX_PATH];
+			ZeroMemory(text, sizeof(text));
 			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
 			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
 			MessageBox(hWnd, text, caption, MB_ICONEXCLAMATION);
@@ -457,6 +465,8 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			{
 				char temp[MAX_PATH];
 				char text[MAX_PATH];
+				ZeroMemory(temp, sizeof(temp));
+				ZeroMemory(text, sizeof(text));
 				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
 				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
 				sprintf(text, temp, ofn.lpstrFile);
@@ -476,11 +486,14 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 	if (hWnd && effect)
 	{
 		char synthname[kVstMaxEffectNameLen];
+		ZeroMemory(synthname, sizeof(synthname));
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Windows 9x OPL3"))
 		{
 			char caption[MAX_PATH];
 			char text[MAX_PATH];
+			ZeroMemory(caption, sizeof(caption));
+			ZeroMemory(text, sizeof(text));
 			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
 			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
 			MessageBox(hWnd, text, caption, MB_ICONEXCLAMATION);
@@ -496,6 +509,9 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 				char caption[MAX_PATH];
 				char temp[MAX_PATH];
 				char text[MAX_PATH];
+				ZeroMemory(caption, sizeof(caption));
+				ZeroMemory(temp, sizeof(temp));
+				ZeroMemory(text, sizeof(text));
 				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
 				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
 				sprintf(text, temp, filename);
@@ -518,6 +534,8 @@ static BOOL AboutBox(HWND hWnd)
 	{
 		char caption[MAX_PATH];
 		char text[MAX_PATH];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_ABOUTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_ABOUTTXT, text, MAX_PATH);
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
@@ -533,6 +551,9 @@ static BOOL StatisticsBox(HWND hWnd, OPL3GM* effect)
 		char caption[MAX_PATH];
 		char temp[MAX_PATH];
 		char text[MAX_PATH];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(temp, sizeof(temp));
+		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_STATSCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_STATSTXT, temp, MAX_PATH);
 		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize (), g_useCount);
@@ -549,6 +570,9 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		char caption[MAX_PATH];
 		char temp[MAX_PATH];
 		char text[MAX_PATH];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(temp, sizeof(temp));
+		ZeroMemory(text, sizeof(text));
 		HostInfo *hi = effect->getHostInfo ();
 		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
@@ -556,6 +580,7 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		if (!strcmp(hi->VendorString, "Cockos"))
 		{
 			char approve[32];
+			ZeroMemory(approve, sizeof(approve));
 			LoadString((HINSTANCE)hInstance, IDS_REAPPROVE, approve, sizeof(approve));
 			strncat(text, approve, sizeof(approve));
 		}
@@ -571,6 +596,8 @@ static BOOL ProjectPage(HWND hWnd)
 	{
 		char caption[MAX_PATH];
 		char text[MAX_PATH];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_WEBCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_WEBTXT, text, MAX_PATH);
 		if (MessageBox(hWnd, text, caption, MB_ICONQUESTION | MB_YESNO) == IDYES)
@@ -1305,6 +1332,7 @@ bool Editor::open (void* ptr)
 	if (dlg)
 	{
 		char synthname[kVstMaxEffectNameLen];
+		ZeroMemory(synthname, sizeof(synthname));
 		if (effect)
 		{
 			((AudioEffectX*)effect)->getEffectName (synthname);
@@ -1351,11 +1379,13 @@ void Editor::idle ()
 			return;
 		}
 		char text[MAX_PATH];
+		ZeroMemory(text, sizeof(text));
 		int numvoices = ((OPL3GM*)effect)->getActiveVoices ();
 		sprintf(text, "%d/18", numvoices);
 		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
 		float vu = ((OPL3GM*)effect)->getVu ();
 		char vustr[kVstMaxParamStrLen*2];
+		ZeroMemory(vustr, sizeof(vustr));
 		effect->dB2string (vu, vustr, (kVstMaxParamStrLen*2)-1);
 		sprintf(text, "%s dB", vustr);
 		SetDlgItemText((HWND)dlg, IDC_VU, text);
