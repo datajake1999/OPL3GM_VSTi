@@ -1376,7 +1376,7 @@ bool Editor::open (void* ptr)
 			SetWindowLong(kbdwin, 0, (LONG)&keyboard);
 #endif
 		}
-		refresh ();
+		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
 		return true;
