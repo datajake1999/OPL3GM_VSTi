@@ -434,6 +434,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 				ofn.lpstrInitialDir = directory;
 			}
 			RegCloseKey(hKey);
+			hKey = NULL;
 		}
 		if (expstyle == 1)
 		{
