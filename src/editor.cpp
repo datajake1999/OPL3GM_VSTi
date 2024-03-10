@@ -1294,14 +1294,12 @@ Editor::Editor (AudioEffect* effect)
 	if (g_useCount == 1)
 	{
 		WNDCLASS KeyboardClass;
+		ZeroMemory(&KeyboardClass, sizeof(KeyboardClass));
 		KeyboardClass.style = CS_HREDRAW | CS_VREDRAW;
 		KeyboardClass.lpfnWndProc = (WNDPROC)KeyboardProc;
-		KeyboardClass.cbClsExtra = 0;
 		KeyboardClass.cbWndExtra = sizeof(KeyboardInfo*);
 		KeyboardClass.hInstance = (HINSTANCE)hInstance;
-		KeyboardClass.hIcon = 0;
 		KeyboardClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-		KeyboardClass.hbrBackground = 0;
 		HBITMAP hBitmap = LoadBitmap((HINSTANCE)hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 		if (hBitmap)
 		{
@@ -1311,7 +1309,6 @@ Editor::Editor (AudioEffect* effect)
 				KeyboardClass.hbrBackground = hBrush;
 			}
 		}
-		KeyboardClass.lpszMenuName = 0;
 		KeyboardClass.lpszClassName = classname;
 		RegisterClass(&KeyboardClass);
 	}
@@ -1336,6 +1333,7 @@ bool Editor::getRect (ERect** rect)
 	if (dlg)
 	{
 		RECT wndrect;
+		ZeroMemory(&wndrect, sizeof(wndrect));
 		if (GetWindowRect((HWND)dlg, &wndrect))
 		{
 			vstrect.top = (VstInt16)wndrect.top;
