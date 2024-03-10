@@ -135,7 +135,7 @@ static BOOL SetBypassState(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
-		if (SendDlgItemMessage(hWnd, IDC_BYPASS, BM_GETCHECK, 0, 0))
+		if (IsDlgButtonChecked(hWnd, IDC_BYPASS))
 		{
 			effect->setBypass (true);
 		}
@@ -226,66 +226,66 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		ParamValue = effect->getParameter (kVolumeDisplay);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_DISPLAY, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_DISPLAY, BST_UNCHECKED);
 		}
 		ParamValue = effect->getParameter (kEmulator);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_NUKED, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_NUKED, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_NUKED, BST_UNCHECKED);
 		}
 		ParamValue = effect->getParameter (kHQResample);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_RESAMPLE, BST_CHECKED);
 			EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), TRUE);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_RESAMPLE, BST_UNCHECKED);
 			EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), FALSE);
 		}
 		ParamValue = effect->getParameter (kDCBlock);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_DC, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_DC, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_DC, BST_UNCHECKED);
 		}
 		ParamValue = effect->getParameter (kNoiseGate);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_GATE, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_GATE, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_GATE, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_GATE, BST_UNCHECKED);
 		}
 		ParamValue = effect->getParameter (kPushMidi);
 		if (ParamValue >= 0.5)
 		{
-			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_QUEUE, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_QUEUE, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_QUEUE, BST_UNCHECKED);
 		}
 		if (effect->getBypass ())
 		{
-			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_CHECKED, 0);
+			CheckDlgButton(hWnd, IDC_BYPASS, BST_CHECKED);
 		}
 		else
 		{
-			SendDlgItemMessage(hWnd, IDC_BYPASS, BM_SETCHECK, BST_UNCHECKED, 0);
+			CheckDlgButton(hWnd, IDC_BYPASS, BST_UNCHECKED);
 		}
 		sprintf(text, "%d", effect->getInternalRate ());
 		SetDlgItemText(hWnd, IDC_OPLRATE, text);
@@ -648,7 +648,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 			}
 		case IDC_DISPLAY:
-			if (SendDlgItemMessage(hWnd, IDC_DISPLAY, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_DISPLAY))
 			{
 				return SetParameterValue(effect, kVolumeDisplay, 1);
 			}
@@ -657,7 +657,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kVolumeDisplay, 0);
 			}
 		case IDC_NUKED:
-			if (SendDlgItemMessage(hWnd, IDC_NUKED, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_NUKED))
 			{
 				return SetParameterValue(effect, kEmulator, 1);
 			}
@@ -666,7 +666,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kEmulator, 0);
 			}
 		case IDC_RESAMPLE:
-			if (SendDlgItemMessage(hWnd, IDC_RESAMPLE, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_RESAMPLE))
 			{
 				EnableWindow(GetDlgItem(hWnd, IDC_OPLRATE), TRUE);
 				return SetParameterValue(effect, kHQResample, 1);
@@ -677,7 +677,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kHQResample, 0);
 			}
 		case IDC_DC:
-			if (SendDlgItemMessage(hWnd, IDC_DC, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_DC))
 			{
 				return SetParameterValue(effect, kDCBlock, 1);
 			}
@@ -686,7 +686,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kDCBlock, 0);
 			}
 		case IDC_GATE:
-			if (SendDlgItemMessage(hWnd, IDC_GATE, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_GATE))
 			{
 				return SetParameterValue(effect, kNoiseGate, 1);
 			}
@@ -695,7 +695,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return SetParameterValue(effect, kNoiseGate, 0);
 			}
 		case IDC_QUEUE:
-			if (SendDlgItemMessage(hWnd, IDC_QUEUE, BM_GETCHECK, 0, 0))
+			if (IsDlgButtonChecked(hWnd, IDC_QUEUE))
 			{
 				return SetParameterValue(effect, kPushMidi, 1);
 			}
@@ -1396,7 +1396,7 @@ void Editor::idle ()
 {
 	if (effect && dlg)
 	{
-		if (SendDlgItemMessage((HWND)dlg, IDC_FREEZE, BM_GETCHECK, 0, 0))
+		if (IsDlgButtonChecked((HWND)dlg, IDC_FREEZE))
 		{
 			return;
 		}
