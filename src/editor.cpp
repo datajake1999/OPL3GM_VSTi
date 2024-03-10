@@ -381,6 +381,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		LoadString((HINSTANCE)hInstance, IDS_FILECAP, caption, MAX_PATH);
 		ofn.lStructSize = sizeof(ofn);
 		ofn.hwndOwner = hWnd;
+		ofn.hInstance = (HINSTANCE)hInstance;
 		ofn.lpstrFilter = filter;
 		ofn.nFilterIndex = 1;
 		ofn.lpstrFile = filename;
