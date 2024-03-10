@@ -644,9 +644,12 @@ bool OPL3GM::getEffectName (char* name)
 	if (synth)
 	{
 		vst_strncpy (name, synth->midi_synthname(), kVstMaxEffectNameLen-1);
-		return true;
 	}
-	return false;
+	else
+	{
+		vst_strncpy (name, "OPL3GM", kVstMaxEffectNameLen-1);
+	}
+	return true;
 }
 
 bool OPL3GM::getVendorString (char* text)
