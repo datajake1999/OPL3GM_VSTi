@@ -720,11 +720,19 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				effect->suspend ();
 				return TRUE;
 			}
+			else
+			{
+				return FALSE;
+			}
 		case IDC_RESET:
 			if (effect)
 			{
 				effect->resume ();
 				return TRUE;
+			}
+			else
+			{
+				return FALSE;
 			}
 		case IDC_ABOUT:
 			return AboutBox(hWnd);
@@ -738,12 +746,20 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				effect->hardReset ();
 				return TRUE;
 			}
+			else
+			{
+				return FALSE;
+			}
 		case IDC_FORGET:
 			if (effect)
 			{
 				effect->initializeSettings (true);
 				RefreshDialog(hWnd, effect);
 				return TRUE;
+			}
+			else
+			{
+				return FALSE;
 			}
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
