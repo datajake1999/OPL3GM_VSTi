@@ -1234,7 +1234,7 @@ static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 	return TRUE;
 }
 
-static BOOL WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+static LRESULT WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
 	KeyboardInfo* info = (KeyboardInfo*)GetWindowLongPtr(hWnd, 0);
