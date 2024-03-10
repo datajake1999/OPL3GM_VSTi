@@ -332,7 +332,7 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 		return;
 	}
 	bufpos += 2*offset;
-	if (sampleRate == internalRate)
+	if (internalRate == (VstInt32)sampleRate)
 	{
 		if (synth)
 		{
