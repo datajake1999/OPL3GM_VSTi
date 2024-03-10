@@ -787,7 +787,7 @@ static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channe
 	}
 }
 
-static void KeyboardNoteOn(VstInt32 note, KeyboardInfo* info)
+static void KeyboardNoteOn(KeyboardInfo* info, VstInt32 note)
 {
 	if (note == -1)
 	{
@@ -799,7 +799,7 @@ static void KeyboardNoteOn(VstInt32 note, KeyboardInfo* info)
 	}
 }
 
-static void KeyboardNoteOff(VstInt32 note, KeyboardInfo* info)
+static void KeyboardNoteOff(KeyboardInfo* info, VstInt32 note)
 {
 	if (note == -1)
 	{
@@ -937,7 +937,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	{
 		if (!(lParam & (1 << 30)))
 		{
-			KeyboardNoteOn(note, info);
+			KeyboardNoteOn(info, note);
 			return FALSE;
 		}
 		return TRUE;
@@ -1222,7 +1222,7 @@ static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 	VstInt32 note = char2note(NULL, wParam);
 	if (note >= 0)
 	{
-		KeyboardNoteOff(note, info);
+		KeyboardNoteOff(info, note);
 		return FALSE;
 	}
 	switch (wParam)
