@@ -61,6 +61,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define VK_OEM_MINUS      0xBD   // '-' any country
 #endif
 #define KEYWASDOWN (1 << 30)
+#define KEYNAME "SOFTWARE\\Datajake\\OPL3GM"
+#define PROJPAGE "https://github.com/datajake1999/OPL3GM_VSTi"
 
 static int g_useCount = 0;
 static HBRUSH hBrush = NULL;
@@ -420,7 +422,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		DWORD help = 0;
 		char directory[MAX_PATH];
 		ZeroMemory(directory, sizeof(directory));
-		if (RegOpenKeyEx(HKEY_CURRENT_USER, keyname, 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+		if (RegOpenKeyEx(HKEY_CURRENT_USER, KEYNAME, 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			DWORD type = REG_DWORD;
 			DWORD len = sizeof(DWORD);
@@ -605,7 +607,7 @@ static BOOL ProjectPage(HWND hWnd)
 		LoadString((HINSTANCE)hInstance, IDS_WEBTXT, text, MAX_PATH);
 		if (MessageBox(hWnd, text, caption, MB_ICONQUESTION | MB_YESNO) == IDYES)
 		{
-			ShellExecute(hWnd, NULL, projpage, NULL, NULL, 0);
+			ShellExecute(hWnd, NULL, PROJPAGE, NULL, NULL, 0);
 			return TRUE;
 		}
 	}
@@ -1309,7 +1311,7 @@ Editor::Editor (AudioEffect* effect)
 				KeyboardClass.hbrBackground = hBrush;
 			}
 		}
-		KeyboardClass.lpszClassName = classname;
+		KeyboardClass.lpszClassName = CLASSNAME;
 		RegisterClass(&KeyboardClass);
 	}
 }
@@ -1319,7 +1321,7 @@ Editor::~Editor ()
 	g_useCount--;
 	if (g_useCount == 0)
 	{
-		UnregisterClass(classname, (HINSTANCE)hInstance);
+		UnregisterClass(CLASSNAME, (HINSTANCE)hInstance);
 		if (hBrush)
 		{
 			DeleteObject(hBrush);

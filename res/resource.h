@@ -59,6 +59,7 @@
 #define IDC_KEYBOARD                    431
 #define IDC_PROJPAGE                    432
 #define IDB_BITMAP1                     501
+#define CLASSNAME                       "OPL3GMKBD"
 
 // Next default values for new objects
 // 
@@ -70,7 +71,3 @@
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
-
-#define keyname "SOFTWARE\\Datajake\\OPL3GM"
-#define projpage "https://github.com/datajake1999/OPL3GM_VSTi"
-#define classname "OPL3GMKBD"
