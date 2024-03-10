@@ -60,6 +60,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifndef VK_OEM_MINUS
 #define VK_OEM_MINUS      0xBD   // '-' any country
 #endif
+#define KEYWASDOWN (1 << 30)
 
 static int g_useCount = 0;
 static HBRUSH hBrush = NULL;
@@ -953,7 +954,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	VstInt32 note = char2note(hWnd, wParam);
 	if (note >= 0)
 	{
-		if (!(lParam & (1 << 30)))
+		if (!(lParam & KEYWASDOWN))
 		{
 			KeyboardNoteOn(info, note);
 			return FALSE;
@@ -1211,7 +1212,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_SHIFT:
-		if (!(lParam & (1 << 30)))
+		if (!(lParam & KEYWASDOWN))
 		{
 			KeyboardControlChange(info, 64, 127);
 			return FALSE;
