@@ -389,7 +389,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		ofn.lpstrFileTitle = title;
 		ofn.nMaxFileTitle = MAX_PATH;
 		ofn.lpstrTitle = caption;
-		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_LONGNAMES;
+		ofn.Flags = OFN_ENABLEHOOK | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_LONGNAMES | OFN_NOCHANGEDIR;
 #ifdef OFN_ENABLESIZING
 		ofn.Flags |= OFN_ENABLESIZING;
 #endif
