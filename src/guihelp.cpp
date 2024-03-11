@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 void OPL3GM::initializeSettings (bool resetSynth)
 {
+	lock.acquire();
 	vst_strncpy (ProgramName, "Default", kVstMaxProgNameLen-1);
 	Volume = 1;
 	VolumeDisplay = 0;
@@ -38,14 +39,13 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	if (resetSynth)
 	{
 		suspend ();
-		lock.acquire();
 		changeSynthRate ();
 		if (synth)
 		{
 			synth->midi_resetbank();
 		}
-		lock.release();
 	}
+	lock.release();
 }
 
 bool OPL3GM::getBypass ()

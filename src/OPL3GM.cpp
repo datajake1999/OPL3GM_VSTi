@@ -415,7 +415,9 @@ VstInt32 OPL3GM::getProgram ()
 
 void OPL3GM::setProgramName (char *name)
 {
+	lock.acquire();
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
+	lock.release();
 #ifdef GUI
 	if (editor)
 	{
