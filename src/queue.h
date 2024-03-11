@@ -22,7 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include <pluginterfaces/vst2.x/aeffectx.h>
 
-#define evbufsize 1024
+#define EVBUFSIZE 1024
 
 class EventQueue
 {
@@ -36,7 +36,7 @@ public:
 	VstInt32 GetEventTimeAt(VstInt32 ahead);
 	void Flush(bool clear);
 private:
-	VstEvent Events[evbufsize];
+	VstEvent Events[EVBUFSIZE];
 	VstInt32 Write;
 	VstInt32 Read;
 	VstInt32 Count;

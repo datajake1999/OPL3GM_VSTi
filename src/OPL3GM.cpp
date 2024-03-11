@@ -18,8 +18,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "OPL3GM.h"
-//#define gui
-#ifdef gui
+//#define GUI
+#ifdef GUI
 #include "editor.h"
 #endif
 
@@ -52,11 +52,11 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	CPULoad = 0;
 	initSynth ();
 	initBuffer ();
-#ifdef demo
+#ifdef DEMO
 	startTime = time(NULL);
 	srand(startTime);
 #endif
-#ifdef gui
+#ifdef GUI
 	editor = new Editor (this);
 #endif
 }
@@ -141,7 +141,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	{
 		suspend ();
 	}
-#ifdef gui
+#ifdef GUI
 	if (editor)
 	{
 		((Editor*)editor)->refresh ();
@@ -350,7 +350,7 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		setInternalRate (lastRate);
 	}
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
-#ifdef gui
+#ifdef GUI
 	if (editor)
 	{
 		((Editor*)editor)->refresh ();
@@ -393,7 +393,7 @@ void OPL3GM::setProgram (VstInt32 program)
 		return;
 	}
 	curProgram = program;
-#ifdef gui
+#ifdef GUI
 	if (editor)
 	{
 		((Editor*)editor)->refresh ();
@@ -409,7 +409,7 @@ VstInt32 OPL3GM::getProgram ()
 void OPL3GM::setProgramName (char *name)
 {
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
-#ifdef gui
+#ifdef GUI
 	if (editor)
 	{
 		((Editor*)editor)->refresh ();
@@ -661,7 +661,7 @@ bool OPL3GM::getVendorString (char* text)
 bool OPL3GM::getProductString (char* text)
 {
 	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen-1);
-#ifdef demo
+#ifdef DEMO
 	vst_strncat (text, " Demo", kVstMaxProductStrLen-1);
 #endif
 	return true;
@@ -681,7 +681,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 {
 	switch (lArg)
 	{
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	case effGetParamDisplay:
 		if (lArg2 >= 0 && lArg2 < kNumParams)
 		{
@@ -771,7 +771,7 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	if (!strcmp (text, "bypass"))
 	return 1;
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	if (!strcmp (text, "hasCockosExtensions"))
 	return 0xbeef0000;
 	if (!strcmp (text, "hasCockosSampleAccurateAutomation"))

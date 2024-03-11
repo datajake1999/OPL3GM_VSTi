@@ -25,8 +25,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "../dsp/resampler.h"
 #include <public.sdk/source/vst2.x/audioeffectx.h>
 #include "queue.h"
-#define reaper_extensions 1
-#if reaper_extensions
+#define REAPER_EXTENSIONS 1
+#if REAPER_EXTENSIONS
 #include "parmstruct.h"
 #endif
 #include "lock.h"
@@ -34,8 +34,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#define demo
-#ifdef demo
+//#define DEMO
+#ifdef DEMO
 #include <time.h>
 #endif
 
@@ -156,7 +156,7 @@ public:
 	virtual HostInfo *getHostInfo ();
 	virtual double getCPULoad ();
 private:
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	void getParameterDisplayValue (VstInt32 index, char* text, float value);
 	void string2parameterReplace (VstInt32 index, char* text);
 	bool isEnumParameter (VstInt32 index);
@@ -183,7 +183,7 @@ private:
 	void *resampler;
 	short samples[2];
 	EventQueue MidiQueue;
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	EventQueue ParameterQueue;
 #endif
 	char ProgramName[kVstMaxProgNameLen];
@@ -205,7 +205,7 @@ private:
 	LockableObject lock;
 	double vu[2];
 	double CPULoad;
-#ifdef demo
+#ifdef DEMO
 	time_t startTime;
 #endif
 };

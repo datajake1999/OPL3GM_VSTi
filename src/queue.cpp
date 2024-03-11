@@ -29,17 +29,17 @@ EventQueue::EventQueue()
 
 bool EventQueue::EnqueueEvent(VstEvent *ev)
 {
-	if (Count == evbufsize || !ev)
+	if (Count == EVBUFSIZE || !ev)
 	{
 		return false;
 	}
 	memcpy(&Events[Write], ev, sizeof(VstEvent));
 	Write++;
-	Write = Write%evbufsize;
+	Write = Write%EVBUFSIZE;
 	Count++;
-	if (Count > evbufsize)
+	if (Count > EVBUFSIZE)
 	{
-		Count = evbufsize;
+		Count = EVBUFSIZE;
 	}
 	return true;
 }
@@ -52,7 +52,7 @@ VstEvent *EventQueue::GetNextEvent()
 	}
 	VstEvent *ev = &Events[Read];
 	Read++;
-	Read = Read%evbufsize;
+	Read = Read%EVBUFSIZE;
 	Count--;
 	if (Count < 0)
 	{
@@ -90,7 +90,7 @@ VstInt32 EventQueue::GetEventTimeAt(VstInt32 ahead)
 	{
 		return -1;
 	}
-	VstInt32 num = (Read+ahead)%evbufsize;
+	VstInt32 num = (Read+ahead)%EVBUFSIZE;
 	return Events[num].deltaFrames;
 }
 

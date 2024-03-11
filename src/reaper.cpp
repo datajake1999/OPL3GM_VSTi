@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "OPL3GM.h"
 
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 {
 	switch (index)

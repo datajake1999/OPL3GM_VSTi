@@ -140,7 +140,7 @@ void OPL3GM::suspend ()
 {
 	lock.acquire();
 	MidiQueue.Flush(true);
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	ParameterQueue.Flush(true);
 #endif
 	if (synth)
@@ -247,7 +247,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		{
 			processEvent (MidiQueue.GetNextEvent());
 		}
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 		while (ParameterQueue.HasEvents() && ParameterQueue.GetEventTime() <= i)
 		{
 			processEvent (ParameterQueue.GetNextEvent());
@@ -270,7 +270,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out1[i] = (sampletype)dcf[0].ProcessGate(out1[i]);
 			}
 			out1[i] = out1[i] * Volume;
-#ifdef demo
+#ifdef DEMO
 			if (time(NULL) >= startTime + 600)
 			{
 				out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
@@ -294,7 +294,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out2[i] = (sampletype)dcf[1].ProcessGate(out2[i]);
 			}
 			out2[i] = out2[i] * Volume;
-#ifdef demo
+#ifdef DEMO
 			if (time(NULL) >= startTime + 600)
 			{
 				out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
@@ -307,7 +307,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	{
 		processEvent (MidiQueue.GetNextEvent());
 	}
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	while (ParameterQueue.HasEvents())
 	{
 		processEvent (ParameterQueue.GetNextEvent());
@@ -394,9 +394,9 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 	if (PushMidi >= 0.5)
 	{
 		VstInt32 eventCount = ev->numEvents;
-		if (eventCount > evbufsize)
+		if (eventCount > EVBUFSIZE)
 		{
-			eventCount = evbufsize;
+			eventCount = EVBUFSIZE;
 		}
 		for (VstInt32 i = 0; i < eventCount; i++)
 		{
@@ -450,7 +450,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 		}
 	}
 #endif
-#if reaper_extensions
+#if REAPER_EXTENSIONS
 	else if (ev->type == kVstParameterType)
 	{
 		VstParameterEvent* event = (VstParameterEvent*)ev;
