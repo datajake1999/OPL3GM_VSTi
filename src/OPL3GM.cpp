@@ -90,6 +90,7 @@ void OPL3GM::close ()
 
 void OPL3GM::setParameter (VstInt32 index, float value)
 {
+	lock.acquire();
 	switch (index)
 	{
 	case kVolume:
@@ -100,9 +101,13 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		break;
 	case kDCBlock:
 		DCBlock = value;
+		dcf[0].ResetState();
+		dcf[1].ResetState();
 		break;
 	case kNoiseGate:
 		NoiseGate = value;
+		dcf[0].ResetState();
+		dcf[1].ResetState();
 		break;
 	case kTranspose:
 		Transpose = (value*24.0f)-12.0f;
@@ -117,6 +122,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		break;
 	case kEmulator:
 		Emulator = value;
+		changeSynthRate ();
 		break;
 	case kHQResample:
 		HQResample = value;
@@ -141,6 +147,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 	{
 		suspend ();
 	}
+	lock.release();
 #ifdef GUI
 	if (editor)
 	{
