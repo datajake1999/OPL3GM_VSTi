@@ -47,7 +47,7 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 
 * OPL3 mode enable: Set DMXOPTION environment variable to "-opl3" 
 * Doom 1 1.666 mode enable: Set DMXOPTION environment variable to "-doom1" 
-* Doom 2 1.666, Heretic, Hexen mode enable: Set DMXOPTION environment variable to "-doom2" 
+* Doom 2Â 1.666, Heretic, HexenÂ mode enable: Set DMXOPTION environment variable to "-doom2" 
 
 You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-doom1"
 
@@ -60,7 +60,7 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 * Transpose: Applies an offset to Incoming MIDI notes.
 * Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
 * HQResample: Internally Runs OPL3 emulation at the native OPL3 sample rate (49716 hZ), then resamples to the host sample rate using a decent algorithm.
-* PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback.
+* PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback with large audio buffers.
 
 # What's with the GUI?
 
