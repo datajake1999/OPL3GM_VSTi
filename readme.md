@@ -92,6 +92,16 @@ The User Interfaces of most audio plugins draw graphics directly to the screen. 
 
 * This is only a VST2 compatible plug-in. A VST3 version Is not planned for various reasons.
 
+# Building from source
+In order to build OPL3GM you will need
+
+* Microsoft Visual Studio 2005
+* Windows Server 2003 Platform SDK
+* InnoSetup 5.4.3
+* 7-Zip
+
+After installing, just run build.bat. You may need to change the paths defined in this script to correspond with your installation of the build tools.
+
 # License
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
