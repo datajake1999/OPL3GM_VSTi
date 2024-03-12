@@ -177,6 +177,7 @@ bool OPL3GM::isEnumParameter (VstInt32 index)
 bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
 {
 	VstParameterEvent ev;
+	memset(&ev, 0, sizeof(ev));
 	ev.type = kVstParameterType;
 	ev.byteSize = sizeof(VstParameterEvent);
 	ev.deltaFrames = timestamp;
