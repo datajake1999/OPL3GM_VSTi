@@ -30,7 +30,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "parmstruct.h"
 #endif
 #include "lock.h"
-#include "cpu.h"
+#include "CPU.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
