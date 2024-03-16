@@ -1224,6 +1224,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	case VK_BACK:
 		KeyboardProgramChange(info);
 		KeyboardPitchBend(info);
+		SetWindowText(hWnd, "Synth refreshed");
 		return FALSE;
 	case VK_SPACE:
 		info->Channel = 0;
