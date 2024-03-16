@@ -119,6 +119,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		{
 			Transpose = -12;
 		}
+		suspend ();
 		break;
 	case kEmulator:
 		Emulator = value;
@@ -141,11 +142,8 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		break;
 	case kPushMidi:
 		PushMidi = value;
-		break;
-	}
-	if (index >= kTranspose && index < kNumParams)
-	{
 		suspend ();
+		break;
 	}
 	lock.release();
 #ifdef GUI
