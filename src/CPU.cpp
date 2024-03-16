@@ -1,4 +1,5 @@
 /*
+CPU Monitor Helper Functions
 Copyright (C) 2021-2024  Datajake
 
 This program is free software; you can redistribute it and/or modify
