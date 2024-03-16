@@ -411,7 +411,6 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 			else if (ev->events[i]->type == kVstSysExType)
 			{
 				processEvent (ev->events[i]);
-				continue;
 			}
 #endif
 		}
