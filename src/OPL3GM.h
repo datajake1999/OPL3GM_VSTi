@@ -178,10 +178,10 @@ private:
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
 	midisynth *synth;
-	DCFilter dcf[2];
 	short *buffer;
 	void *resampler;
 	short samples[2];
+	DCFilter dcf[2];
 	EventQueue MidiQueue;
 #if REAPER_EXTENSIONS
 	EventQueue ParameterQueue;
