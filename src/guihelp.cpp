@@ -39,6 +39,8 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	if (resetSynth)
 	{
 		suspend ();
+		dcf[0].ResetState();
+		dcf[1].ResetState();
 		changeSynthRate ();
 		if (synth)
 		{
