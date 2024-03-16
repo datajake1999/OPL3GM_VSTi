@@ -98,7 +98,7 @@ public:
     void midi_close();
     const char *midi_synthname(void);
     int midi_getprogram(unsigned int channel);
-    bool midi_loadbank(char *filename);
+    bool midi_loadbank(const char *filename);
     void midi_resetbank();
     int midi_getvoicecount();
 };

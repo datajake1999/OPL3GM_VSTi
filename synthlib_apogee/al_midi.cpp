@@ -1641,7 +1641,7 @@ int ApogeeOPL::midi_getprogram(unsigned int channel)
     return Channel[ channel ].Timbre;
 }
 
-bool ApogeeOPL::midi_loadbank(char *filename)
+bool ApogeeOPL::midi_loadbank(const char *filename)
 {
     return AL_LoadBank(filename);
 }

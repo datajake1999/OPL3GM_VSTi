@@ -1081,7 +1081,7 @@ int DoomOPL::midi_getprogram(unsigned int channel) {
 	return channelp->program;
 }
 
-bool DoomOPL::midi_loadbank(char *filename) {
+bool DoomOPL::midi_loadbank(const char *filename) {
 	return LoadInstrumentTable(filename);
 }
 

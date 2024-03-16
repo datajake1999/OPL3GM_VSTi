@@ -37,7 +37,7 @@ public:
 	virtual void midi_close() = 0;
 	virtual const char *midi_synthname(void) = 0;
 	virtual int midi_getprogram(unsigned int channel) = 0;
-	virtual bool midi_loadbank(char *filename) { return false; }
+	virtual bool midi_loadbank(const char *filename) { return false; }
 	virtual void midi_resetbank() { }
 	virtual int midi_getvoicecount() = 0;
 };
