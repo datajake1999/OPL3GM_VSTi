@@ -540,6 +540,28 @@ void OPL3MIDI::midi_changerate(unsigned int rate)
             opl_writereg(OPL_BLOCK + 0x100 + i, 0x00);
         }
     }
+
+    for (i = 0; i < opl_voice_num; i++)
+    {
+        opl_voices[i].num = i % 9;
+        opl_voices[i].mod = opl_voice_map[i % 9];
+        opl_voices[i].car = opl_voice_map[i % 9] + 3;
+        if (i >= 9)
+        {
+            opl_voices[i].num += 0x100;
+            opl_voices[i].mod += 0x100;
+            opl_voices[i].car += 0x100;
+        }
+        opl_voices[i].freq = 0;
+        opl_voices[i].freqpitched = 0;
+        opl_voices[i].time = 0;
+        opl_voices[i].note = 0;
+        opl_voices[i].velocity = 0;
+        opl_voices[i].keyon = false;
+        opl_voices[i].sustained = false;
+        opl_voices[i].timbre = &opl_timbres[0];
+        opl_voices[i].channel = &opl_channels[0];
+    }
 }
 
 void OPL3MIDI::midi_write(unsigned int data)
