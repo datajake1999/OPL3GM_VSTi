@@ -400,17 +400,20 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 		}
 		for (VstInt32 i = 0; i < eventCount; i++)
 		{
+			if (ev->events[i]->type == kVstMidiType)
+			{
+				if (!MidiQueue.EnqueueEvent(ev->events[i]))
+				{
+					break;
+				}
+			}
 #if VST_2_4_EXTENSIONS
-			if (ev->events[i]->type == kVstSysExType)
+			else if (ev->events[i]->type == kVstSysExType)
 			{
 				processEvent (ev->events[i]);
 				continue;
 			}
 #endif
-			if (!MidiQueue.EnqueueEvent(ev->events[i]))
-			{
-				break;
-			}
 		}
 	}
 	else
