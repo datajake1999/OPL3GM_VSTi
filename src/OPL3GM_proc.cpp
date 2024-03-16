@@ -114,7 +114,6 @@ void OPL3GM::changeSynthRate ()
 	}
 }
 
-#if !VST_FORCE_DEPRECATED
 bool OPL3GM::getErrorText (char* text)
 {
 	if (!synth)
@@ -135,7 +134,6 @@ bool OPL3GM::getErrorText (char* text)
 	return false;
 }
 
-#endif
 void OPL3GM::suspend ()
 {
 	lock.acquire();

@@ -1358,10 +1358,19 @@ bool Editor::open (void* ptr)
 	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
 	if (dlg)
 	{
+		char caption[MAX_PATH];
+		char text[MAX_PATH];
 		char synthname[kVstMaxEffectNameLen];
+		ZeroMemory(caption, sizeof(caption));
+		ZeroMemory(text, sizeof(text));
 		ZeroMemory(synthname, sizeof(synthname));
 		if (effect)
 		{
+			if (((OPL3GM*)effect)->getErrorText (text))
+			{
+				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
+				MessageBox((HWND)dlg, text, caption, MB_ICONERROR);
+			}
 			((AudioEffectX*)effect)->getEffectName (synthname);
 			SetWindowText((HWND)dlg, synthname);
 		}
