@@ -184,7 +184,7 @@ bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
 	ev.flags = 0;
 	ev.index = index;
 	ev.value = value;
-	if (!ParameterQueue.EnqueueEvent ((VstEvent *)&ev))
+	if (!ParameterQueue.EnqueueEvent((VstEvent *)&ev))
 	{
 		return false;
 	}

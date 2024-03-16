@@ -407,7 +407,7 @@ VstInt32 OPL3GM::processEvents (VstEvents* ev)
 				continue;
 			}
 #endif
-			if (!MidiQueue.EnqueueEvent (ev->events[i]))
+			if (!MidiQueue.EnqueueEvent(ev->events[i]))
 			{
 				break;
 			}
