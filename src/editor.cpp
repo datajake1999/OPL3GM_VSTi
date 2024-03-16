@@ -429,12 +429,13 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 			DWORD len = sizeof(DWORD);
 			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
 			RegQueryValueEx(hKey, "HelpButton", NULL, &type, (LPBYTE)&help, &len);
+			type = REG_SZ;
 			len = sizeof(directory);
-			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
+			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
 			}
-			else if (RegQueryValueEx(hKey, "DoomPatchDir", NULL, NULL, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Doom OPL3"))
+			else if (RegQueryValueEx(hKey, "DoomPatchDir", NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Doom OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
 			}
