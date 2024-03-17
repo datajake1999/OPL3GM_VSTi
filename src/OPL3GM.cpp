@@ -437,6 +437,10 @@ bool OPL3GM::canParameterBeAutomated (VstInt32 index)
 
 bool OPL3GM::string2parameter (VstInt32 index, char* text)
 {
+	if (!text)
+	{
+		return false;
+	}
 	float value = (float)atof(text);
 	switch (index)
 	{
