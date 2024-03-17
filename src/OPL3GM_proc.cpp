@@ -343,35 +343,37 @@ void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 				synth->midi_generate_dosbox(bufpos, length);
 			}
 		}
-		return;
 	}
-	if (resampler)
+	else
 	{
-		for (int i = 0; i < length; i++)
+		if (resampler)
 		{
-			sample_t ls, rs;
-			int to_write = resampler_get_min_fill(resampler);
-			for (int j = 0; j < to_write; j++)
+			for (int i = 0; i < length; i++)
 			{
-				if (synth)
+				sample_t ls, rs;
+				int to_write = resampler_get_min_fill(resampler);
+				for (int j = 0; j < to_write; j++)
 				{
-					if (Emulator >= 0.5)
+					if (synth)
 					{
-						synth->midi_generate(samples, 1);
+						if (Emulator >= 0.5)
+						{
+							synth->midi_generate(samples, 1);
+						}
+						else
+						{
+							synth->midi_generate_dosbox(samples, 1);
+						}
 					}
-					else
-					{
-						synth->midi_generate_dosbox(samples, 1);
-					}
+					resampler_write_pair(resampler, samples[0], samples[1]);
 				}
-				resampler_write_pair(resampler, samples[0], samples[1]);
+				resampler_peek_pair(resampler, &ls, &rs);
+				resampler_read_pair(resampler, &ls, &rs);
+				if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
+				if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
+				bufpos[i*2+0] = (short)ls;
+				bufpos[i*2+1] = (short)rs;
 			}
-			resampler_peek_pair(resampler, &ls, &rs);
-			resampler_read_pair(resampler, &ls, &rs);
-			if ((ls + 0x8000) & 0xFFFF0000) ls = (ls >> 31) ^ 0x7FFF;
-			if ((rs + 0x8000) & 0xFFFF0000) rs = (rs >> 31) ^ 0x7FFF;
-			bufpos[i*2+0] = (short)ls;
-			bufpos[i*2+1] = (short)rs;
 		}
 	}
 }
