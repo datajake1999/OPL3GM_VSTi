@@ -516,7 +516,7 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 
 bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text)
 {
-	if (index == 0)
+	if (index == 0 && text)
 	{
 		vst_strncpy (text, ProgramName, kVstMaxProgNameLen-1);
 		return true;
