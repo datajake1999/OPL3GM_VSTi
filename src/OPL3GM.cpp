@@ -129,7 +129,7 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 		HQResample = value;
 		if (HQResample >= 0.5)
 		{
-			setInternalRate (lastRate);
+			internalRate = lastRate;
 		}
 		else
 		{
@@ -137,8 +137,9 @@ void OPL3GM::setParameter (VstInt32 index, float value)
 			{
 				lastRate = internalRate;
 			}
-			setInternalRate ((VstInt32)sampleRate);
+			internalRate = (VstInt32)sampleRate;
 		}
+		changeSynthRate ();
 		break;
 	case kPushMidi:
 		PushMidi = value;
