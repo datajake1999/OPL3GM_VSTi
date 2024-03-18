@@ -110,6 +110,7 @@ void OPL3GM::changeSynthRate ()
 	}
 	if (resampler)
 	{
+		resampler_clear(resampler);
 		resampler_set_rate(resampler, (double)internalRate / (double)sampleRate);
 	}
 }
