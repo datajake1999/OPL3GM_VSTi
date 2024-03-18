@@ -635,6 +635,12 @@ bool OPL3GM::setBypass (bool onOff)
 		resume ();
 		startProcess ();
 	}
+#ifdef GUI
+	if (editor)
+	{
+		((Editor*)editor)->refresh ();
+	}
+#endif
 	return true;
 }
 
