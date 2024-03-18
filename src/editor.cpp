@@ -968,6 +968,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	if (!KeepNotes(wParam))
 	{
 		KeyboardControlChange(info, 0x7b, 0);
+		KeyboardControlChange(info, 64, 0);
 	}
 	char text[MAX_PATH];
 	ZeroMemory(text, sizeof(text));
