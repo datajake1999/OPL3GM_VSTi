@@ -968,7 +968,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	if (!KeepNotes(wParam))
 	{
 		KeyboardControlChange(info, 0x7b, 0);
-		KeyboardControlChange(info, 64, 0);
+		KeyboardControlChange(info, 0x40, 0);
 	}
 	char text[MAX_PATH];
 	ZeroMemory(text, sizeof(text));
@@ -1219,7 +1219,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	case VK_SHIFT:
 		if (!(lParam & KEYWASDOWN))
 		{
-			KeyboardControlChange(info, 64, 127);
+			KeyboardControlChange(info, 0x40, 127);
 			return FALSE;
 		}
 	case VK_BACK:
@@ -1253,7 +1253,7 @@ static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 	switch (wParam)
 	{
 	case VK_SHIFT:
-		KeyboardControlChange(info, 64, 0);
+		KeyboardControlChange(info, 0x40, 0);
 		return FALSE;
 	}
 	return TRUE;
@@ -1276,7 +1276,7 @@ static LRESULT WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 		return KeyUp(wParam, info);
 	case WM_KILLFOCUS:
 		KeyboardControlChange(info, 0x7b, 0);
-		KeyboardControlChange(info, 64, 0);
+		KeyboardControlChange(info, 0x40, 0);
 		SetWindowText(hWnd, "");
 		return 0;
 	}
