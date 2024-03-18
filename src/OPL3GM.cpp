@@ -398,7 +398,9 @@ void OPL3GM::setProgram (VstInt32 program)
 	{
 		return;
 	}
+	lock.acquire();
 	curProgram = program;
+	lock.release();
 #ifdef GUI
 	if (editor)
 	{
@@ -624,6 +626,7 @@ bool OPL3GM::getOutputProperties (VstInt32 index, VstPinProperties* properties)
 
 bool OPL3GM::setBypass (bool onOff)
 {
+	lock.acquire();
 	bypassed = onOff;
 	if (bypassed)
 	{
@@ -635,6 +638,7 @@ bool OPL3GM::setBypass (bool onOff)
 		resume ();
 		startProcess ();
 	}
+	lock.release();
 #ifdef GUI
 	if (editor)
 	{
