@@ -1274,6 +1274,8 @@ static LRESULT WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	case WM_KEYUP:
 		return KeyUp(wParam, info);
 	case WM_KILLFOCUS:
+		KeyboardControlChange(info, 0x7b, 0);
+		KeyboardControlChange(info, 64, 0);
 		SetWindowText(hWnd, "");
 		return 0;
 	}
