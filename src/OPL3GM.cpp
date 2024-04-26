@@ -663,6 +663,10 @@ bool OPL3GM::setProcessPrecision (VstInt32 precision)
 #endif
 bool OPL3GM::getEffectName (char* name)
 {
+	if (!name)
+	{
+		return false;
+	}
 	if (synth)
 	{
 		vst_strncpy (name, synth->midi_synthname(), kVstMaxEffectNameLen-1);
@@ -676,12 +680,20 @@ bool OPL3GM::getEffectName (char* name)
 
 bool OPL3GM::getVendorString (char* text)
 {
+	if (!text)
+	{
+		return false;
+	}
 	vst_strncpy (text, "Datajake", kVstMaxVendorStrLen-1);
 	return true;
 }
 
 bool OPL3GM::getProductString (char* text)
 {
+	if (!text)
+	{
+		return false;
+	}
 	vst_strncpy (text, "OPL3GM VSTi", kVstMaxProductStrLen-1);
 #ifdef DEMO
 	vst_strncat (text, " Demo", kVstMaxProductStrLen-1);
@@ -779,6 +791,8 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 
 VstInt32 OPL3GM::canDo (char* text)
 {
+	if (!text)
+	return 0;
 	if (!strcmp (text, "sendVstEvents"))
 	return 1;
 	if (!strcmp (text, "sendVstMidiEvent"))

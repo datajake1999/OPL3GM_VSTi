@@ -117,6 +117,10 @@ void OPL3GM::changeSynthRate ()
 
 bool OPL3GM::getErrorText (char* text)
 {
+	if (!text)
+	{
+		return false;
+	}
 	if (!synth)
 	{
 		sprintf(text, "Error initializing synth.\n");
@@ -326,7 +330,7 @@ void OPL3GM::calculateCPULoad (double begin, double end, int numsamples)
 
 void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
 {
-	if (!bufpos)
+	if (!bufpos || length >= blockSize || offset >= blockSize)
 	{
 		return;
 	}
