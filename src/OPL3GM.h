@@ -155,13 +155,13 @@ public:
 	virtual double getCPULoad ();
 private:
 #if REAPER_EXTENSIONS
-	void getParameterDisplayValue (VstInt32 index, char* text, float value);
-	void string2parameterReplace (VstInt32 index, char* text);
+	bool getParameterDisplayValue (VstInt32 index, char* text, float value);
+	bool string2parameterReplace (VstInt32 index, char* text);
 	bool isEnumParameter (VstInt32 index);
 	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
-	void parameterRange (VstInt32 index, double *range);
+	bool parameterRange (VstInt32 index, double *range);
+	bool renamePlug (char **text, const char *newName);
 	void adjustParameterIndex (VstInt32 index, VstInt32 adjust);
-	void renamePlug (char **text, const char *newName);
 #endif
 	void initSynth ();
 	void initBuffer ();

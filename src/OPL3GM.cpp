@@ -721,8 +721,10 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				getParameterDisplayValue ((VstInt32)lArg2, (char *)ptrArg, floatArg);
-				return 0xbeef;
+				if (getParameterDisplayValue ((VstInt32)lArg2, (char *)ptrArg, floatArg))
+				{
+					return 0xbeef;
+				}
 			}
 		}
 		break;
@@ -731,8 +733,10 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				string2parameterReplace ((VstInt32)lArg2, (char *)ptrArg);
-				return 0xbeef;
+				if (string2parameterReplace ((VstInt32)lArg2, (char *)ptrArg))
+				{
+					return 0xbeef;
+				}
 			}
 		}
 		break;
@@ -759,8 +763,10 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				parameterRange ((VstInt32)lArg2, (double *)ptrArg);
-				return 0xbeef;
+				if (parameterRange ((VstInt32)lArg2, (double *)ptrArg))
+				{
+					return 0xbeef;
+				}
 			}
 		}
 		break;
@@ -780,8 +786,10 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case effGetEffectName:
 		if (lArg2 == 0x50 && ptrArg)
 		{
-			renamePlug ((char **)ptrArg, "OPL3GM");
-			return 0xf00d;
+			if (renamePlug ((char **)ptrArg, "OPL3GM"))
+			{
+				return 0xf00d;
+			}
 		}
 		break;
 #endif

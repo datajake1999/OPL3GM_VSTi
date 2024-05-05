@@ -20,8 +20,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "OPL3GM.h"
 
 #if REAPER_EXTENSIONS
-void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
+bool OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 {
+	if (!text)
+	{
+		return false;
+	}
 	switch (index)
 	{
 	case kVolume:
@@ -106,10 +110,15 @@ void OPL3GM::getParameterDisplayValue (VstInt32 index, char* text, float value)
 		}
 		break;
 	}
+	return true;
 }
 
-void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
+bool OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 {
+	if (!text)
+	{
+		return false;
+	}
 	float value = (float)atof(text);
 	switch (index)
 	{
@@ -150,6 +159,7 @@ void OPL3GM::string2parameterReplace (VstInt32 index, char* text)
 		}
 	}
 	float2string (value, text, (kVstMaxParamStrLen*2)-1);
+	return true;
 }
 
 bool OPL3GM::isEnumParameter (VstInt32 index)
@@ -191,8 +201,12 @@ bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
 	return true;
 }
 
-void OPL3GM::parameterRange (VstInt32 index, double *range)
+bool OPL3GM::parameterRange (VstInt32 index, double *range)
 {
+	if (!range)
+	{
+		return false;
+	}
 	switch (index)
 	{
 	case kVolume:
@@ -200,16 +214,22 @@ void OPL3GM::parameterRange (VstInt32 index, double *range)
 		range[1] = 10;
 		break;
 	}
+	return true;
+}
+
+bool OPL3GM::renamePlug (char **text, const char *newName)
+{
+	if (!text || !newName)
+	{
+		return false;
+	}
+	*text = (char *)newName;
+	return true;
 }
 
 void OPL3GM::adjustParameterIndex (VstInt32 index, VstInt32 adjust)
 {
 	VstInt32 idxadj[2] = { index, adjust };
 	hostVendorSpecific (0xdeadbeef, audioMasterAutomate, idxadj, 0);
-}
-
-void OPL3GM::renamePlug (char **text, const char *newName)
-{
-	*text = (char *)newName;
 }
 #endif
