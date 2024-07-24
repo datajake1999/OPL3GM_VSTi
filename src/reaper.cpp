@@ -194,14 +194,14 @@ bool OPL3GM::automateParameter (VstInt32 index, float value, VstInt32 timestamp)
 	ev.flags = 0;
 	ev.index = index;
 	ev.value = value;
-	if (!ParameterQueue.EnqueueEvent((VstEvent *)&ev))
+	if (!ParameterQueue.EnqueueEvent((VstEvent*)&ev))
 	{
 		return false;
 	}
 	return true;
 }
 
-bool OPL3GM::parameterRange (VstInt32 index, double *range)
+bool OPL3GM::parameterRange (VstInt32 index, double* range)
 {
 	if (!range)
 	{
@@ -217,13 +217,13 @@ bool OPL3GM::parameterRange (VstInt32 index, double *range)
 	return true;
 }
 
-bool OPL3GM::renamePlug (char **text, const char *newName)
+bool OPL3GM::renamePlug (char** text, const char* newName)
 {
 	if (!text || !newName)
 	{
 		return false;
 	}
-	*text = (char *)newName;
+	*text = (char*)newName;
 	return true;
 }
 

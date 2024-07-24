@@ -236,7 +236,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		return;
 	}
 
-	VstTimeInfo *timeinfo = getTimeInfo (0);
+	VstTimeInfo* timeinfo = getTimeInfo (0);
 
 	if (sampleFrames > blockSize)
 	{
@@ -328,7 +328,7 @@ void OPL3GM::calculateCPULoad (double begin, double end, int numsamples)
 	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 }
 
-void OPL3GM::fillBuffer (short *bufpos, int length, int offset)
+void OPL3GM::fillBuffer (short* bufpos, int length, int offset)
 {
 	if (!bufpos || length >= blockSize || offset >= blockSize)
 	{
@@ -453,7 +453,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 		VstMidiSysexEvent* event = (VstMidiSysexEvent*)ev;
 		if (synth)
 		{
-			synth->midi_write_sysex((unsigned char *)event->sysexDump, event->dumpBytes);
+			synth->midi_write_sysex((unsigned char*)event->sysexDump, event->dumpBytes);
 		}
 	}
 #endif
@@ -466,7 +466,7 @@ void OPL3GM::processEvent (VstEvent* ev)
 #endif
 }
 
-void OPL3GM::sendMidi (char *data)
+void OPL3GM::sendMidi (char* data)
 {
 	if (!data)
 	{

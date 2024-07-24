@@ -339,7 +339,7 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	{
 		return 0;
 	}
-	OPL3GMChunk *chunkData = (OPL3GMChunk *)data;
+	OPL3GMChunk* chunkData = (OPL3GMChunk*)data;
 	if (chunkData->Size != sizeof(OPL3GMChunk))
 	{
 		return 0;
@@ -414,7 +414,7 @@ VstInt32 OPL3GM::getProgram ()
 	return curProgram%kNumPrograms;
 }
 
-void OPL3GM::setProgramName (char *name)
+void OPL3GM::setProgramName (char* name)
 {
 	lock.acquire();
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
@@ -427,7 +427,7 @@ void OPL3GM::setProgramName (char *name)
 #endif
 }
 
-void OPL3GM::getProgramName (char *name)
+void OPL3GM::getProgramName (char* name)
 {
 	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
@@ -721,7 +721,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				if (getParameterDisplayValue ((VstInt32)lArg2, (char *)ptrArg, floatArg))
+				if (getParameterDisplayValue ((VstInt32)lArg2, (char*)ptrArg, floatArg))
 				{
 					return 0xbeef;
 				}
@@ -733,7 +733,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				if (string2parameterReplace ((VstInt32)lArg2, (char *)ptrArg))
+				if (string2parameterReplace ((VstInt32)lArg2, (char*)ptrArg))
 				{
 					return 0xbeef;
 				}
@@ -763,7 +763,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 		{
 			if (ptrArg)
 			{
-				if (parameterRange ((VstInt32)lArg2, (double *)ptrArg))
+				if (parameterRange ((VstInt32)lArg2, (double*)ptrArg))
 				{
 					return 0xbeef;
 				}
@@ -773,7 +773,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case effGetChunk:
 		if (lArg2 && ptrArg)
 		{
-			vst_strncpy ((char *)ptrArg, (char *)lArg2, (VstInt32)floatArg-1);
+			vst_strncpy ((char*)ptrArg, (char*)lArg2, (VstInt32)floatArg-1);
 			return 0xf00d;
 		}
 		break;
@@ -786,7 +786,7 @@ VstIntPtr OPL3GM::vendorSpecific (VstInt32 lArg, VstIntPtr lArg2, void* ptrArg, 
 	case effGetEffectName:
 		if (lArg2 == 0x50 && ptrArg)
 		{
-			if (renamePlug ((char **)ptrArg, "OPL3GM"))
+			if (renamePlug ((char**)ptrArg, "OPL3GM"))
 			{
 				return 0xf00d;
 			}

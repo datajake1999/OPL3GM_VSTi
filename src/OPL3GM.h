@@ -147,11 +147,11 @@ public:
 	virtual bool getBypass ();
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
-	virtual bool loadInstruments (char *filename, char *display);
+	virtual bool loadInstruments (char* filename, char* display);
 	virtual void hardReset ();
 	virtual VstInt32 getActiveVoices ();
-	virtual void getBankName (char *text, VstInt32 size);
-	virtual HostInfo *getHostInfo ();
+	virtual void getBankName (char* text, VstInt32 size);
+	virtual HostInfo* getHostInfo ();
 	virtual double getCPULoad ();
 private:
 #if REAPER_EXTENSIONS
@@ -159,8 +159,8 @@ private:
 	bool string2parameterReplace (VstInt32 index, char* text);
 	bool isEnumParameter (VstInt32 index);
 	bool automateParameter (VstInt32 index, float value, VstInt32 timestamp);
-	bool parameterRange (VstInt32 index, double *range);
-	bool renamePlug (char **text, const char *newName);
+	bool parameterRange (VstInt32 index, double* range);
+	bool renamePlug (char** text, const char* newName);
 	void adjustParameterIndex (VstInt32 index, VstInt32 adjust);
 #endif
 	void initSynth ();
@@ -171,13 +171,13 @@ private:
 	template <class sampletype>
 	void processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames);
 	void calculateCPULoad (double begin, double end, int numsamples);
-	void fillBuffer (short *bufpos, int length, int offset);
+	void fillBuffer (short* bufpos, int length, int offset);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);
-	midisynth *synth;
-	short *buffer;
-	void *resampler;
+	midisynth* synth;
+	short* buffer;
+	void* resampler;
 	short samples[2];
 	DCFilter dcf[2];
 	EventQueue MidiQueue;

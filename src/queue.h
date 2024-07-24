@@ -28,8 +28,8 @@ class EventQueue
 {
 public:
 	EventQueue();
-	bool EnqueueEvent(VstEvent *ev);
-	VstEvent *GetNextEvent();
+	bool EnqueueEvent(VstEvent* ev);
+	VstEvent* GetNextEvent();
 	bool HasEvents();
 	VstInt32 GetEventCount();
 	VstInt32 GetEventTime();

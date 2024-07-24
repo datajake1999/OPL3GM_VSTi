@@ -27,7 +27,7 @@ EventQueue::EventQueue()
 	Count = 0;
 }
 
-bool EventQueue::EnqueueEvent(VstEvent *ev)
+bool EventQueue::EnqueueEvent(VstEvent* ev)
 {
 	if (Count == EVBUFSIZE || !ev)
 	{
@@ -44,13 +44,13 @@ bool EventQueue::EnqueueEvent(VstEvent *ev)
 	return true;
 }
 
-VstEvent *EventQueue::GetNextEvent()
+VstEvent* EventQueue::GetNextEvent()
 {
 	if (Count == 0)
 	{
 		return NULL;
 	}
-	VstEvent *ev = &Events[Read];
+	VstEvent* ev = &Events[Read];
 	Read++;
 	Read = Read%EVBUFSIZE;
 	Count--;

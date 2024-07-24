@@ -354,7 +354,7 @@ static UINT WINAPI ExplorerHookProc(HWND hWnd, UINT message, WPARAM wParam, LPAR
 	switch (message)
 	{
 	case WM_NOTIFY:
-		switch (((OFNOTIFY *)lParam)->hdr.code)
+		switch (((OFNOTIFY*)lParam)->hdr.code)
 		{
 		case CDN_HELP:
 			return HelpBox(hWnd);
@@ -580,7 +580,7 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(temp, sizeof(temp));
 		ZeroMemory(text, sizeof(text));
-		HostInfo *hi = effect->getHostInfo ();
+		HostInfo* hi = effect->getHostInfo ();
 		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
 		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString, hi->MasterVersion/1000.0f);

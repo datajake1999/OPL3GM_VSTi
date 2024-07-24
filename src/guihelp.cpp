@@ -79,7 +79,7 @@ VstInt32 OPL3GM::getInternalRate ()
 	return internalRate;
 }
 
-bool OPL3GM::loadInstruments (char *filename, char *display)
+bool OPL3GM::loadInstruments (char* filename, char* display)
 {
 	lock.acquire();
 	if (synth)
@@ -115,12 +115,12 @@ VstInt32 OPL3GM::getActiveVoices ()
 	return 0;
 }
 
-void OPL3GM::getBankName (char *text, VstInt32 size)
+void OPL3GM::getBankName (char* text, VstInt32 size)
 {
 	strncpy(text, BankName, size);
 }
 
-HostInfo *OPL3GM::getHostInfo ()
+HostInfo* OPL3GM::getHostInfo ()
 {
 	return &hi;
 }

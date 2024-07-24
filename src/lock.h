@@ -28,7 +28,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 class LockableObject {
 private:
-	void *cs;
+	void* cs;
 public:
 	LockableObject();
 	~LockableObject();
