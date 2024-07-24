@@ -302,33 +302,33 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 	}
 }
 
-void OPL3GM::getParameterName (VstInt32 index, char* text)
+void OPL3GM::getParameterName (VstInt32 index, char* name)
 {
 	switch (index)
 	{
 	case kVolume:
-		vst_strncpy (text, "Volume", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "Volume", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kVolumeDisplay:
-		vst_strncpy (text, "VolumeDisplay", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "VolumeDisplay", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kDCBlock:
-		vst_strncpy (text, "DCBlock", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "DCBlock", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kNoiseGate:
-		vst_strncpy (text, "NoiseGate", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "NoiseGate", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kTranspose:
-		vst_strncpy (text, "Transpose", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "Transpose", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kEmulator:
-		vst_strncpy (text, "Emulator", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "Emulator", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kHQResample:
-		vst_strncpy (text, "HQResample", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "HQResample", (kVstMaxParamStrLen*2)-1);
 		break;
 	case kPushMidi:
-		vst_strncpy (text, "PushMidi", (kVstMaxParamStrLen*2)-1);
+		vst_strncpy (name, "PushMidi", (kVstMaxParamStrLen*2)-1);
 		break;
 	}
 }

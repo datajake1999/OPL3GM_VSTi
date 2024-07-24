@@ -88,7 +88,7 @@ public:
 	virtual float getParameter (VstInt32 index);
 	virtual void getParameterDisplay (VstInt32 index, char* text);
 	virtual void getParameterLabel (VstInt32 index, char* label);
-	virtual void getParameterName (VstInt32 index, char* text);
+	virtual void getParameterName (VstInt32 index, char* name);
 	virtual VstInt32 setChunk (void* data, VstInt32 byteSize, bool isPreset);
 	virtual VstInt32 getChunk (void** data, bool isPreset);
 	virtual void setProgram (VstInt32 program);
