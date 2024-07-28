@@ -236,8 +236,6 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		return;
 	}
 
-	VstTimeInfo* timeinfo = getTimeInfo (0);
-
 	if (sampleFrames > blockSize)
 	{
 		sampleFrames = blockSize;
