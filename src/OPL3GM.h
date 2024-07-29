@@ -95,21 +95,12 @@ public:
 	virtual VstInt32 getProgram ();
 	virtual void setProgramName (char* name);
 	virtual void getProgramName (char* name);
-	virtual bool canParameterBeAutomated (VstInt32 index);
 	virtual bool string2parameter (VstInt32 index, char* text);
 	virtual bool getParameterProperties (VstInt32 index, VstParameterProperties* p);
 	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
-	virtual bool beginSetProgram ();
-	virtual bool endSetProgram ();
-	virtual VstInt32 beginLoadBank (VstPatchChunkInfo* ptr);
-	virtual VstInt32 beginLoadProgram (VstPatchChunkInfo* ptr);
 	virtual bool getInputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
 	virtual bool setBypass (bool onOff);
-	virtual bool setPanLaw (VstInt32 type, float val);
-#if VST_2_4_EXTENSIONS
-	virtual bool setProcessPrecision (VstInt32 precision);
-#endif
 	virtual bool getEffectName (char* name);
 	virtual bool getVendorString (char* text);
 	virtual bool getProductString (char* text);

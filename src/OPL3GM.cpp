@@ -432,11 +432,6 @@ void OPL3GM::getProgramName (char* name)
 	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
 
-bool OPL3GM::canParameterBeAutomated (VstInt32 index)
-{
-	return true;
-}
-
 bool OPL3GM::string2parameter (VstInt32 index, char* text)
 {
 	if (!text)
@@ -524,30 +519,6 @@ bool OPL3GM::getProgramNameIndexed (VstInt32 category, VstInt32 index, char* tex
 		return true;
 	}
 	return false;
-}
-
-bool OPL3GM::beginSetProgram ()
-{
-	suspend ();
-	stopProcess ();
-	return true;
-}
-
-bool OPL3GM::endSetProgram ()
-{
-	resume ();
-	startProcess ();
-	return true;
-}
-
-VstInt32 OPL3GM::beginLoadBank (VstPatchChunkInfo* ptr)
-{
-	return 0;
-}
-
-VstInt32 OPL3GM::beginLoadProgram (VstPatchChunkInfo* ptr)
-{
-	return 0;
 }
 
 bool OPL3GM::getInputProperties (VstInt32 index, VstPinProperties* properties)
@@ -648,19 +619,6 @@ bool OPL3GM::setBypass (bool onOff)
 	return true;
 }
 
-bool OPL3GM::setPanLaw (VstInt32 type, float val)
-{
-	Volume = val;
-	return true;
-}
-
-#if VST_2_4_EXTENSIONS
-bool OPL3GM::setProcessPrecision (VstInt32 precision)
-{
-	return false;
-}
-
-#endif
 bool OPL3GM::getEffectName (char* name)
 {
 	if (!name)
