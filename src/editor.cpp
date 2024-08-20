@@ -817,6 +817,7 @@ static BOOL WINAPI MixerProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_UNCHECKED);
 			}
 			return TRUE;
+		case IDCANCEL:
 		case IDC_CLOSE:
 			EndDialog(hWnd, FALSE);
 			return TRUE;
