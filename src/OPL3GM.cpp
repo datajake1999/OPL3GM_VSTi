@@ -356,6 +356,10 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		setInternalRate (lastRate);
 	}
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
+	for (int i = 0; i < 16; i++)
+	{
+		enableChannel (i, chunkData->ChannelEnabled[i]);
+	}
 #ifdef GUI
 	if (editor)
 	{
@@ -388,6 +392,10 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	}
 	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
 	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
+	for (int i = 0; i < 16; i++)
+	{
+		chunk.ChannelEnabled[i] = ChannelEnabled[i];
+	}
 	*data = &chunk;
 	return sizeof(OPL3GMChunk);
 }

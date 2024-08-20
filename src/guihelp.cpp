@@ -36,6 +36,10 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	lastRate = internalRate;
 	memset(BankFile, 0, sizeof(BankFile));
 	strncpy(BankName, "Default", sizeof(BankName));
+	for (int i = 0; i < 16; i++)
+	{
+		ChannelEnabled[i] = true;
+	}
 	if (resetSynth)
 	{
 		suspend ();
@@ -94,6 +98,28 @@ bool OPL3GM::loadInstruments (char* filename, char* display)
 	}
 	lock.release();
 	return false;
+}
+
+void OPL3GM::enableChannel (int channel, bool enable)
+{
+	lock.acquire();
+	channel = channel & 0x0f;
+	if (ChannelEnabled[channel] && !enable)
+	{
+		char stopnotes[3];
+		stopnotes[0] = 0xb0 + (char)channel;
+		stopnotes[1] = 0x7b;
+		stopnotes[2] = 0;
+		sendMidi (stopnotes);
+	}
+	ChannelEnabled[channel] = enable;
+	lock.release();
+}
+
+bool OPL3GM::isChannelEnabled (int channel)
+{
+	channel = channel & 0x0f;
+	return ChannelEnabled[channel];
 }
 
 void OPL3GM::hardReset ()

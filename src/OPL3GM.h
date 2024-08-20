@@ -75,6 +75,7 @@ struct OPL3GMChunk
 	VstInt32 lastRate;
 	char BankFile[256];
 	char BankName[256];
+	bool ChannelEnabled[16];
 };
 
 class OPL3GM : public AudioEffectX
@@ -139,6 +140,8 @@ public:
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
 	virtual bool loadInstruments (char* filename, char* display);
+	virtual void enableChannel (int channel, bool enable);
+	virtual bool isChannelEnabled (int channel);
 	virtual void hardReset ();
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char* text, VstInt32 size);
@@ -189,6 +192,7 @@ private:
 	VstInt32 lastRate;
 	char BankFile[256];
 	char BankName[256];
+	bool ChannelEnabled[16];
 	OPL3GMChunk chunk;
 	HostInfo hi;
 	LockableObject lock;

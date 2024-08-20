@@ -616,6 +616,215 @@ static BOOL ProjectPage(HWND hWnd)
 	return FALSE;
 }
 
+static BOOL WINAPI MixerProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+#ifdef _WIN64
+	OPL3GM* effect = (OPL3GM*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+#else
+	OPL3GM* effect = (OPL3GM*)GetWindowLong(hWnd, GWL_USERDATA);
+#endif
+	switch (message)
+	{
+	case WM_INITDIALOG:
+		effect = (OPL3GM*)lParam;
+		for (int i = 0; i < 16; i++)
+		{
+			if (effect->isChannelEnabled (i))
+			{
+				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_CHECKED);
+			}
+		}
+#ifdef _WIN64
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)lParam);
+#else
+		SetWindowLong(hWnd, GWL_USERDATA, (LONG)lParam);
+#endif
+		return TRUE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDC_CHAN01:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN01))
+			{
+				effect->enableChannel (0, true);
+			}
+			else
+			{
+				effect->enableChannel (0, false);
+			}
+			return TRUE;
+		case IDC_CHAN02:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN02))
+			{
+				effect->enableChannel (1, true);
+			}
+			else
+			{
+				effect->enableChannel (1, false);
+			}
+			return TRUE;
+		case IDC_CHAN03:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN03))
+			{
+				effect->enableChannel (2, true);
+			}
+			else
+			{
+				effect->enableChannel (2, false);
+			}
+			return TRUE;
+		case IDC_CHAN04:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN04))
+			{
+				effect->enableChannel (3, true);
+			}
+			else
+			{
+				effect->enableChannel (3, false);
+			}
+			return TRUE;
+		case IDC_CHAN05:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN05))
+			{
+				effect->enableChannel (4, true);
+			}
+			else
+			{
+				effect->enableChannel (4, false);
+			}
+			return TRUE;
+		case IDC_CHAN06:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN06))
+			{
+				effect->enableChannel (5, true);
+			}
+			else
+			{
+				effect->enableChannel (5, false);
+			}
+			return TRUE;
+		case IDC_CHAN07:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN07))
+			{
+				effect->enableChannel (6, true);
+			}
+			else
+			{
+				effect->enableChannel (6, false);
+			}
+			return TRUE;
+		case IDC_CHAN08:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN08))
+			{
+				effect->enableChannel (7, true);
+			}
+			else
+			{
+				effect->enableChannel (7, false);
+			}
+			return TRUE;
+		case IDC_CHAN09:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN09))
+			{
+				effect->enableChannel (8, true);
+			}
+			else
+			{
+				effect->enableChannel (8, false);
+			}
+			return TRUE;
+		case IDC_CHAN10:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN10))
+			{
+				effect->enableChannel (9, true);
+			}
+			else
+			{
+				effect->enableChannel (9, false);
+			}
+			return TRUE;
+		case IDC_CHAN11:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN11))
+			{
+				effect->enableChannel (10, true);
+			}
+			else
+			{
+				effect->enableChannel (10, false);
+			}
+			return TRUE;
+		case IDC_CHAN12:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN12))
+			{
+				effect->enableChannel (11, true);
+			}
+			else
+			{
+				effect->enableChannel (11, false);
+			}
+			return TRUE;
+		case IDC_CHAN13:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN13))
+			{
+				effect->enableChannel (12, true);
+			}
+			else
+			{
+				effect->enableChannel (12, false);
+			}
+			return TRUE;
+		case IDC_CHAN14:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN14))
+			{
+				effect->enableChannel (13, true);
+			}
+			else
+			{
+				effect->enableChannel (13, false);
+			}
+			return TRUE;
+		case IDC_CHAN15:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN15))
+			{
+				effect->enableChannel (14, true);
+			}
+			else
+			{
+				effect->enableChannel (14, false);
+			}
+			return TRUE;
+		case IDC_CHAN16:
+			if (IsDlgButtonChecked(hWnd, IDC_CHAN16))
+			{
+				effect->enableChannel (15, true);
+			}
+			else
+			{
+				effect->enableChannel (15, false);
+			}
+			return TRUE;
+		case IDC_ALL:
+			for (int i = 0; i < 16; i++)
+			{
+				effect->enableChannel (i, true);
+				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_CHECKED);
+			}
+			return TRUE;
+		case IDC_NONE:
+			for (int i = 0; i < 16; i++)
+			{
+				effect->enableChannel (i, false);
+				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_UNCHECKED);
+			}
+			return TRUE;
+		case IDC_CLOSE:
+			EndDialog(hWnd, FALSE);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
@@ -768,6 +977,9 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				return FALSE;
 			}
+		case IDC_MIXER:
+			DialogBoxParam((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_MIXER), hWnd, (DLGPROC)MixerProc, (LPARAM)effect);
+			return TRUE;
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
 		}

@@ -473,10 +473,14 @@ void OPL3GM::sendMidi (char* data)
 	unsigned char byte1 = data[0] & 0xff;
 	unsigned char byte2 = data[1] & 0x7f;
 	unsigned char byte3 = data[2] & 0x7f;
+	unsigned char type = byte1 & 0xf0;
+	unsigned char channel = byte1 & 0x0f;
+	if (!ChannelEnabled[channel])
+	{
+		return;
+	}
 	if (Transpose >= 1 || Transpose <= -1)
 	{
-		unsigned char type = byte1 & 0xf0;
-		unsigned char channel = byte1 & 0x0f;
 		if (type == 0x80 || type == 0x90)
 		{
 			if (channel != 9)

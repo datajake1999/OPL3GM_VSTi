@@ -23,6 +23,7 @@
 #define IDS_WEBTXT                      217
 #define IDS_REAPPROVE                   218
 #define IDD_DIALOG                      301
+#define IDD_MIXER                       302
 #ifndef IDC_STATIC
 #define IDC_STATIC                      -1
 #endif
@@ -57,15 +58,35 @@
 #define IDC_FORGET                      429
 #define IDC_FREEZE                      430
 #define IDC_KEYBOARD                    431
-#define IDC_PROJPAGE                    432
-#define IDB_BITMAP1                     501
+#define IDC_MIXER                       432
+#define IDC_PROJPAGE                    433
+#define IDC_CHAN01                      501
+#define IDC_CHAN02                      502
+#define IDC_CHAN03                      503
+#define IDC_CHAN04                      504
+#define IDC_CHAN05                      505
+#define IDC_CHAN06                      506
+#define IDC_CHAN07                      507
+#define IDC_CHAN08                      508
+#define IDC_CHAN09                      509
+#define IDC_CHAN10                      510
+#define IDC_CHAN11                      511
+#define IDC_CHAN12                      512
+#define IDC_CHAN13                      513
+#define IDC_CHAN14                      514
+#define IDC_CHAN15                      515
+#define IDC_CHAN16                      516
+#define IDC_ALL                         517
+#define IDC_NONE                        518
+#define IDC_CLOSE                       519
+#define IDB_BITMAP1                     601
 #define CLASSNAME                       "OPL3GMKBD"
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        502
+#define _APS_NEXT_RESOURCE_VALUE        602
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
