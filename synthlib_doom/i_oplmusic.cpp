@@ -568,7 +568,7 @@ void DoomOPL::VoiceKeyOn(opl_channel_data_t *channel,
                        unsigned int volume)
 {
     opl_voice_t *voice;
-    unsigned int i = 0;
+    unsigned int i;
 
     // Find a voice to use for this new note.
 
