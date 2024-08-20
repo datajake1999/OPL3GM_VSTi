@@ -42,8 +42,6 @@ public:
 	virtual bool open (void* ptr);
 	virtual void close ();
 	virtual void idle ();
-	virtual bool onKeyDown (VstKeyCode& keyCode);
-	virtual bool onKeyUp (VstKeyCode& keyCode);
 	virtual void refresh ();
 private:
 	ERect vstrect;

@@ -1682,16 +1682,6 @@ void Editor::idle ()
 	}
 }
 
-bool Editor::onKeyDown (VstKeyCode& keyCode)
-{
-	return false;
-}
-
-bool Editor::onKeyUp (VstKeyCode& keyCode)
-{
-	return false;
-}
-
 void Editor::refresh ()
 {
 	RefreshDialog((HWND)dlg, (OPL3GM*)effect);
