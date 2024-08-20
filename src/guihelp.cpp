@@ -106,11 +106,17 @@ void OPL3GM::enableChannel (int channel, bool enable)
 	channel = channel & 0x0f;
 	if (ChannelEnabled[channel] && !enable)
 	{
-		char stopnotes[3];
-		stopnotes[0] = 0xb0 + (char)channel;
-		stopnotes[1] = 0x7b;
-		stopnotes[2] = 0;
-		sendMidi (stopnotes);
+		char data[3];
+		data[0] = 0xb0 + (char)channel;
+		data[1] = 0x7b;
+		data[2] = 0;
+		sendMidi (data);
+		data[1] = 0x40;
+		sendMidi (data);
+		data[0] = 0xe0 + (char)channel;
+		data[1] = 0;
+		data[2] = 0x40;
+		sendMidi (data);
 	}
 	ChannelEnabled[channel] = enable;
 	lock.release();
