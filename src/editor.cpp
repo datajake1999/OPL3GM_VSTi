@@ -623,11 +623,12 @@ static BOOL WINAPI MixerProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 #else
 	OPL3GM* effect = (OPL3GM*)GetWindowLong(hWnd, GWL_USERDATA);
 #endif
+	VstInt32 i;
 	switch (message)
 	{
 	case WM_INITDIALOG:
 		effect = (OPL3GM*)lParam;
-		for (int i = 0; i < 16; i++)
+		for (i = 0; i < 16; i++)
 		{
 			if (effect->isChannelEnabled (i))
 			{
@@ -804,14 +805,14 @@ static BOOL WINAPI MixerProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 			}
 			return TRUE;
 		case IDC_ALL:
-			for (int i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++)
 			{
 				effect->enableChannel (i, true);
 				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_CHECKED);
 			}
 			return TRUE;
 		case IDC_NONE:
-			for (int i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++)
 			{
 				effect->enableChannel (i, false);
 				CheckDlgButton(hWnd, IDC_CHAN01+i, BST_UNCHECKED);

@@ -340,12 +340,13 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		return 0;
 	}
 	OPL3GMChunk* chunkData = (OPL3GMChunk*)data;
+	VstInt32 i;
 	if (chunkData->Size != sizeof(OPL3GMChunk))
 	{
 		return 0;
 	}
 	setProgramName (chunkData->ProgramName);
-	for (VstInt32 i = 0; i < kNumParams; i++)
+	for (i = 0; i < kNumParams; i++)
 	{
 		setParameter (i, chunkData->Parameters[i]);
 	}
@@ -356,7 +357,7 @@ VstInt32 OPL3GM::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 		setInternalRate (lastRate);
 	}
 	loadInstruments (chunkData->BankFile, chunkData->BankName);
-	for (int i = 0; i < 16; i++)
+	for (i = 0; i < 16; i++)
 	{
 		enableChannel (i, chunkData->ChannelEnabled[i]);
 	}
@@ -375,9 +376,10 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	{
 		return 0;
 	}
+	VstInt32 i;
 	chunk.Size = sizeof(OPL3GMChunk);
 	getProgramName (chunk.ProgramName);
-	for (VstInt32 i = 0; i < kNumParams; i++)
+	for (i = 0; i < kNumParams; i++)
 	{
 		chunk.Parameters[i] = getParameter (i);
 	}
@@ -392,7 +394,7 @@ VstInt32 OPL3GM::getChunk (void** data, bool isPreset)
 	}
 	strncpy(chunk.BankFile, BankFile, sizeof(chunk.BankFile));
 	strncpy(chunk.BankName, BankName, sizeof(chunk.BankName));
-	for (int i = 0; i < 16; i++)
+	for (i = 0; i < 16; i++)
 	{
 		chunk.ChannelEnabled[i] = ChannelEnabled[i];
 	}
