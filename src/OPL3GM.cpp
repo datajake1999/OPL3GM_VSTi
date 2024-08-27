@@ -797,8 +797,6 @@ VstInt32 OPL3GM::canDo (char* text)
 	return 1;
 	if (!strcmp (text, "receiveVstMidiEvent"))
 	return 1;
-	if (!strcmp (text, "receiveVstTimeInfo"))
-	return 1;
 	if (!strcmp (text, "midiProgramNames"))
 	return 1;
 	if (!strcmp (text, "bypass"))
