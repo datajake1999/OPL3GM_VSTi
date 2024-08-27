@@ -504,7 +504,7 @@ bool OPL3GM::getParameterProperties (VstInt32 index, VstParameterProperties* p)
 		return false;
 	}
 	getParameterName (index, p->label);
-	p->shortLabel[0] = 0;
+	memset(p->shortLabel, 0, kVstMaxShortLabelLen);
 	p->flags = kVstParameterUsesFloatStep | kVstParameterSupportsDisplayIndex;
 	p->stepFloat = 0.01f;
 	p->smallStepFloat = 0.001f;
