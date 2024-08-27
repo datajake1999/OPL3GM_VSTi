@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 DCFilter::DCFilter()
 {
+	b0 = 1;
 	pole = 1;
 	LastIn = 0;
 	LastOut = 0;
@@ -49,7 +50,7 @@ void DCFilter::ResetState()
 void DCFilter::SetRate(double rate)
 {
 	double wn = M_PI * (FLTFREQ / rate);
-	double b0 = 1.0 / (1.0 + wn);
+	b0 = 1.0 / (1.0 + wn);
 	pole = (1.0 - wn) * b0;
 	threshold = pow(10.0, THRESH / 20.0);
 	FadeIn = 1.0 / pow(10.0, 1.0 / (rate * FADEINLEN / 1000.0));
@@ -59,6 +60,7 @@ void DCFilter::SetRate(double rate)
 
 double DCFilter::ProcessDC(double in)
 {
+	in *= b0;
 	double out = (in - LastIn) + (pole * LastOut);
 	LastIn = in;
 	LastOut = out;

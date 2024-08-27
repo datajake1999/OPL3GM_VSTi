@@ -34,6 +34,7 @@ public:
 	double ProcessDC(double in);
 	double ProcessGate(double in);
 private:
+	double b0;
 	double pole;
 	double LastIn;
 	double LastOut;
