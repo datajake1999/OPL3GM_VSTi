@@ -214,13 +214,13 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		effect->getProgramName (text);
 		SetDlgItemText(hWnd, IDC_PRESETNAME, text);
 		ParamValue = effect->getParameter (kVolume)*100;
-		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (long)ParamValue);
+		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (LPARAM)ParamValue);
 		effect->getParameterDisplay (kVolume, text);
 		SetDlgItemText(hWnd, IDC_VOLDISP1, text);
 		effect->getParameterLabel (kVolume, text);
 		SetDlgItemText(hWnd, IDC_VOLDISP2, text);
 		ParamValue = effect->getParameter (kTranspose)*25;
-		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (long)ParamValue);
+		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (LPARAM)ParamValue);
 		effect->getParameterDisplay (kTranspose, text);
 		SetDlgItemText(hWnd, IDC_TRANDISP1, text);
 		effect->getParameterLabel (kTranspose, text);
