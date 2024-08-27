@@ -971,6 +971,12 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_FORGET:
 			if (effect)
 			{
+				CheckDlgButton(hWnd, IDC_FREEZE, BST_UNCHECKED);
+				CheckDlgButton(hWnd, IDC_HIDEDISP, BST_UNCHECKED);
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
 				effect->initializeSettings (true);
 				RefreshDialog(hWnd, effect);
 				return TRUE;
