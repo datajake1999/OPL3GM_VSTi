@@ -48,13 +48,13 @@ void DCFilter::ResetState()
 
 void DCFilter::SetRate(double rate)
 {
-	double wn = M_PI * (fltfreq / rate);
+	double wn = M_PI * (FLTFREQ / rate);
 	double b0 = 1.0 / (1.0 + wn);
 	pole = (1.0 - wn) * b0;
-	threshold = pow(10.0, thresh / 20.0);
-	FadeIn = 1.0 / pow(10.0, 1.0 / (rate * fadeinlen / 1000.0));
-	FadeOut = 1.0 / pow(10.0, 1.0 / (rate * fadeoutlen / 1000.0));
-	HoldLength = rate * holdlen / 1000.0;
+	threshold = pow(10.0, THRESH / 20.0);
+	FadeIn = 1.0 / pow(10.0, 1.0 / (rate * FADEINLEN / 1000.0));
+	FadeOut = 1.0 / pow(10.0, 1.0 / (rate * FADEOUTLEN / 1000.0));
+	HoldLength = rate * HOLDLEN / 1000.0;
 }
 
 double DCFilter::ProcessDC(double in)

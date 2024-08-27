@@ -20,11 +20,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifndef DCFILTER_H
 #define DCFILTER_H
 
-#define fltfreq 10.0
-#define thresh -66.0
-#define fadeinlen 1.0
-#define fadeoutlen 100.0
-#define holdlen 10.0
+#define FLTFREQ 10.0
+#define THRESH -66.0
+#define FADEINLEN 1.0
+#define FADEOUTLEN 100.0
+#define HOLDLEN 10.0
 
 class DCFilter {
 public:
