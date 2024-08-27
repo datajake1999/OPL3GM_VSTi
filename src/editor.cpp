@@ -979,6 +979,22 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				return FALSE;
 			}
+		case IDC_HIDEDISP:
+			if (IsDlgButtonChecked(hWnd, IDC_HIDEDISP))
+			{
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_HIDE);
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_HIDE);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_HIDE);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_HIDE);
+			}
+			else
+			{
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
+				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
+			}
+			return TRUE;
 		case IDC_MIXER:
 			DialogBoxParam((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_MIXER), hWnd, (DLGPROC)MixerProc, (LPARAM)effect);
 			return TRUE;

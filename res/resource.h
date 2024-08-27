@@ -57,9 +57,10 @@
 #define IDC_CPU                         428
 #define IDC_FORGET                      429
 #define IDC_FREEZE                      430
-#define IDC_KEYBOARD                    431
-#define IDC_MIXER                       432
-#define IDC_PROJPAGE                    433
+#define IDC_HIDEDISP                    431
+#define IDC_KEYBOARD                    432
+#define IDC_MIXER                       433
+#define IDC_PROJPAGE                    434
 #define IDC_CHAN01                      501
 #define IDC_CHAN02                      502
 #define IDC_CHAN03                      503
