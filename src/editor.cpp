@@ -1568,7 +1568,7 @@ Editor::~Editor ()
 
 bool Editor::getRect (ERect** rect)
 {
-	if (dlg)
+	if (dlg && rect)
 	{
 		RECT wndrect;
 		ZeroMemory(&wndrect, sizeof(wndrect));
@@ -1587,6 +1587,10 @@ bool Editor::getRect (ERect** rect)
 
 bool Editor::open (void* ptr)
 {
+	if (!ptr)
+	{
+		return false;
+	}
 	AEffEditor::open (ptr);
 	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
 	if (dlg)
