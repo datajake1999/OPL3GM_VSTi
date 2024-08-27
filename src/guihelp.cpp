@@ -85,6 +85,10 @@ VstInt32 OPL3GM::getInternalRate ()
 
 bool OPL3GM::loadInstruments (char* filename, char* display)
 {
+	if (!filename || !display)
+	{
+		return false;
+	}
 	lock.acquire();
 	if (synth)
 	{
@@ -149,6 +153,10 @@ VstInt32 OPL3GM::getActiveVoices ()
 
 void OPL3GM::getBankName (char* text, VstInt32 size)
 {
+	if (!text)
+	{
+		return;
+	}
 	strncpy(text, BankName, size);
 }
 

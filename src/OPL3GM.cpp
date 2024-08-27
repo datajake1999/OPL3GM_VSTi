@@ -190,6 +190,10 @@ float OPL3GM::getParameter (VstInt32 index)
 
 void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 {
+	if (!text)
+	{
+		return;
+	}
 	switch (index)
 	{
 	case kVolume:
@@ -277,6 +281,10 @@ void OPL3GM::getParameterDisplay (VstInt32 index, char* text)
 
 void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 {
+	if (!label)
+	{
+		return;
+	}
 	switch (index)
 	{
 	case kVolume:
@@ -304,6 +312,10 @@ void OPL3GM::getParameterLabel (VstInt32 index, char* label)
 
 void OPL3GM::getParameterName (VstInt32 index, char* name)
 {
+	if (!name)
+	{
+		return;
+	}
 	switch (index)
 	{
 	case kVolume:
@@ -426,6 +438,10 @@ VstInt32 OPL3GM::getProgram ()
 
 void OPL3GM::setProgramName (char* name)
 {
+	if (!name)
+	{
+		return;
+	}
 	lock.acquire();
 	vst_strncpy (ProgramName, name, kVstMaxProgNameLen-1);
 	lock.release();
@@ -439,6 +455,10 @@ void OPL3GM::setProgramName (char* name)
 
 void OPL3GM::getProgramName (char* name)
 {
+	if (!name)
+	{
+		return;
+	}
 	vst_strncpy (name, ProgramName, kVstMaxProgNameLen-1);
 }
 
