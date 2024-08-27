@@ -64,11 +64,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define KEYNAME "SOFTWARE\\Datajake\\OPL3GM"
 #define PROJPAGE "https://github.com/datajake1999/OPL3GM_VSTi"
 
-static int g_useCount = 0;
+static VstInt32 g_useCount = 0;
 static HBRUSH hBrush = NULL;
 extern void* hInstance;
 
-static const int rates[] =
+static const VstInt32 rates[] =
 {
 	1000,1500,
 	2000,3000,
@@ -1649,7 +1649,7 @@ void Editor::idle ()
 		}
 		char text[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
-		int numvoices = ((OPL3GM*)effect)->getActiveVoices ();
+		VstInt32 numvoices = ((OPL3GM*)effect)->getActiveVoices ();
 		sprintf(text, "%d/18", numvoices);
 		SetDlgItemText((HWND)dlg, IDC_VOICECOUNT, text);
 		float vu = ((OPL3GM*)effect)->getVu ();

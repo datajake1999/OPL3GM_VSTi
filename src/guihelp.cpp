@@ -36,7 +36,7 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	lastRate = internalRate;
 	memset(BankFile, 0, sizeof(BankFile));
 	strncpy(BankName, "Default", sizeof(BankName));
-	for (int i = 0; i < 16; i++)
+	for (VstInt32 i = 0; i < 16; i++)
 	{
 		ChannelEnabled[i] = true;
 	}
@@ -100,7 +100,7 @@ bool OPL3GM::loadInstruments (char* filename, char* display)
 	return false;
 }
 
-void OPL3GM::enableChannel (int channel, bool enable)
+void OPL3GM::enableChannel (VstInt32 channel, bool enable)
 {
 	lock.acquire();
 	channel = channel & 0x0f;
@@ -122,7 +122,7 @@ void OPL3GM::enableChannel (int channel, bool enable)
 	lock.release();
 }
 
-bool OPL3GM::isChannelEnabled (int channel)
+bool OPL3GM::isChannelEnabled (VstInt32 channel)
 {
 	channel = channel & 0x0f;
 	return ChannelEnabled[channel];

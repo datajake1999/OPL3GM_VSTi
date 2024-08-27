@@ -140,8 +140,8 @@ public:
 	virtual void setInternalRate (VstInt32 rate);
 	virtual VstInt32 getInternalRate ();
 	virtual bool loadInstruments (char* filename, char* display);
-	virtual void enableChannel (int channel, bool enable);
-	virtual bool isChannelEnabled (int channel);
+	virtual void enableChannel (VstInt32 channel, bool enable);
+	virtual bool isChannelEnabled (VstInt32 channel);
 	virtual void hardReset ();
 	virtual VstInt32 getActiveVoices ();
 	virtual void getBankName (char* text, VstInt32 size);
@@ -164,8 +164,8 @@ private:
 	void changeSynthRate ();
 	template <class sampletype>
 	void processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames);
-	void calculateCPULoad (double begin, double end, int numsamples);
-	void fillBuffer (short* bufpos, int length, int offset);
+	void calculateCPULoad (double begin, double end, VstInt32 numsamples);
+	void fillBuffer (short* bufpos, VstInt32 length, VstInt32 offset);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);

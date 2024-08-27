@@ -319,14 +319,14 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	lock.release();
 }
 
-void OPL3GM::calculateCPULoad (double begin, double end, int numsamples)
+void OPL3GM::calculateCPULoad (double begin, double end, VstInt32 numsamples)
 {
 	double GenerateDuration = (end - begin) / GetCPUFrequency();
 	double BufferDuration = numsamples * (1.0 / sampleRate);
 	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 }
 
-void OPL3GM::fillBuffer (short* bufpos, int length, int offset)
+void OPL3GM::fillBuffer (short* bufpos, VstInt32 length, VstInt32 offset)
 {
 	if (!bufpos || length >= blockSize || offset >= blockSize)
 	{
@@ -351,11 +351,11 @@ void OPL3GM::fillBuffer (short* bufpos, int length, int offset)
 	{
 		if (resampler)
 		{
-			for (int i = 0; i < length; i++)
+			for (VstInt32 i = 0; i < length; i++)
 			{
 				sample_t ls, rs;
-				int to_write = resampler_get_min_fill(resampler);
-				for (int j = 0; j < to_write; j++)
+				VstInt32 to_write = resampler_get_min_fill(resampler);
+				for (VstInt32 j = 0; j < to_write; j++)
 				{
 					if (synth)
 					{
@@ -485,7 +485,7 @@ void OPL3GM::sendMidi (char* data)
 		{
 			if (channel != 9)
 			{
-				int note = byte2 + (int)Transpose;
+				VstInt32 note = byte2 + (VstInt32)Transpose;
 				if (note > 127)
 				{
 					note = 127;
@@ -498,10 +498,9 @@ void OPL3GM::sendMidi (char* data)
 			}
 		}
 	}
-	unsigned int msg = (byte3<<16) | (byte2<<8) | byte1;
 	if (synth)
 	{
-		synth->midi_write(msg);
+		synth->midi_write((byte3 << 16) | (byte2 << 8) | byte1);
 	}
 }
 
