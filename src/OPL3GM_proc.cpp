@@ -258,10 +258,6 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 		if (out1)
 		{
 			out1[i] = buffer[i*2+0] / (sampletype)32768;
-			if (in1)
-			{
-				out1[i] += in1[i];
-			}
 			if (DCBlock >= 0.5)
 			{
 				out1[i] = (sampletype)dcf[0].ProcessDC(out1[i]);
@@ -277,15 +273,15 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out1[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 			}
 #endif
+			if (in1)
+			{
+				out1[i] += in1[i];
+			}
 			vu[0] = out1[i];
 		}
 		if (out2)
 		{
 			out2[i] = buffer[i*2+1] / (sampletype)32768;
-			if (in2)
-			{
-				out2[i] += in2[i];
-			}
 			if (DCBlock >= 0.5)
 			{
 				out2[i] = (sampletype)dcf[1].ProcessDC(out2[i]);
@@ -301,6 +297,10 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 				out2[i] += ((rand() / (sampletype)RAND_MAX) / (sampletype)256);
 			}
 #endif
+			if (in2)
+			{
+				out2[i] += in2[i];
+			}
 			vu[1] = out2[i];
 		}
 	}
