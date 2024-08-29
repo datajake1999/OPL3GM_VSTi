@@ -1616,12 +1616,12 @@ bool Editor::open (void* ptr)
 			}
 			((AudioEffectX*)effect)->getEffectName (synthname);
 			SetWindowText((HWND)dlg, synthname);
-		}
 #ifdef _WIN64
-		SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)effect);
+			SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)effect);
 #else
-		SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
+			SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
 #endif
+		}
 		HWND kbdwin = GetDlgItem((HWND)dlg, IDC_KEYBOARD);
 		if (kbdwin)
 		{
