@@ -50,6 +50,7 @@ OPL3GM::OPL3GM (audioMasterCallback audioMaster)
 	memset(&hi, 0, sizeof(hi));
 	memset(vu, 0, sizeof(vu));
 	CPULoad = 0;
+	memset(channelPrograms, 0, sizeof(channelPrograms));
 	initSynth ();
 	initBuffer ();
 #ifdef DEMO

@@ -198,6 +198,7 @@ private:
 	LockableObject lock;
 	double vu[2];
 	double CPULoad;
+	VstInt32 channelPrograms[16];
 #ifdef DEMO
 	time_t startTime;
 #endif

@@ -41,6 +41,7 @@ VstInt32 OPL3GM::getCurrentMidiProgram (VstInt32 channel, MidiProgramName* mpn)
 	if (synth)
 	{
 		prg = synth->midi_getprogram(channel);
+		channelPrograms[channel] = prg;
 	}
 	mpn->thisProgramIndex = prg;
 	fillProgram (channel, prg, mpn);
@@ -100,7 +101,16 @@ VstInt32 OPL3GM::getMidiProgramCategory (VstInt32 channel, MidiProgramCategory* 
 
 bool OPL3GM::hasMidiProgramsChanged (VstInt32 channel)
 {
-	return false;	// updateDisplay ()
+	if (channel < 0 || channel >= 16)
+	return false;
+	if (synth)
+	{
+		if (synth->midi_getprogram(channel) != channelPrograms[channel])
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 bool OPL3GM::getMidiKeyName (VstInt32 channel, MidiKeyName* key)
