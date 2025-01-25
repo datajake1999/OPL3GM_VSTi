@@ -113,7 +113,7 @@ After installing, just run build.bat. You may need to change the paths defined i
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-# Creddits
+# Credits
 
 * Nukeykt, for writing the Nuked OPL3 emulator and the MIDI drivers that this project is based on.
 * Wohlstand, for applying various updates to the aforementioned MIDI drivers.
@@ -123,4 +123,3 @@ After installing, just run build.bat. You may need to change the paths defined i
 * Developers in the 90s, for creating the original MIDI drivers that this project replicates, as well as the included instrument banks.
 * Sneakernets, for creating the DMXOPL patch set.
 * Old blogs and forums, for tips on VST development.
-
