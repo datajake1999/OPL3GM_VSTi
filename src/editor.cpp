@@ -1458,6 +1458,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			KeyboardControlChange(info, 0x40, 127);
 			return FALSE;
 		}
+		return TRUE;
 	case VK_BACK:
 		KeyboardProgramChange(info);
 		KeyboardPitchBend(info);
@@ -1551,6 +1552,10 @@ Editor::Editor (AudioEffect* effect)
 			if (hBrush)
 			{
 				KeyboardClass.hbrBackground = hBrush;
+			}
+			else
+			{
+				KeyboardClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 			}
 		}
 		KeyboardClass.lpszClassName = CLASSNAME;
