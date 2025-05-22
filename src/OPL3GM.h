@@ -165,7 +165,7 @@ private:
 	template <class sampletype>
 	void processTemplate (sampletype** inputs, sampletype** outputs, VstInt32 sampleFrames);
 	void calculateCPULoad (double begin, double end, VstInt32 numsamples);
-	void fillBuffer (short* bufpos, VstInt32 length, VstInt32 offset);
+	void fillBuffer (short* bufpos, VstInt32 length);
 	void processEvent (VstEvent* event);
 	void sendMidi (char* data);
 	void fillProgram (VstInt32 channel, VstInt32 prg, MidiProgramName* mpn);

@@ -242,19 +242,37 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	}
 
 	begin = GetCPUTime();
-	for (VstInt32 i = 0; i < sampleFrames; i++)
+	VstInt32 totalFrames = sampleFrames;
+	VstInt32 renderedFrames = 0;
+	short *bufferPointer = buffer;
+	while (totalFrames > 0)
 	{
-		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= i)
+		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= renderedFrames)
 		{
 			processEvent (MidiQueue.GetNextEvent());
 		}
+		VstInt32 currentFrames = MidiQueue.GetEventTime() -renderedFrames;
+		if (currentFrames > totalFrames || currentFrames <= 0)
+		{
+			currentFrames = totalFrames;
+		}
+		fillBuffer(bufferPointer, currentFrames);
+		bufferPointer += 2*currentFrames;
+		renderedFrames += currentFrames;
+		totalFrames -= currentFrames;
+	}
+	while (MidiQueue.HasEvents())
+	{
+		processEvent (MidiQueue.GetNextEvent());
+	}
+	for (VstInt32 i = 0; i < sampleFrames; i++)
+	{
 #if REAPER_EXTENSIONS
 		while (ParameterQueue.HasEvents() && ParameterQueue.GetEventTime() <= i)
 		{
 			processEvent (ParameterQueue.GetNextEvent());
 		}
 #endif
-		fillBuffer (buffer, 1, i);
 		if (out1)
 		{
 			out1[i] = buffer[i*2+0] / (sampletype)32768;
@@ -304,10 +322,6 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 			vu[1] = out2[i];
 		}
 	}
-	while (MidiQueue.HasEvents())
-	{
-		processEvent (MidiQueue.GetNextEvent());
-	}
 #if REAPER_EXTENSIONS
 	while (ParameterQueue.HasEvents())
 	{
@@ -326,13 +340,12 @@ void OPL3GM::calculateCPULoad (double begin, double end, VstInt32 numsamples)
 	CPULoad = (GenerateDuration / BufferDuration) * 100.0;
 }
 
-void OPL3GM::fillBuffer (short* bufpos, VstInt32 length, VstInt32 offset)
+void OPL3GM::fillBuffer (short* bufpos, VstInt32 length)
 {
-	if (!bufpos || length >= blockSize || offset >= blockSize)
+	if (!bufpos || length > blockSize || length <= 0)
 	{
 		return;
 	}
-	bufpos += 2*offset;
 	if (internalRate == (VstInt32)sampleRate)
 	{
 		if (synth)
