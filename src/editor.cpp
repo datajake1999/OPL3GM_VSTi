@@ -1203,8 +1203,8 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	}
 	if (!KeepNotes(wParam))
 	{
-		KeyboardControlChange(info, 0x7b, 0);
 		KeyboardControlChange(info, 0x40, 0);
+		KeyboardControlChange(info, 0x7b, 0);
 	}
 	char text[MAX_PATH];
 	ZeroMemory(text, sizeof(text));
@@ -1512,8 +1512,8 @@ static LRESULT WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	case WM_KEYUP:
 		return KeyUp(wParam, info);
 	case WM_KILLFOCUS:
-		KeyboardControlChange(info, 0x7b, 0);
 		KeyboardControlChange(info, 0x40, 0);
+		KeyboardControlChange(info, 0x7b, 0);
 		SetWindowText(hWnd, "");
 		return 0;
 	}
@@ -1544,6 +1544,7 @@ Editor::Editor (AudioEffect* effect)
 		KeyboardClass.lpfnWndProc = (WNDPROC)KeyboardProc;
 		KeyboardClass.cbWndExtra = sizeof(KeyboardInfo*);
 		KeyboardClass.hInstance = (HINSTANCE)hInstance;
+		KeyboardClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 		KeyboardClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 		HBITMAP hBitmap = LoadBitmap((HINSTANCE)hInstance, MAKEINTRESOURCE(IDB_BITMAP1));
 		if (hBitmap)
@@ -1637,6 +1638,7 @@ bool Editor::open (void* ptr)
 #endif
 		}
 		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+		DragAcceptFiles((HWND)dlg, TRUE);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
 		return true;
