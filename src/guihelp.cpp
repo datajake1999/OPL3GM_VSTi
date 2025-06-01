@@ -112,10 +112,12 @@ void OPL3GM::enableChannel (VstInt32 channel, bool enable)
 	{
 		char data[3];
 		data[0] = 0xb0 + (char)channel;
-		data[1] = 0x7b;
+		data[1] = 0x40;
 		data[2] = 0;
 		sendMidi (data);
-		data[1] = 0x40;
+		data[1] = 0x7b;
+		sendMidi (data);
+		data[1] = 0x79;
 		sendMidi (data);
 		data[0] = 0xe0 + (char)channel;
 		data[1] = 0;
