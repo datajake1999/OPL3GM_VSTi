@@ -20,6 +20,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #ifndef OPL3GM_H
 #define OPL3GM_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+//#define DEMO
+#ifdef DEMO
+#include <time.h>
+#endif
 #include "../interface.h"
 #include "../dsp/DCFilter.h"
 #include "../dsp/resampler.h"
@@ -31,13 +38,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 #include "lock.h"
 #include "CPU.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-//#define DEMO
-#ifdef DEMO
-#include <time.h>
-#endif
 
 enum
 {
