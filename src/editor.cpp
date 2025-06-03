@@ -508,10 +508,13 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 			return FALSE;
 		}
 		char filename[MAX_PATH];
+		char title[MAX_PATH];
 		ZeroMemory(filename, sizeof(filename));
+		ZeroMemory(title, sizeof(title));
 		if (DragQueryFile(hDrop, 0, filename, MAX_PATH))
 		{
-			if (!effect->loadInstruments (filename, filename))
+			GetFileTitle(filename, title, MAX_PATH);
+			if (!effect->loadInstruments (filename, title))
 			{
 				char caption[MAX_PATH];
 				char temp[MAX_PATH];
@@ -526,7 +529,7 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 				DragFinish(hDrop);
 				return FALSE;
 			}
-			SetDlgItemText(hWnd, IDC_CURBANK, filename);
+			SetDlgItemText(hWnd, IDC_CURBANK, title);
 			DragFinish(hDrop);
 			return TRUE;
 		}
