@@ -66,6 +66,32 @@ You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-
 
 The User Interfaces of most audio plugins draw graphics directly to the screen. The problem with this approach Is that these controls aren't seen by assistive technology such as screen readers, which are designed to work with native Operating System controls. This project aims to change that. The UI has been programmed from the ground up using raw Win32 with mostly standard controls, The only exception being the Virtual MIDI Keyboard.
 
+## Guide to the GUI
+
+### Settings
+
+* Preset: sets the currently active preset. Even though this instrument only has a single preset, a framework has been set in place for working with multiple presets.
+* Preset Name: sets the name of the currently active preset.
+* The next set of options correspond to the previously mentioned automatable parameters, so they will be omitted here. It is worth noting that parameters such as Volume and Transpose have a static text label to the right of the control that shows the current value.
+* Bypass: Stops processing audio and MIDI data. It is worth noting that this plugin acts as a pass through device, as it takes audio in and mixes it with the synth output, as well as outputs MIDI back to the host. This is still the case when Bypass is enabled.
+* OPL3 Sample Rate: sets the sample rate of the OPL3 emulation. This option is only available when High Quality Resampling is enabled.
+
+### Misc
+
+* Refresh: refreshes the user interface with the plugin’s current settings and state.
+* Load Instrument Bank: loads an instrument bank file into the synth. This functionality is disabled in the Windows 9x synth, as it only has a built-in instrument bank. The current bank is shown to the right of this control.
+* Panic Synth: stops all notes immediately.
+* Reset Synth: stops all notes immediately and resets MIDI parameters. The number of currently active voices is shown to the right of this control.
+* About: displays information about the VST plugin, such as credits.
+* Plugin statistics: shows information including the host sample rate and block size, as well as the number of active plugin instances. The audio output level is shown to the right of this control.
+* Host Info: displays information about the host the plugin is running in.
+* Hard Reset: Fully reinitializes the internal synthesis engine. The CPU load is shown to the right of this control.
+* Forget Settings: resets all settings to there default values.
+* Freeze Meters: This causes the active voice count, audio output level, and CPU load to stay at there last known values. When the user interface is refreshed by the user, these meters are updated regardless of this setting.
+* Hide Parameter Display: hides the display of parameter values such as Volume and Transpose. The virtual MIDI keyboard is below this control.
+* Channel Mixer: brings up a dialog where MIDI channels can be enabled or disabled. When a channel is disabled from this dialog, all notes are stopped and various controllers are reset on the relevant channel. This dialog also has All and None buttons for quickly enabling or disabling all channels, and there is a Close button to go back to the main window.
+* Open Project Page: opens the project page in the user's default web browser. The user is asked if they are connected to the internet before attempting to load the browser.
+
 ## Virtual MIDI Keyboard cheat sheet
 
 * Number row: Select octave.
