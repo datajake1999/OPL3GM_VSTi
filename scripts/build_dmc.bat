@@ -5,7 +5,7 @@ set path=C:\DM\Bin;%path%
 set include=C:\DM\Include
 set lib=C:\DM\Lib
 echo Compiling source files.
-dmc -c -DVST_FORCE_DEPRECATED=0 -DGUI -I..\VST2_SDK -o @src.lst
+dmc -c -DVST_FORCE_DEPRECATED=0 -DGUI -D_WIN32_WINNT=0x0400 -I..\VST2_SDK -o @src.lst
 echo Compiling resource script.
 rcc -32 ..\res\OPL3GM.rc
 echo Linking DLLs.
