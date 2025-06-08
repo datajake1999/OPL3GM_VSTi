@@ -53,7 +53,7 @@ BEGIN
             VALUE "FileDescription", "OPL3GM VSTi\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "OPL3GM\0"
-            VALUE "LegalCopyright", "Copyright (C) 2021-2024\0"
+            VALUE "LegalCopyright", "Copyright (C) 2021-2025\0"
             VALUE "LegalTrademarks", "VST is a trademark of Steinberg Media Technologies GmbH\0"
             VALUE "OriginalFilename", "OPL3GM.dll\0"
             VALUE "PrivateBuild", "\0"
@@ -239,7 +239,7 @@ STRINGTABLE DISCARDABLE
 BEGIN
     IDS_ICON_ALTTEXT1       "Yamaha YMF262 (year 1994)"
     IDS_ABOUTCAP            "About OPL3GM VSTi"
-    IDS_ABOUTTXT            "Copyright (C) 2021-2024 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
+    IDS_ABOUTTXT            "Copyright (C) 2021-2025 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
     IDS_STATSCAP            "VST Plug-in Statistics"
     IDS_STATSTXT            "Host sample rate: %d hZ\nOPL3 sample rate: %d hZ\nBlock size: %d\nActive plug-in Instances: %d"
     IDS_HOSTCAP             "VST Host Information"
