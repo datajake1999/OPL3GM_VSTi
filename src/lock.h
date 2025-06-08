@@ -34,6 +34,7 @@ public:
 	~LockableObject();
 	void acquire();
 	void release();
+	bool tryAcquire();
 };
 
 #endif

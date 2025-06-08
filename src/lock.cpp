@@ -75,3 +75,21 @@ void LockableObject::release()
 	}
 #endif
 }
+
+/**
+* Attempts to acquire access (returns true on success).
+*/
+
+bool LockableObject::tryAcquire()
+{
+#ifdef _WIN32
+	if (cs)
+	{
+		if (TryEnterCriticalSection((LPCRITICAL_SECTION)cs))
+		{
+			return true;
+		}
+	}
+#endif
+	return false;
+}

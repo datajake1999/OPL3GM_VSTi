@@ -204,8 +204,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	double begin;
 	double end;
 
-	lock.acquire();
-	if (bypassed || !buffer || !out1 || !out2)
+	if (bypassed || !buffer || !out1 || !out2 || !lock.tryAcquire())
 	{
 		begin = GetCPUTime();
 		if (out1)
@@ -244,7 +243,7 @@ void OPL3GM::processTemplate (sampletype** inputs, sampletype** outputs, VstInt3
 	begin = GetCPUTime();
 	VstInt32 totalFrames = sampleFrames;
 	VstInt32 renderedFrames = 0;
-	short *bufferPointer = buffer;
+	short* bufferPointer = buffer;
 	while (totalFrames > 0)
 	{
 		while (MidiQueue.HasEvents() && MidiQueue.GetEventTime() <= renderedFrames)
