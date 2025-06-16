@@ -4,6 +4,7 @@ OPL3GM_VSTi\build.bat
 OPL3GM_VSTi\builddemo.bat
 OPL3GM_VSTi\dsp
 OPL3GM_VSTi\fmopl3lib
+OPL3GM_VSTi\gui_rules.txt
 OPL3GM_VSTi\include
 OPL3GM_VSTi\install.iss
 OPL3GM_VSTi\interface.h
