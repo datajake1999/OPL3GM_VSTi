@@ -1,0 +1,79 @@
+Recommendations for VST GUI's - written by Veli-Pekka Tätilä - july 2005
+=================================================================
+As we are talking about screen readers here, the user interface should be perfectly usable from the keyboard and offer all information in a way that can be easily turned into text, and later, to speech or braille. Think of using the GUI without neither the mouse nor the sscreen.
+Here are some core principles an accessible VST GUI, be it the VSTGUI library or not, should provide in my view:
+
+1. All controls should have a keyboard interface. For controls that have an equivalent in the desktop GUI of a particular platform, the shortcuts should be the same as for those controls. For knobs the shortcuts for sliders could be used. For Windows that includes:
+
+Both up and right (regardless of orientation) to increase the value by a small amount Both down or left (regardless of orientation) to decrease the value by the same amount home: Minimum value of slider. end: Maximum value of slider. page up: Increase by a large increment. page down: decrease by a large increment.
+
+additionally, it would help a great deal if numerical values could be typed in directly. in stead of using a small dialog for this, support for typing values on the fly might be easier.
+
+2. The VST GUI should offer keyboard means for moving between the various controls. In Windows that means the tab order which should be customizable and not necessarily tied to the physical left to right top to bottom layout. Additionally movment should be supported backwords (shift+tab). In order to make it possible for a screen reader to read what the user is currently doing, moving in the tab order should move the system's focus around. FOr WIndows it could be the invisible system caret, for instance, as in Internet Explorer.
+
+3. In addition to moving sequentially between the controls, keybord shortcuts for accessing a particular control directly, that is moving the keyboard focus to it, should be supported. SO in order to reach a filter cutoff knob from the osc section one wouldn't have to, say, press the tab key twenty times. Ideally the visual representation and actual shortcut keys should be customizable on a per platform basis. For Windows the label could have some underlined letter moving the focus. It might also be a good idea to provide shortcuts for quicly moving between the main groups of controls.
+
+4. The controls being used should be such that screen readers can readily interpret and understand them. Using native platform controls with a custom look (e.g. owner-drawn controls) might be one solution. ANother would be subclassing existing platform specific controls. One area of concern are controls that are common in the synth world but don't usually use the native look and feel. These include knobs, switches and prieset lists among others. For maximum accessibility, these controls could be mapped to their platform specific counter parts. Knobs being faked as sliders, switches being radio buttons and the lists either list views or list boxes depending on whether they need to be opened first.
+
+Further more, the behavior for controls being used should be as native as possible. As an example controls derived from Win32 scrollbars should offer a context menu and list boxes should not open automatically when traversing through the elements using the keyboard in Windows.
+
+Finally, elements that update very frequently should not draw the screen reader's focus away from what the user is currently doing (focus stealing). yet such elements should be easily examinable when desired. A good example is a levle meter. The user cannot really use the synth is the reader tries to read the changing levels most of the time. Yet the meter should be in the tab order so that the user could tab to it and have a readout of the most recent values when desired.
+
+5. All controls should have textual labels and textual means of displaying their current values. This makes reading the control names and values to the user possible in the first place. Using bitmapped labels is extremely bad form from an accessibility and usability point of view. Firstly, the screen reader only sees a bitmap and interpreting it would require real time optical character recognition which none of the current screen readers implement. Thus, as a result, only the word bitmap or graphic is read. Secondly, bitmapped text doesn't display smoothly on higher resolutions or if viewed magnified.
+
+If no labels or values can be displayed for one reason or another, be it aesthetic, spatial or whatever, some other means of getting at the same information should be provided. Though this would likely require support on the host side as well, using platform specific accessibility interfaces to expose this information might be one option. In Windows you could provide the label, state and even the role of the control with Microsoft Active Accessibility, for instance. If it is undesirable to expose the real value for the control, the position of a knob or slider should be given in some other means such as in percentages, degrees or using clock directions. However, the style of representation is used should be conveyed to the screen reader as well.
+
+As the last resort, if the plug-in does not  expose any useful information to the user, the host could expose the labels and values gained via the String based interface. The String based UI may not always provide a satisfactory solution, however, as some plug-ins use non-descriptive numerical identifiers that aren't intended to be seen by the user.
+
+6. The Vst GUi should provide the option of using a ccolor scheme that respects the system defaults. Many plug-ins have cool looking but confusing gradients in them or very low-contrast text such as dark blue on black. The user can, however, tailor the default GUI look on a per platform basis. Optionally using the system colors consistantly, ensures that the user interface feels comfortable and that text is readable. as a general rule of thumb for custom interfaces, the contrast between elements that need to be observed separately (e.g. slider handles and knob labels) should be high enough that the UI is clear after a conversion to a black-and-white bitmap,
+
+7. Knobs should optionally ofrer a mouse interaction mode that is usable for magnification users. The problem with most knobs is that dragging with the mouse moves the pointer away from the control with which one is interacting. This means that after having adjusted the control using full-screen magnification, one needs to relocate the control because the mouse pointer has moved away from it. One workaround might be a dragging mode that returns the pointer to the position in which dragging started.
+
+============================================================
+A extract of what he wrote on a forum about the same subject :
+------------
+As to the control, pixmap based already rings a warning bell in my mind.
+With a plain bitmap the classname or any other properties of the control do
+not give the semantic info needed by the screen reader like Gnopernicus or
+Jaws e.g. this is a knob or a slider not just any graphic. Secondly, does
+your plug-in have a keyboard interface? If not people who are unable to use,
+or don't have the mouse are out as well.
+
+While I do somewhat understand the need for custom controls like nobs and
+portability is important, most things that are custom or portable tend to be
+highly inaccessible. Reaktor 4's keybord usability and feel is terrible and
+very unWindows:ish because of cross-platform considerations. Fruty Loops was
+made equally inaccessible as they added skinned dialogs somewhere around
+version 3.x. Sonic Foundry's DX plugs, on the other hand, are one of the few
+that don't have a highly skinned look. They use native controls, support the
+tab order and have means of manipulating all controls using the keyboard.
+I've bene perfectly happy with the usability of those plug-ins and see no
+need for adding skinning let alone bitmapped text.
+
+I'm more than a bit frustrated with the current state of plug-in UI things.
+Usability folks should know that emulating the hardware down to the finest
+detail seldom is the best solution if the app is to be operated with the
+mouse on a computer monitor. This is one of the first things covered on
+basic human-computer interaction courses where they show, say, shots of
+media players looking very much like the real thing and having small
+unreadable text and tiny buttons to get the point across. Yet imitating
+hardware is exactly what most people do. Aside from marketing and coolness
+reasons, I canot see why.
+
+Well, poor usability is not my main gripe but the fact that most plug-ins
+and even many stand-alone apps are already or are being made inaccessible by
+the current trend of hardware look-alikes and cross-platform programming.
+This means that important music software that I could use before, such as
+the above mentioned Fruity, Reaktor and even Sonar to a certain extent are
+turning into keybord nightmares that are fumdamentally unusable to me let
+alone people who have no sight left at all. So marketing hype like "a new
+skinnable user interface" reads to me as "haha, we made also this app
+unusable to you, sorry for any inconvenience this might cause, though we are
+not going to do anything about it even if aware of the problem".
+
+To summarize, explicitly making a custom UI accessible is very important
+because unlike a native UI, it cannot usually be accessible out of the box.
+All cross-platform attempts I've seen so far seem fundamentally inaccessible
+which really irks me for various reasons outlined above. And again this
+includes VST GUI, too.
+===================================

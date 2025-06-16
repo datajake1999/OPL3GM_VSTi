@@ -1,15 +1,16 @@
 # Introduction
 This is a collection of VST instruments that emulate MIDI drivers for OPL3 based sound cards. The synthesizer code is based on [the Windows OPL3 drivers from this thread](https://www.vogons.org/viewtopic.php?t=36667)
 
-# Included synths
+# Included Synths
 
 * Apogee OPL3: Based on Apogee Sound System source code.
 * Doom OPL3: Based on Chocolate Doom source code.
 * Windows 9x OPL3: Based on Windows 9x Sound Blaster 16 driver reverse engineering.
 
-# Installation and usage notes
+# Installation and Usage Notes
+Note: Apogee and Doom instrument bank files can be loaded from the plug-in's user interface. The following sections describe how to install a default instrument bank.
 
-## Included Apogee patches
+## Included Apogee Patches
 
 * built in patch - ROTT 1.3, Build engine games setup utility.
 * apogee_blood.tmb - Blood
@@ -19,14 +20,14 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * apogee_nam.tmb - NAM
 * apogee_sw.tmb - Shadow Warrior(Shareware)
 
-### Default Apogee patch installation
+### Default Apogee Patch Installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.tmb files to C:\OPLSynth folder.
 3. Copy needed tmb file as apogee.tmb
 4. If you want to use built in patch remove apogee.tmb
 
-## Included Doom patches
+## Included Doom Patches
 
 * built in patch - DMX, Heretic, Hexen, Doom Beta, Strife Demo
 * dmx_dmx.op2 - Copy of built in patch
@@ -36,14 +37,14 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 * dmx_raptor.op2 - Raptor
 * dmxopl.op2 - DMXOPL3
 
-### Default Doom patch installation
+### Default Doom Patch Installation
 
 1. Create OPLSynth folder in C:\ disk root.
 2. Copy *.op2 files to C:\OPLSynth folder.
 3. Rename needed op2 file to genmidi.op2.
 4. If you want to use built in patch remove genmidi.op2
 
-## DMXOPTION toggles
+## DMXOPTION Toggles
 
 * OPL3 mode enable: Set DMXOPTION environment variable to "-opl3" 
 * Doom 1 1.666 mode enable: Set DMXOPTION environment variable to "-doom1" 
@@ -51,20 +52,26 @@ This is a collection of VST instruments that emulate MIDI drivers for OPL3 based
 
 You also can combine OPL3 mode with Doom 1.666 modes. eg set variable to "-opl3-doom1"
 
-# Automatable parameters
+# Known Bugs
+The original MIDI drivers that this project replicates have known issues. For historical accuracy, these are replicated and will not be addressed.
+
+* When the Apogee driver receives a command to reset all controllers, the MIDI programs on all channels are also reset.
+* The stereo channels in the Doom driver are reversed when in OPL3 mode.
+* The Windows 9x driver has a pitch bend underflow bug where the lowest pitch bend value wraps to the highest possible value.
+
+# Automatable Parameters
 
 * Volume: Synth master volume.
 * VolumeDisplay: Sets the unit for displaying the aforementioned Volume parameter, either dB or %.
 * DCBlock: Filters out DC offset from the final output.
 * NoiseGate: Gates low level noise from the final output.
-* Transpose: Applies an offset to Incoming MIDI notes.
-* Emulator: Selects the OPL3 emulator that will be used. Nuked Is more accurate, while DOSBox runs faster.
+* Transpose: Applies an offset to incoming MIDI notes.
+* Emulator: Selects the OPL3 emulator that will be used. Nuked is more accurate, while DOSBox runs faster.
 * HQResample: Internally Runs OPL3 emulation at the native OPL3 sample rate (49716 hZ), then resamples to the host sample rate using a decent algorithm.
-* PushMidi: Queue's MIDI events Instead of processing them Immediately. Queued events have sample accurate timing, while immediate events can have jittery playback with large audio buffers.
+* PushMidi: Queue's MIDI events instead of processing them immediately. Queued events have sample accurate timing, while immediate events can have jittery playback with large audio buffers.
 
 # What's with the GUI?
-
-The User Interfaces of most audio plug-ins draw graphics directly to the screen. The problem with this approach Is that these controls aren't seen by assistive technology such as screen readers, which are designed to work with native Operating System controls. This project aims to change that. The UI has been programmed from the ground up using raw Win32 with mostly standard controls, The only exception being the Virtual MIDI Keyboard.
+The user interfaces of most audio plug-ins draw graphics directly to the screen. The problem with this approach is that these controls aren't seen by assistive technology such as screen readers, which are designed to work with native operating system controls. This project aims to change that. The UI has been programmed from the ground up using raw Win32 with mostly standard controls, the only exception being the virtual MIDI keyboard.
 
 ## Guide to the GUI
 
@@ -92,19 +99,19 @@ The User Interfaces of most audio plug-ins draw graphics directly to the screen.
 * Channel Mixer: brings up a dialog where MIDI channels can be enabled or disabled. When a channel is disabled from this dialog, all notes are stopped and various controllers are reset on the relevant channel. This dialog also has All and None buttons for quickly enabling or disabling all channels, and there is a Close button to go back to the main window.
 * Open Project Page: opens the project page in the user's default web browser. The user is asked if they are connected to the internet before attempting to load the browser.
 
-## Virtual MIDI Keyboard cheat sheet
+## Virtual MIDI Keyboard Cheat Sheet
 
-* Number row: Select octave.
-* Top row: Sharp notes.
-* Home row: Flat notes.
-* Bottom row: Select velocity.
+* Number Row: Select octave.
+* Top Row: Sharp notes.
+* Home Row: Flat notes.
+* Bottom Row: Select velocity.
 * Shift: Sustain.
-* Up arrow: Increase velocity.
-* Down arrow: Decrease velocity.
-* Right arrow: Increase octave.
-* Left arrow: Decrease octave.
-* Page down: Move to next Instrument.
-* Page up: Move to previous Instrument.
+* Up Arrow: Increase velocity.
+* Down Arrow: Decrease velocity.
+* Right Arrow: Increase octave.
+* Left Arrow: Decrease octave.
+* Page Down: Move to next instrument.
+* Page Up: Move to previous instrument.
 * End: Increase active channel.
 * Home: Decrease active channel.
 * =: Increase bend MSB.
@@ -114,17 +121,17 @@ The User Interfaces of most audio plug-ins draw graphics directly to the screen.
 * Backspace: Reset pitch bend and program to current keyboard state.
 * Space: Reset keyboard state.
 
-# Extra notes
+# Extra Notes
 
-* This is only a VST2 compatible plug-in. A VST3 version Is not planned for various reasons.
+* This is only a VST2 compatible plug-in. A VST3 version is not planned for various reasons.
 
-# Building from source
+# Building from Source
 In order to build OPL3GM you will need
 
 * Microsoft Visual Studio 2005
 * Windows Server 2003 Platform SDK
 * InnoSetup 5.4.3
-* 7-Zip
+* 7-Zip (any version)
 
 After installing, just run build.bat. You may need to change the paths defined in this script to correspond with your installation of the build tools.
 
@@ -150,3 +157,4 @@ After installing, just run build.bat. You may need to change the paths defined i
 * Sneakernets, for creating the DMXOPL patch set.
 * Old blogs and forums, for tips on VST development.
 * Charles Petzold, for writing Programming Windows, Fifth Edition.
+* Veli-Pekka Tätilä, for writing a set of recommended accessibility practices to keep in mind when designing VST user interfaces.

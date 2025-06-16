@@ -188,7 +188,7 @@ BEGIN
     LTEXT           "Active Voices: ",IDC_STATIC,220,260,90,8
     LTEXT           "",IDC_VOICECOUNT,310,260,90,8
     PUSHBUTTON      "&About...",IDC_ABOUT,20,290,90,15,WS_TABSTOP
-    PUSHBUTTON      "Plug&in Statistics...",IDC_STATS,120,290,90,15,WS_TABSTOP
+    PUSHBUTTON      "Plug-&in Statistics...",IDC_STATS,120,290,90,15,WS_TABSTOP
     LTEXT           "Output Level: ",IDC_STATIC,220,290,90,8
     LTEXT           "",IDC_VU,310,290,90,8
     PUSHBUTTON      "&Host Info...",IDC_HOSTINFO,20,320,90,15,WS_TABSTOP
@@ -241,7 +241,7 @@ BEGIN
     IDS_ABOUTCAP            "About OPL3GM VSTi"
     IDS_ABOUTTXT            "Copyright (C) 2021-2025 Datajake.\nBased on Windows OPL3 user mode drivers by Alexey Khokholov.\nVST PlugIn Interface Technology by Steinberg Media Technologies GmbH."
     IDS_STATSCAP            "VST Plug-in Statistics"
-    IDS_STATSTXT            "Host sample rate: %d hZ\nOPL3 sample rate: %d hZ\nBlock size: %d\nActive plug-in Instances: %d"
+    IDS_STATSTXT            "Host sample rate: %d hZ\nOPL3 sample rate: %d hZ\nBlock size: %d\nActive plug-in instances: %d"
     IDS_HOSTCAP             "VST Host Information"
     IDS_HOSTTXT             "Product name: %s\nProduct version: %f\nVendor: %s\nMaster version: %f"
     IDS_FILEFLT             "Everything (*.*)\0*.*\0Apogee Instrument Banks (*.TMB)\0*.TMB\0Doom Instrument Banks (*.OP2)\0*.OP2\0\0"
@@ -251,9 +251,9 @@ BEGIN
     IDS_FAILCAP             "Error"
     IDS_FAILTXT             "%s Failed to load!"
     IDS_HELPCAP             "Congratulations"
-    IDS_HELPTXT             "You pressed the help button! This feature Isn't particularly useful, so you might want to consult your favorite search engine If you have an Internet connection."
+    IDS_HELPTXT             "You pressed the help button! This feature isn't particularly useful, so you might want to consult your favorite search engine if you have an internet connection."
     IDS_WEBCAP              "Confirm"
-    IDS_WEBTXT              "Are you connected to the Internet?"
+    IDS_WEBTXT              "Are you connected to the internet?"
     IDS_REAPPROVE           "\nI approve!"
 END
 
