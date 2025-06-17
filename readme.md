@@ -85,7 +85,7 @@ The user interfaces of most audio plug-ins draw graphics directly to the screen.
 
 ### Misc
 
-* Refresh: refreshes the user interface with the plug-in’s current settings and state.
+* Refresh: refreshes the user interface with the plug-in's current settings and state.
 * Load Instrument Bank: loads an instrument bank file into the synth. This functionality is disabled in the Windows 9x synth, as it only has a built-in instrument bank. The current bank is shown to the right of this control.
 * Panic Synth: stops all notes immediately.
 * Reset Synth: stops all notes immediately and resets MIDI parameters. The number of currently active voices is shown to the right of this control.
