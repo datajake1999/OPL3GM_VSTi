@@ -354,6 +354,30 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 		SetDlgItemText(hWnd, IDC_OPLRATE, text);
 		effect->getBankName (text, MAX_PATH);
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
+		if (effect->getFreezeMeters ())
+		{
+			CheckDlgButton(hWnd, IDC_FREEZE, BST_CHECKED);
+		}
+		else
+		{
+			CheckDlgButton(hWnd, IDC_FREEZE, BST_UNCHECKED);
+		}
+		if (effect->getHideParameters ())
+		{
+			CheckDlgButton(hWnd, IDC_HIDEDISP, BST_CHECKED);
+			ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_HIDE);
+			ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_HIDE);
+			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_HIDE);
+			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_HIDE);
+		}
+		else
+		{
+			CheckDlgButton(hWnd, IDC_HIDEDISP, BST_UNCHECKED);
+			ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_SHOW);
+			ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_SHOW);
+			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
+			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
+		}
 		UpdateMeters(hWnd, effect, FALSE);
 		return TRUE;
 	}
@@ -1036,12 +1060,6 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		case IDC_FORGET:
 			if (effect)
 			{
-				CheckDlgButton(hWnd, IDC_FREEZE, BST_UNCHECKED);
-				CheckDlgButton(hWnd, IDC_HIDEDISP, BST_UNCHECKED);
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
 				effect->initializeSettings (true);
 				RefreshDialog(hWnd, effect);
 				return TRUE;
@@ -1050,22 +1068,42 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				return FALSE;
 			}
-		case IDC_HIDEDISP:
-			if (IsDlgButtonChecked(hWnd, IDC_HIDEDISP))
+		case IDC_FREEZE:
+			if (effect)
 			{
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_HIDE);
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_HIDE);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_HIDE);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_HIDE);
+				if (IsDlgButtonChecked(hWnd, IDC_FREEZE))
+				{
+					effect->setFreezeMeters (true);
+				}
+				else
+				{
+					effect->setFreezeMeters (false);
+				}
+				RefreshDialog(hWnd, effect);
+				return TRUE;
 			}
 			else
 			{
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP1), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_VOLDISP2), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
-				ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
+				return FALSE;
 			}
-			return TRUE;
+		case IDC_HIDEDISP:
+			if (effect)
+			{
+				if (IsDlgButtonChecked(hWnd, IDC_HIDEDISP))
+				{
+					effect->setHideParameters (true);
+				}
+				else
+				{
+					effect->setHideParameters (false);
+				}
+				RefreshDialog(hWnd, effect);
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
 		case IDC_MIXER:
 			DialogBoxParam((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_MIXER), hWnd, (DLGPROC)MixerProc, (LPARAM)effect);
 			return TRUE;

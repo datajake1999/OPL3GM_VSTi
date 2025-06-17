@@ -40,6 +40,8 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	{
 		ChannelEnabled[i] = true;
 	}
+	FreezeMeters = false;
+	HideParameters = false;
 	if (resetSynth)
 	{
 		suspend ();
@@ -132,6 +134,30 @@ bool OPL3GM::isChannelEnabled (VstInt32 channel)
 {
 	channel = channel & 0x0f;
 	return ChannelEnabled[channel];
+}
+
+void OPL3GM::setFreezeMeters (bool value)
+{
+	lock.acquire();
+	FreezeMeters = value;
+	lock.release();
+}
+
+bool OPL3GM::getFreezeMeters ()
+{
+	return FreezeMeters;
+}
+
+void OPL3GM::setHideParameters (bool value)
+{
+	lock.acquire();
+	HideParameters = value;
+	lock.release();
+}
+
+bool OPL3GM::getHideParameters ()
+{
+	return HideParameters;
 }
 
 void OPL3GM::hardReset ()
