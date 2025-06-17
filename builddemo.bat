@@ -1,5 +1,5 @@
-@ECHO OFF
-set path="C:\Program Files\7-Zip";"C:\Program Files\Inno Setup 5"
+@echo off
+set path="C:\Program Files\7-Zip";"C:\Program Files\Inno Setup 5";%path%
 cd..
 7z a -tzip OPL3GM_VSTi\output\OPL3GM-src.zip @OPL3GM_VSTi\zip-src.lst
 cd OPL3GM_VSTi
