@@ -56,11 +56,6 @@ void OPL3GM::initializeSettings (bool resetSynth)
 	lock.release();
 }
 
-bool OPL3GM::getBypass ()
-{
-	return bypassed;
-}
-
 void OPL3GM::setInternalRate (VstInt32 rate)
 {
 	lock.acquire();
@@ -186,6 +181,11 @@ void OPL3GM::getBankName (char* text, VstInt32 size)
 		return;
 	}
 	strncpy(text, BankName, size);
+}
+
+bool OPL3GM::getBypass ()
+{
+	return bypassed;
 }
 
 HostInfo* OPL3GM::getHostInfo ()
