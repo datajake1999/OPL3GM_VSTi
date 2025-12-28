@@ -1628,6 +1628,7 @@ Editor::Editor (AudioEffect* effect)
 {
 	memset(&vstrect, 0, sizeof(vstrect));
 	dlg = NULL;
+	dirty = false;
 	memset(&keyboard, 0, sizeof(keyboard));
 	keyboard.Octave = 4;
 	keyboard.Velocity = 127;
@@ -1761,10 +1762,15 @@ void Editor::close ()
 
 void Editor::idle ()
 {
+	if (dirty)
+	{
+		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+		dirty = false;
+	}
 	UpdateMeters((HWND)dlg, (OPL3GM*)effect, TRUE);
 }
 
 void Editor::refresh ()
 {
-	RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+	dirty = true;
 }

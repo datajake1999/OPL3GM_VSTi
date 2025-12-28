@@ -46,6 +46,7 @@ public:
 private:
 	ERect vstrect;
 	void* dlg;
+	bool dirty;
 	KeyboardInfo keyboard;
 };
 
