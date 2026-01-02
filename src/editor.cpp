@@ -171,9 +171,9 @@ static BOOL SetOPLRate(HWND hWnd, OPL3GM* effect)
 	return FALSE;
 }
 
-static void UpdateMeters(HWND hWnd, OPL3GM* effect, BOOL IdleCall)
+static void UpdateMeters(HWND hWnd, EditorState* state, OPL3GM* effect, BOOL IdleCall)
 {
-	if (hWnd && effect)
+	if (hWnd && state && effect)
 	{
 		if (IdleCall && IsDlgButtonChecked(hWnd, IDC_FREEZE))
 		{
@@ -193,43 +193,78 @@ static void UpdateMeters(HWND hWnd, OPL3GM* effect, BOOL IdleCall)
 		double cpu = effect->getCPULoad ();
 		sprintf(text, "%lf %%", cpu);
 		SetDlgItemText(hWnd, IDC_CPU, text);
-		COLORREF color = 0;
-		HDC hDc = GetDC(GetDlgItem(hWnd, IDC_VOICECOUNT));
-		if (hDc)
+		if (numvoices > 15)
 		{
-			if (numvoices > 15)
-			{
-				color = RGB(255, 0, 0);
-			}
-			SetTextColor(hDc, color);
-			ReleaseDC(GetDlgItem(hWnd, IDC_VOICECOUNT), hDc);
-			hDc = NULL;
+			state->VoiceAlert = true;
 		}
-		color = 0;
-		hDc = GetDC(GetDlgItem(hWnd, IDC_VU));
-		if (hDc)
+		if (vu > 1)
 		{
-			if (vu > 1)
-			{
-				color = RGB(255, 0, 0);
-			}
-			SetTextColor(hDc, color);
-			ReleaseDC(GetDlgItem(hWnd, IDC_VU), hDc);
-			hDc = NULL;
+			state->VUAlert = true;
 		}
-		color = 0;
-		hDc = GetDC(GetDlgItem(hWnd, IDC_CPU));
-		if (hDc)
+		if (cpu > 50)
 		{
-			if (cpu > 50)
+			state->CPUAlert = true;
+		}
+		InvalidateRect(GetDlgItem(hWnd, IDC_VOICECOUNT), NULL, FALSE);
+		UpdateWindow(GetDlgItem(hWnd, IDC_VOICECOUNT));
+		InvalidateRect(GetDlgItem(hWnd, IDC_VU), NULL, FALSE);
+		UpdateWindow(GetDlgItem(hWnd, IDC_VU));
+		InvalidateRect(GetDlgItem(hWnd, IDC_CPU), NULL, FALSE);
+		UpdateWindow(GetDlgItem(hWnd, IDC_CPU));
+	}
+}
+
+static BOOL UpdateMeterColor(HWND hWnd, WPARAM wParam, LPARAM lParam, EditorState* state)
+{
+	if (hWnd && wParam && lParam && state)
+	{
+		if ((HWND)lParam == GetDlgItem(hWnd, IDC_VOICECOUNT))
+		{
+			HDC hDC = (HDC)wParam;
+			SetBkMode(hDC, TRANSPARENT);
+			if (state->VoiceAlert)
 			{
-				color = RGB(255, 0, 0);
+				SetTextColor(hDC, RGB(255, 0, 0));
+				state->VoiceAlert = false;
 			}
-			SetTextColor(hDc, color);
-			ReleaseDC(GetDlgItem(hWnd, IDC_CPU), hDc);
-			hDc = NULL;
+			else
+			{
+				SetTextColor(hDC, RGB(0, 0, 0));
+			}
+			return (BOOL)GetStockObject(WHITE_BRUSH);
+		}
+		else if ((HWND)lParam == GetDlgItem(hWnd, IDC_VU))
+		{
+			HDC hDC = (HDC)wParam;
+			SetBkMode(hDC, TRANSPARENT);
+			if (state->VUAlert)
+			{
+				SetTextColor(hDC, RGB(255, 0, 0));
+				state->VUAlert = false;
+			}
+			else
+			{
+				SetTextColor(hDC, RGB(0, 0, 0));
+			}
+			return (BOOL)GetStockObject(WHITE_BRUSH);
+		}
+		else if ((HWND)lParam == GetDlgItem(hWnd, IDC_CPU))
+		{
+			HDC hDC = (HDC)wParam;
+			SetBkMode(hDC, TRANSPARENT);
+			if (state->CPUAlert)
+			{
+				SetTextColor(hDC, RGB(255, 0, 0));
+				state->CPUAlert = false;
+			}
+			else
+			{
+				SetTextColor(hDC, RGB(0, 0, 0));
+			}
+			return (BOOL)GetStockObject(WHITE_BRUSH);
 		}
 	}
+	return FALSE;
 }
 
 static BOOL InitDialog(HWND hWnd)
@@ -258,9 +293,9 @@ static BOOL InitDialog(HWND hWnd)
 	return FALSE;
 }
 
-static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
+static BOOL RefreshDialog(HWND hWnd, EditorState* state, OPL3GM* effect)
 {
-	if (hWnd && effect)
+	if (hWnd && state && effect)
 	{
 		float ParamValue;
 		char text[MAX_PATH];
@@ -378,7 +413,7 @@ static BOOL RefreshDialog(HWND hWnd, OPL3GM* effect)
 			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP1), SW_SHOW);
 			ShowWindow(GetDlgItem(hWnd, IDC_TRANDISP2), SW_SHOW);
 		}
-		UpdateMeters(hWnd, effect, FALSE);
+		UpdateMeters(hWnd, state, effect, FALSE);
 		return TRUE;
 	}
 	return FALSE;
@@ -576,7 +611,7 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 {
 	HDROP hDrop = (HDROP)wParam;
-	if (hWnd && effect)
+	if (hWnd && effect && hDrop)
 	{
 		char synthname[kVstMaxEffectNameLen];
 		ZeroMemory(synthname, sizeof(synthname));
@@ -620,7 +655,10 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 			return TRUE;
 		}
 	}
-	DragFinish(hDrop);
+	if (hDrop)
+	{
+		DragFinish(hDrop);
+	}
 	return FALSE;
 }
 
@@ -919,10 +957,18 @@ static BOOL WINAPI MixerProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _WIN64
-	OPL3GM* effect = (OPL3GM*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+	EditorState* state = (EditorState*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 #else
-	OPL3GM* effect = (OPL3GM*)GetWindowLong(hWnd, GWL_USERDATA);
+	EditorState* state = (EditorState*)GetWindowLong(hWnd, GWL_USERDATA);
 #endif
+	OPL3GM* effect = NULL;
+	if (state)
+	{
+		if (state->Effect)
+		{
+			effect = (OPL3GM*)state->Effect;
+		}
+	}
 	switch (message)
 	{
 	case WM_INITDIALOG:
@@ -930,6 +976,8 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	case WM_HSCROLL:
 	case WM_VSCROLL:
 		return Scroll(hWnd, lParam, effect);
+	case WM_CTLCOLORSTATIC:
+		return UpdateMeterColor(hWnd, wParam, lParam, state);
 	case WM_DROPFILES:
 		return LoadInstrumentBankDragDrop(hWnd, wParam, effect);
 	case WM_COMMAND:
@@ -1018,7 +1066,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 			}
 		case IDC_REFRESH:
-			return RefreshDialog(hWnd, effect);
+			return RefreshDialog(hWnd, state, effect);
 		case IDC_LOAD:
 			return LoadInstrumentBank(hWnd, effect);
 		case IDC_PANIC:
@@ -1061,7 +1109,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			if (effect)
 			{
 				effect->initializeSettings (true);
-				RefreshDialog(hWnd, effect);
+				RefreshDialog(hWnd, state, effect);
 				return TRUE;
 			}
 			else
@@ -1079,7 +1127,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					effect->setFreezeMeters (false);
 				}
-				RefreshDialog(hWnd, effect);
+				RefreshDialog(hWnd, state, effect);
 				return TRUE;
 			}
 			else
@@ -1097,7 +1145,7 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				{
 					effect->setHideParameters (false);
 				}
-				RefreshDialog(hWnd, effect);
+				RefreshDialog(hWnd, state, effect);
 				return TRUE;
 			}
 			else
@@ -1629,6 +1677,7 @@ Editor::Editor (AudioEffect* effect)
 	memset(&vstrect, 0, sizeof(vstrect));
 	dlg = NULL;
 	dirty = false;
+	memset(&state, 0, sizeof(state));
 	memset(&keyboard, 0, sizeof(keyboard));
 	keyboard.Octave = 4;
 	keyboard.Velocity = 127;
@@ -1636,6 +1685,7 @@ Editor::Editor (AudioEffect* effect)
 	if (effect)
 	{
 		effect->setEditor (this);
+		state.Effect = (AudioEffectX*)effect;
 		keyboard.Effect = (AudioEffectX*)effect;
 	}
 	InitCommonControls();
@@ -1727,9 +1777,9 @@ bool Editor::open (void* ptr)
 			((AudioEffectX*)effect)->getEffectName (synthname);
 			SetWindowText((HWND)dlg, synthname);
 #ifdef _WIN64
-			SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)effect);
+			SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)&state);
 #else
-			SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)effect);
+			SetWindowLong((HWND)dlg, GWL_USERDATA, (LONG)&state);
 #endif
 		}
 		HWND kbdwin = GetDlgItem((HWND)dlg, IDC_KEYBOARD);
@@ -1741,7 +1791,7 @@ bool Editor::open (void* ptr)
 			SetWindowLong(kbdwin, 0, (LONG)&keyboard);
 #endif
 		}
-		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+		RefreshDialog((HWND)dlg, &state, (OPL3GM*)effect);
 		DragAcceptFiles((HWND)dlg, TRUE);
 		ShowWindow((HWND)dlg, SW_SHOW);
 		UpdateWindow((HWND)dlg);
@@ -1764,10 +1814,10 @@ void Editor::idle ()
 {
 	if (dirty)
 	{
-		RefreshDialog((HWND)dlg, (OPL3GM*)effect);
+		RefreshDialog((HWND)dlg, &state, (OPL3GM*)effect);
 		dirty = false;
 	}
-	UpdateMeters((HWND)dlg, (OPL3GM*)effect, TRUE);
+	UpdateMeters((HWND)dlg, &state, (OPL3GM*)effect, TRUE);
 }
 
 void Editor::refresh ()

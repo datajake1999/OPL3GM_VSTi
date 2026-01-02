@@ -22,6 +22,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include <public.sdk/source/vst2.x/aeffeditor.h>
 
+struct EditorState
+{
+	AudioEffectX* Effect;
+	bool VoiceAlert;
+	bool VUAlert;
+	bool CPUAlert;
+};
+
 struct KeyboardInfo
 {
 	AudioEffectX* Effect;
@@ -47,6 +55,7 @@ private:
 	ERect vstrect;
 	void* dlg;
 	bool dirty;
+	EditorState state;
 	KeyboardInfo keyboard;
 };
 
