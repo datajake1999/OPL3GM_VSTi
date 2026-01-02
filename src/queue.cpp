@@ -1,6 +1,6 @@
 /*
 VST Event Queue
-Copyright (C) 2021-2025  Datajake
+Copyright (C) 2021-2026  Datajake
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
