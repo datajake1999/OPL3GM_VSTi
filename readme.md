@@ -67,8 +67,8 @@ The original MIDI drivers that this project replicates have known issues. For hi
 * NoiseGate: Gates low level noise from the final output.
 * Transpose: Applies an offset to incoming MIDI notes.
 * Emulator: Selects the OPL3 emulator that will be used. Nuked is more accurate, while DOSBox runs faster.
-* HQResample: Internally Runs OPL3 emulation at the native OPL3 sample rate (49716 hZ), then resamples to the host sample rate using a decent algorithm.
-* PushMidi: Queue's MIDI events instead of processing them immediately. Queued events have sample accurate timing, while immediate events can have jittery playback with large audio buffers.
+* HQResample: Internally Runs OPL3 emulation at the native OPL3 sample rate (49716 Hz), then resamples to the host sample rate using a decent algorithm.
+* PushMidi: Queues MIDI events instead of processing them immediately. Queued events have sample accurate timing, while immediate events can have jittery playback with large audio buffers.
 
 # What's with the GUI?
 The user interfaces of most audio plug-ins draw graphics directly to the screen. The problem with this approach is that these controls aren't seen by assistive technology such as screen readers, which are designed to work with native operating system controls. This project aims to change that. The UI has been programmed from the ground up using raw Win32 with mostly standard controls, the only exception being the virtual MIDI keyboard.

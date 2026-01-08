@@ -1153,8 +1153,15 @@ static BOOL WINAPI DialogProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 			}
 		case IDC_MIXER:
-			DialogBoxParam((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_MIXER), hWnd, (DLGPROC)MixerProc, (LPARAM)effect);
-			return TRUE;
+			if (effect)
+			{
+				DialogBoxParam((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_MIXER), hWnd, (DLGPROC)MixerProc, (LPARAM)effect);
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
 		case IDC_PROJPAGE:
 			return ProjectPage(hWnd);
 		}
