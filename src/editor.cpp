@@ -1179,6 +1179,7 @@ static void KeyboardEvent(AudioEffectX* effect, VstInt32 status, VstInt32 channe
 		memset(&evs, 0, sizeof(evs));
 		ev.type = kVstMidiType;
 		ev.byteSize = sizeof(VstMidiEvent);
+		ev.flags = kVstMidiEventIsRealtime;
 		ev.midiData[0] = (char)(status | channel);
 		if (data1 > 127)
 		{
@@ -1254,79 +1255,109 @@ static void KeyboardPitchBend(KeyboardInfo* info)
 
 static VstInt32 char2note(HWND hWnd, WPARAM wParam)
 {
+	char text[MAX_PATH];
+	ZeroMemory(text, sizeof(text));
+	VstInt32 returnValue = -1;
 	switch (wParam)
 	{
 	case 0x41:	//a,c
-		SetWindowText(hWnd, "C");
-		return 0;
+		sprintf(text, "C");
+		returnValue = 0;
+		break;
 	case 0x53:	//s,d
-		SetWindowText(hWnd, "D");
-		return 2;
+		sprintf(text, "D");
+		returnValue = 2;
+		break;
 	case 0x44:	//d,e
-		SetWindowText(hWnd, "E");
-		return 4;
+		sprintf(text, "E");
+		returnValue = 4;
+		break;
 	case 0x46:	//f,f
-		SetWindowText(hWnd, "F");
-		return 5;
+		sprintf(text, "F");
+		returnValue = 5;
+		break;
 	case 0x47:	//g,g
-		SetWindowText(hWnd, "G");
-		return 7;
+		sprintf(text, "G");
+		returnValue = 7;
+		break;
 	case 0x48:	//h,a
-		SetWindowText(hWnd, "A");
-		return 9;
+		sprintf(text, "A");
+		returnValue = 9;
+		break;
 	case 0x4a:	//j,b
-		SetWindowText(hWnd, "B");
-		return 11;
+		sprintf(text, "B");
+		returnValue = 11;
+		break;
 	case 0x4b:	//k,c
-		SetWindowText(hWnd, "C");
-		return 12;
+		sprintf(text, "C");
+		returnValue = 12;
+		break;
 	case 0x4c:	//l,d
-		SetWindowText(hWnd, "D");
-		return 14;
+		sprintf(text, "D");
+		returnValue = 14;
+		break;
 	case VK_OEM_1:	//e
-		SetWindowText(hWnd, "E");
-		return 16;
+		sprintf(text, "E");
+		returnValue = 16;
+		break;
 	case VK_OEM_7:	//f
-		SetWindowText(hWnd, "F");
-		return 17;
+		sprintf(text, "F");
+		returnValue = 17;
+		break;
 	case 0x51:	//q,c#
-		SetWindowText(hWnd, "C#");
-		return 1;
+		sprintf(text, "C#");
+		returnValue = 1;
+		break;
 	case 0x57:	//w,d#
-		SetWindowText(hWnd, "D#");
-		return 3;
+		sprintf(text, "D#");
+		returnValue = 3;
+		break;
 	case 0x45:	//e,f#
-		SetWindowText(hWnd, "F#");
-		return 6;
+		sprintf(text, "F#");
+		returnValue = 6;
+		break;
 	case 0x52:	//r,g#
-		SetWindowText(hWnd, "G#");
-		return 8;
+		sprintf(text, "G#");
+		returnValue = 8;
+		break;
 	case 0x54:	//t,a#
-		SetWindowText(hWnd, "A#");
-		return 10;
+		sprintf(text, "A#");
+		returnValue = 10;
+		break;
 	case 0x59:	//y,c#
-		SetWindowText(hWnd, "C#");
-		return 13;
+		sprintf(text, "C#");
+		returnValue = 13;
+		break;
 	case 0x55:	//u,d#
-		SetWindowText(hWnd, "D#");
-		return 15;
+		sprintf(text, "D#");
+		returnValue = 15;
+		break;
 	case 0x49:	//i,f#
-		SetWindowText(hWnd, "F#");
-		return 18;
+		sprintf(text, "F#");
+		returnValue = 18;
+		break;
 	case 0x4f:	//o,g#
-		SetWindowText(hWnd, "G#");
-		return 20;
+		sprintf(text, "G#");
+		returnValue = 20;
+		break;
 	case 0x50:	//p,a#
-		SetWindowText(hWnd, "A#");
-		return 22;
+		sprintf(text, "A#");
+		returnValue = 22;
+		break;
 	case VK_OEM_4:	//c#
-		SetWindowText(hWnd, "C#");
-		return 25;
+		sprintf(text, "C#");
+		returnValue = 25;
+		break;
 	case VK_OEM_6:	//d#
-		SetWindowText(hWnd, "D#");
-		return 27;
+		sprintf(text, "D#");
+		returnValue = 27;
+		break;
 	}
-	return -1;
+	if (hWnd && returnValue >= 0)
+	{
+		SetWindowText(hWnd, text);
+	}
+	return returnValue;
 }
 
 static BOOL KeepNotes(WPARAM wParam)
@@ -1349,6 +1380,10 @@ static BOOL KeepNotes(WPARAM wParam)
 
 static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 {
+	if (!info)
+	{
+		return TRUE;
+	}
 	VstInt32 note = char2note(hWnd, wParam);
 	if (note >= 0)
 	{
@@ -1639,6 +1674,10 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 
 static BOOL KeyUp(WPARAM wParam, KeyboardInfo* info)
 {
+	if (!info)
+	{
+		return TRUE;
+	}
 	VstInt32 note = char2note(NULL, wParam);
 	if (note >= 0)
 	{
