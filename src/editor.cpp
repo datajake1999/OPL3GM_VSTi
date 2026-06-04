@@ -26,6 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <commdlg.h>
 #include <dlgs.h>
 #include <shellapi.h>
+#include <tchar.h>
 #include "../res/resource.h"
 #ifndef VK_OEM_1
 #define VK_OEM_1          0xBA   // ';:' for US
@@ -61,8 +62,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define VK_OEM_MINUS      0xBD   // '-' any country
 #endif
 #define KEYWASDOWN (1 << 30)
-#define KEYNAME "SOFTWARE\\Datajake\\OPL3GM"
-#define PROJPAGE "https://github.com/datajake1999/OPL3GM_VSTi"
+#define KEYNAME _T("SOFTWARE\\Datajake\\OPL3GM")
+#define PROJPAGE _T("https://github.com/datajake1999/OPL3GM_VSTi")
 
 static VstInt32 g_useCount = 0;
 static HBRUSH hBrush = NULL;
@@ -110,11 +111,18 @@ static BOOL SetPresetName(HWND hWnd, AudioEffectX* effect)
 {
 	if (hWnd && effect)
 	{
-		char text[MAX_PATH];
+		TCHAR text[MAX_PATH];
+		char ansi[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
+		ZeroMemory(ansi, sizeof(ansi));
 		if (GetDlgItemText(hWnd, IDC_PRESETNAME, text, MAX_PATH))
 		{
-			effect->setProgramName (text);
+#ifdef UNICODE
+			WideCharToMultiByte(CP_ACP, 0, text, -1, ansi, MAX_PATH, NULL, NULL);
+#else
+			strncpy(ansi, text, MAX_PATH);
+#endif
+			effect->setProgramName (ansi);
 			return TRUE;
 		}
 	}
@@ -154,16 +162,16 @@ static BOOL SetOPLRate(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
-		char text[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
 		if (GetDlgItemText(hWnd, IDC_OPLRATE, text, MAX_PATH))
 		{
-			VstInt32 rate = atoi(text);
+			VstInt32 rate = _ttoi(text);
 			if (rate != (VstInt32)effect->getSampleRate ())
 			{
 				effect->setInternalRate (rate);
 			}
-			sprintf(text, "%d", effect->getInternalRate ());
+			_stprintf(text, _T("%d"), effect->getInternalRate ());
 			SetDlgItemText(hWnd, IDC_OPLRATE, text);
 			return TRUE;
 		}
@@ -179,19 +187,26 @@ static void UpdateMeters(HWND hWnd, EditorState* state, OPL3GM* effect, BOOL Idl
 		{
 			return;
 		}
-		char text[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
 		VstInt32 numvoices = effect->getActiveVoices ();
-		sprintf(text, "%d/18", numvoices);
+		_stprintf(text, _T("%d/18"), numvoices);
 		SetDlgItemText(hWnd, IDC_VOICECOUNT, text);
 		float vu = effect->getVu ();
-		char vustr[kVstMaxParamStrLen*2];
+		TCHAR vustr[kVstMaxParamStrLen*2];
+		char ansi[kVstMaxParamStrLen*2];
 		ZeroMemory(vustr, sizeof(vustr));
-		effect->dB2string (vu, vustr, (kVstMaxParamStrLen*2)-1);
-		sprintf(text, "%s dB", vustr);
+		ZeroMemory(ansi, sizeof(ansi));
+		effect->dB2string (vu, ansi, (kVstMaxParamStrLen*2)-1);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, vustr, kVstMaxParamStrLen*2);
+#else
+		strncpy(vustr, ansi, kVstMaxParamStrLen*2);
+#endif
+		_stprintf(text, _T("%s dB"), vustr);
 		SetDlgItemText(hWnd, IDC_VU, text);
 		double cpu = effect->getCPULoad ();
-		sprintf(text, "%lf %%", cpu);
+		_stprintf(text, _T("%lf %%"), cpu);
 		SetDlgItemText(hWnd, IDC_CPU, text);
 		if (numvoices > 15)
 		{
@@ -281,11 +296,11 @@ static BOOL InitDialog(HWND hWnd)
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPAGESIZE, 0, 10);
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETRANGE, 0, MAKELONG(0, 25));
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPAGESIZE, 0, 2);
-		char text[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
 		for (VstInt32 i = 0; i < sizeof(rates) / sizeof(int); i++)
 		{
-			sprintf(text, "%d", rates[i]);
+			_stprintf(text, _T("%d"), rates[i]);
 			SendDlgItemMessage(hWnd, IDC_OPLRATE, CB_INSERTSTRING, i, (LPARAM)text);
 		}
 		return TRUE;
@@ -298,28 +313,60 @@ static BOOL RefreshDialog(HWND hWnd, EditorState* state, OPL3GM* effect)
 	if (hWnd && state && effect)
 	{
 		float ParamValue;
-		char text[MAX_PATH];
+		TCHAR text[MAX_PATH];
+		char ansi[MAX_PATH];
 		ZeroMemory(text, sizeof(text));
+		ZeroMemory(ansi, sizeof(ansi));
 		SendDlgItemMessage(hWnd, IDC_PRESET, CB_RESETCONTENT, 0, 0);
 		for (VstInt32 i = 0; i < kNumPrograms; i++)
 		{
-			effect->getProgramNameIndexed (-1, i, text);
+			effect->getProgramNameIndexed (-1, i, ansi);
+#ifdef UNICODE
+			MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+			strncpy(text, ansi, MAX_PATH);
+#endif
 			SendDlgItemMessage(hWnd, IDC_PRESET, CB_INSERTSTRING, i, (LPARAM)text);
 		}
 		SendDlgItemMessage(hWnd, IDC_PRESET, CB_SETCURSEL, effect->getProgram (), 0);
-		effect->getProgramName (text);
+		effect->getProgramName (ansi);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_PRESETNAME, text);
 		ParamValue = effect->getParameter (kVolume)*100;
 		SendDlgItemMessage(hWnd, IDC_VOLUME, TBM_SETPOS, TRUE, (LPARAM)ParamValue);
-		effect->getParameterDisplay (kVolume, text);
+		effect->getParameterDisplay (kVolume, ansi);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_VOLDISP1, text);
-		effect->getParameterLabel (kVolume, text);
+		effect->getParameterLabel (kVolume, ansi);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_VOLDISP2, text);
 		ParamValue = effect->getParameter (kTranspose)*25;
 		SendDlgItemMessage(hWnd, IDC_TRANSPOSE, TBM_SETPOS, TRUE, (LPARAM)ParamValue);
-		effect->getParameterDisplay (kTranspose, text);
+		effect->getParameterDisplay (kTranspose, ansi);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_TRANDISP1, text);
-		effect->getParameterLabel (kTranspose, text);
+		effect->getParameterLabel (kTranspose, ansi);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_TRANDISP2, text);
 		ParamValue = effect->getParameter (kVolumeDisplay);
 		if (ParamValue >= 0.5)
@@ -385,9 +432,14 @@ static BOOL RefreshDialog(HWND hWnd, EditorState* state, OPL3GM* effect)
 		{
 			CheckDlgButton(hWnd, IDC_BYPASS, BST_UNCHECKED);
 		}
-		sprintf(text, "%d", effect->getInternalRate ());
+		_stprintf(text, _T("%d"), effect->getInternalRate ());
 		SetDlgItemText(hWnd, IDC_OPLRATE, text);
-		effect->getBankName (text, MAX_PATH);
+		effect->getBankName (ansi, MAX_PATH);
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
 		SetDlgItemText(hWnd, IDC_CURBANK, text);
 		if (effect->getFreezeMeters ())
 		{
@@ -444,8 +496,8 @@ static UINT HelpBox(HWND hWnd)
 {
 	if (hWnd)
 	{
-		char caption[MAX_PATH];
-		char text[MAX_PATH];
+		TCHAR caption[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_HELPCAP, caption, MAX_PATH);
@@ -489,10 +541,10 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 	if (hWnd && effect)
 	{
 		OPENFILENAME ofn;
-		char filename[MAX_PATH];
-		char title[MAX_PATH];
-		char filter[MAX_PATH];
-		char caption[MAX_PATH];
+		TCHAR filename[MAX_PATH];
+		TCHAR title[MAX_PATH];
+		TCHAR filter[MAX_PATH];
+		TCHAR caption[MAX_PATH];
 		ZeroMemory(&ofn, sizeof(ofn));
 		ZeroMemory(filename, sizeof(filename));
 		ZeroMemory(title, sizeof(title));
@@ -523,16 +575,16 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		if (!strcmp(synthname, "Apogee OPL3"))
 		{
 			ofn.nFilterIndex = 2;
-			ofn.lpstrDefExt = "TMB";
+			ofn.lpstrDefExt = _T("TMB");
 		}
 		else if (!strcmp(synthname, "Doom OPL3"))
 		{
 			ofn.nFilterIndex = 3;
-			ofn.lpstrDefExt = "OP2";
+			ofn.lpstrDefExt = _T("OP2");
 		}
 		else if (!strcmp(synthname, "Windows 9x OPL3"))
 		{
-			char text[MAX_PATH];
+			TCHAR text[MAX_PATH];
 			ZeroMemory(text, sizeof(text));
 			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
 			LoadString((HINSTANCE)hInstance, IDS_W9XTXT, text, MAX_PATH);
@@ -542,21 +594,21 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		HKEY hKey;
 		DWORD expstyle = 1;
 		DWORD help = 0;
-		char directory[MAX_PATH];
+		TCHAR directory[MAX_PATH];
 		ZeroMemory(directory, sizeof(directory));
 		if (RegOpenKeyEx(HKEY_CURRENT_USER, KEYNAME, 0, KEY_READ, &hKey) == ERROR_SUCCESS)
 		{
 			DWORD type = REG_DWORD;
 			DWORD len = sizeof(DWORD);
-			RegQueryValueEx(hKey, "ExplorerStyle", NULL, &type, (LPBYTE)&expstyle, &len);
-			RegQueryValueEx(hKey, "HelpButton", NULL, &type, (LPBYTE)&help, &len);
+			RegQueryValueEx(hKey, _T("ExplorerStyle"), NULL, &type, (LPBYTE)&expstyle, &len);
+			RegQueryValueEx(hKey, _T("HelpButton"), NULL, &type, (LPBYTE)&help, &len);
 			type = REG_SZ;
 			len = sizeof(directory);
-			if (RegQueryValueEx(hKey, "ApogeePatchDir", NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
+			if (RegQueryValueEx(hKey, _T("ApogeePatchDir"), NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Apogee OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
 			}
-			else if (RegQueryValueEx(hKey, "DoomPatchDir", NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Doom OPL3"))
+			else if (RegQueryValueEx(hKey, _T("DoomPatchDir"), NULL, &type, (LPBYTE)directory, &len) == ERROR_SUCCESS && !strcmp(synthname, "Doom OPL3"))
 			{
 				ofn.lpstrInitialDir = directory;
 			}
@@ -589,19 +641,30 @@ static BOOL LoadInstrumentBank(HWND hWnd, OPL3GM* effect)
 		}
 		if (GetOpenFileName(&ofn))
 		{
-			if (!effect->loadInstruments (ofn.lpstrFile, ofn.lpstrFileTitle))
+			char ansi_filename[MAX_PATH];
+			char ansi_title[MAX_PATH];
+			ZeroMemory(ansi_filename, sizeof(ansi_filename));
+			ZeroMemory(ansi_title, sizeof(ansi_title));
+#ifdef UNICODE
+			WideCharToMultiByte(CP_ACP, 0, filename, -1, ansi_filename, MAX_PATH, NULL, NULL);
+			WideCharToMultiByte(CP_ACP, 0, title, -1, ansi_title, MAX_PATH, NULL, NULL);
+#else
+			strncpy(ansi_filename, filename, MAX_PATH);
+			strncpy(ansi_title, title, MAX_PATH);
+#endif
+			if (!effect->loadInstruments (ansi_filename, ansi_title))
 			{
-				char temp[MAX_PATH];
-				char text[MAX_PATH];
+				TCHAR temp[MAX_PATH];
+				TCHAR text[MAX_PATH];
 				ZeroMemory(temp, sizeof(temp));
 				ZeroMemory(text, sizeof(text));
 				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
 				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
-				sprintf(text, temp, ofn.lpstrFile);
+				_stprintf(text, temp, filename);
 				MessageBox(hWnd, text, caption, MB_ICONERROR);
 				return FALSE;
 			}
-			SetDlgItemText(hWnd, IDC_CURBANK, ofn.lpstrFileTitle);
+			SetDlgItemText(hWnd, IDC_CURBANK, title);
 			return TRUE;
 		}
 	}
@@ -618,8 +681,8 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 		effect->getEffectName (synthname);
 		if (!strcmp(synthname, "Windows 9x OPL3"))
 		{
-			char caption[MAX_PATH];
-			char text[MAX_PATH];
+			TCHAR caption[MAX_PATH];
+			TCHAR text[MAX_PATH];
 			ZeroMemory(caption, sizeof(caption));
 			ZeroMemory(text, sizeof(text));
 			LoadString((HINSTANCE)hInstance, IDS_W9XCAP, caption, MAX_PATH);
@@ -628,24 +691,35 @@ static BOOL LoadInstrumentBankDragDrop(HWND hWnd, WPARAM wParam, OPL3GM* effect)
 			DragFinish(hDrop);
 			return FALSE;
 		}
-		char filename[MAX_PATH];
-		char title[MAX_PATH];
+		TCHAR filename[MAX_PATH];
+		TCHAR title[MAX_PATH];
 		ZeroMemory(filename, sizeof(filename));
 		ZeroMemory(title, sizeof(title));
 		if (DragQueryFile(hDrop, 0, filename, MAX_PATH))
 		{
 			GetFileTitle(filename, title, MAX_PATH);
-			if (!effect->loadInstruments (filename, title))
+			char ansi_filename[MAX_PATH];
+			char ansi_title[MAX_PATH];
+			ZeroMemory(ansi_filename, sizeof(ansi_filename));
+			ZeroMemory(ansi_title, sizeof(ansi_title));
+#ifdef UNICODE
+			WideCharToMultiByte(CP_ACP, 0, filename, -1, ansi_filename, MAX_PATH, NULL, NULL);
+			WideCharToMultiByte(CP_ACP, 0, title, -1, ansi_title, MAX_PATH, NULL, NULL);
+#else
+			strncpy(ansi_filename, filename, MAX_PATH);
+			strncpy(ansi_title, title, MAX_PATH);
+#endif
+			if (!effect->loadInstruments (ansi_filename, ansi_title))
 			{
-				char caption[MAX_PATH];
-				char temp[MAX_PATH];
-				char text[MAX_PATH];
+				TCHAR caption[MAX_PATH];
+				TCHAR temp[MAX_PATH];
+				TCHAR text[MAX_PATH];
 				ZeroMemory(caption, sizeof(caption));
 				ZeroMemory(temp, sizeof(temp));
 				ZeroMemory(text, sizeof(text));
 				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
 				LoadString((HINSTANCE)hInstance, IDS_FAILTXT, temp, MAX_PATH);
-				sprintf(text, temp, filename);
+				_stprintf(text, temp, filename);
 				MessageBox(hWnd, text, caption, MB_ICONERROR);
 				DragFinish(hDrop);
 				return FALSE;
@@ -666,8 +740,8 @@ static BOOL AboutBox(HWND hWnd)
 {
 	if (hWnd)
 	{
-		char caption[MAX_PATH];
-		char text[MAX_PATH];
+		TCHAR caption[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_ABOUTCAP, caption, MAX_PATH);
@@ -682,15 +756,15 @@ static BOOL StatisticsBox(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
-		char caption[MAX_PATH];
-		char temp[MAX_PATH];
-		char text[MAX_PATH];
+		TCHAR caption[MAX_PATH];
+		TCHAR temp[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(temp, sizeof(temp));
 		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_STATSCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_STATSTXT, temp, MAX_PATH);
-		sprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize (), g_useCount);
+		_stprintf(text, temp, (VstInt32)effect->getSampleRate (), effect->getInternalRate (), effect->getBlockSize (), g_useCount);
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
 	}
@@ -701,22 +775,33 @@ static BOOL HostInfoBox(HWND hWnd, OPL3GM* effect)
 {
 	if (hWnd && effect)
 	{
-		char caption[MAX_PATH];
-		char temp[MAX_PATH];
-		char text[MAX_PATH];
+		TCHAR caption[MAX_PATH];
+		TCHAR temp[MAX_PATH];
+		TCHAR text[MAX_PATH];
+		TCHAR VendorString[kVstMaxVendorStrLen];
+		TCHAR ProductString[kVstMaxProductStrLen];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(temp, sizeof(temp));
 		ZeroMemory(text, sizeof(text));
+		ZeroMemory(VendorString, sizeof(VendorString));
+		ZeroMemory(ProductString, sizeof(ProductString));
 		HostInfo* hi = effect->getHostInfo ();
 		LoadString((HINSTANCE)hInstance, IDS_HOSTCAP, caption, MAX_PATH);
 		LoadString((HINSTANCE)hInstance, IDS_HOSTTXT, temp, MAX_PATH);
-		sprintf(text, temp, hi->ProductString, hi->VendorVersion/1000.0f, hi->VendorString, hi->MasterVersion/1000.0f);
-		if (!strcmp(hi->VendorString, "Cockos"))
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, hi->VendorString, -1, VendorString, kVstMaxVendorStrLen);
+		MultiByteToWideChar(CP_ACP, 0, hi->ProductString, -1, ProductString, kVstMaxProductStrLen);
+#else
+		strncpy(VendorString, hi->VendorString, kVstMaxVendorStrLen);
+		strncpy(ProductString, hi->ProductString, kVstMaxProductStrLen);
+#endif
+		_stprintf(text, temp, ProductString, hi->VendorVersion/1000.0f, VendorString, hi->MasterVersion/1000.0f);
+		if (!_tcscmp(VendorString, _T("Cockos")))
 		{
-			char approve[32];
+			TCHAR approve[32];
 			ZeroMemory(approve, sizeof(approve));
 			LoadString((HINSTANCE)hInstance, IDS_REAPPROVE, approve, sizeof(approve));
-			strncat(text, approve, sizeof(approve));
+			_tcsncat(text, approve, sizeof(approve)/sizeof(TCHAR));
 		}
 		MessageBox(hWnd, text, caption, MB_ICONINFORMATION);
 		return TRUE;
@@ -728,8 +813,8 @@ static BOOL ProjectPage(HWND hWnd)
 {
 	if (hWnd)
 	{
-		char caption[MAX_PATH];
-		char text[MAX_PATH];
+		TCHAR caption[MAX_PATH];
+		TCHAR text[MAX_PATH];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(text, sizeof(text));
 		LoadString((HINSTANCE)hInstance, IDS_WEBCAP, caption, MAX_PATH);
@@ -1255,101 +1340,101 @@ static void KeyboardPitchBend(KeyboardInfo* info)
 
 static VstInt32 char2note(HWND hWnd, WPARAM wParam)
 {
-	char text[MAX_PATH];
+	TCHAR text[MAX_PATH];
 	ZeroMemory(text, sizeof(text));
 	VstInt32 returnValue = -1;
 	switch (wParam)
 	{
 	case 0x41:	//a,c
-		sprintf(text, "C");
+		_stprintf(text, _T("C"));
 		returnValue = 0;
 		break;
 	case 0x53:	//s,d
-		sprintf(text, "D");
+		_stprintf(text, _T("D"));
 		returnValue = 2;
 		break;
 	case 0x44:	//d,e
-		sprintf(text, "E");
+		_stprintf(text, _T("E"));
 		returnValue = 4;
 		break;
 	case 0x46:	//f,f
-		sprintf(text, "F");
+		_stprintf(text, _T("F"));
 		returnValue = 5;
 		break;
 	case 0x47:	//g,g
-		sprintf(text, "G");
+		_stprintf(text, _T("G"));
 		returnValue = 7;
 		break;
 	case 0x48:	//h,a
-		sprintf(text, "A");
+		_stprintf(text, _T("A"));
 		returnValue = 9;
 		break;
 	case 0x4a:	//j,b
-		sprintf(text, "B");
+		_stprintf(text, _T("B"));
 		returnValue = 11;
 		break;
 	case 0x4b:	//k,c
-		sprintf(text, "C");
+		_stprintf(text, _T("C"));
 		returnValue = 12;
 		break;
 	case 0x4c:	//l,d
-		sprintf(text, "D");
+		_stprintf(text, _T("D"));
 		returnValue = 14;
 		break;
 	case VK_OEM_1:	//e
-		sprintf(text, "E");
+		_stprintf(text, _T("E"));
 		returnValue = 16;
 		break;
 	case VK_OEM_7:	//f
-		sprintf(text, "F");
+		_stprintf(text, _T("F"));
 		returnValue = 17;
 		break;
 	case 0x51:	//q,c#
-		sprintf(text, "C#");
+		_stprintf(text, _T("C#"));
 		returnValue = 1;
 		break;
 	case 0x57:	//w,d#
-		sprintf(text, "D#");
+		_stprintf(text, _T("D#"));
 		returnValue = 3;
 		break;
 	case 0x45:	//e,f#
-		sprintf(text, "F#");
+		_stprintf(text, _T("F#"));
 		returnValue = 6;
 		break;
 	case 0x52:	//r,g#
-		sprintf(text, "G#");
+		_stprintf(text, _T("G#"));
 		returnValue = 8;
 		break;
 	case 0x54:	//t,a#
-		sprintf(text, "A#");
+		_stprintf(text, _T("A#"));
 		returnValue = 10;
 		break;
 	case 0x59:	//y,c#
-		sprintf(text, "C#");
+		_stprintf(text, _T("C#"));
 		returnValue = 13;
 		break;
 	case 0x55:	//u,d#
-		sprintf(text, "D#");
+		_stprintf(text, _T("D#"));
 		returnValue = 15;
 		break;
 	case 0x49:	//i,f#
-		sprintf(text, "F#");
+		_stprintf(text, _T("F#"));
 		returnValue = 18;
 		break;
 	case 0x4f:	//o,g#
-		sprintf(text, "G#");
+		_stprintf(text, _T("G#"));
 		returnValue = 20;
 		break;
 	case 0x50:	//p,a#
-		sprintf(text, "A#");
+		_stprintf(text, _T("A#"));
 		returnValue = 22;
 		break;
 	case VK_OEM_4:	//c#
-		sprintf(text, "C#");
+		_stprintf(text, _T("C#"));
 		returnValue = 25;
 		break;
 	case VK_OEM_6:	//d#
-		sprintf(text, "D#");
+		_stprintf(text, _T("D#"));
 		returnValue = 27;
 		break;
 	}
@@ -1399,108 +1484,110 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		KeyboardControlChange(info, 0x40, 0);
 		KeyboardControlChange(info, 0x7b, 0);
 	}
-	char text[MAX_PATH];
+	TCHAR text[MAX_PATH];
+	char ansi[MAX_PATH];
 	ZeroMemory(text, sizeof(text));
+	ZeroMemory(ansi, sizeof(ansi));
 	switch (wParam)
 	{
 	case 0x5a:	//z
 		info->Velocity = 10;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x58:	//x
 		info->Velocity = 20;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x43:	//c
 		info->Velocity = 30;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x56:	//v
 		info->Velocity = 40;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x42:	//b
 		info->Velocity = 50;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x4e:	//n
 		info->Velocity = 60;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x4d:	//m
 		info->Velocity = 70;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_COMMA:
 		info->Velocity = 80;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_PERIOD:
 		info->Velocity = 90;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_2:
 		info->Velocity = 100;
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x30:	//0
 		info->Octave = 0;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x31:	//1
 		info->Octave = 1;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x32:	//2
 		info->Octave = 2;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x33:	//3
 		info->Octave = 3;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x34:	//4
 		info->Octave = 4;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x35:	//5
 		info->Octave = 5;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x36:	//6
 		info->Octave = 6;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x37:	//7
 		info->Octave = 7;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x38:	//8
 		info->Octave = 8;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case 0x39:	//9
 		info->Octave = 9;
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_OEM_PLUS:
@@ -1551,7 +1638,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_LEFT:
@@ -1562,7 +1649,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Octave %d", info->Octave);
+		_stprintf(text, _T("Octave %d"), info->Octave);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_UP:
@@ -1573,7 +1660,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_DOWN:
@@ -1584,7 +1671,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Velocity %d", info->Velocity);
+		_stprintf(text, _T("Velocity %d"), info->Velocity);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_NEXT:
@@ -1597,12 +1684,18 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		}
 		if (info->Channel == 9)
 		{
-			SetWindowText(hWnd, GmDrumSets[0]);
+			strncpy(ansi, GmDrumSets[0], MAX_PATH);
 		}
 		else
 		{
-			SetWindowText(hWnd, GmNames[info->Program]);
+			strncpy(ansi, GmNames[info->Program], MAX_PATH);
 		}
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
+		SetWindowText(hWnd, text);
 		KeyboardProgramChange(info);
 		return FALSE;
 	case VK_PRIOR:
@@ -1615,12 +1708,18 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		}
 		if (info->Channel == 9)
 		{
-			SetWindowText(hWnd, GmDrumSets[0]);
+			strncpy(ansi, GmDrumSets[0], MAX_PATH);
 		}
 		else
 		{
-			SetWindowText(hWnd, GmNames[info->Program]);
+			strncpy(ansi, GmNames[info->Program], MAX_PATH);
 		}
+#ifdef UNICODE
+		MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+		strncpy(text, ansi, MAX_PATH);
+#endif
+		SetWindowText(hWnd, text);
 		KeyboardProgramChange(info);
 		return FALSE;
 	case VK_END:
@@ -1631,7 +1730,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Channel %d", info->Channel+1);
+		_stprintf(text, _T("Channel %d"), info->Channel+1);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_HOME:
@@ -1642,7 +1741,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 			MessageBeep(MB_OK);
 			return TRUE;
 		}
-		sprintf(text, "Channel %d", info->Channel+1);
+		_stprintf(text, _T("Channel %d"), info->Channel+1);
 		SetWindowText(hWnd, text);
 		return FALSE;
 	case VK_SHIFT:
@@ -1655,7 +1754,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 	case VK_BACK:
 		KeyboardProgramChange(info);
 		KeyboardPitchBend(info);
-		SetWindowText(hWnd, "Synth refreshed");
+		SetWindowText(hWnd, _T("Synth refreshed"));
 		return FALSE;
 	case VK_SPACE:
 		info->Channel = 0;
@@ -1666,7 +1765,7 @@ static BOOL KeyDown(HWND hWnd, WPARAM wParam, LPARAM lParam, KeyboardInfo* info)
 		info->BendLSB = 0;
 		KeyboardProgramChange(info);
 		KeyboardPitchBend(info);
-		SetWindowText(hWnd, "Keyboard reset");
+		SetWindowText(hWnd, _T("Keyboard reset"));
 		return FALSE;
 	}
 	return TRUE;
@@ -1711,7 +1810,7 @@ static LRESULT WINAPI KeyboardProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	case WM_KILLFOCUS:
 		KeyboardControlChange(info, 0x40, 0);
 		KeyboardControlChange(info, 0x7b, 0);
-		SetWindowText(hWnd, "");
+		SetWindowText(hWnd, _T(""));
 		return 0;
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
@@ -1759,7 +1858,7 @@ Editor::Editor (AudioEffect* effect)
 				KeyboardClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 			}
 		}
-		KeyboardClass.lpszClassName = CLASSNAME;
+		KeyboardClass.lpszClassName = _T(CLASSNAME);
 		RegisterClass(&KeyboardClass);
 	}
 }
@@ -1769,7 +1868,7 @@ Editor::~Editor ()
 	g_useCount--;
 	if (g_useCount == 0)
 	{
-		UnregisterClass(CLASSNAME, (HINSTANCE)hInstance);
+		UnregisterClass(_T(CLASSNAME), (HINSTANCE)hInstance);
 		if (hBrush)
 		{
 			DeleteObject(hBrush);
@@ -1807,21 +1906,31 @@ bool Editor::open (void* ptr)
 	dlg = CreateDialog((HINSTANCE)hInstance, MAKEINTRESOURCE(IDD_DIALOG), (HWND)systemWindow, (DLGPROC)DialogProc);
 	if (dlg)
 	{
-		char caption[MAX_PATH];
-		char text[MAX_PATH];
-		char synthname[kVstMaxEffectNameLen];
+		TCHAR caption[MAX_PATH];
+		TCHAR text[MAX_PATH];
+		char ansi[MAX_PATH];
 		ZeroMemory(caption, sizeof(caption));
 		ZeroMemory(text, sizeof(text));
-		ZeroMemory(synthname, sizeof(synthname));
+		ZeroMemory(ansi, sizeof(ansi));
 		if (effect)
 		{
-			if (((OPL3GM*)effect)->getErrorText (text))
+			if (((OPL3GM*)effect)->getErrorText (ansi))
 			{
 				LoadString((HINSTANCE)hInstance, IDS_FAILCAP, caption, MAX_PATH);
+#ifdef UNICODE
+				MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+				strncpy(text, ansi, MAX_PATH);
+#endif
 				MessageBox((HWND)dlg, text, caption, MB_ICONERROR);
 			}
-			((AudioEffectX*)effect)->getEffectName (synthname);
-			SetWindowText((HWND)dlg, synthname);
+			((AudioEffectX*)effect)->getEffectName (ansi);
+#ifdef UNICODE
+			MultiByteToWideChar(CP_ACP, 0, ansi, -1, text, MAX_PATH);
+#else
+			strncpy(text, ansi, MAX_PATH);
+#endif
+			SetWindowText((HWND)dlg, text);
 #ifdef _WIN64
 			SetWindowLongPtr((HWND)dlg, GWLP_USERDATA, (LONG_PTR)&state);
 #else
